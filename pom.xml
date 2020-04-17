@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.hs-bochum.entwicklungsprojek_eb2020</groupId>
+  <artifactId>bitchanger</artifactId>
+  <version>0.0.1</version>
+  <name>Bitchanger</name>
+  <description>Rechner für verschiedene Zahlensysteme</description>
+  
+  <!-- BUILD -->
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+    	<resource>
+    		<directory>src\main\resources</directory>
+    	</resource>
+    </resources>
+    
+    <plugins>
+      <!-- COMPILE -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <release>11</release>
+        </configuration>
+      </plugin>
+      
+       <!-- JAR ERZEUGEN -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+        	  <mainClass>app.LaunchTest</mainClass>
+        	</manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+    </plugins>
+  </build>
+  
+  <!-- DEPENDENCY -->
+  <!-- (Abhaengigkeiten) -->
+  <dependencies>
+  	<!-- javaFX 11 -->
+  	<dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-base</artifactId>
+        <version>11</version>
+    </dependency>
+    
+  	<dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>11</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics</artifactId>
+        <version>11</version>
+        <classifier>win</classifier>
+    </dependency>
+
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics</artifactId>
+        <version>11</version>
+        <classifier>mac</classifier>
+    </dependency>
+
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics</artifactId>
+        <version>11</version>
+        <classifier>linux</classifier>
+    </dependency>
+
+  </dependencies>
+
+</project>
