@@ -1,6 +1,8 @@
 package bitchanger.gui;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Hauptfenster extends Application{
@@ -11,8 +13,11 @@ public class Hauptfenster extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
+		BorderPane root = new BorderPane();
 		
+		Scene sc = new Scene(root);
+		primaryStage.setScene(sc);
+		primaryStage.show();
 	}
 
 }
