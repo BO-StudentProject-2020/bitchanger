@@ -31,6 +31,14 @@ rem Installation auf Benutzerbasis: --win-per-user-install
 rem App Icon Ñndern: --icon <path/to/icon.ico>
 rem Linzenz Datei: --license-file <file>
 
+rem ---- Maven build -----------------------------------------------------------------------------------------------------
+echo.
+echo Maven Bulid durchfÅhren
+echo.
+@echo on
+call mvn clean install
+@echo off
+
 rem ---- Installer erzeugen ----------------------------------------------------------------------------------------------
 
 echo.
