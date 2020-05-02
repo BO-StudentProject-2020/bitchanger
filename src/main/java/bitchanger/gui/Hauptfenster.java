@@ -1,8 +1,9 @@
 package bitchanger.gui;
 
+import bitchanger.gui.elements.Representable;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
 public class Hauptfenster extends Application{
@@ -12,12 +13,19 @@ public class Hauptfenster extends Application{
 	}
 	
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		BorderPane root = new BorderPane();
+	public void start(Stage primaryStage) throws Exception {		
+		MenuBar menubar = createMenuBar();
 		
-		Scene sc = new Scene(root);
+		Representable converter = new ConverterScene(menubar);
+		Scene sc = converter.getScene();
+		
 		primaryStage.setScene(sc);
 		primaryStage.show();
+	}
+
+	private MenuBar createMenuBar() {
+		MenuBar menubar = new MenuBar();
+		return menubar;
 	}
 
 }
