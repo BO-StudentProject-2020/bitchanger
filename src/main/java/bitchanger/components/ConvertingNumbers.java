@@ -131,8 +131,55 @@ public class ConvertingNumbers {
 		// in Zahl zur übergebenen Basis umwandeln und als String zurückgeben
 		return dezToBasis(base, ganzerWert, nachKomma, separator);
 	}
+
+
+	/**
+	 * wandelt den übergebenen Wert vom Zehnersystem in einen Wert zur gewünschten Basis um
+	 * @param base neue Basis, in die umgewandelt werden soll
+	 * @param integer ganzer Anteil im Zehnersystem der Zahl, die umgewandelt werden soll
+	 * @param decimalPlace Nachkommateil im Zehnersystem der Zahl, die umgewandelt werden soll
+	 * @return umgewandelte Zahl zur neuen Basis in der String-Darstellung
+	 * @throws UnsupportedOperationException	wenn einer der Parameters {@code ganzerAnteil} oder {@code nachKomma} 
+	 * 											kleiner als 0 sind, da negative Zahlen hier nicht erlaubt sind
+	 */
+	public static String dezToBasis(int base, long integer, double decimalPlace) throws UnsupportedOperationException{
+		return dezToBasis(base, integer, decimalPlace, Zahl.SEP_ENG);
+	}
 	
-
-
+	/**
+	 * wandelt den übergebenen Wert vom Zehnersystem in einen Wert zur gewünschten Basis um
+	 * @param base neue Basis, in die umgewandelt werden soll
+	 * @param integer ganzer Anteil im Zehnersystem der Zahl, die umgewandelt werden soll
+	 * @param decimalPlace Nachkommateil im Zehnersystem der Zahl, die umgewandelt werden soll
+	 * @param separator der spezifische Separator, mit dem der ganze und der Nachkommateil getrennt werden
+	 * @return umgewandelte Zahl zur neuen Basis in der String-Darstellung
+	 * @throws UnsupportedOperationException	wenn einer der Parameters {@code ganzerAnteil} oder {@code nachKomma} 
+	 * 											kleiner als 0 sind, da negative Zahlen hier nicht erlaubt sind
+	 */
+	public static String dezToBasis(int base, long integer, double decimalPlace, String separator) throws UnsupportedOperationException{
+		String neueBasis = "";
+		
+		// überprüfen ob alle Zahlen positiv sind
+		// negative Zahlen werden derzeit nicht unterstützt!
+		if(integer < 0 || decimalPlace < 0) {
+			throw new UnsupportedOperationException("Negative values are not supported");
+		}
+		
+		// Ganzen Anteil umrechnen
+		if(integer == 0L){
+			neueBasis = "0";
+		} else {
+			neueBasis = wandelVonDezimalGanzIt(base, integer);
+		}
+		
+		// Wenn vorhanden Nachkommateil umwandeln
+		if(decimalPlace != 0){
+			// Nachkommaanteil umwandeln und hinzufuegen
+			neueBasis += wandelVonDezimalNachkommaIt(base, decimalPlace, 50, separator);
+		}
+		
+		// umgewandelte Zahl in der neuen Basis als String zurückgeben
+		return neueBasis;
+	}
 
 }
