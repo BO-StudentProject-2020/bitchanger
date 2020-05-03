@@ -7,8 +7,6 @@
 
 package bitchanger.components;
 
-import zahlenRechner.Zahl;
-
 /**
  * This class contains methods to convert numbers into different numeral systems.
  * 
@@ -221,5 +219,58 @@ public class ConvertingNumbers {
 			return zeichen - 'A' + 10;
 		}
 	}
+	
+	private static String wandelVonDezimalGanzIt(int basis, long ganzerAnteil) {
+		// String in dem das Ergebnis gespeichert wird initialisieren
+		String ergebnisGanz = "";
+		
+		// Berechnen der Stellen vor dem Komma mit dem Quellenverfahren
+		// Schleife durchlaufen, bis ganzerAnteil <= 0
+		while(!(ganzerAnteil <= 0L)){	
+			// Der Rest der ganzzahligen Division ist auch gleich dem Wert der jeweiligen Stelle
+			int rest = (int) (ganzerAnteil % basis);
+			
+			// Zaehler fuer naechsten Durchlauf aktualisieren
+			ganzerAnteil = ganzerAnteil / (long)basis;
+			
+			char ziffer = berechneZiffer(rest);
+			
+			/* Das letzte Ergebnis ergibt die erste Stelle, daher muss der 
+			 * vorige String hinter der aktuellen Stelle stehen */
+			ergebnisGanz = ziffer + ergebnisGanz;
+			
+		}
+		
+		return ergebnisGanz;
+	}
+		
+	private static String wandelVonDezimalNachkommaIt(int basis, double nachKomma, int anzahlStellenMax, String separator) {
+		// Berechnen der Stellen nach dem Komma mit Hilfe von Multiplikation mit der Basis
+		
+		if(anzahlStellenMax <= 0) {
+			// Kein Nachkommaanteil
+			return "";
+		}
+		
+		// String in dem das Ergebnis gespeichert wird
+		String ergebnisNachkomma = String.valueOf(separator);
+		
+		// Hilfsvariabel zum Abbrechen nach X Nachkommastellen
+		int zaehl = 0;
+		
+		while(!(nachKomma % 1 == 0 || zaehl >= anzahlStellenMax)){
+			zaehl++;	// Hilfsvariabel zum Abbrechen nach X Nachkommastellen
+			double hilf = nachKomma * basis;
+			int stelle = (int) hilf;
+			nachKomma = hilf % 1;
+			
+			char ziffer = berechneZiffer(stelle);
+			
+			ergebnisNachkomma = ergebnisNachkomma + ziffer;
+		}
+		
+		return ergebnisNachkomma;
+	}
+	
 
 }
