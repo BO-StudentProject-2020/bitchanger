@@ -96,6 +96,43 @@ public class ConvertingNumbers {
 	}
 
 
+	/**
+	 * wandelt den übergebenen Wert vom Zehnersystem in einen Wert zur gewünschten Basis um
+	 * @param base	neue Basis, in die umgewandelt werden soll
+	 * @param dezValue der Wert, der umgewandelt werden soll in der String Darstellung
+	 * @return umgewandelte Zahl zur neuen Basis in der String-Darstellung
+	 * @throws 	NullPointerException	wenn der Parameter {@code dezWert} null ist.
+	 * @throws 	NumberFormatException	wenn der Parameter {@code C} keinen umwandelbaren ganzzahligen Anteil hat.
+	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code dezWert} ein '-' ist, 
+	 * 											da negative Zahlen hier nicht erlaubt sind
+	 */
+	public static String dezToBasis(int base, String dezValue) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
+		return dezToBasis(base, dezValue, Zahl.SEP_ENG);
+	}
+	
+	/**
+	 * wandelt den übergebenen Wert vom Zehnersystem in einen Wert zur gewünschten Basis um
+	 * @param base	neue Basis, in die umgewandelt werden soll
+	 * @param dezValue der Wert, der umgewandelt werden soll in der String Darstellung
+	 * @param separator der spezifische Separator, mit dem der ganze und der Nachkommateil getrennt werden
+	 * @return umgewandelte Zahl zur neuen Basis in der String-Darstellung
+	 * @throws 	NullPointerException	wenn der Parameter {@code dezWert} null ist.
+	 * @throws 	NumberFormatException	wenn der Parameter {@code C} keinen umwandelbaren ganzzahligen Anteil hat.
+	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code dezWert} ein '-' ist, 
+	 * 											da negative Zahlen hier nicht erlaubt sind
+	 */
+	public static String dezToBasis(int base, String dezValue, String separator) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
+		// ganzen Anteil (Basis 10) separieren und in long umwandeln
+		long ganzerWert = Long.parseLong(Zahl.separiereGanzenAnteil(dezValue));
+		
+		// Nachkommateil (Basis 10) separieren und in double umwandeln
+		double nachKomma = Double.parseDouble("0."+Zahl.separiereNachkomma(dezValue));
+		
+		// in Zahl zur übergebenen Basis umwandeln und als String zurückgeben
+		return dezToBasis(base, ganzerWert, nachKomma, separator);
+	}
+	
+
 
 
 }
