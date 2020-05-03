@@ -198,5 +198,28 @@ public class ConvertingNumbers {
 		
 		return summe;
 	}
+	
+	private static char berechneZiffer(int stelle){
+		// gibt die Ziffer zur Stellenwertigkeit der übergebenen Stelle zurück
+		// Die Ziffern 0 bis 9 entsprechen der Wertigkeit 0 bis 9
+		// Die Buchstaben A bis Z entsprechen der Wertigkeit 10 bis 35
+		// Ein Überlauf ist möglich, wenn Die Stellenwertigkeit größer als 35 ist und wird nicht abgefangen!
+		if(stelle >= 10){
+			return (char)('A' + stelle - 10);
+		} else {
+			return (char)('0' + stelle);
+		}
+	}
+	
+	private static int berechneZiffer(char zeichen) {
+		// Berechnung der Wertigkeit, die das Zeichen repräsentiert
+		// Die Ziffern 0 bis 9 entsprechen der Wertigkeit 0 bis 9
+		// Die Buchstaben A bis Z entsprechen der Wertigkeit 10 bis 35
+		if(zeichen >= '0' && zeichen <= '9') {
+			return zeichen - '0';
+		} else {
+			return zeichen - 'A' + 10;
+		}
+	}
 
 }
