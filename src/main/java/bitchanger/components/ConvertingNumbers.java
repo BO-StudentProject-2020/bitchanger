@@ -181,5 +181,22 @@ public class ConvertingNumbers {
 		// umgewandelte Zahl in der neuen Basis als String zurückgeben
 		return neueBasis;
 	}
+	
+	private static double basisToDezNachKomma(int base, String decimalPlace) {
+		// umwandeln von beliebiger Basis zum Zehnersystem mit dem Horner-Schema
+		// dafür muss die Reihenfolge der Ziffern umgekehrt und eine 0 angehangen werden
+		StringBuffer sb = new StringBuffer(decimalPlace);
+		sb.reverse();
+		sb.append(0);
+		
+		double summe = 0;
+		
+		for(int i = 0; i < sb.length(); i++) {
+			summe *= 1.0/base;
+			summe += berechneZiffer(sb.charAt(i));
+		}
+		
+		return summe;
+	}
 
 }
