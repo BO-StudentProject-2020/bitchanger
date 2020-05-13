@@ -31,7 +31,7 @@ public class AlphaNumGrid {
 	}
 
 	private void createButtons() {
-		// TODO IMPLEMENT: Buttons hinzufuegen
+		// TODO IMPLEMENT: Buttons hinzufuegen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		
 		
 	}
@@ -39,7 +39,7 @@ public class AlphaNumGrid {
 	public ArrayList<Button> getButtonMatrix() {
 		ArrayList<Button> list = new ArrayList<Button>();
 		
-		// TODO MUSS NOCH ENTSPRECHEND IMPLEMENTIERT WERDEN !!!
+		// TODO MUSS NOCH ENTSPRECHEND IMPLEMENTIERT WERDEN !!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		for(int i = 0; i <= 3; i++) {
 			for (int j = 0; j <= 4; j++) {
 				

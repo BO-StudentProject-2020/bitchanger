@@ -1,12 +1,19 @@
 package bitchanger.gui;
 
-import bitchanger.gui.elements.Representable;
+import bitchanger.gui.scenes.ConverterScene;
+import bitchanger.gui.scenes.Viewable;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
 public class Hauptfenster extends Application{
+	
+	private Scene currentScene;
+	private Viewable currentView;
+	private Viewable converterView;
 	
 	public static void main(String[] args) {
 		launch();
@@ -16,15 +23,35 @@ public class Hauptfenster extends Application{
 	public void start(Stage primaryStage) throws Exception {		
 		MenuBar menubar = createMenuBar();
 		
-		Representable converter = new ConverterScene(menubar);
-		Scene sc = converter.getScene();
+		converterView = new ConverterScene(menubar);
+		currentView = converterView;
+		currentScene = converterView.getScene();
 		
-		primaryStage.setScene(sc);
+		primaryStage.setScene(currentScene);
+		
+		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
+		primaryStage.showingProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean isShowing) {
+				if(isShowing) {
+					primaryStage.sizeToScene();
+					primaryStage.setMinHeight(primaryStage.getHeight());
+					primaryStage.setMinWidth(primaryStage.getWidth());
+					primaryStage.setMaxHeight(currentView.getMaxHeigth() + primaryStage.getHeight() - currentView.getMinHeigth());
+					primaryStage.setMaxWidth(currentView.getMaxWidth() + primaryStage.getWidth() - currentView.getMinWidth());
+					
+				}
+			}
+		});
+
 		primaryStage.show();
 	}
 
 	private MenuBar createMenuBar() {
 		MenuBar menubar = new MenuBar();
+		
+		// TODO MENUEBAR IMPLEMENTIEREN	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+		
 		return menubar;
 	}
 

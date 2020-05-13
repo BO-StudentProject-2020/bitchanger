@@ -8,6 +8,7 @@ public interface ChangeableNumber {
 	public void setOct(String octValue);
 	public void setBin(String binValue);
 	public void setValue(String value, int baseOfValue);
+	public void setByteLength(int numberOfBytes);
 	
 	// Methoden, um Zahl als String zu einer Basis auszulesen
 	public String toHexString();	// hexadezimale Darstellung dieser Zahl als String
