@@ -2,8 +2,8 @@ package bitchanger.gui.scenes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import bitchanger.gui.elements.AlphaNumGrid;
+import bitchanger.gui.elements.RoundButton;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
@@ -25,30 +26,29 @@ import javafx.scene.layout.RowConstraints;
 public class ConverterScene extends ViewBase{
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	private final int FIRST_BTN_ROW = 6;
-	private final int FIRST_BTN_COLUMN = 1;
 	private final int TF_MAX_HEIGHT = 40;
 	private final int TF_MIN_HEIGHT = 40;
-	private final int BTN_MAX_HEIGTH = 80;
-	private final int BTN_MIN_HEIGTH = 30;
-	private final int BTN_MAX_WIDTH = 80;
-	private final int BTN_MIN_WIDTH = 30;
-	private final int WHITE_SPACE_HEIGTH = 50;
+	private final int BTN_MAX_HEIGTH = 100;
+	private final int BTN_MIN_HEIGTH = 70;
+	private final int BTN_MAX_WIDTH = BTN_MAX_HEIGTH;
+	private final int BTN_MIN_WIDTH = BTN_MIN_HEIGTH;
+	private final int WHITE_SPACE_HEIGTH = 40;
 	private final int FIRST_COLUMN_WITH = 30;
 	private final int PADDING_TOP = 10;
 	private final int PADDING_RIGTH = 20;
 	private final int PADDING_BOTTOM = 20;
 	private final int PADDING_LEFT = 20;
 	private final int MAX_SPALTEN = 6;
-	private final int HGAP = 5;
-	private final int VGAP = 5;
-	private final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
+	private final int BTN_SPACING = 10;
+	private final int HGAP = BTN_SPACING;
+	private final int VGAP = BTN_SPACING;
 	
-	private final String PREV_BTN_KEY = "prevBtn";
-	private final String NEXT_BTN_KEY = "nextBtn";
+	private final int FIRST_BTN_ROW = 6;
+	private final int FIRST_BTN_COLUMN = 1;
+	private final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
 	private final String CLEAR_BTN_KEY = "clearBtn";
 	private final String BACKSPACE_BTN_KEY = "backspaceBtn";
-	private final String[] BTN_KEYS = { PREV_BTN_KEY, NEXT_BTN_KEY, CLEAR_BTN_KEY, BACKSPACE_BTN_KEY};
+	private final String[] BTN_KEYS = {CLEAR_BTN_KEY, BACKSPACE_BTN_KEY};
 	
 	private GridPane center;
 	private HashMap<String, Object> btnTexts;
@@ -107,8 +107,6 @@ public class ConverterScene extends ViewBase{
 		center = new GridPane();
 		btnTexts = new HashMap<String, Object>();
 		
-		btnTexts.put("prevBtn", "<");
-		btnTexts.put("nextBtn", ">");
 		btnTexts.put("clearBtn", "AC");
 		btnTexts.put("backspaceBtn", "<--");
 	}
@@ -236,12 +234,12 @@ public class ConverterScene extends ViewBase{
 	// Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	private void createButtonMatrix() {
 		// Buttons erstellen und im Array speichern
-		ArrayList<Button> buttonList = new ArrayList<Button>(23);	// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
+		ArrayList<Node> buttonList = new ArrayList<Node>(23);	// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
 		buttonList.addAll(createButtons());
 		
 		
 		// Tastenfelder erstellen, die Button zum weiter bzw zurueckschalten existieren bereits
-		AlphaNumGrid alphaNum = new AlphaNumGrid(getButtons().get(PREV_BTN_KEY), getButtons().get(NEXT_BTN_KEY));
+		AlphaNumGrid alphaNum = new AlphaNumGrid(BTN_SPACING);
 		buttonList.addAll(alphaNum.getButtonMatrix());
 		
 		// Constraints fuer Position in der Tabelle setzen
@@ -255,7 +253,7 @@ public class ConverterScene extends ViewBase{
 		ArrayList<Button> buttons = new ArrayList<Button>(4);
 		
 		for(String btnKey : BTN_KEYS) {
-			Button b = new Button();
+			Button b = new RoundButton();
 			if(this.btnTexts.get(btnKey) instanceof String) {
 				b.setText((String) this.btnTexts.get(btnKey));
 			}
@@ -277,17 +275,26 @@ public class ConverterScene extends ViewBase{
 		return buttons;
 	}
 
-	private void setButtonConstraints(ArrayList<Button> btnList) {
+	private void setButtonConstraints(ArrayList<Node> buttonList) {
 		// Tastenmatrix in die GridPane integrieren und die Groesse richtig anpassen
 		int zeile = this.FIRST_BTN_ROW;
-		int spalte = this.FIRST_BTN_COLUMN;
-		for(Node n: btnList) {
+		int spalte = this.FIRST_BTN_COLUMN + 2;
+		for(Node n: buttonList) {
 			if(GridPane.getColumnSpan(n) == null) {
 				GridPane.setColumnSpan(n, 1);
 			}
 			
 			// maximale Groesse anpassen
-			((Button)n).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			if (n instanceof Button) {
+				((Button) n).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			}
+			else if (n instanceof Pane) {
+				for(Node b: ((Pane) n).getChildren()) {
+					if(b instanceof Button) {
+						((Button) b).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+					}
+				}
+			}
 			
 			// Position in der Tabelle
 			GridPane.setConstraints(n, spalte, zeile);
