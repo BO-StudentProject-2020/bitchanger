@@ -52,6 +52,7 @@ public class ConverterScene extends ViewBase{
 	
 	private GridPane center;
 	private HashMap<String, Object> btnTexts;
+	private AlphaNumGrid alphaNum;
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	public ConverterScene(MenuBar menu) {
@@ -239,8 +240,9 @@ public class ConverterScene extends ViewBase{
 		
 		
 		// Tastenfelder erstellen, die Button zum weiter bzw zurueckschalten existieren bereits
-		AlphaNumGrid alphaNum = new AlphaNumGrid(BTN_SPACING);
+		alphaNum = new AlphaNumGrid(BTN_SPACING);
 		buttonList.addAll(alphaNum.getButtonMatrix());
+		
 		
 		// Constraints fuer Position in der Tabelle setzen
 		setButtonConstraints(buttonList);
