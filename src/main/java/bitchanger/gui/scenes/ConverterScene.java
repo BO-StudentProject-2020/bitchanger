@@ -3,6 +3,7 @@ package bitchanger.gui.scenes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import bitchanger.gui.elements.AlphaNumGrid;
+import bitchanger.gui.elements.RoundButton;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,103 +17,113 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
-public class ConverterScene implements Viewable, Controllable{
+//TODO Buttons der Liste hinzufuegen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+
+public class ConverterScene extends ViewBase{
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	private final int startZeileButtons = 6;
-	private final int startSpalteButtons = 1;
 	private final int TF_MAX_HEIGHT = 40;
 	private final int TF_MIN_HEIGHT = 40;
-	private final int BTN_MAX_HEIGTH = 80;
-	private final int BTN_MIN_HEIGTH = 30;
-	private final int BTN_MAX_WIDTH = 80;
-	private final int BTN_MIN_WIDTH = 30;
-	private final int WHITE_SPACE_HEIGTH = 50;
+	private final int BTN_MAX_HEIGTH = 100;
+	private final int BTN_MIN_HEIGTH = 70;
+	private final int BTN_MAX_WIDTH = BTN_MAX_HEIGTH;
+	private final int BTN_MIN_WIDTH = BTN_MIN_HEIGTH;
+	private final int WHITE_SPACE_HEIGTH = 40;
 	private final int FIRST_COLUMN_WITH = 30;
 	private final int PADDING_TOP = 10;
 	private final int PADDING_RIGTH = 20;
 	private final int PADDING_BOTTOM = 20;
 	private final int PADDING_LEFT = 20;
 	private final int MAX_SPALTEN = 6;
-	private final int HGAP = 5;
-	private final int VGAP = 5;
-	private final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
-	private final GridPane center;
+	private final int BTN_SPACING = 10;
+	private final int HGAP = BTN_SPACING;
+	private final int VGAP = BTN_SPACING;
 	
-	private Scene scene;
-	private Button prevButton, nextButton, clearButton, backspaceButton;
-	private HashMap<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
-	private HashMap<String, Button> btnMap;
+	private final int FIRST_BTN_ROW = 6;
+	private final int FIRST_BTN_COLUMN = 1;
+	private final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
+	private final String CLEAR_BTN_KEY = "clearBtn";
+	private final String BACKSPACE_BTN_KEY = "backspaceBtn";
+	private final String[] BTN_KEYS = {CLEAR_BTN_KEY, BACKSPACE_BTN_KEY};
+	
+	private GridPane center;
+	private HashMap<String, Object> btnTexts;
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	public ConverterScene(MenuBar menu) {
+		super();	// calls init()-method
+		
 		BorderPane root = new BorderPane();
-		root.setTop(menu);
+		createRoot(root);
 		
-		center = new GridPane();
-		createCenter();
+		if(menu != null) {
+			root.setTop(menu);
+		}
 		
-//		center.setGridLinesVisible(true);
-		center.setAlignment(Pos.CENTER);
-		center.setPadding(new Insets(PADDING_TOP, PADDING_RIGTH + FIRST_COLUMN_WITH, PADDING_BOTTOM, PADDING_LEFT));
-		root.setCenter(center);
 		this.scene = new Scene(root);
+		
+		// Tests
+//		center.setGridLinesVisible(true);
+	}
+	
+	public ConverterScene() {
+		this(null);
 	}
 
 
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	@Override
-	public Scene getScene() {
-		return this.scene;
-	}
-	
-	@Override
 	public double getMaxHeigth() {
-		return PADDING_TOP + PADDING_BOTTOM + tfMap.size() * TF_MAX_HEIGHT + (center.getRowCount() - 1) * VGAP + 
-				(center.getRowCount() - startZeileButtons) * BTN_MAX_HEIGTH + WHITE_SPACE_HEIGTH;
+		return PADDING_TOP + PADDING_BOTTOM + getTextFields().size() * TF_MAX_HEIGHT + (center.getRowCount() - 1) * VGAP + 
+				(center.getRowCount() - FIRST_BTN_ROW) * BTN_MAX_HEIGTH + WHITE_SPACE_HEIGTH;
 	}
 
 	@Override
 	public double getMaxWidth() {
-		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (this.MAX_SPALTEN - this.startSpalteButtons) * this.BTN_MAX_WIDTH
+		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (this.MAX_SPALTEN - this.FIRST_BTN_COLUMN) * this.BTN_MAX_WIDTH
 				+ (MAX_SPALTEN - 1) * HGAP;
 	}
 
 	@Override
 	public double getMinHeigth() {
-		return PADDING_TOP + PADDING_BOTTOM + tfMap.size() * TF_MIN_HEIGHT + (center.getRowCount() - 1) * VGAP + 
-				(center.getRowCount() - startZeileButtons) * BTN_MIN_HEIGTH + WHITE_SPACE_HEIGTH;
+		return PADDING_TOP + PADDING_BOTTOM + getTextFields().size() * TF_MIN_HEIGHT + (center.getRowCount() - 1) * VGAP + 
+				(center.getRowCount() - FIRST_BTN_ROW) * BTN_MIN_HEIGTH + WHITE_SPACE_HEIGTH;
 	}
 
 	@Override
 	public double getMinWidth() {
-		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (this.MAX_SPALTEN - this.startSpalteButtons) * this.BTN_MIN_WIDTH
+		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (this.MAX_SPALTEN - this.FIRST_BTN_COLUMN) * this.BTN_MIN_WIDTH
 				+ (MAX_SPALTEN - 1) * HGAP;
 	}
 	
-	@Override
-	public HashMap<String, TextField> getTextFields() {
-		return this.tfMap;
-	}
-
-	@Override
-	public HashMap<String, Button> getButtons() {
-		// TODO Buttons der Liste hinzufuegen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		return this.btnMap;
-	}	
-	
 	
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	@Override
+	protected void init() {
+		center = new GridPane();
+		btnTexts = new HashMap<String, Object>();
+		
+		btnTexts.put("clearBtn", "AC");
+		btnTexts.put("backspaceBtn", "<--");
+	}
+	
+	@Override
+	protected void createRoot(BorderPane root) {
+		createCenter();
+		
+		center.setAlignment(Pos.CENTER);
+		center.setPadding(new Insets(PADDING_TOP, PADDING_RIGTH + FIRST_COLUMN_WITH, PADDING_BOTTOM, PADDING_LEFT));
+		root.setCenter(center);
+	}
+	
 	// GridPane Center	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	private void createCenter() {
 		// Textfelder erstellen und in die GridPane einfuegen
 		createTextFields();
-		
-		// Leerzeile fuer Abstand einfuegen
-		
 		
 		// Buttons erstellen und in die GridPane einfuegen		
 		createButtonMatrix();
@@ -127,7 +138,7 @@ public class ConverterScene implements Viewable, Controllable{
 	
 	private void setRowConstraints() {
 		// RowConstraints fuer Zeilen mit Textfeldern
-		for (int i = 0; i < tfMap.size(); i++) {
+		for (int i = 0; i < getTextFields().size(); i++) {
 			RowConstraints rowc = new RowConstraints();
 			rowc.setFillHeight(true);
 			rowc.setMaxHeight(TF_MAX_HEIGHT);
@@ -136,7 +147,7 @@ public class ConverterScene implements Viewable, Controllable{
 		}
 		
 		// Zeilen zwischen Textfeldern und Buttons
-		for (int i = tfMap.size(); i < this.startZeileButtons; i++) {
+		for (int i = getTextFields().size(); i < this.FIRST_BTN_ROW; i++) {
 			RowConstraints rowc = new RowConstraints();
 			rowc.setMaxHeight(WHITE_SPACE_HEIGTH);
 			rowc.setMinHeight(WHITE_SPACE_HEIGTH);
@@ -144,7 +155,7 @@ public class ConverterScene implements Viewable, Controllable{
 		}
 		
 		// RowConstraints fuer die Buttons
-		for (int i = this.startZeileButtons; i < center.getRowCount(); i++) {
+		for (int i = this.FIRST_BTN_ROW; i < center.getRowCount(); i++) {
 			RowConstraints rowc = new RowConstraints();
 			rowc.setFillHeight(true);
 			rowc.setMaxHeight(BTN_MAX_HEIGTH);
@@ -186,7 +197,6 @@ public class ConverterScene implements Viewable, Controllable{
 		// Textfelder erstellen und in Liste speichern
 		ArrayList<Node> textFieldList = initTextFields();
 		center.getChildren().addAll(textFieldList);
-		
 	}
 	
 	private void createLabels() {
@@ -198,12 +208,10 @@ public class ConverterScene implements Viewable, Controllable{
 			
 			center.getChildren().add(l);
 		}
-		
 	}
 	
 	private ArrayList<Node> initTextFields() {
 		ArrayList<Node> tfList = new ArrayList<>();
-		tfMap = new HashMap<>();
 		
 		for(int i = 0; i < TF_KEYS.length; i++) {
 			String key = TF_KEYS[i];
@@ -213,7 +221,7 @@ public class ConverterScene implements Viewable, Controllable{
 			GridPane.setConstraints(tf, 1, i, MAX_SPALTEN - 1, 1, HPos.CENTER, VPos.CENTER, Priority.NEVER, Priority.ALWAYS);
 			
 			// Textfeld mit Schluessel in Map speichern
-			tfMap.put(key, tf);
+			getTextFields().put(key, tf);
 			
 			// Textfeld der Liste fuer die GridPane hinzufuegen
 			tfList.add(tf);
@@ -226,11 +234,12 @@ public class ConverterScene implements Viewable, Controllable{
 	// Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	private void createButtonMatrix() {
 		// Buttons erstellen und im Array speichern
-		ArrayList<Button> buttonList = new ArrayList<Button>(23);
+		ArrayList<Node> buttonList = new ArrayList<Node>(23);	// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
 		buttonList.addAll(createButtons());
 		
+		
 		// Tastenfelder erstellen, die Button zum weiter bzw zurueckschalten existieren bereits
-		AlphaNumGrid alphaNum = new AlphaNumGrid(prevButton, nextButton);
+		AlphaNumGrid alphaNum = new AlphaNumGrid(BTN_SPACING);
 		buttonList.addAll(alphaNum.getButtonMatrix());
 		
 		// Constraints fuer Position in der Tabelle setzen
@@ -240,35 +249,52 @@ public class ConverterScene implements Viewable, Controllable{
 	}
 	
 	private ArrayList<Button> createButtons() {
+		// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
 		ArrayList<Button> buttons = new ArrayList<Button>(4);
-		prevButton = new Button("<");
-		nextButton = new Button(">");
-		clearButton = new Button("AC");
-		backspaceButton = new Button("<--");
 		
-		// BackspaceButton muss auf zwei Spalten verteilt werden!
-		GridPane.setColumnSpan(backspaceButton, 2);
-		
-		// angelegte Buttons im Array speichern und zurueckgeben
-		buttons.add(prevButton);
-		buttons.add(nextButton);
-		buttons.add(clearButton);
-		buttons.add(backspaceButton);
+		for(String btnKey : BTN_KEYS) {
+			Button b = new RoundButton();
+			if(this.btnTexts.get(btnKey) instanceof String) {
+				b.setText((String) this.btnTexts.get(btnKey));
+			}
+			else if(this.btnTexts.get(btnKey) instanceof Node) {
+				b.setGraphic((Node) this.btnTexts.get(btnKey));
+			}
+			
+			if (btnKey.equals(BACKSPACE_BTN_KEY)) {
+				// BackspaceButton muss auf zwei Spalten verteilt werden!
+				GridPane.setColumnSpan(b, 2);
+			}
+			// Buttons mit Schluessel in Map speichern
+			getButtons().put(btnKey, b);
+			
+			// angelegte Buttons im Array speichern und zurueckgeben
+			buttons.add(b);
+		}
 		
 		return buttons;
 	}
 
-	private void setButtonConstraints(ArrayList<Button> btnList) {
+	private void setButtonConstraints(ArrayList<Node> buttonList) {
 		// Tastenmatrix in die GridPane integrieren und die Groesse richtig anpassen
-		int zeile = this.startZeileButtons;
-		int spalte = this.startSpalteButtons;
-		for(Node n: btnList) {
+		int zeile = this.FIRST_BTN_ROW;
+		int spalte = this.FIRST_BTN_COLUMN + 2;
+		for(Node n: buttonList) {
 			if(GridPane.getColumnSpan(n) == null) {
 				GridPane.setColumnSpan(n, 1);
 			}
 			
 			// maximale Groesse anpassen
-			((Button)n).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			if (n instanceof Button) {
+				((Button) n).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+			}
+			else if (n instanceof Pane) {
+				for(Node b: ((Pane) n).getChildren()) {
+					if(b instanceof Button) {
+						((Button) b).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+					}
+				}
+			}
 			
 			// Position in der Tabelle
 			GridPane.setConstraints(n, spalte, zeile);
@@ -279,8 +305,8 @@ public class ConverterScene implements Viewable, Controllable{
 			}
 			
 			// Wenn maximale Spaltenanzahl ueberschritten: in naechste Zeile wechseln
-			if(spalte >= this.startSpalteButtons + 5) {
-				spalte = startSpalteButtons;
+			if(spalte >= this.FIRST_BTN_COLUMN + 5) {
+				spalte = FIRST_BTN_COLUMN;
 				zeile++;
 			}
 		}
