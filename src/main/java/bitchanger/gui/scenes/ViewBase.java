@@ -1,10 +1,8 @@
 package bitchanger.gui.scenes;
 
 import java.util.HashMap;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
@@ -12,27 +10,19 @@ public abstract class ViewBase implements Viewable, Controllable {
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	protected Scene scene;
-	protected HashMap<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
-	protected HashMap<String, Button> btnMap;
+	private HashMap<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
+	private HashMap<String, Button> btnMap;
 	
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	public ViewBase(MenuBar menu) {
-		BorderPane root = new BorderPane();
-		
-		if(menu != null) {
-			root.setTop(menu);
-		}
-		
-		this.scene = new Scene(root);
-		
+	public ViewBase() {
 		this.tfMap = new HashMap<String, TextField>();
 		this.btnMap = new HashMap<String, Button>();
 		
-		initRoot(root);
+		init();
 	}
 
-	
+
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	@Override
 	public Scene getScene() {
@@ -49,6 +39,10 @@ public abstract class ViewBase implements Viewable, Controllable {
 		return btnMap;
 	}
 
-	protected abstract void initRoot(BorderPane root);
+	protected abstract void createRoot(BorderPane root);
+	
+	protected void init() {
+		// Can be overwritten to initialize attributes
+	}
 	
 }
