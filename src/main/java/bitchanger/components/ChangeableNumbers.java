@@ -1,3 +1,10 @@
+/*
+ * Copyright (c)
+ * 
+ * Ersteller: Tim Mühle & Moritz Wolter
+ * 
+ */
+
 package bitchanger.components;
 
 public interface ChangeableNumbers {
