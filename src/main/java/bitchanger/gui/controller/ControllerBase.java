@@ -13,11 +13,13 @@ public abstract class ControllerBase {
 	protected HashMap<String, TextField> textFieldMap;
 	protected HashMap<String, Button> buttonMap;
 	protected ArrayList<Node> allButtons;
+	protected String comma;
 	
 	protected ControllerBase(Controllable view) {
 		this.textFieldMap = view.getTextFields();
 		this.buttonMap = view.getButtons();
 		this.allButtons = view.getButtonList();
+		comma = ",";
 	}
 	
 	public abstract void setControlls();

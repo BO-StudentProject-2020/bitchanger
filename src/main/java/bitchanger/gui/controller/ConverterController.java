@@ -54,6 +54,68 @@ public class ConverterController extends ControllerBase {
 	private void setButtonActions() {
 		setButtonSelection(allButtons);
 		setAlphaNumActions();
+		setClearAction();
+		setBackspaceAction();
+		setCommaAction();
+		setSignAction();
+	}
+
+	private void setSignAction() {
+		signBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				int caretPos = focusedTF.getCaretPosition();
+				
+				if(focusedTF.getText().startsWith("-")) {
+					focusedTF.setText(focusedTF.getText().substring(1));
+					caretPos--;
+				}
+				else if (focusedTF.getText().startsWith("+")){
+					focusedTF.setText("-" + focusedTF.getText().substring(1));
+				}
+				else {
+					focusedTF.setText("-" + focusedTF.getText());
+					caretPos++;
+				}
+				
+				focusedTF.positionCaret(caretPos);
+			}
+		});
+	}
+
+	private void setCommaAction() {
+		commaBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (focusedTF.getLength() <= 0) {
+					focusedTF.setText("0");
+				}
+				focusedTF.setText(focusedTF.getText() + comma);
+				focusedTF.positionCaret(focusedTF.getLength());
+			}
+		});
+	}
+
+	private void setBackspaceAction() {
+		backspcBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (focusedTF.getLength() > 0) {
+					focusedTF.setText(focusedTF.getText().substring(0, focusedTF.getLength() - 1));
+					focusedTF.positionCaret(focusedTF.getLength());
+				}
+			}
+		});
+	}
+
+	private void setClearAction() {
+		clearBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				value.reset();
+				setTexts(true, true, true, true, true);
+			}
+		});
 	}
 
 	private void setAlphaNumActions() {
