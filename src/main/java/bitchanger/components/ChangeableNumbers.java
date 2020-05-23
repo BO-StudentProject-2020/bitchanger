@@ -1,6 +1,6 @@
 package bitchanger.components;
 
-public interface ChangeableNumber {
+public interface ChangeableNumbers {
 	
 	
 	
