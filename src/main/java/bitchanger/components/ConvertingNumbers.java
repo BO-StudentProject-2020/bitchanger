@@ -7,8 +7,13 @@
 
 package bitchanger.components;
 
+import java.util.Scanner;
+
 /**
- * This class contains methods to convert numbers into different numeral systems.
+ * This class {@code ConvertingNumbers} contains methods to convert numbers into different numeral systems.
+ * 
+ * Furthermore, this class {@code ConvertingNumbers} contains methods, which convert a positive floating-point number 
+ * into different numeral systems with any base.
  * 
  * @author Tim & Moritz
  *
@@ -141,7 +146,7 @@ public class ConvertingNumbers {
 	 * 											kleiner als 0 sind, da negative Zahlen hier nicht erlaubt sind
 	 */
 	public static String dezToBasis(int base, long integer, double decimalPlace) throws UnsupportedOperationException{
-		return dezToBasis(base, integer, decimalPlace, Zahl.SEP_ENG);
+		return dezToBasis(base, integer, decimalPlace, SEP_ENG);
 	}
 	
 	/**
@@ -272,5 +277,230 @@ public class ConvertingNumbers {
 		return ergebnisNachkomma;
 	}
 	
+// Konstanten
+	public final static String SEP_DE = ",";
+	public final static String SEP_ENG = ".";
+	
+// Klassenmethoden  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	/**	
+	 * Gibt einen {@code long} Wert zurück, der den positiven ganzzahligen Anteil des übergebenen {@code String} mit der Basis 10 repräsentiert.
+	 * 
+	 * @throws 	NullPointerException	wenn der Parameter {@code zahl} null ist.
+	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code zahl} ein '-' ist, 
+	 * 											da negative Zahlen hier nicht erlaubt sind
+	 * @throws 	NumberFormatException	wenn der Parameter {@code zahl} keinen umwandelbaren ganzzahligen Anteil hat.
+	 * @param zahl die Dezimalzahl, deren ganzer Anteil ermittelt werden soll
+	 * @return ganzzahligen Anteil von {@code zahl} als {@code long}
+	 */
+	public static long parseGanzenAnteil(String zahl) throws NullPointerException, UnsupportedOperationException, NumberFormatException{
+		// Ganzen Anteil separieren und auf verbotene Zeichen überprüfen
+		String ganz = separiereGanzenAnteil(zahl);
+		
+		// In long umwandeln und diesen zurückgeben
+		return Long.parseLong(ganz);
+	}
+	
+// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	/**	
+	 * Gibt einen {@code double} Wert zurück, der den Nachkommanteil des übergebenen {@code String} mit der Basis 10 repräsentiert.
+	 * 
+	 * @throws 	NullPointerException	wenn der Parameter {@code zahl} null ist.
+	 * @throws 	NumberFormatException	wenn der Parameter {@code zahl} keinen umwandelbaren ganzzahligen Anteil hat.
+	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code zahl} ein '-' ist, 
+	 * 											da negative Zahlen hier nicht erlaubt sind
+	 * @param zahl die Dezimalzahl, deren ganzer Anteil ermittelt werden soll
+	 * @return ganzzahligen Anteil von {@code zahl} als {@code long}
+	 */
+	public static double parseNachkomma(String zahl) throws NullPointerException, UnsupportedOperationException, NumberFormatException{
+		// Nachkommaanteil separieren und auf verbotene Zeichen überprüfen
+		String nachKomma = separiereNachkomma(zahl);
+		
+		// In long umwandeln und diesen zurückgeben
+		return Double.parseDouble(nachKomma);
+	}
+	
+// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	/**	
+	 * Gibt einen {@code String} zurück, der den positiven ganzzahligen Anteil des übergebenen {@code String} mit der Basis 10 repräsentiert.
+	 * 
+	 * @throws 	NullPointerException	wenn der Parameter {@code wert} null ist.
+	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code zahl} ein '-' ist, 
+	 * 											da negative Zahlen hier nicht erlaubt sind
+	 * @throws 	NumberFormatException	wenn der Parameter {@code wert} keinen umwandelbaren ganzzahligen Anteil hat.
+	 * @param wert die Dezimalzahl, deren ganzer Anteil ermittelt werden soll, in der {@code String} Darstellung
+	 * @return ganzzahligen Anteil von {@code wert} als {@code String} Darstellung
+	 */
+	public static String separiereGanzenAnteil(String wert) throws NullPointerException, UnsupportedOperationException, NumberFormatException{
+		return separiereGanzenAnteil(10,wert);
+	}
 
+// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	/**	
+	 * Gibt einen {@code String} zurück, der den ganzen Anteil des übergebenen {@code String} zu der geforderten Basis 10 repräsentiert.
+	 * 
+	 * @throws 	NullPointerException	wenn der Parameter {@code wert} null ist.
+	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code zahl} ein '-' ist, 
+	 * 											da negative Zahlen hier nicht erlaubt sind
+	 * @throws 	NumberFormatException	wenn der Parameter {@code wert} keinen umwandelbaren ganzzahligen Anteil hat.
+	 * @param basis die Basis der übergebenen Zahl
+	 * @param wert die Zahl, deren ganzer Anteil ermittelt werden soll, in der {@code String} Darstellung
+	 * @return ganzzahligen Anteil von {@code wert} als {@code String} Darstellung
+	 */
+	public static String separiereGanzenAnteil(int basis, String wert) throws NullPointerException, UnsupportedOperationException, NumberFormatException{
+		// Wenn kein String übergeben wurde wird eine NullPointerException geworfen
+		if(wert == null) {
+			throw new NullPointerException("null");
+		}
+		
+		// Nachkommaanteil separieren und in einem char-Array speichern
+		// Es sind das deutsche als auch das englische Zahlenformat und auch Zahlen ohne Nachkommateil zugelassen
+		String[] getrennt = trenneKomma(wert);
+		
+		// Überprüfen, ob verbotene Zeichen enthalten sind
+		if(!istGanzeZahl(basis,getrennt[0])) {
+			// Es handelt sich um keine Zahl zur gegebenen Basis, da ein verbotenes Zeichen aufgetaucht ist
+			// Es wird eine NumberformatException erzeugt
+			throw new NumberFormatException("For input string: \"" + getrennt[0] + "\" Verbotenes Zeichen enthalten!");
+		}
+		
+		// Es handelt sich wirklich Zahl zur gefragte Basis, diese wird zurückgegeben
+		return getrennt[0];
+	}
+		
+// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	/**	
+	 * Gibt einen {@code String} zurück, der den Nachkommaanteil des übergebenen {@code String} mit der Basis 10 repräsentiert.
+	 * 
+	 * @throws 	NullPointerException	wenn der Parameter {@code wert} null ist.
+	 * @throws 	NumberFormatException	wenn der Parameter {@code wert} keinen umwandelbaren ganzzahligen Anteil hat.
+	 * @throws 	UnsupportedOperationException wenn das erste Zeichen ein '-' ist, 
+	 * 										  da negative Zahlen nicht unterstützt werden
+	 * @param wert die Dezimalahl, deren Nachkommaanteil ermittelt werden soll, in der {@code String} Darstellung
+	 * @return Nachkommaanteil von {@code wert} als {@code String} Darstellung
+	 */
+	public static String separiereNachkomma(String wert) throws NullPointerException, NumberFormatException, UnsupportedOperationException{
+		return separiereNachkomma(10,wert);
+	}
+	
+// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	/**	
+	 * Gibt einen {@code String} zurück, der den Nachkommaanteil ohne führende 0 und ohne Komma oder Punkt 
+	 * des übergebenen {@code String} zu der geforderten Basis repräsentiert.
+	 * 
+	 * @throws 	NullPointerException	wenn der Parameter {@code wert} null ist.
+	 * @throws 	NumberFormatException	wenn der Parameter {@code wert} keinen umwandelbaren ganzzahligen Anteil hat.
+	 * @throws 	UnsupportedOperationException wenn das erste Zeichen ein '-' ist, 
+	 * 										  da negative Zahlen nicht unterstützt werden
+	 * @param basis die Basis der übergebenen Zahl
+	 * @param wert die Zahl, deren Nachkommaanteil ermittelt werden soll, in der {@code String} Darstellung
+	 * @return Nachkommaanteil von {@code wert} als {@code String} Darstellung
+	 */
+	public static String separiereNachkomma(int basis, String wert) throws NullPointerException, NumberFormatException, UnsupportedOperationException{
+		// Wenn kein String übergeben wurde wird eine NullPointerException geworfen
+		if(wert == null) {
+			throw new NullPointerException("null");
+		}
+		
+		// Nachkommaanteil separieren und in einem char-Array speichern
+		// Es sind das deutsche als auch das englische Zahlenformat und auch Zahlen ohne Nachkommateil zugelassen
+		String[] getrennt = trenneKomma(wert);
+		
+		// Prüfen ob alle Zeichen erlaubte Zeichen zu der Basis sind
+		if(!istGanzeZahl(basis,getrennt[1])) {
+			// Es handelt sich um keine Zahl zur gegebenen Basis, da ein verbotenes Zeichen aufgetaucht ist
+			// Es wird eine NumberformatException erzeugt
+			throw new NumberFormatException("For input string: \"" + getrennt[1] + "\" Verbotenes Zeichen enthalten!");
+		}
+		
+		// Es handelt sich wirklich um eine Zahl zur gefrageten basis, diese wird zurückgegeben
+		return getrennt[1];
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	/**	
+	 * Separiert den Anteil vor und nach dem Komma bzw. Punkt (jenach Format) des übergebenen {@code String}, 
+	 * der eine Zahl zu der Basis 10 repräsentiert, und gibt diese beiden separierten Strings ohne führende 0
+	 * im Nachkommateil zurück.
+	 * 
+	 * @param wert die Dezimalahl, die getrennt werden soll in der {@code String} Darstellung
+	 * @return seperierte Anteile von {@code wert} als {@code String[]}, dabei ist der String im Index 0 der
+	 * ganze Anteil und der String im Index 1 der Nachkommaanteil.
+	 */	
+	private static String[] trenneKomma(String wert) {
+		String ganz = "";
+		String nach = "";
+		
+		// Trennung in String suchen
+		int punkt = wert.indexOf('.');
+		int komma = wert.indexOf(',');
+		
+		// Separator einstellen
+		String separator = null;
+		if(punkt >= 0 && komma < 0) {
+			separator = "\\.";
+		} else if (komma >= 0 && punkt < 0) {
+			separator = ",";
+		}
+		
+		// Trennung vorhanden -> potentielle Gleitpunktzahl aufspalten
+		if(separator != null) {
+			// Scanner, der Ganzen- und Nachkommaanteil seperiert
+			Scanner sc = new Scanner(wert);
+			sc.useDelimiter(separator);
+			
+			ganz = sc.next();
+			nach = sc.next();	
+			
+			// Delimiter zurücksetzten und leeren, um fehlerhafte Eingaben nicht zu vertuschen
+			sc.reset();
+			while(sc.hasNext()) {
+				nach += sc.next();
+			}
+			
+			// Scanner schliessen
+			sc.close();
+		} else {
+			// Keine Trennung durch Komma oder Punkt, eventuell ganze Zahl
+			ganz = wert;
+			nach = "0";
+		}
+		
+		String[] ergebnis = {ganz,nach};
+		return ergebnis;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	/**
+	 * Überprüft ob es sich bei dem übergebenen {@code String} um eine ganze positive 
+	 * Zahl zur entsprechenden Basis handelt 
+	 * @param basis	die Basis der übergebenen Zahl
+	 * @param zahl	die potentielle Zahl, die überprüft werden soll in der {@code String} Darstellung
+	 * @throws 	UnsupportedOperationException wenn das erste Zeichen ein '-' ist, 
+	 * 										  da negative Zahlen nicht unterstützt werden
+	 * @return	{@code true} wenn es sich wirklich um eine positive Zahl zu der entsprechenden Basis handelt,
+	 * 			{@code false} sonst
+	 */
+	private static boolean istGanzeZahl(int basis, String zahl) throws UnsupportedOperationException{
+		char[] ziffern = zahl.toUpperCase().toCharArray();
+		
+		// negative Zahlen sind nicht erlaubt!
+		if(ziffern[0] == '-') {
+			throw new UnsupportedOperationException("Negative values are not supported");
+		}
+		
+		// maximale Zahl im Zahlensystem zur Basis
+		char end = (char) ('0' + basis - 1);
+		
+		// Überprüfen, ob verbotene Zeichen enthalten sind
+		for(char x:ziffern) {
+			if((x < '0' || x > end)) {
+				if(x < 'A' || x > ('A' + basis - 11))
+				// Es handelt sich um keine Zahl zur gegebenen Basis, da ein verbotenes Zeichen aufgetaucht ist
+				return false;
+			}
+		}
+		// Kein verbotenes Zeichen, es handelt sich um eine Zahl
+		return true;
+	}
+	
 }
