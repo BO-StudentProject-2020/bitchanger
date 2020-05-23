@@ -7,6 +7,7 @@
 
 package bitchanger.components;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -37,8 +38,8 @@ public class ConvertingNumbers {
 	public static double basisToDez(int base, String value) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
 		// Übergebene Zahl in ganzen Anteil und Nachkommastellen trennen
 		value = value.toUpperCase();
-		String ganzerWert = Zahl.separiereGanzenAnteil(value);
-		String nachKomma = Zahl.separiereNachkomma(value);
+		String ganzerWert = separiereGanzenAnteil(value);
+		String nachKomma = separiereNachkomma(value);
 		
 		// Strings die ganzen und Nachkommateil zu der übergebenen Basis 
 		// repräsentieren in double Zahlen zur Basis 10 umwandeln
@@ -61,7 +62,7 @@ public class ConvertingNumbers {
 	 * 											da negative Zahlen hier nicht erlaubt sind
 	 */
 	public static String basisToDezString(int base, String value) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
-		return basisToDezString(base, value, Zahl.SEP_ENG);
+		return basisToDezString(base, value, SEP_ENG);
 	}
 	
 	/**
@@ -79,8 +80,8 @@ public class ConvertingNumbers {
 	public static String basisToDezString(int base, String value, String separator) throws NullPointerException, NumberFormatException, UnsupportedOperationException {	
 		// Übergebene Zahl in ganzen Anteil und Nachkommastellen trennen
 		value = value.toUpperCase();
-		String ganzerWert = Zahl.separiereGanzenAnteil(base,value);
-		String nachKomma = Zahl.separiereNachkomma(base,value);
+		String ganzerWert = separiereGanzenAnteil(base,value);
+		String nachKomma = separiereNachkomma(base,value);
 		
 		// Strings die ganzen und Nachkommateil zu der übergebenen Basis 
 		// repräsentieren in double Zahlen zur Basis 10 umwandeln
@@ -110,7 +111,7 @@ public class ConvertingNumbers {
 	 * 											da negative Zahlen hier nicht erlaubt sind
 	 */
 	public static String dezToBasis(int base, String dezValue) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
-		return dezToBasis(base, dezValue, Zahl.SEP_ENG);
+		return dezToBasis(base, dezValue, SEP_ENG);
 	}
 	
 	/**
@@ -126,10 +127,10 @@ public class ConvertingNumbers {
 	 */
 	public static String dezToBasis(int base, String dezValue, String separator) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
 		// ganzen Anteil (Basis 10) separieren und in long umwandeln
-		long ganzerWert = Long.parseLong(Zahl.separiereGanzenAnteil(dezValue));
+		long ganzerWert = Long.parseLong(separiereGanzenAnteil(dezValue));
 		
 		// Nachkommateil (Basis 10) separieren und in double umwandeln
-		double nachKomma = Double.parseDouble("0."+Zahl.separiereNachkomma(dezValue));
+		double nachKomma = Double.parseDouble("0."+separiereNachkomma(dezValue));
 		
 		// in Zahl zur übergebenen Basis umwandeln und als String zurückgeben
 		return dezToBasis(base, ganzerWert, nachKomma, separator);
@@ -183,6 +184,19 @@ public class ConvertingNumbers {
 		
 		// umgewandelte Zahl in der neuen Basis als String zurückgeben
 		return neueBasis;
+	}
+
+	private static double basisToDezGanz(int basis, String ganzerWert) {
+		char[] ziffern = ganzerWert.toCharArray();
+		double summe = 0;
+		
+		// umwandeln von beliebiger Basis zum Zehnersystem mit dem Horner-Schema
+		for(int i = 0; i < ziffern.length; i++) {
+			summe *= basis;
+			summe += berechneZiffer(ziffern[i]);
+		}
+		
+		return summe;
 	}
 	
 	private static double basisToDezNachKomma(int base, String decimalPlace) {
@@ -503,4 +517,54 @@ public class ConvertingNumbers {
 		return true;
 	}
 	
+// INSTANZEN 	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+// Atrribute	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	private String binWert;
+	private String dezWert;
+	private String hexWert;
+	private String octalWert;
+	private String trennzeichen;
+	
+// Konstruktoren   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	/**	
+	 * Erstellt eine neue {@code Zahl} mit dem dezimalen Wert 0,0
+	 */
+	public ConvertingNumbers() {
+		this("0");
+	}
+	
+	/**	
+	 * Erstellt eine neue {@code Zahl} mit dem spezifischen dezimalen Wert.
+	 * 
+	 * @throws 	NullPointerException	wenn das Argument {@code dezimalWert} {@code null} ist.
+	 * @throws 	NumberFormatException	wenn der übergebene {@code String} keine umwandelbare Zahl ist.
+	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code zahl} ein '-' ist, 
+	 * 											da negative Zahlen hier nicht erlaubt sind
+	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem diese {@code Zahl} initialisiert wird
+	 */
+	public ConvertingNumbers(String dezimalWert) throws NullPointerException, NumberFormatException, UnsupportedOperationException{
+		this.initDezimalString(dezimalWert);
+	}
+
+// Initialisierung	  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	/**	
+	 * Initialisiet diese {@code Zahl} mit neuem dezimalem Wert aus dem übergebenem {@code double} Wert.
+	 * Die Darstellungen anderer Zahlensysteme werden mit {@code null} initialisiert.
+	 * 
+	 * @throws 	NullPointerException	wenn das Argument {@code dezimalWert} {@code null} ist.
+	 * @throws 	NumberFormatException	wenn der übergebene {@code String} keine umwandelbare Zahl ist.
+	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code zahl} ein '-' ist, 
+	 * 											da negative Zahlen hier nicht erlaubt sind
+	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem diese {@code Zahl} überschriben wird
+	 */
+	private void initDezimalString(String dezimalWert) throws NullPointerException{
+		this.dezWert = Objects.requireNonNull(dezimalWert);
+		this.hexWert = null;
+		this.octalWert = null;
+		this.binWert = null;
+		this.trennzeichen = SEP_DE;
+
+	}
+		
+
 }
