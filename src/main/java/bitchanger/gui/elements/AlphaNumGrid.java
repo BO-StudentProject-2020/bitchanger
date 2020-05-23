@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import bitchanger.gui.scenes.Controllable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -12,19 +13,20 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
-public class AlphaNumGrid {
+public class AlphaNumGrid implements Controllable {
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private ArrayList<Node> buttonList;
 	private HashMap<String, Button> buttonMap;
 	private CommaSymbol comma;
-	private final String SIGN_BTN = "sign";
+	private final String SIGN_BTN = "signBtn";
 	private final String NUM_0_BTN = "num_0";
-	private final String COMMA_BTN = "comma";
+	private final String COMMA_BTN = "commaBtn";
 	private Button keyboardBtn;
 	private Button previousBtn;
 	private Button nextBtn;
@@ -54,6 +56,21 @@ public class AlphaNumGrid {
 
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	@Override
+	public HashMap<String, TextField> getTextFields() {
+		return null;
+	}
+	
+	@Override
+	public HashMap<String, Button> getButtons() {
+		return this.buttonMap;
+	}
+	
+	@Override
+	public ArrayList<Node> getButtonList() {
+		return buttonList;
+	}
+	
 	private void setNextButton(Node button, int column, int row, String key) {
 		setNextButton(button, column, row);
 		if(button instanceof Button) {
@@ -319,6 +336,6 @@ public class AlphaNumGrid {
 			return this.comma;
 		}
 	}
-	
+
 	
 }

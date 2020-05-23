@@ -1,6 +1,6 @@
 package bitchanger.gui;
 
-import bitchanger.gui.scenes.ConverterScene;
+import bitchanger.gui.scenes.ConverterView;
 import bitchanger.gui.scenes.Viewable;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -23,7 +23,7 @@ public class Hauptfenster extends Application{
 	public void start(Stage primaryStage) throws Exception {		
 		MenuBar menubar = createMenuBar();
 		
-		converterView = new ConverterScene(menubar);
+		converterView = new ConverterView(menubar);
 		currentView = converterView;
 		currentScene = converterView.getScene();
 		
