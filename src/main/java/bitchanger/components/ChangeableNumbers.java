@@ -9,8 +9,6 @@ package bitchanger.components;
 
 public interface ChangeableNumbers {
 	
-	
-	
 	// Methoden zum setzen des Zahlenwertes mit bestimmter Basis
 	public void setHex(String hexValue);
 	public void setDec(String decValue);
@@ -18,6 +16,7 @@ public interface ChangeableNumbers {
 	public void setBin(String binValue);
 	public void setValue(String value, int baseOfValue);
 	public void setByteLength(int numberOfBytes);
+	public void reset();
 	
 	// Methoden, um Zahl als String zu einer Basis auszulesen
 	public String toHexString();	// hexadezimale Darstellung dieser Zahl als String

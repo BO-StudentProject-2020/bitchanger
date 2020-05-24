@@ -2,6 +2,8 @@ package bitchanger.gui.scenes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.elements.AlphaNumGrid;
 import bitchanger.gui.elements.RoundButton;
 import javafx.geometry.HPos;
@@ -23,7 +25,7 @@ import javafx.scene.layout.RowConstraints;
 
 //TODO Buttons der Liste hinzufuegen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 
-public class ConverterScene extends ViewBase{
+public class ConverterView extends ViewBase{
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private final int TF_MAX_HEIGHT = 40;
@@ -42,7 +44,6 @@ public class ConverterScene extends ViewBase{
 	private final int BTN_SPACING = 10;
 	private final int HGAP = BTN_SPACING;
 	private final int VGAP = BTN_SPACING;
-	
 	private final int FIRST_BTN_ROW = 6;
 	private final int FIRST_BTN_COLUMN = 1;
 	private final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
@@ -55,8 +56,10 @@ public class ConverterScene extends ViewBase{
 	private AlphaNumGrid alphaNum;
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	public ConverterScene(MenuBar menu) {
-		super();	// calls init()-method
+	public ConverterView(MenuBar menu) {
+		super();
+		
+		init();
 		
 		BorderPane root = new BorderPane();
 		createRoot(root);
@@ -67,11 +70,13 @@ public class ConverterScene extends ViewBase{
 		
 		this.scene = new Scene(root);
 		
+		setController(new ConverterController(this));
+		
 		// Tests
 //		center.setGridLinesVisible(true);
 	}
 	
-	public ConverterScene() {
+	public ConverterView() {
 		this(null);
 	}
 
@@ -103,8 +108,7 @@ public class ConverterScene extends ViewBase{
 	
 	
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	@Override
-	protected void init() {
+	private void init() {
 		center = new GridPane();
 		btnTexts = new HashMap<String, Object>();
 		
@@ -235,17 +239,18 @@ public class ConverterScene extends ViewBase{
 	// Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	private void createButtonMatrix() {
 		// Buttons erstellen und im Array speichern
-		ArrayList<Node> buttonList = new ArrayList<Node>(23);	// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
+		buttonList = new ArrayList<Node>(23);	// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
 		buttonList.addAll(createButtons());
 		
 		
 		// Tastenfelder erstellen, die Button zum weiter bzw zurueckschalten existieren bereits
 		alphaNum = new AlphaNumGrid(BTN_SPACING);
 		buttonList.addAll(alphaNum.getButtonMatrix());
+		getButtons().putAll(alphaNum.getButtonMap());
 		
 		
 		// Constraints fuer Position in der Tabelle setzen
-		setButtonConstraints(buttonList);
+		setButtonConstraints();
 		
 		center.getChildren().addAll(buttonList);;
 	}
@@ -277,7 +282,7 @@ public class ConverterScene extends ViewBase{
 		return buttons;
 	}
 
-	private void setButtonConstraints(ArrayList<Node> buttonList) {
+	private void setButtonConstraints() {
 		// Tastenmatrix in die GridPane integrieren und die Groesse richtig anpassen
 		int zeile = this.FIRST_BTN_ROW;
 		int spalte = this.FIRST_BTN_COLUMN + 2;
