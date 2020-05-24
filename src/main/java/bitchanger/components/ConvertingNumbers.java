@@ -565,6 +565,25 @@ public class ConvertingNumbers {
 		this.trennzeichen = SEP_DE;
 
 	}
-		
+
+// Getter und Setter  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	
+	public void setTrennzeichen(String sep) {
+		this.trennzeichen = sep;
+	}
+	
+	/**	
+	 * Gibt den Wert des ganzzahligen Anteils dieser {@code Zahl} als {@code double} zur Basis 10 zurück.
+	 * 
+	 * @return ganzzahliger Anteil dieser {@code Zahl} zur Basis 10
+	 */
+	public long getGanzWert() {
+		return parseGanzenAnteil(this.dezWert);
+	}
+	
+	public String getTrennzeichen() {
+		return this.trennzeichen;
+	}
+	
 
 }
