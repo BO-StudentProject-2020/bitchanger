@@ -24,6 +24,8 @@ public class ConvertingNumbers {
 	
 	
 	
+	
+	
 	/**
 	 * wandelt die Ã¼bergebene Zahl zur spezifischen Basis in der String-Darstellung 
 	 * in eine Zahl zur Basis 10 und gibt diese als {@code double} zurÃ¼ck
@@ -290,10 +292,6 @@ public class ConvertingNumbers {
 		
 		return ergebnisNachkomma;
 	}
-	
-// Konstanten
-	public final static String SEP_DE = ",";
-	public final static String SEP_ENG = ".";
 	
 // Klassenmethoden  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 	/**	
@@ -562,7 +560,7 @@ public class ConvertingNumbers {
 		this.hexWert = null;
 		this.octalWert = null;
 		this.binWert = null;
-		this.trennzeichen = SEP_DE;
+		this.trennzeichen = Settings.comma;
 
 	}
 
@@ -585,5 +583,25 @@ public class ConvertingNumbers {
 		return this.trennzeichen;
 	}
 	
+	
+	public static boolean isValueToBase(String value, int base) {
+		
+		char[] characters = value.toUpperCase().toCharArray();
+		
+		// maximale Zahl im Zahlensystem zur Basis
+		char end = (char) ('0' + base - 1);
+		
+		// Überprüfen, ob verbotene Zeichen enthalten sind
+		for(char character:characters) {
+			if((character < '0' || character > end)) {
+				if(character < 'A' || character > ('A' + base - 11))
+				// Es handelt sich um keine Zahl zur gegebenen Basis, da ein verbotenes Zeichen aufgetaucht ist
+				return false;
+			}
+		}
+		
+		// Kein verbotenes Zeichen, es handelt sich um eine Zahl
+		return true;
+	}
 
 }
