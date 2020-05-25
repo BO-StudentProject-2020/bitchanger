@@ -146,7 +146,7 @@ public class AlphaNumGrid implements Controllable {
 	}
 	
 	private void createControllButtons() {
-		keyboardBtn = new ExtendedButton("Keys");
+		keyboardBtn = new ExtendedButton("KEYB");
 		setNextButton(keyboardBtn, 0, 3);		
 		
 		previousBtn = new ExtendedButton("<");
@@ -317,7 +317,7 @@ public class AlphaNumGrid implements Controllable {
 		setAlphaButtons('A');
 		setNumButtons();
 		
-		keyboardBtn.setText("Keyboard");
+		keyboardBtn.setText("KEYB");
 		
 		GridPane.setColumnSpan(arrowButtons, 1);
 		

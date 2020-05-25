@@ -8,7 +8,7 @@ rem ---- Benoetigte Informationen in Variablen speichern -----------------------
 rem Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 set NAME=Bitchanger
 set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-set VERSION=0.1.0
+set VERSION=0.1.1
 set VENDOR=Entwicklungsprojekt_EB2020
 
 set INPUT=installer\source
