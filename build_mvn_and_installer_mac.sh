@@ -1,11 +1,16 @@
 #!/bin/sh
+cd "$(dirname "$0")"	# zum Pfad dieses Skriptes wechseln
 
-# Dieses Script erstellt mit Hilfe des jpackage Tools (OpenJDK14) aus einer ausfuehrbaren JAR Datei
-# einen nativen Installer fuer Windows. Alle von dem Java Programm benoetigten Komponenten (JRE, javaFX, ...)
-# werden dabei mit in den Installer eingebunden, sodass das Programm nach der Installation auf jedem Windows Betriebssystem
-# unabhaengig von anderen Programmen oder Installationen lauffaehig ist.
+# Dieses Skript erstellt mit Hilfe von Maven eine ausfuehrbare JAR-Datei aus dem Java-Projekt, kopiert diese in das
+# Verzeichnis "installer\source".
+
+# Im Anschluss wird mit Hilfe des jpackage Tools (OpenJDK14) aus einer ausfuehrbaren JAR Datei einen nativer Installer
+# fuer macOS erstellt. Alle von dem Java Programm benoetigten Komponenten (JRE, javaFX, ...) werden dabei mit in den 
+# Installer eingebunden, sodass das Programm nach der Installation auf jedem Windows Betriebssystem unabhaengig von 
+# anderen Programmen oder Installationen lauffaehig ist.
 
 # Es werden zwei Installer fuer macOS in den gaengigen Formaten bereitgestellt (.dmg und .pkg)
+
 
 # ---- Benoetigte Informationen in Variablen speichern ----------------------------------------------------------------
 
@@ -19,8 +24,8 @@ VENDOR="Entwicklungsprojekt_EB2020"
 
 # Einstellungen fuer jpackage:
 MAIN_JAR="bitchanger-$VERSION-jar-with-dependencies.jar"
-INPUT="target"
-OUT="installer"
+INPUT="installer/source"
+OUT="installer/${VERSION}/macOS"
 # set ICON =
 
 # Weitere Befehle fuer jpackage:
@@ -30,14 +35,22 @@ OUT="installer"
 # App Icon aendern: --icon <path/to/icon.ico>
 # Linzenz Datei: --license-file <file>
 
+
 # ---- Maven build -----------------------------------------------------------------------------------------------------
 echo ""
 echo "Maven build durchfuehren"
 echo ""
 mvn clean install
 
-# ---- Installer erzeugen ----------------------------------------------------------------------------------------------
 
+# ---- JARs sichern ----------------------------------------------------------------------------------------------------
+echo JAR-Dateien kopieren
+mkdir $OUT
+cp target\bitchanger-$VERSION-jar-with-dependencies.jar $INPUT\bitchanger-$VERSION-jar-with-dependencies.jar
+cp target\bitchanger-$VERSION.jar $INPUT\bitchanger-$VERSION.jar
+
+
+# ---- Installer erzeugen ----------------------------------------------------------------------------------------------
 echo ""
 echo "Installer fuer macOS werden erzeugt."
 echo ""
@@ -61,6 +74,4 @@ do
 	echo ""
 	echo ""
 done
-
-
 

@@ -1,4 +1,5 @@
 #!/bin/sh
+cd "$(dirname "$0")"	# zum Pfad dieses Skriptes wechseln
 
 # Dieses Script erstellt mit Hilfe des jpackage Tools (OpenJDK14) aus einer ausfuehrbaren JAR Datei
 # einen nativen Installer fuer macOS. Alle von dem Java Programm benoetigten Komponenten (JRE, javaFX, ...)
@@ -20,7 +21,7 @@ VENDOR="Entwicklungsprojekt_EB2020"
 # Einstellungen fuer jpackage:
 MAIN_JAR="bitchanger-$VERSION-jar-with-dependencies.jar"
 INPUT="installer/source"
-OUT="installer/${VERSION}"
+OUT="installer/${VERSION}/macOS"
 # set ICON =
 
 # Weitere Befehle fuer jpackage:

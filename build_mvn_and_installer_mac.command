@@ -1,4 +1,5 @@
 #!/bin/sh
+cd "$(dirname "$0")"	# zum Pfad dieses Skriptes wechseln
 
 # Dieses Skript erstellt mit Hilfe von Maven eine ausfuehrbare JAR-Datei aus dem Java-Projekt, kopiert diese in das
 # Verzeichnis "installer\source".
@@ -24,7 +25,7 @@ VENDOR="Entwicklungsprojekt_EB2020"
 # Einstellungen fuer jpackage:
 MAIN_JAR="bitchanger-$VERSION-jar-with-dependencies.jar"
 INPUT="installer/source"
-OUT="installer/${VERSION}"
+OUT="installer/${VERSION}/macOS"
 # set ICON =
 
 # Weitere Befehle fuer jpackage:
