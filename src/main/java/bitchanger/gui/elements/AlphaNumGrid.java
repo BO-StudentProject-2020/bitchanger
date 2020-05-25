@@ -44,6 +44,8 @@ public class AlphaNumGrid implements Controllable {
 	public AlphaNumGrid(double spacing) {
 		this.buttonList = new ArrayList<Node>();
 		this.buttonMap = new HashMap<String, Button>();
+		
+		// TODO Settings -> Comma 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		this.comma = CommaSymbol.COMMA_DE;
 		this.spacing = spacing;
 		this.isShowingKeyboard = false;
@@ -144,7 +146,7 @@ public class AlphaNumGrid implements Controllable {
 	}
 	
 	private void createControllButtons() {
-		keyboardBtn = new RoundButton("Keyboard");
+		keyboardBtn = new RoundButton("Keys");
 		setNextButton(keyboardBtn, 0, 3);		
 		
 		previousBtn = new RoundButton("<");

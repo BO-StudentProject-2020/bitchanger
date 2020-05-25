@@ -17,13 +17,13 @@ public class Numbers implements ChangeableNumbers {
 	 * 
 	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
 	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der übergebene {@code String}
+	 * @throws NumberFormatException         wenn der uebergebene {@code String}
 	 *                                       keine umwandelbare Zahl ist.
 	 * @throws UnsupportedOperationException wenn das erste Zeichen ein '-' ist, da
-	 *                                       negative Zahlen nicht unterstützt
+	 *                                       negative Zahlen nicht unterstuetzt
 	 *                                       werden
 	 * @param hex hexadezimaler Wert in der {@code String} Darstellung, mit dem
-	 *            diese {@code Zahl} überschriben wird
+	 *            diese {@code Zahl} ueberschriben wird
 	 */
 	@Override
 	public void setHex(String hexValue) {
@@ -37,18 +37,17 @@ public class Numbers implements ChangeableNumbers {
 	 * 
 	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
 	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der übergebene {@code String}
+	 * @throws NumberFormatException         wenn der uebergebene {@code String}
 	 *                                       keine umwandelbare Zahl ist.
 	 * @throws UnsupportedOperationException wenn das erste Zeichen ein '-' ist, da
-	 *                                       negative Zahlen nicht unterstützt
+	 *                                       negative Zahlen nicht unterstuetzt
 	 *                                       werden
 	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem
-	 *                    diese {@code Zahl} überschriben wird
+	 *                    diese {@code Zahl} ueberschriben wird
 	 */
 	@Override
 	public void setDec(String decValue) {
 		initDezimalString(decValue);
-
 	}
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -58,13 +57,13 @@ public class Numbers implements ChangeableNumbers {
 	 * 
 	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
 	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der übergebene {@code String}
+	 * @throws NumberFormatException         wenn der uebergebene {@code String}
 	 *                                       keine umwandelbare Zahl ist.
 	 * @throws UnsupportedOperationException wenn das erste Zeichen ein '-' ist, da
-	 *                                       negative Zahlen nicht unterstützt
+	 *                                       negative Zahlen nicht unterstuetzt
 	 *                                       werden
 	 * @param octal oktaler Wert in der {@code String} Darstellung, mit dem diese
-	 *              {@code Zahl} überschriben wird
+	 *              {@code Zahl} ueberschriben wird
 	 */
 	@Override
 	public void setOct(String octValue) {
@@ -79,13 +78,13 @@ public class Numbers implements ChangeableNumbers {
 	 * 
 	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
 	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der übergebene {@code String}
+	 * @throws NumberFormatException         wenn der uebergebene {@code String}
 	 *                                       keine umwandelbare Zahl ist.
 	 * @throws UnsupportedOperationException wenn das erste Zeichen ein '-' ist, da
-	 *                                       negative Zahlen nicht unterstützt
+	 *                                       negative Zahlen nicht unterstuetzt
 	 *                                       werden
 	 * @param binary binärer Wert in der {@code String} Darstellung, mit dem diese
-	 *               {@code Zahl} überschriben wird
+	 *               {@code Zahl} ueberschriben wird
 	 */
 	@Override
 	public void setBin(String binValue) {
@@ -108,11 +107,11 @@ public class Numbers implements ChangeableNumbers {
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	/**
-	 * Gibt einen {@code String} zurück, der die hexadezimale Darstellung dieser
+	 * Gibt einen {@code String} zurueck, der die hexadezimale Darstellung dieser
 	 * {@code Zahl} repräsentiert
 	 * 
 	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl
-	 *         zurück.
+	 *         zurueck.
 	 */
 	@Override
 	public String toHexString() {
@@ -125,10 +124,10 @@ public class Numbers implements ChangeableNumbers {
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
-	 * Gibt einen {@code String} zurück, der die dezimale Darstellung dieser
+	 * Gibt einen {@code String} zurueck, der die dezimale Darstellung dieser
 	 * {@code Zahl} repräsentiert
 	 * 
-	 * @return Die String-Darstellung dieser {@code Zahl} als dezimale Zahl zurück.
+	 * @return Die String-Darstellung dieser {@code Zahl} als dezimale Zahl zurueck.
 	 */
 	@Override
 	public String toDecString() {
@@ -137,10 +136,10 @@ public class Numbers implements ChangeableNumbers {
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
-	 * Gibt einen {@code String} zurück, der die oktale Darstellung dieser
+	 * Gibt einen {@code String} zurueck, der die oktale Darstellung dieser
 	 * {@code Zahl} repräsentiert
 	 * 
-	 * @return Die String-Darstellung dieser {@code Zahl} als oktale Zahl zurück.
+	 * @return Die String-Darstellung dieser {@code Zahl} als oktale Zahl zurueck.
 	 */
 	@Override
 	public String toOctString() {
@@ -153,10 +152,10 @@ public class Numbers implements ChangeableNumbers {
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
-	 * Gibt einen {@code String} zurück, der die binäre Darstellung dieser
+	 * Gibt einen {@code String} zurueck, der die binäre Darstellung dieser
 	 * {@code Zahl} repräsentiert
 	 * 
-	 * @return Die String-Darstellung dieser {@code Zahl} als binäre Zahl zurück.
+	 * @return Die String-Darstellung dieser {@code Zahl} als binäre Zahl zurueck.
 	 */
 	@Override
 	public String toBinString() {
@@ -169,13 +168,13 @@ public class Numbers implements ChangeableNumbers {
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
-	 * Gibt einen {@code String} zurück, der die Darstellung dieser {@code Zahl} zu
-	 * der übergebenen Basis repräsentiert
+	 * Gibt einen {@code String} zurueck, der die Darstellung dieser {@code Zahl} zu
+	 * der uebergebenen Basis repräsentiert
 	 * 
 	 * @param basis Ein {@code int} Wert, der die Basis darstellt, in die diese
-	 *              {@code Zahl} überfürht werden soll.
+	 *              {@code Zahl} ueberfuerht werden soll.
 	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl
-	 *         zurück.
+	 *         zurueck.
 	 */
 	@Override
 	public String toBaseString(int base) {
@@ -190,11 +189,11 @@ public class Numbers implements ChangeableNumbers {
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	/**
-	 * Gibt einen {@code String} zurück, der die hexadezimale, dezimale, oktale und
+	 * Gibt einen {@code String} zurueck, der die hexadezimale, dezimale, oktale und
 	 * binäre Darstellung dieser {@code Zahl} enthält.
 	 * 
 	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl
-	 *         zurück.
+	 *         zurueck.
 	 */
 	@Override
 	public String toString() {
@@ -205,10 +204,10 @@ public class Numbers implements ChangeableNumbers {
 	
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	/**	
-	 * Gibt einen {@code String} zurück, der die Darstellung dieser {@code Zahl} zu der übergebenen Basis repräsentiert
+	 * Gibt einen {@code String} zurueck, der die Darstellung dieser {@code Zahl} zu der uebergebenen Basis repräsentiert
 	 * 
-	 * @param basis	Ein {@code int} Wert, der die Basis darstellt, in die diese {@code Zahl} überfürht werden soll.
-	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl zurück.
+	 * @param basis	Ein {@code int} Wert, der die Basis darstellt, in die diese {@code Zahl} ueberfuerht werden soll.
+	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl zurueck.
 	 */
 	public void reset() {
 		this.binWert = "";
@@ -225,41 +224,46 @@ public class Numbers implements ChangeableNumbers {
 			this("0");
 		}
 
-	/**	
-		 * Erstellt eine neue {@code Zahl} mit dem spezifischen dezimalen Wert.
-		 * 
-		 * @throws 	NullPointerException	wenn das Argument {@code dezimalWert} {@code null} ist.
-		 * @throws 	NumberFormatException	wenn der übergebene {@code String} keine umwandelbare Zahl ist.
-		 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code zahl} ein '-' ist, 
-		 * 											da negative Zahlen hier nicht erlaubt sind
-		 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem diese {@code Zahl} initialisiert wird
-		 */
-		public Numbers(String dezimalWert) throws NullPointerException, NumberFormatException, UnsupportedOperationException{
-			this.initDezimalString(dezimalWert);
-		}
-
-// Initialisierung	  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 	/**
-	 * Initialisiet diese {@code Zahl} mit neuem dezimalem Wert aus dem übergebenem
-	 * {@code double} Wert. Die Darstellungen anderer Zahlensysteme werden mit
-	 * {@code null} initialisiert.
+	 * Erstellt eine neue {@code Zahl} mit dem spezifischen dezimalen Wert.
 	 * 
 	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
 	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der übergebene {@code String}
+	 * @throws NumberFormatException         wenn der uebergebene {@code String}
 	 *                                       keine umwandelbare Zahl ist.
 	 * @throws UnsupportedOperationException wenn das erste Zeichen des Parameters
 	 *                                       {@code zahl} ein '-' ist, da negative
 	 *                                       Zahlen hier nicht erlaubt sind
 	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem
-	 *                    diese {@code Zahl} überschriben wird
+	 *                    diese {@code Zahl} initialisiert wird
+	 */
+	public Numbers(String dezimalWert)
+			throws NullPointerException, NumberFormatException, UnsupportedOperationException {
+		this.initDezimalString(dezimalWert);
+	}
+
+// Initialisierung	  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	/**
+	 * Initialisiet diese {@code Zahl} mit neuem dezimalem Wert aus dem uebergebenem
+	 * {@code double} Wert. Die Darstellungen anderer Zahlensysteme werden mit
+	 * {@code null} initialisiert.
+	 * 
+	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
+	 *                                       {@code null} ist.
+	 * @throws NumberFormatException         wenn der uebergebene {@code String}
+	 *                                       keine umwandelbare Zahl ist.
+	 * @throws UnsupportedOperationException wenn das erste Zeichen des Parameters
+	 *                                       {@code zahl} ein '-' ist, da negative
+	 *                                       Zahlen hier nicht erlaubt sind
+	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem
+	 *                    diese {@code Zahl} ueberschrieben wird
 	 */
 	private void initDezimalString(String dezimalWert) throws NullPointerException {
 		this.dezWert = Objects.requireNonNull(dezimalWert);
 		this.hexWert = null;
 		this.octalWert = null;
 		this.binWert = null;
-		this.trennzeichen = Settings.comma;
+		this.trennzeichen = Settings.getComma();
 
 	}
 
@@ -271,7 +275,7 @@ public class Numbers implements ChangeableNumbers {
 
 	/**
 	 * Gibt den Wert des ganzzahligen Anteils dieser {@code Zahl} als {@code double}
-	 * zur Basis 10 zurück.
+	 * zur Basis 10 zurueck.
 	 * 
 	 * @return ganzzahliger Anteil dieser {@code Zahl} zur Basis 10
 	 */

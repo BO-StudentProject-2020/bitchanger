@@ -30,8 +30,8 @@ public class ConverterView extends ViewBase{
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private final int TF_MAX_HEIGHT = 40;
 	private final int TF_MIN_HEIGHT = 40;
-	private final int BTN_MAX_HEIGTH = 100;
-	private final int BTN_MIN_HEIGTH = 70;
+	private final int BTN_MAX_HEIGTH = 120;
+	private final int BTN_MIN_HEIGTH = 85;
 	private final int BTN_MAX_WIDTH = BTN_MAX_HEIGTH;
 	private final int BTN_MIN_WIDTH = BTN_MIN_HEIGTH;
 	private final int WHITE_SPACE_HEIGTH = 40;
