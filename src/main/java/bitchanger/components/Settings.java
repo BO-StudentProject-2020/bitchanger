@@ -6,4 +6,9 @@ public class Settings {
 	public final static String SEP_ENG = ".";
 	public static String comma;
 	
+	
+	public static String getComma() {
+		
+		return comma;
+	}
 }
