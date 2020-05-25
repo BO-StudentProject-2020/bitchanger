@@ -28,4 +28,9 @@ public class Settings {
 		}
 	}
 	
+	
+	public static String getComma() {
+		
+		return comma;
+	}
 }

@@ -7,7 +7,6 @@
 
 package bitchanger.components;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -64,7 +63,7 @@ public class ConvertingNumbers {
 	 * 											da negative Zahlen hier nicht erlaubt sind
 	 */
 	public static String basisToDezString(int base, String value) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
-		return basisToDezString(base, value, SEP_ENG);
+		return basisToDezString(base, value, Settings.getComma());
 	}
 	
 	/**
@@ -113,7 +112,7 @@ public class ConvertingNumbers {
 	 * 											da negative Zahlen hier nicht erlaubt sind
 	 */
 	public static String dezToBasis(int base, String dezValue) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
-		return dezToBasis(base, dezValue, SEP_ENG);
+		return dezToBasis(base, dezValue, Settings.getComma());
 	}
 	
 	/**
@@ -149,7 +148,7 @@ public class ConvertingNumbers {
 	 * 											kleiner als 0 sind, da negative Zahlen hier nicht erlaubt sind
 	 */
 	public static String dezToBasis(int base, long integer, double decimalPlace) throws UnsupportedOperationException{
-		return dezToBasis(base, integer, decimalPlace, SEP_ENG);
+		return dezToBasis(base, integer, decimalPlace, Settings.getComma());
 	}
 	
 	/**
@@ -514,94 +513,4 @@ public class ConvertingNumbers {
 		// Kein verbotenes Zeichen, es handelt sich um eine Zahl
 		return true;
 	}
-	
-// INSTANZEN 	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-// Atrribute	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	private String binWert;
-	private String dezWert;
-	private String hexWert;
-	private String octalWert;
-	private String trennzeichen;
-	
-// Konstruktoren   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	/**	
-	 * Erstellt eine neue {@code Zahl} mit dem dezimalen Wert 0,0
-	 */
-	public ConvertingNumbers() {
-		this("0");
-	}
-	
-	/**	
-	 * Erstellt eine neue {@code Zahl} mit dem spezifischen dezimalen Wert.
-	 * 
-	 * @throws 	NullPointerException	wenn das Argument {@code dezimalWert} {@code null} ist.
-	 * @throws 	NumberFormatException	wenn der übergebene {@code String} keine umwandelbare Zahl ist.
-	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code zahl} ein '-' ist, 
-	 * 											da negative Zahlen hier nicht erlaubt sind
-	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem diese {@code Zahl} initialisiert wird
-	 */
-	public ConvertingNumbers(String dezimalWert) throws NullPointerException, NumberFormatException, UnsupportedOperationException{
-		this.initDezimalString(dezimalWert);
-	}
-
-// Initialisierung	  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	/**	
-	 * Initialisiet diese {@code Zahl} mit neuem dezimalem Wert aus dem übergebenem {@code double} Wert.
-	 * Die Darstellungen anderer Zahlensysteme werden mit {@code null} initialisiert.
-	 * 
-	 * @throws 	NullPointerException	wenn das Argument {@code dezimalWert} {@code null} ist.
-	 * @throws 	NumberFormatException	wenn der übergebene {@code String} keine umwandelbare Zahl ist.
-	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code zahl} ein '-' ist, 
-	 * 											da negative Zahlen hier nicht erlaubt sind
-	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem diese {@code Zahl} überschriben wird
-	 */
-	private void initDezimalString(String dezimalWert) throws NullPointerException{
-		this.dezWert = Objects.requireNonNull(dezimalWert);
-		this.hexWert = null;
-		this.octalWert = null;
-		this.binWert = null;
-		this.trennzeichen = Settings.comma;
-
-	}
-
-// Getter und Setter  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	
-	public void setTrennzeichen(String sep) {
-		this.trennzeichen = sep;
-	}
-	
-	/**	
-	 * Gibt den Wert des ganzzahligen Anteils dieser {@code Zahl} als {@code double} zur Basis 10 zurück.
-	 * 
-	 * @return ganzzahliger Anteil dieser {@code Zahl} zur Basis 10
-	 */
-	public long getGanzWert() {
-		return parseGanzenAnteil(this.dezWert);
-	}
-	
-	public String getTrennzeichen() {
-		return this.trennzeichen;
-	}
-	
-	
-	public static boolean isValueToBase(String value, int base) {
-		
-		char[] characters = value.toUpperCase().toCharArray();
-		
-		// maximale Zahl im Zahlensystem zur Basis
-		char end = (char) ('0' + base - 1);
-		
-		// �berpr�fen, ob verbotene Zeichen enthalten sind
-		for(char character:characters) {
-			if((character < '0' || character > end)) {
-				if(character < 'A' || character > ('A' + base - 11))
-				// Es handelt sich um keine Zahl zur gegebenen Basis, da ein verbotenes Zeichen aufgetaucht ist
-				return false;
-			}
-		}
-		
-		// Kein verbotenes Zeichen, es handelt sich um eine Zahl
-		return true;
-	}
-
 }
