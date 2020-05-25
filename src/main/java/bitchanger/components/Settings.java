@@ -2,10 +2,10 @@ package bitchanger.components;
 
 public class Settings {
 	
-	private static Comma comma;
+	private static Comma comma = Comma.COMMA_DE;
 	
 	public static String getComma() {
-		return String.valueOf(comma.getComma());
+		return String.valueOf(comma.get());
 	}
 	
 	public static void setComma(Comma comma) {
@@ -23,14 +23,9 @@ public class Settings {
 			this.comma = comma;
 		}
 		
-		public char getComma() {
+		public char get() {
 			return this.comma;
 		}
 	}
 	
-	
-	public static String getComma() {
-		
-		return comma;
-	}
 }
