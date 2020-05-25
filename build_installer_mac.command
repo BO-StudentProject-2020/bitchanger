@@ -12,7 +12,7 @@
 # Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 NAME="Bitchanger"
 DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-VERSION="0.0.1"
+VERSION="0.1.0"
 VENDOR="Entwicklungsprojekt_EB2020"
 # set COPYRIGHT = ""
 # set LICENSE_FILE = ""
