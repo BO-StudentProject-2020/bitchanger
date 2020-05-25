@@ -6,6 +6,7 @@ import java.util.HashMap;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.elements.AlphaNumGrid;
 import bitchanger.gui.elements.ExtendedButton;
+import bitchanger.gui.elements.ValueField;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -220,7 +221,7 @@ public class ConverterView extends ViewBase{
 		
 		for(int i = 0; i < TF_KEYS.length; i++) {
 			String key = TF_KEYS[i];
-			TextField tf = new TextField();
+			TextField tf = new ValueField();
 			
 			// Constraints fuer GridPane setzen
 			GridPane.setConstraints(tf, 1, i, MAX_SPALTEN - 1, 1, HPos.CENTER, VPos.CENTER, Priority.NEVER, Priority.ALWAYS);
