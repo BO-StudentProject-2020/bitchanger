@@ -41,7 +41,7 @@ public class ConverterView extends ViewBase{
 	private final int PADDING_BOTTOM = 20;
 	private final int PADDING_LEFT = 20;
 	private final int MAX_SPALTEN = 6;
-	private final int BTN_SPACING = 10;
+	private final int BTN_SPACING = 5;
 	private final int HGAP = BTN_SPACING;
 	private final int VGAP = BTN_SPACING;
 	private final int FIRST_BTN_ROW = 6;

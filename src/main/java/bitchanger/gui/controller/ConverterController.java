@@ -16,11 +16,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class ConverterController extends ControllerBase {
-	
+
 	// Attribute
 	private ChangeableNumbers value;
 	private Spinner<Integer> anyBase;
-	
+
 	// TextFields
 	private TextField tfHex;
 	private TextField tfDec;
@@ -28,25 +28,24 @@ public class ConverterController extends ControllerBase {
 	private TextField tfOct;
 	private TextField tfAny;
 	private TextField focusedTF;
-	
+
 	// Buttons
 	private Button clearBtn;
 	private Button backspcBtn;
 	private Button[] alphaNumButtons;
 	private Button signBtn;
 	private Button commaBtn;
-	
 
 	public ConverterController(Controllable view) {
 		super(view);
 		this.value = new Numbers();
 	}
-	
+
 	@Override
 	public void setControlls() {
 		initTextFields();
 		initButtons();
-		
+
 		setTextFieldActions();
 		setButtonActions();
 	}
@@ -65,19 +64,17 @@ public class ConverterController extends ControllerBase {
 			@Override
 			public void handle(ActionEvent event) {
 				int caretPos = focusedTF.getCaretPosition();
-				
-				if(focusedTF.getText().startsWith("-")) {
+
+				if (focusedTF.getText().startsWith("-")) {
 					focusedTF.setText(focusedTF.getText().substring(1));
 					caretPos--;
-				}
-				else if (focusedTF.getText().startsWith("+")){
+				} else if (focusedTF.getText().startsWith("+")) {
 					focusedTF.setText("-" + focusedTF.getText().substring(1));
-				}
-				else {
+				} else {
 					focusedTF.setText("-" + focusedTF.getText());
 					caretPos++;
 				}
-				
+
 				focusedTF.positionCaret(caretPos);
 			}
 		});
@@ -119,14 +116,13 @@ public class ConverterController extends ControllerBase {
 	}
 
 	private void setAlphaNumActions() {
-		for(Button b: alphaNumButtons) {
+		for (Button b : alphaNumButtons) {
 			b.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					if (focusedTF.getText() == null) {
 						focusedTF.setText(b.getText());
-					}
-					else {
+					} else {
 						focusedTF.setText(focusedTF.getText() + b.getText());
 					}
 					focusedTF.positionCaret(focusedTF.getLength());
@@ -136,21 +132,20 @@ public class ConverterController extends ControllerBase {
 	}
 
 	private void setButtonSelection(List<Node> btnList) {
-		for(Node n: btnList) {
+		for (Node n : btnList) {
 			if (n instanceof Pane) {
 				setButtonSelection(((Pane) n).getChildren());
-			}
-			else {
+			} else {
 				setBtnFocusedProperty(n);
 			}
 		}
 	}
-	
+
 	private void setBtnFocusedProperty(Node button) {
 		button.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean focused) {
-				if(focused) {
+				if (focused) {
 					focusedTF.requestFocus();
 				}
 			}
@@ -162,13 +157,13 @@ public class ConverterController extends ControllerBase {
 		this.backspcBtn = this.buttonMap.get("backspaceBtn");
 		this.signBtn = this.buttonMap.get("signBtn");
 		this.commaBtn = this.buttonMap.get("commaBtn");
-		
+
 		alphaNumButtons = new Button[16];
-		for(int i = 0; i < 6; i++) {
+		for (int i = 0; i < 6; i++) {
 			alphaNumButtons[i] = this.buttonMap.get("alpha_" + i);
 		}
-		
-		for(int i = 0; i < 10; i++) {
+
+		for (int i = 0; i < 10; i++) {
 			alphaNumButtons[i + 6] = this.buttonMap.get("num_" + i);
 		}
 	}
@@ -179,11 +174,10 @@ public class ConverterController extends ControllerBase {
 		tfOct = this.textFieldMap.get("octTF");
 		tfBin = this.textFieldMap.get("binTF");
 		tfAny = this.textFieldMap.get("anyTF");
-		
+
 		tfDec.requestFocus();
 		focusedTF = tfDec;
 	}
-		
 
 	private void setTextFieldActions() {
 		setHexVal();
@@ -191,14 +185,14 @@ public class ConverterController extends ControllerBase {
 		setOctVal();
 		setBinVal();
 		setAnyVal();
-		
+
 		setTFSelection();
 	}
-	
+
 	private void setTFSelection() {
-		TextField[] textfields = {tfHex, tfDec, tfOct, tfBin, tfAny};
-		
-		for(TextField tf: textfields) {
+		TextField[] textfields = { tfHex, tfDec, tfOct, tfBin, tfAny };
+
+		for (TextField tf : textfields) {
 			tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
@@ -206,126 +200,106 @@ public class ConverterController extends ControllerBase {
 				}
 			});
 		}
-		
+
 	}
 
 	private void setHexVal() {
 		tfHex.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(tfHex.isFocused()) {
+				if (tfHex.isFocused()) {
 					try {
 						value.setHex(newValue);
 					} catch (Exception e) {
 						e.printStackTrace();
 						value.reset();
 					}
-					setTexts(false,true,true,true,true);
+					setTexts(false, true, true, true, true);
 				}
 			}
 		});
 	}
-	
+
 	private void setDecVal() {
 		tfDec.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(tfDec.isFocused()) {
+				if (tfDec.isFocused()) {
 					try {
 						value.setDec(newValue);
 					} catch (Exception e) {
 						e.printStackTrace();
 						value.reset();
 					}
-					setTexts(true,false,true,true,true);
+					setTexts(true, false, true, true, true);
 				}
 			}
 		});
 	}
-	
+
 	private void setOctVal() {
 		tfOct.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(tfOct.isFocused()) {
+				if (tfOct.isFocused()) {
 					try {
 						value.setOct(newValue);
 					} catch (Exception e) {
 						e.printStackTrace();
 						value.reset();
 					}
-					setTexts(true,true,false,true,true);
+					setTexts(true, true, false, true, true);
 				}
 			}
 		});
 	}
-	
+
 	private void setBinVal() {
 		tfBin.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(tfBin.isFocused()) {
+				if (tfBin.isFocused()) {
 					try {
 						value.setBin(newValue);
 					} catch (Exception e) {
 						e.printStackTrace();
 						value.reset();
 					}
-					setTexts(true,true,true,false,true);
+					setTexts(true, true, true, false, true);
 				}
 			}
 		});
 	}
-	
+
 	private void setAnyVal() {
 		tfAny.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(tfAny.isFocused()) {
+				if (tfAny.isFocused()) {
 					try {
 						value.setValue(newValue, anyBase.getValue());
 					} catch (Exception e) {
 						e.printStackTrace();
 						value.reset();
 					}
-					setTexts(true,true,true,true,false);
+					setTexts(true, true, true, true, false);
 				}
 			}
 		});
 	}
 
 	private void setTexts(boolean setHex, boolean setDec, boolean setOct, boolean setBin, boolean setAny) {
-		if(setBin)
+		if (setBin)
 			tfBin.setText(value.toBinString());
-		if(setOct)
+		if (setOct)
 			tfOct.setText(value.toOctString());
-		if(setDec)
+		if (setDec)
 			tfDec.setText(value.toDecString());
-		if(setHex)
+		if (setHex)
 			tfHex.setText(value.toHexString());
-		if(setAny && anyBase.getValue() != null) {
+		if (setAny && anyBase.getValue() != null) {
 			tfAny.setText(value.toBaseString(anyBase.getValue()));
 		}
 	}
-	
-	
-	
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

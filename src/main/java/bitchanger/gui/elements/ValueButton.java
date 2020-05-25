@@ -28,8 +28,7 @@ public class ValueButton extends RoundButton{
 	
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private void initBindings() {
-		// TODO REMOVE LATER (Nur zu Testzwecken!!!)	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		this.setFont(Font.font("Consolas", FontWeight.BOLD, 30));
+		
 		
 		textProperty().addListener(new ChangeListener<String>() {
 			@Override
