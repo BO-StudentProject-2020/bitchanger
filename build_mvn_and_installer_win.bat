@@ -12,7 +12,7 @@ set VERSION=0.1.0
 set VENDOR=Entwicklungsprojekt_EB2020
 
 set INPUT=installer\source
-set OUT=installer\%VERSION%
+set OUT=installer\%VERSION%\Windows
 
 
 rem ---- Maven build -----------------------------------------------------------------------------------------------------

@@ -19,7 +19,7 @@ rem set LICENSE_FILE = ""
 rem Einstellungen fuer jpackage:
 set MAIN_JAR=bitchanger-%VERSION%-jar-with-dependencies.jar
 if not defined INPUT set INPUT=installer\source
-if not defined OUT set OUT=installer\%VERSION%
+if not defined OUT set OUT=installer\%VERSION%\Windows
 rem set ICON =
 
 rem Weitere Befehle fuer jpackage:
