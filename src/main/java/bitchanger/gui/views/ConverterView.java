@@ -1,11 +1,11 @@
-package bitchanger.gui.scenes;
+package bitchanger.gui.views;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.elements.AlphaNumGrid;
-import bitchanger.gui.elements.RoundButton;
+import bitchanger.gui.elements.ExtendedButton;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,13 +35,13 @@ public class ConverterView extends ViewBase{
 	private final int BTN_MAX_WIDTH = BTN_MAX_HEIGTH;
 	private final int BTN_MIN_WIDTH = BTN_MIN_HEIGTH;
 	private final int WHITE_SPACE_HEIGTH = 40;
-	private final int FIRST_COLUMN_WITH = 30;
+	private final int FIRST_COLUMN_WITH = 50;
 	private final int PADDING_TOP = 10;
 	private final int PADDING_RIGTH = 20;
 	private final int PADDING_BOTTOM = 20;
 	private final int PADDING_LEFT = 20;
 	private final int MAX_SPALTEN = 6;
-	private final int BTN_SPACING = 5;
+	private final int BTN_SPACING = 6;
 	private final int HGAP = BTN_SPACING;
 	private final int VGAP = BTN_SPACING;
 	private final int FIRST_BTN_ROW = 6;
@@ -260,7 +260,7 @@ public class ConverterView extends ViewBase{
 		ArrayList<Button> buttons = new ArrayList<Button>(4);
 		
 		for(String btnKey : BTN_KEYS) {
-			Button b = new RoundButton();
+			Button b = new ExtendedButton();
 			if(this.btnTexts.get(btnKey) instanceof String) {
 				b.setText((String) this.btnTexts.get(btnKey));
 			}

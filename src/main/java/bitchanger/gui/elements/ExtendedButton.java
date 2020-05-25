@@ -2,25 +2,24 @@ package bitchanger.gui.elements;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class RoundButton extends Button{
+public class ExtendedButton extends Button{
 
 	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	public RoundButton() {
+	public ExtendedButton() {
 		super();
 		initShape();
 	}
 
-	public RoundButton(String text, Node graphic) {
+	public ExtendedButton(String text, Node graphic) {
 		super(text, graphic);
 		initShape();
 	}
 
-	public RoundButton(String text) {
+	public ExtendedButton(String text) {
 		super(text);
 		initShape();
 	}
@@ -31,7 +30,7 @@ public class RoundButton extends Button{
 		// TODO REMOVE LATER (Nur zu Testzwecken!!!)	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		this.setFont(Font.font("Consolas", FontWeight.BOLD, 20));
 	
-	/*	Ellipse shape = new Ellipse();
+	/*	Ellipse shape = new Ellipse(500, 500);
 		this.setShape(shape);
 	*/	
 		Rectangle shape = new Rectangle(50, 50);
@@ -39,6 +38,8 @@ public class RoundButton extends Button{
 		shape.setArcWidth(0);
 		this.setShape(shape);
 		setScaleShape(true);
+		
+		
 		
 	/*	// Rundung an Groesse binden (auskommentieren, um Rundung zu loeschen)
 		shape.arcHeightProperty().bind(widthProperty().divide(4));

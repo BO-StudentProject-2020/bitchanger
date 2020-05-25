@@ -2,13 +2,12 @@ package bitchanger.components;
 
 import java.util.Objects;
 
-public class Numbers implements ChangeableNumbers {
+public class SimpleChangeableNumber implements ChangeableNumber {
 
 	private String binWert;
 	private String dezWert;
 	private String hexWert;
 	private String octalWert;
-	private String trennzeichen;
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
@@ -27,7 +26,7 @@ public class Numbers implements ChangeableNumbers {
 	 */
 	@Override
 	public void setHex(String hexValue) {
-		this.setDec(ConvertingNumbers.basisToDezString(16, hexValue.toUpperCase(), this.trennzeichen));
+		this.setDec(ConvertingNumbers.basisToDezString(16, hexValue.toUpperCase(), Settings.getComma()));
 	}
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -67,7 +66,7 @@ public class Numbers implements ChangeableNumbers {
 	 */
 	@Override
 	public void setOct(String octValue) {
-		this.setDec(ConvertingNumbers.basisToDezString(8, octValue, this.trennzeichen));
+		this.setDec(ConvertingNumbers.basisToDezString(8, octValue, Settings.getComma()));
 
 	}
 
@@ -88,14 +87,14 @@ public class Numbers implements ChangeableNumbers {
 	 */
 	@Override
 	public void setBin(String binValue) {
-		this.setDec(ConvertingNumbers.basisToDezString(2, binValue, this.trennzeichen));
+		this.setDec(ConvertingNumbers.basisToDezString(2, binValue, Settings.getComma()));
 
 	}
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	@Override
 	public void setValue(String value, int baseOfValue) {
-
+		this.setDec(ConvertingNumbers.basisToDezString(baseOfValue, value, Settings.getComma()));
 	}
 
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -116,7 +115,7 @@ public class Numbers implements ChangeableNumbers {
 	@Override
 	public String toHexString() {
 		if (this.hexWert == null) {
-			this.hexWert = ConvertingNumbers.dezToBasis(16, this.dezWert, this.trennzeichen);
+			this.hexWert = ConvertingNumbers.dezToBasis(16, this.dezWert, Settings.getComma());
 		}
 
 		return this.hexWert;
@@ -144,7 +143,7 @@ public class Numbers implements ChangeableNumbers {
 	@Override
 	public String toOctString() {
 		if (this.octalWert == null) {
-			this.octalWert = ConvertingNumbers.dezToBasis(8, this.dezWert, this.trennzeichen);
+			this.octalWert = ConvertingNumbers.dezToBasis(8, this.dezWert, Settings.getComma());
 		}
 
 		return this.octalWert;
@@ -160,7 +159,7 @@ public class Numbers implements ChangeableNumbers {
 	@Override
 	public String toBinString() {
 		if (this.binWert == null) {
-			this.binWert = ConvertingNumbers.dezToBasis(2, this.dezWert, this.trennzeichen);
+			this.binWert = ConvertingNumbers.dezToBasis(2, this.dezWert, Settings.getComma());
 		}
 
 		return this.binWert;
@@ -179,7 +178,7 @@ public class Numbers implements ChangeableNumbers {
 	@Override
 	public String toBaseString(int base) {
 		try {
-			return ConvertingNumbers.dezToBasis(base, dezWert, this.trennzeichen);
+			return ConvertingNumbers.dezToBasis(base, dezWert, Settings.getComma());
 		} catch (ArrayIndexOutOfBoundsException ae) {
 			return "";
 		} catch (Exception e) {
@@ -220,7 +219,7 @@ public class Numbers implements ChangeableNumbers {
 	/**	
 		 * Erstellt eine neue {@code Zahl} mit dem dezimalen Wert 0,0
 		 */
-		public Numbers() {
+		public SimpleChangeableNumber() {
 			this("0");
 		}
 
@@ -237,7 +236,7 @@ public class Numbers implements ChangeableNumbers {
 	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem
 	 *                    diese {@code Zahl} initialisiert wird
 	 */
-	public Numbers(String dezimalWert)
+	public SimpleChangeableNumber(String dezimalWert)
 			throws NullPointerException, NumberFormatException, UnsupportedOperationException {
 		this.initDezimalString(dezimalWert);
 	}
@@ -263,16 +262,9 @@ public class Numbers implements ChangeableNumbers {
 		this.hexWert = null;
 		this.octalWert = null;
 		this.binWert = null;
-		this.trennzeichen = Settings.getComma();
-
 	}
 
 // Getter und Setter  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-
-	public void setTrennzeichen(String sep) {
-		this.trennzeichen = sep;
-	}
-
 	/**
 	 * Gibt den Wert des ganzzahligen Anteils dieser {@code Zahl} als {@code double}
 	 * zur Basis 10 zurueck.
@@ -283,28 +275,5 @@ public class Numbers implements ChangeableNumbers {
 		return ConvertingNumbers.parseGanzenAnteil(this.dezWert);
 	}
 
-	public String getTrennzeichen() {
-		return this.trennzeichen;
-	}
-
-	public static boolean isValueToBase(String value, int base) {
-
-		char[] characters = value.toUpperCase().toCharArray();
-
-		// maximale Zahl im Zahlensystem zur Basis
-		char end = (char) ('0' + base - 1);
-
-		// �berpr�fen, ob verbotene Zeichen enthalten sind
-		for (char character : characters) {
-			if ((character < '0' || character > end)) {
-				if (character < 'A' || character > ('A' + base - 11))
-					// Es handelt sich um keine Zahl zur gegebenen Basis, da ein verbotenes Zeichen
-					// aufgetaucht ist
-					return false;
-			}
-		}
-
-		// Kein verbotenes Zeichen, es handelt sich um eine Zahl
-		return true;
-	}
+	
 }

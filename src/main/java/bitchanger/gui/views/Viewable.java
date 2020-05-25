@@ -1,4 +1,4 @@
-package bitchanger.gui.scenes;
+package bitchanger.gui.views;
 
 import javafx.scene.Scene;
 

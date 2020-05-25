@@ -7,7 +7,7 @@
 
 package bitchanger.components;
 
-public interface ChangeableNumbers {
+public interface ChangeableNumber {
 	
 	// Methoden zum setzen des Zahlenwertes mit bestimmter Basis
 	public void setHex(String hexValue);

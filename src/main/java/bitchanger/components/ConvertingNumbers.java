@@ -22,7 +22,45 @@ import java.util.Scanner;
 public class ConvertingNumbers {
 	
 	
-	
+	public static boolean isValueToBase(String value, int base) {
+
+		char[] characters = value.toUpperCase().toCharArray();
+
+		// maximale Zahlen-Ziffer im Zahlensystem zur Basis
+		char end = (char) ('0' + base - 1);
+		boolean hasComma = false;
+		int i = 0;
+
+		// Ueberpruefen, ob verbotene Zeichen enthalten sind
+		for (char character : characters) {
+			if ((character < '0' || character > end)) {
+				// keine oder falsche Zahlen-Ziffer
+				if (character < 'A' || character > ('A' + base - 11))
+					// kein oder falscher Buchstabe zur geg. Basis
+					if(character == Settings.getComma().charAt(0)) {
+						// Es handelt sich um ein Komma
+						if(hasComma) {
+							// mehr als ein Komma in einer Zahl nicht erlaubt
+							return false;
+						}
+						hasComma = true;
+						continue;
+					}
+					else if(i == 0 && (character == '+' || character == '-')) {
+						// Vorzeichen an der ersten Stelle erlaubt
+						continue;
+					}
+					else {
+						// Es handelt sich um ein anderes, verbotenes Zeichen -> keine Zahl zur gegebenen Basis
+						return false;
+					}
+			}
+			i++;
+		}
+
+		// Kein verbotenes Zeichen, es handelt sich um eine Zahl zur gegebenen Basis
+		return true;
+	}
 	
 	
 	/**

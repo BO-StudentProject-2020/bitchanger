@@ -1,0 +1,39 @@
+.label {
+	-fx-font-size: 16px;
+}
+
+.text-field {
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+}
+
+.text-input {
+	-fx-text-fill: blue;
+	-fx-font-weight: bold;
+}
+
+.combo-box {
+	-fx-font-size: 14px;
+	-fx-background-color: white;
+	-fx-text-fill: black;
+}
+
+.button {
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+}
+
+#FEHLER{
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+	-fx-text-fill: red;
+}
+
+.button:hover 
+{
+  -fx-background-color: yellow;
+} 
+.button:pressed
+{
+  -fx-background-color: brown;
+}
