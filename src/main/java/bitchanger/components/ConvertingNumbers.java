@@ -393,6 +393,7 @@ public class ConvertingNumbers {
 		return separiereNachkomma(10,wert);
 	}
 	
+	
 // *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	/**	
 	 * Gibt einen {@code String} zurück, der den Nachkommaanteil ohne führende 0 und ohne Komma oder Punkt 
