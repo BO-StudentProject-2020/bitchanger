@@ -2,9 +2,9 @@ package bitchanger.gui.views;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.elements.AlphaNumGrid;
+import bitchanger.gui.elements.BaseSpinner;
 import bitchanger.gui.elements.ExtendedButton;
 import bitchanger.gui.elements.ValueField;
 import javafx.geometry.HPos;
@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -36,7 +37,7 @@ public class ConverterView extends ViewBase{
 	private final int BTN_MAX_WIDTH = BTN_MAX_HEIGTH;
 	private final int BTN_MIN_WIDTH = BTN_MIN_HEIGTH;
 	private final int WHITE_SPACE_HEIGTH = 40;
-	private final int FIRST_COLUMN_WITH = 50;
+	private final int FIRST_COLUMN_WITH = 80;
 	private final int PADDING_TOP = 10;
 	private final int PADDING_RIGTH = 20;
 	private final int PADDING_BOTTOM = 20;
@@ -55,6 +56,7 @@ public class ConverterView extends ViewBase{
 	private GridPane center;
 	private HashMap<String, Object> btnTexts;
 	private AlphaNumGrid alphaNum;
+	private Spinner<Integer> baseSpinner;
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	public ConverterView(MenuBar menu) {
@@ -105,6 +107,10 @@ public class ConverterView extends ViewBase{
 	public double getMinWidth() {
 		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (this.MAX_SPALTEN - this.FIRST_BTN_COLUMN) * this.BTN_MIN_WIDTH
 				+ (MAX_SPALTEN - 1) * HGAP;
+	}
+	
+	public Spinner<Integer> getBaseSpinner(){
+		return this.baseSpinner;
 	}
 	
 	
@@ -214,7 +220,13 @@ public class ConverterView extends ViewBase{
 			
 			center.getChildren().add(l);
 		}
+		
+		// Spinner für die beliebige Basis
+		baseSpinner = new BaseSpinner<Integer>();
+		GridPane.setConstraints(baseSpinner, 0, labelText.length);
+		center.getChildren().add(baseSpinner);
 	}
+	
 	
 	private ArrayList<Node> initTextFields() {
 		ArrayList<Node> tfList = new ArrayList<>();
