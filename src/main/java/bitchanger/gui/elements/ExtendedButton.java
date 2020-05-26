@@ -1,5 +1,6 @@
 package bitchanger.gui.elements;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Rectangle;
@@ -39,7 +40,7 @@ public class ExtendedButton extends Button{
 		this.setShape(shape);
 		setScaleShape(true);
 		
-		
+		this.setPadding(new Insets(2));
 		
 	/*	// Rundung an Groesse binden (auskommentieren, um Rundung zu loeschen)
 		shape.arcHeightProperty().bind(widthProperty().divide(4));
