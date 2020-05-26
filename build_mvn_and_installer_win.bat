@@ -11,7 +11,7 @@ set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
 set VERSION=0.1.2
 set VENDOR=Entwicklungsprojekt_EB2020
 
-set INPUT=installer\source
+set INPUT=installer\source\Windows
 set OUT=installer\%VERSION%\Windows
 
 

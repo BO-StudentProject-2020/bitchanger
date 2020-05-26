@@ -20,7 +20,7 @@ VENDOR="Entwicklungsprojekt_EB2020"
 
 # Einstellungen fuer jpackage:
 MAIN_JAR="bitchanger-$VERSION-jar-with-dependencies.jar"
-INPUT="installer/source"
+INPUT="installer/source/Mac"
 OUT="installer/${VERSION}/macOS"
 # set ICON =
 

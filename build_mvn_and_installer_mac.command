@@ -24,7 +24,7 @@ VENDOR="Entwicklungsprojekt_EB2020"
 
 # Einstellungen fuer jpackage:
 MAIN_JAR="bitchanger-$VERSION-jar-with-dependencies.jar"
-INPUT="installer/source"
+INPUT="installer/source/Mac"
 OUT="installer/${VERSION}/macOS"
 # set ICON =
 
@@ -46,8 +46,8 @@ mvn clean install
 # ---- JARs sichern ----------------------------------------------------------------------------------------------------
 echo JAR-Dateien kopieren
 mkdir $OUT
-cp target\bitchanger-$VERSION-jar-with-dependencies.jar $INPUT\bitchanger-$VERSION-jar-with-dependencies.jar
-cp target\bitchanger-$VERSION.jar $INPUT\bitchanger-$VERSION.jar
+cp target/bitchanger-$VERSION-jar-with-dependencies.jar $INPUT/bitchanger-$VERSION-jar-with-dependencies.jar
+cp target/bitchanger-$VERSION.jar $INPUT/bitchanger-$VERSION.jar
 
 
 # ---- Installer erzeugen ----------------------------------------------------------------------------------------------
