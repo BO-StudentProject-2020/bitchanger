@@ -7,6 +7,7 @@ import bitchanger.components.SimpleChangeableNumber;
 import bitchanger.gui.elements.ValueButton;
 import bitchanger.gui.elements.ValueField;
 import bitchanger.gui.views.Controllable;
+import bitchanger.gui.views.ConverterView;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -46,6 +47,7 @@ public class ConverterController extends ControllerBase {
 		super(view);
 		this.value = new SimpleChangeableNumber();
 		this.baseProperty = new SimpleIntegerProperty();
+		this.anyBase = ((ConverterView) view).getBaseSpinner();
 	}
 
 	@Override
@@ -54,8 +56,19 @@ public class ConverterController extends ControllerBase {
 		initButtons();
 
 		setTextFieldActions();
+		setSpinnerActions();
 		setButtonActions();
 		setInitialState();
+	}
+
+	private void setSpinnerActions() {
+		anyBase.valueProperty().addListener(new ChangeListener<Integer>() {
+			@Override
+			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newBase) {
+				((ValueField) tfAny).setBase(newBase);
+				setTexts(false, false, false, false, true);
+			}
+		});
 	}
 
 	private void setInitialState() {
@@ -216,7 +229,7 @@ public class ConverterController extends ControllerBase {
 		((ValueField) tfDec).setBase(10);
 		((ValueField) tfOct).setBase(8);
 		((ValueField) tfBin).setBase(2);
-//		((ValueField) tfAny).setBase(16);
+		((ValueField) tfAny).setBase(anyBase.getValue());
 	}
 
 	private void setTextFieldActions() {
