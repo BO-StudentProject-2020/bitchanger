@@ -9,7 +9,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	private String hexWert;
 	private String octalWert;
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
 	 * Überschreibt alle Werte dieser {@code Zahl} mit dem hexadezimalen Wert
 	 * {@code binary}
@@ -29,7 +29,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		this.setDec(ConvertingNumbers.basisToDezString(16, hexValue.toUpperCase(), Settings.getComma()));
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
 	 * Überschreibt alle Werte dieser {@code Zahl} mit dem Parameter
 	 * {@code dezimalWert}
@@ -49,7 +49,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		initDezimalString(decValue);
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
 	 * Überschreibt alle Werte dieser {@code Zahl} mit dem oktalen Wert
 	 * {@code binary}
@@ -70,7 +70,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
 	 * Überschreibt alle Werte dieser {@code Zahl} mit dem binären Wert
 	 * {@code binary}
@@ -91,20 +91,20 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	@Override
 	public void setValue(String value, int baseOfValue) {
 		this.setDec(ConvertingNumbers.basisToDezString(baseOfValue, value, Settings.getComma()));
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	@Override
 	public void setByteLength(int numberOfBytes) {
 		// TODO Auto-generated method stub
 
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	/**
 	 * Gibt einen {@code String} zurueck, der die hexadezimale Darstellung dieser
 	 * {@code Zahl} repräsentiert
@@ -121,7 +121,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		return this.hexWert;
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
 	 * Gibt einen {@code String} zurueck, der die dezimale Darstellung dieser
 	 * {@code Zahl} repräsentiert
@@ -133,7 +133,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		return this.dezWert;
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
 	 * Gibt einen {@code String} zurueck, der die oktale Darstellung dieser
 	 * {@code Zahl} repräsentiert
@@ -149,7 +149,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		return this.octalWert;
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
 	 * Gibt einen {@code String} zurueck, der die binäre Darstellung dieser
 	 * {@code Zahl} repräsentiert
@@ -165,7 +165,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		return this.binWert;
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	/**
 	 * Gibt einen {@code String} zurueck, der die Darstellung dieser {@code Zahl} zu
 	 * der uebergebenen Basis repräsentiert
@@ -186,7 +186,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		}
 	}
 
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	/**
 	 * Gibt einen {@code String} zurueck, der die hexadezimale, dezimale, oktale und
 	 * binäre Darstellung dieser {@code Zahl} enthält.
@@ -201,7 +201,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		return s;
 	}
 	
-// *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	/**	
 	 * Gibt einen {@code String} zurueck, der die Darstellung dieser {@code Zahl} zu der uebergebenen Basis repräsentiert
 	 * 

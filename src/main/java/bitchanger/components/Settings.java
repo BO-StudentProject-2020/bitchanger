@@ -5,16 +5,11 @@ import javafx.beans.property.SimpleObjectProperty;
 
 public class Settings {
 	
-	public static void load() {
-		// TODO load Settings from File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-	}
-	
-	public static void store() {
-		// TODO store changed Settings in File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-	}
-	
+	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private static ObjectProperty<Comma> commaProperty = new SimpleObjectProperty<Settings.Comma>(Comma.COMMA_DE);
 	
+	
+	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	public static char getComma() {
 		return commaProperty.getValue().get();
 	}
@@ -28,6 +23,17 @@ public class Settings {
 	}
 	
 	
+	// Methoden		##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	public static void load() {
+		// TODO load Settings from File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	}
+	
+	public static void store() {
+		// TODO store changed Settings in File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	}
+	
+	
+	// Innere Klassen	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	public enum Comma{
 		
 		COMMA_DE(','), COMMA_EN('.');

@@ -31,7 +31,7 @@ public class Hauptfenster extends Application{
 		currentScene.getStylesheets().setAll("Layout.css");
 		
 		primaryStage.setScene(currentScene);
-		primaryStage.setTitle("Bitchanger 0.1.2");
+		primaryStage.setTitle("Bitchanger 0.1.3");
 		
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
 		primaryStage.showingProperty().addListener(new ChangeListener<Boolean>() {
