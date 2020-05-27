@@ -1,7 +1,8 @@
 #!/bin/sh
+cd "$(dirname "$0")"	# zum Pfad dieses Skriptes wechseln
 
 # Dieses Script erstellt mit Hilfe des jpackage Tools (OpenJDK14) aus einer ausfuehrbaren JAR Datei
-# einen nativen Installer fuer Windows. Alle von dem Java Programm benoetigten Komponenten (JRE, javaFX, ...)
+# einen nativen Installer fuer macOS. Alle von dem Java Programm benoetigten Komponenten (JRE, javaFX, ...)
 # werden dabei mit in den Installer eingebunden, sodass das Programm nach der Installation auf jedem Windows Betriebssystem
 # unabhaengig von anderen Programmen oder Installationen lauffaehig ist.
 
@@ -12,15 +13,15 @@
 # Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 NAME="Bitchanger"
 DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-VERSION="0.0.1"
+VERSION="0.1.2"
 VENDOR="Entwicklungsprojekt_EB2020"
 # set COPYRIGHT = ""
 # set LICENSE_FILE = ""
 
 # Einstellungen fuer jpackage:
 MAIN_JAR="bitchanger-$VERSION-jar-with-dependencies.jar"
-INPUT="target"
-OUT="installer"
+INPUT="installer/source/Mac"
+OUT="installer/${VERSION}/macOS"
 # set ICON =
 
 # Weitere Befehle fuer jpackage:
@@ -43,7 +44,7 @@ do
 	echo ""
 	
 	/Library/Java/jdk-14.jdk/Contents/Home/bin/jpackage \
-	--type dmg \
+	--type $TYPE \
 	--name "${NAME}" \
 	--description "${DESCRIPTION}" \
 	--vendor "${VENDOR}" \

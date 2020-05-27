@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import bitchanger.gui.scenes.Controllable;
+import bitchanger.gui.views.Controllable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -44,6 +44,8 @@ public class AlphaNumGrid implements Controllable {
 	public AlphaNumGrid(double spacing) {
 		this.buttonList = new ArrayList<Node>();
 		this.buttonMap = new HashMap<String, Button>();
+		
+		// TODO Settings -> Comma 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		this.comma = CommaSymbol.COMMA_DE;
 		this.spacing = spacing;
 		this.isShowingKeyboard = false;
@@ -132,9 +134,9 @@ public class AlphaNumGrid implements Controllable {
 		// Buttons in der letzten Zeile erstellen
 		createControllButtons();
 		
-		Button signBtn = new RoundButton("\u00B1");
+		Button signBtn = new ExtendedButton("\u00B1");
 		Button num0 = new ValueButton("0");
-		Button commaBtn = new RoundButton(comma.get());
+		Button commaBtn = new ExtendedButton(comma.get());
 		
 		Button[] lastRow = {signBtn, num0, commaBtn};
 		String[] lastRowKeys = {SIGN_BTN, NUM_0_BTN, COMMA_BTN};
@@ -144,11 +146,11 @@ public class AlphaNumGrid implements Controllable {
 	}
 	
 	private void createControllButtons() {
-		keyboardBtn = new RoundButton("Keyboard");
+		keyboardBtn = new ExtendedButton("KEYB");
 		setNextButton(keyboardBtn, 0, 3);		
 		
-		previousBtn = new RoundButton("<");
-		nextBtn = new RoundButton(">");
+		previousBtn = new ExtendedButton("<");
+		nextBtn = new ExtendedButton(">");
 		previousBtn.setDisable(true);
 		
 		arrowButtons = new HBox();
@@ -315,7 +317,7 @@ public class AlphaNumGrid implements Controllable {
 		setAlphaButtons('A');
 		setNumButtons();
 		
-		keyboardBtn.setText("Keyboard");
+		keyboardBtn.setText("KEYB");
 		
 		GridPane.setColumnSpan(arrowButtons, 1);
 		

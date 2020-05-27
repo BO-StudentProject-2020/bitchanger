@@ -3,7 +3,7 @@ package bitchanger.gui.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import bitchanger.gui.scenes.Controllable;
+import bitchanger.gui.views.Controllable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -13,13 +13,11 @@ public abstract class ControllerBase {
 	protected HashMap<String, TextField> textFieldMap;
 	protected HashMap<String, Button> buttonMap;
 	protected ArrayList<Node> allButtons;
-	protected String comma;
 	
 	protected ControllerBase(Controllable view) {
 		this.textFieldMap = view.getTextFields();
 		this.buttonMap = view.getButtons();
 		this.allButtons = view.getButtonList();
-		comma = ",";
 	}
 	
 	public abstract void setControlls();

@@ -1,6 +1,6 @@
 package bitchanger.gui.controller;
 
-import bitchanger.gui.scenes.Controllable;
+import bitchanger.gui.views.Controllable;
 
 public class AlphaNumGridController extends ControllerBase {
 

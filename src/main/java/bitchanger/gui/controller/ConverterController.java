@@ -1,9 +1,15 @@
 package bitchanger.gui.controller;
 
 import java.util.List;
-import bitchanger.components.ChangeableNumbers;
-import bitchanger.components.Numbers;
-import bitchanger.gui.scenes.Controllable;
+import bitchanger.components.ChangeableNumber;
+import bitchanger.components.Settings;
+import bitchanger.components.SimpleChangeableNumber;
+import bitchanger.gui.elements.ValueButton;
+import bitchanger.gui.elements.ValueField;
+import bitchanger.gui.views.Controllable;
+import bitchanger.gui.views.ConverterView;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -18,8 +24,9 @@ import javafx.scene.layout.Pane;
 public class ConverterController extends ControllerBase {
 
 	// Attribute
-	private ChangeableNumbers value;
+	private ChangeableNumber value;
 	private Spinner<Integer> anyBase;
+	private IntegerProperty baseProperty;
 
 	// TextFields
 	private TextField tfHex;
@@ -38,7 +45,9 @@ public class ConverterController extends ControllerBase {
 
 	public ConverterController(Controllable view) {
 		super(view);
-		this.value = new Numbers();
+		this.value = new SimpleChangeableNumber();
+		this.baseProperty = new SimpleIntegerProperty();
+		this.anyBase = ((ConverterView) view).getBaseSpinner();
 	}
 
 	@Override
@@ -47,7 +56,25 @@ public class ConverterController extends ControllerBase {
 		initButtons();
 
 		setTextFieldActions();
+		setSpinnerActions();
 		setButtonActions();
+		setInitialState();
+	}
+
+	private void setSpinnerActions() {
+		anyBase.valueProperty().addListener(new ChangeListener<Integer>() {
+			@Override
+			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newBase) {
+				((ValueField) tfAny).setBase(newBase);
+				setTexts(false, false, false, false, true);
+			}
+		});
+	}
+
+	private void setInitialState() {
+		tfDec.requestFocus();
+		focusedTF = tfDec;
+		baseProperty.set(10);
 	}
 
 	private void setButtonActions() {
@@ -86,9 +113,14 @@ public class ConverterController extends ControllerBase {
 			public void handle(ActionEvent event) {
 				if (focusedTF.getLength() <= 0) {
 					focusedTF.setText("0");
+					focusedTF.positionCaret(1);
 				}
-				focusedTF.setText(focusedTF.getText() + comma);
-				focusedTF.positionCaret(focusedTF.getLength());
+				
+				int caretPos = focusedTF.getCaretPosition();
+				StringBuffer sb = new StringBuffer(focusedTF.getText());
+				sb.insert(caretPos, Settings.getComma());
+				focusedTF.setText(sb.toString());
+				focusedTF.positionCaret(caretPos + 1);
 			}
 		});
 	}
@@ -98,8 +130,11 @@ public class ConverterController extends ControllerBase {
 			@Override
 			public void handle(ActionEvent event) {
 				if (focusedTF.getLength() > 0) {
-					focusedTF.setText(focusedTF.getText().substring(0, focusedTF.getLength() - 1));
-					focusedTF.positionCaret(focusedTF.getLength());
+					int newCaretPos = focusedTF.getCaretPosition() - 1;
+					StringBuffer sb = new StringBuffer(focusedTF.getText());
+					sb.deleteCharAt(newCaretPos);
+					focusedTF.setText(sb.toString());
+					focusedTF.positionCaret(newCaretPos);
 				}
 			}
 		});
@@ -110,25 +145,40 @@ public class ConverterController extends ControllerBase {
 			@Override
 			public void handle(ActionEvent event) {
 				value.reset();
+				tfHex.setText("");
 				setTexts(true, true, true, true, true);
+				
 			}
 		});
 	}
 
 	private void setAlphaNumActions() {
 		for (Button b : alphaNumButtons) {
-			b.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if (focusedTF.getText() == null) {
-						focusedTF.setText(b.getText());
-					} else {
-						focusedTF.setText(focusedTF.getText() + b.getText());
-					}
-					focusedTF.positionCaret(focusedTF.getLength());
-				}
-			});
+			setAlphaNumOnAction(b);
+			setAlphaNumBaseBinding(b);
 		}
+	}
+
+	private void setAlphaNumBaseBinding(Button b) {
+		((ValueButton)b).getBaseProperty().bind(baseProperty);
+	}
+
+	private void setAlphaNumOnAction(Button b) {
+		b.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (focusedTF.getText() == null) {
+					focusedTF.setText(b.getText());
+					focusedTF.positionCaret(focusedTF.getLength());
+				} else {
+					int caretPos = focusedTF.getCaretPosition();
+					StringBuffer sb = new StringBuffer(focusedTF.getText());
+					sb.insert(caretPos, b.getText());
+					focusedTF.setText(sb.toString());
+					focusedTF.positionCaret(caretPos + 1);
+				}
+			}
+		});
 	}
 
 	private void setButtonSelection(List<Node> btnList) {
@@ -174,9 +224,12 @@ public class ConverterController extends ControllerBase {
 		tfOct = this.textFieldMap.get("octTF");
 		tfBin = this.textFieldMap.get("binTF");
 		tfAny = this.textFieldMap.get("anyTF");
-
-		tfDec.requestFocus();
-		focusedTF = tfDec;
+		
+		((ValueField) tfHex).setBase(16);
+		((ValueField) tfDec).setBase(10);
+		((ValueField) tfOct).setBase(8);
+		((ValueField) tfBin).setBase(2);
+		((ValueField) tfAny).setBase(anyBase.getValue());
 	}
 
 	private void setTextFieldActions() {
@@ -197,6 +250,7 @@ public class ConverterController extends ControllerBase {
 				@Override
 				public void handle(MouseEvent event) {
 					focusedTF = tf;
+					baseProperty.set(((ValueField)tf).getBase());
 				}
 			});
 		}

@@ -22,7 +22,45 @@ import java.util.Scanner;
 public class ConvertingNumbers {
 	
 	
-	
+	public static boolean isValueToBase(String value, int base) {
+
+		char[] characters = value.toUpperCase().toCharArray();
+
+		// maximale Zahlen-Ziffer im Zahlensystem zur Basis
+		char end = (char) ('0' + base - 1);
+		boolean hasComma = false;
+
+		// Ueberpruefen, ob verbotene Zeichen enthalten sind
+		for(int i = 0; i < characters.length; i++) {
+			char character = characters[i];
+			
+			if ((character < '0' || character > end)) {
+				// keine oder falsche Zahlen-Ziffer
+				if (character < 'A' || character > ('A' + base - 11)) {
+					// kein oder falscher Buchstabe zur geg. Basis
+					if (character == Settings.getComma()) {
+						// Es handelt sich um ein Komma
+						if (hasComma) {
+							// mehr als ein Komma in einer Zahl nicht erlaubt
+							return false;
+						}
+						hasComma = true;
+						continue;
+					} else if (i == 0 && (character == '+' || character == '-')) {
+						// Vorzeichen an der ersten Stelle erlaubt
+						continue;
+					} else {
+						// Es handelt sich um ein anderes, verbotenes Zeichen -> keine Zahl zur
+						// gegebenen Basis
+						return false;
+					}
+				}
+			}
+		}
+
+		// Kein verbotenes Zeichen, es handelt sich um eine Zahl zur gegebenen Basis
+		return true;
+	}
 	
 	
 	/**
@@ -78,7 +116,7 @@ public class ConvertingNumbers {
 	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code wert} ein '-' ist, 
 	 * 											da negative Zahlen hier nicht erlaubt sind
 	 */
-	public static String basisToDezString(int base, String value, String separator) throws NullPointerException, NumberFormatException, UnsupportedOperationException {	
+	public static String basisToDezString(int base, String value, char separator) throws NullPointerException, NumberFormatException, UnsupportedOperationException {	
 		// Übergebene Zahl in ganzen Anteil und Nachkommastellen trennen
 		value = value.toUpperCase();
 		String ganzerWert = separiereGanzenAnteil(base,value);
@@ -126,7 +164,7 @@ public class ConvertingNumbers {
 	 * @throws 	UnsupportedOperationException	wenn das erste Zeichen des Parameters {@code dezWert} ein '-' ist, 
 	 * 											da negative Zahlen hier nicht erlaubt sind
 	 */
-	public static String dezToBasis(int base, String dezValue, String separator) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
+	public static String dezToBasis(int base, String dezValue, char separator) throws NullPointerException, NumberFormatException, UnsupportedOperationException {
 		// ganzen Anteil (Basis 10) separieren und in long umwandeln
 		long ganzerWert = Long.parseLong(separiereGanzenAnteil(dezValue));
 		
@@ -161,7 +199,7 @@ public class ConvertingNumbers {
 	 * @throws UnsupportedOperationException	wenn einer der Parameters {@code ganzerAnteil} oder {@code nachKomma} 
 	 * 											kleiner als 0 sind, da negative Zahlen hier nicht erlaubt sind
 	 */
-	public static String dezToBasis(int base, long integer, double decimalPlace, String separator) throws UnsupportedOperationException{
+	public static String dezToBasis(int base, long integer, double decimalPlace, char separator) throws UnsupportedOperationException{
 		String neueBasis = "";
 		
 		// überprüfen ob alle Zahlen positiv sind
@@ -264,7 +302,7 @@ public class ConvertingNumbers {
 		return ergebnisGanz;
 	}
 		
-	private static String wandelVonDezimalNachkommaIt(int basis, double nachKomma, int anzahlStellenMax, String separator) {
+	private static String wandelVonDezimalNachkommaIt(int basis, double nachKomma, int anzahlStellenMax, char separator) {
 		// Berechnen der Stellen nach dem Komma mit Hilfe von Multiplikation mit der Basis
 		
 		if(anzahlStellenMax <= 0) {

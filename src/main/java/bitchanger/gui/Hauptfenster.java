@@ -1,7 +1,7 @@
 package bitchanger.gui;
 
-import bitchanger.gui.scenes.ConverterView;
-import bitchanger.gui.scenes.Viewable;
+import bitchanger.gui.views.ConverterView;
+import bitchanger.gui.views.Viewable;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,8 +27,11 @@ public class Hauptfenster extends Application{
 		currentView = converterView;
 		currentScene = converterView.getScene();
 		
+		// TODO Testzeile entfernen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+		currentScene.getStylesheets().setAll("Layout.css");
+		
 		primaryStage.setScene(currentScene);
-		primaryStage.setTitle("Bitchanger 0.0.1");
+		primaryStage.setTitle("Bitchanger 0.1.2");
 		
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
 		primaryStage.showingProperty().addListener(new ChangeListener<Boolean>() {

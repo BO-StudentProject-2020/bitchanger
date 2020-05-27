@@ -1,15 +1,30 @@
 package bitchanger.components;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 public class Settings {
 	
-	private static Comma comma;
+	public static void load() {
+		// TODO load Settings from File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	}
 	
-	public static String getComma() {
-		return String.valueOf(comma.getComma());
+	public static void store() {
+		// TODO store changed Settings in File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	}
+	
+	private static ObjectProperty<Comma> commaProperty = new SimpleObjectProperty<Settings.Comma>(Comma.COMMA_DE);
+	
+	public static char getComma() {
+		return commaProperty.getValue().get();
+	}
+	
+	public static ObjectProperty<Comma> getCommaProperty() {
+		return commaProperty;
 	}
 	
 	public static void setComma(Comma comma) {
-		Settings.comma = comma;
+		commaProperty.setValue(comma);
 	}
 	
 	
@@ -23,14 +38,10 @@ public class Settings {
 			this.comma = comma;
 		}
 		
-		public char getComma() {
+		public char get() {
 			return this.comma;
 		}
-	}
-	
-	
-	public static String getComma() {
 		
-		return comma;
 	}
+	
 }

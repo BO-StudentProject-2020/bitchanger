@@ -1,96 +1,43 @@
 @echo off
-rem Dieses Script erstellt mit Hilfe des jpackage Tools (OpenJDK14) aus einer ausfÅhrbaren JAR Datei
-rem einen nativen Installer fÅr Windows. Alle von dem Java Programm benîtigten Komponenten (JRE, javaFX, ...)
-rem werden dabei mit in den Installer eingebunden, sodass das Programm nach der Installation auf jedem Windows Betriebssystem
-rem unabhÑngig von anderen Programmen oder Installationen lauffÑhig ist.
+rem Dieses Skript erstellt mit Hilfe von Maven eine ausfuehrbare JAR-Datei aus dem Java-Projekt, kopiert diese in das
+rem Verzeichnis "installer\source" und erzeugt dann mit einem weiteren Skript Plattformspezifische Installer fuer Windows.
+rem Es werden zwei Installer in den gaengigen Formaten bereitgestellt (.exe und .msi)
 
-rem Es werden zwei Installer in den gÑngigen Formaten bereitgestellt (.exe und .msi)
+rem ---- Benoetigte Informationen in Variablen speichern ----------------------------------------------------------------
 
-rem ---- Benîtigte Informationen in Variablen speichern ----------------------------------------------------------------
-
-rem Mit den folgeneden Variablen kînnen die Grundlegenden Daten fÅr das Projekt eingestellt werden:
+rem Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 set NAME=Bitchanger
-set DESCRIPTION="Rechner fÅr beliebige Zahlensysteme"
-set VERSION=0.0.1
+set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
+set VERSION=0.1.2
 set VENDOR=Entwicklungsprojekt_EB2020
-rem set COPYRIGHT = ""
-rem set LICENSE_FILE = ""
 
-rem Einstellungen fuer jpackage:
-set MAIN_JAR=bitchanger-%VERSION%-jar-with-dependencies.jar
-set INPUT=target
-set OUT=installer
-rem set ICON =
+set INPUT=installer\source\Windows
+set OUT=installer\%VERSION%\Windows
 
-rem Weitere Befehle fÅr jpackage:
-rem Installationspfad bei der Installation auswÑhlbar: --win-dir-chooser
-rem Shortcut auf dem Desktop: --win-shortcut
-rem In das StartmenÅ aufnehmen: --win-menu
-rem StartmenÅgruppe aufwÑhlen: --win-menu-group <menu-group-name>
-rem Installation auf Benutzerbasis: --win-per-user-install
-rem App Icon Ñndern: --icon <path/to/icon.ico>
-rem Linzenz Datei: --license-file <file>
 
 rem ---- Maven build -----------------------------------------------------------------------------------------------------
 echo.
-echo Maven Bulid durchfÅhren
+echo Maven Bulid durchfuehren
 echo.
 @echo on
 call mvn clean install
 @echo off
 
+
+rem ---- JARs sichern ----------------------------------------------------------------------------------------------------
+echo JAR-Dateien kopieren
+if not exist %INPUT% mkdir %INPUT%
+@echo on
+copy target\bitchanger-%VERSION%-jar-with-dependencies.jar %INPUT%\bitchanger-%VERSION%-jar-with-dependencies.jar
+copy target\bitchanger-%VERSION%.jar %INPUT%\bitchanger-%VERSION%.jar
+@echo off
+
+
 rem ---- Installer erzeugen ----------------------------------------------------------------------------------------------
-
 echo.
-echo Installer fÅr Windows werden erzeugt.
-echo.
-
-rem ---- exe ----
-echo %NAME%-%VERSION%.exe wird erstellt
-echo.
+echo Installer fuer Windows werden erzeugt.
 @echo on
-jpackage ^
---type exe ^
---name %NAME% ^
---description %DESCRIPTION% ^
---vendor %VENDOR% ^
---app-version %VERSION% ^
---input %INPUT% ^
---dest %OUT% ^
---main-jar %MAIN_JAR% ^
---win-dir-chooser ^
---win-shortcut ^
---win-menu ^
---win-menu-group  
-
+build_installer_win.bat VERSION=%VERSION% INPUT=%INPUT% OUT=%OUT%
 @echo off
 echo.
-echo.
-
-rem ---- msi ----
-echo %NAME%-%VERSION%.msi wird erstellt
-echo.
-@echo on
-
-jpackage ^
---type msi ^
---name %NAME% ^
---description %DESCRIPTION% ^
---vendor %VENDOR% ^
---app-version %VERSION% ^
---input %INPUT% ^
---dest %OUT% ^
---main-jar %MAIN_JAR% ^
---win-dir-chooser ^
---win-shortcut ^
---win-menu ^
---win-menu-group  
-
-@echo off
-echo.
-echo.
-
-rem ---- Auf BestÑtigung von Benutzer warten -----------------------------------------------------------------------------
-echo "Zum Abschlie·en eine beliebige Taste drÅcken"
-pause
 
