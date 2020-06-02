@@ -26,7 +26,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public void setHex(String hexValue) {
-		this.setDec(ConvertingNumbers.basisToDezString(16, hexValue.toUpperCase(), Settings.getComma()));
+		this.initDezimalString(ConvertingNumbers.basisToDezString(16, hexValue.toUpperCase(), Settings.getComma()));
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -46,7 +46,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public void setDec(String decValue) {
-		initDezimalString(decValue);
+		// Aufruf von basisToDezString noetig, damit die Exceptions bei falscher Eingabe geworfen werden
+		initDezimalString(ConvertingNumbers.basisToDezString(10, decValue));
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -66,7 +67,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public void setOct(String octValue) {
-		this.setDec(ConvertingNumbers.basisToDezString(8, octValue, Settings.getComma()));
+		this.initDezimalString(ConvertingNumbers.basisToDezString(8, octValue, Settings.getComma()));
 
 	}
 
@@ -87,14 +88,14 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public void setBin(String binValue) {
-		this.setDec(ConvertingNumbers.basisToDezString(2, binValue, Settings.getComma()));
+		this.initDezimalString(ConvertingNumbers.basisToDezString(2, binValue, Settings.getComma()));
 
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	@Override
 	public void setValue(String value, int baseOfValue) {
-		this.setDec(ConvertingNumbers.basisToDezString(baseOfValue, value, Settings.getComma()));
+		this.initDezimalString(ConvertingNumbers.basisToDezString(baseOfValue, value, Settings.getComma()));
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
