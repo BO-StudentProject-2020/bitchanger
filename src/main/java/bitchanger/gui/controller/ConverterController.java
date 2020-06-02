@@ -145,7 +145,6 @@ public class ConverterController extends ControllerBase {
 			@Override
 			public void handle(ActionEvent event) {
 				value.reset();
-				tfHex.setText("");
 				setTexts(true, true, true, true, true);
 				
 			}
