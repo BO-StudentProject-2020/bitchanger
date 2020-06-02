@@ -33,11 +33,15 @@
 	-fx-text-fill: red;
 }
 
-.button:hover 
-{
+.button:hover {
   -fx-background-color: yellow;
 } 
-.button:pressed
-{
+.button:pressed {
   -fx-background-color: brown;
+}
+
+.button:disabled {
+}
+
+.text-field:focused {
 }
