@@ -44,8 +44,12 @@ mvn clean install
 echo ""
 echo JAR-Dateien kopieren
 
-cp target/bitchanger-$VERSION-jar-with-dependencies.jar $INPUT/bitchanger-$VERSION-jar-with-dependencies.jar
-cp target/bitchanger-$VERSION.jar $INPUT/bitchanger-$VERSION.jar
+mkdir $OUT
+mkdir $INPUT/jpackage
+mkdir $INPUT/$VERSION
+
+cp target/bitchanger-$VERSION-jar-with-dependencies.jar $INPUT/$VERSION/bitchanger-$VERSION-jar-with-dependencies.jar
+cp target/bitchanger-$VERSION.jar $INPUT/$VERSION/bitchanger-$VERSION.jar
 
 rm -r -f $INPUT/jpackage/*	# Eingabeordner fuer jpackage leeren
 cp target/bitchanger-$VERSION-jar-with-dependencies.jar $INPUT/jpackage/bitchanger-$VERSION.jar
