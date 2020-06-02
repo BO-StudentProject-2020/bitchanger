@@ -11,13 +11,13 @@ rem ---- Benoetigte Informationen in Variablen speichern -----------------------
 rem Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 set NAME=Bitchanger
 set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-if not defined VERSION set VERSION=0.1.2
+if not defined VERSION set VERSION=0.1.3
 set VENDOR=Entwicklungsprojekt_EB2020
 rem set COPYRIGHT = ""
 rem set LICENSE_FILE = ""
 
 rem Einstellungen fuer jpackage:
-set MAIN_JAR=bitchanger-%VERSION%-jar-with-dependencies.jar
+set MAIN_JAR=bitchanger-%VERSION%.jar
 if not defined INPUT set INPUT=installer\source\Windows
 if not defined OUT set OUT=installer\%VERSION%\Windows
 rem set ICON =
@@ -48,7 +48,7 @@ jpackage ^
 --description %DESCRIPTION% ^
 --vendor %VENDOR% ^
 --app-version %VERSION% ^
---input %INPUT% ^
+--input %INPUT%\jpackage ^
 --dest %OUT% ^
 --main-jar %MAIN_JAR% ^
 --win-dir-chooser ^
@@ -71,7 +71,7 @@ jpackage ^
 --description %DESCRIPTION% ^
 --vendor %VENDOR% ^
 --app-version %VERSION% ^
---input %INPUT% ^
+--input %INPUT%\jpackage ^
 --dest %OUT% ^
 --main-jar %MAIN_JAR% ^
 --win-dir-chooser ^

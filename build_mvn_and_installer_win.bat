@@ -8,7 +8,7 @@ rem ---- Benoetigte Informationen in Variablen speichern -----------------------
 rem Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 set NAME=Bitchanger
 set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-set VERSION=0.1.2
+set VERSION=0.1.3
 set VENDOR=Entwicklungsprojekt_EB2020
 
 set INPUT=installer\source\Windows
@@ -26,10 +26,12 @@ call mvn clean install
 
 rem ---- JARs sichern ----------------------------------------------------------------------------------------------------
 echo JAR-Dateien kopieren
-if not exist %INPUT% mkdir %INPUT%
+if not exist %INPUT%\%VERSION% mkdir %INPUT%\%VERSION%
+if exist %INPUT%\jpackage del /Q jpackage	rem Eingabeordner fuer jpackage leeren
 @echo on
-copy target\bitchanger-%VERSION%-jar-with-dependencies.jar %INPUT%\bitchanger-%VERSION%-jar-with-dependencies.jar
-copy target\bitchanger-%VERSION%.jar %INPUT%\bitchanger-%VERSION%.jar
+copy target\bitchanger-%VERSION%-jar-with-dependencies.jar %INPUT%\%VERSION%\bitchanger-%VERSION%-jar-with-dependencies.jar
+copy target\bitchanger-%VERSION%.jar %INPUT%\%VERSION%\bitchanger-%VERSION%.jar
+copy target\bitchanger-%VERSION%-jar-with-dependencies.jar %INPUT%\jpackage\bitchanger-%VERSION%.jar
 @echo off
 
 
