@@ -1,9 +1,11 @@
 package bitchanger.gui.controller;
 
 import java.util.List;
+
 import bitchanger.components.ChangeableNumber;
 import bitchanger.components.Settings;
 import bitchanger.components.SimpleChangeableNumber;
+import bitchanger.gui.elements.BaseSpinner;
 import bitchanger.gui.elements.ValueButton;
 import bitchanger.gui.elements.ValueField;
 import bitchanger.gui.views.Controllable;
@@ -16,8 +18,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -25,16 +27,16 @@ public class ConverterController extends ControllerBase {
 
 	// Attribute
 	private ChangeableNumber value;
-	private Spinner<Integer> anyBase;
+	private BaseSpinner<Integer> anyBase;
 	private IntegerProperty baseProperty;
 
 	// TextFields
-	private TextField tfHex;
-	private TextField tfDec;
-	private TextField tfBin;
-	private TextField tfOct;
-	private TextField tfAny;
-	private TextField focusedTF;
+	private ValueField tfHex;
+	private ValueField tfDec;
+	private ValueField tfBin;
+	private ValueField tfOct;
+	private ValueField tfAny;
+	private ValueField focusedTF;
 
 	// Buttons
 	private Button clearBtn;
@@ -47,7 +49,7 @@ public class ConverterController extends ControllerBase {
 		super(view);
 		this.value = new SimpleChangeableNumber();
 		this.baseProperty = new SimpleIntegerProperty();
-		this.anyBase = ((ConverterView) view).getBaseSpinner();
+		this.anyBase = (BaseSpinner<Integer>) ((ConverterView) view).getBaseSpinner();
 	}
 
 	@Override
@@ -65,10 +67,41 @@ public class ConverterController extends ControllerBase {
 		anyBase.valueProperty().addListener(new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newBase) {
-				((ValueField) tfAny).setBase(newBase);
 				setTexts(false, false, false, false, true);
 			}
 		});
+		
+
+		anyBase.getEditor().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				focusedTF.requestFocus();
+			}
+		});
+		
+		// Focus nach Klick auf Button abgeben
+		anyBase.skinProperty().addListener(e -> {
+			for(Node n: anyBase.getChildren()) {
+				if(isArrowButton(n)) {
+					n.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+						@Override
+						public void handle(MouseEvent event) {
+							focusedTF.requestFocus();
+						}
+					});
+				}
+			}
+		});
+	}
+	
+	private boolean isArrowButton(Node n) {
+		for(String s: n.getStyleClass()) {
+			if(s.contains("arrow-button")) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	private void setInitialState() {
@@ -129,13 +162,15 @@ public class ConverterController extends ControllerBase {
 		backspcBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (focusedTF.getLength() > 0) {
-					int newCaretPos = focusedTF.getCaretPosition() - 1;
-					StringBuffer sb = new StringBuffer(focusedTF.getText());
-					sb.deleteCharAt(newCaretPos);
-					focusedTF.setText(sb.toString());
-					focusedTF.positionCaret(newCaretPos);
-				}
+				// Simulate Backspace-Key
+				KeyEvent pressed = new KeyEvent(backspcBtn, focusedTF, KeyEvent.KEY_PRESSED, "", "", KeyCode.BACK_SPACE, false, false, false, false);
+				focusedTF.fireEvent(pressed);
+				
+				KeyEvent typed = new KeyEvent(backspcBtn, focusedTF, KeyEvent.KEY_TYPED, "", "", KeyCode.BACK_SPACE, false, false, false, false);
+				focusedTF.fireEvent(typed);
+				
+				KeyEvent released = new KeyEvent(backspcBtn, focusedTF, KeyEvent.KEY_RELEASED, "", "", KeyCode.BACK_SPACE, false, false, false, false);
+				focusedTF.fireEvent(released);
 			}
 		});
 	}
@@ -146,7 +181,6 @@ public class ConverterController extends ControllerBase {
 			public void handle(ActionEvent event) {
 				value.reset();
 				setTexts(true, true, true, true, true);
-				
 			}
 		});
 	}
@@ -191,6 +225,7 @@ public class ConverterController extends ControllerBase {
 	}
 
 	private void setBtnFocusedProperty(Node button) {
+		// Alternativ: -> ExtendedButton -> setFocusTraversable(false);
 		button.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean focused) {
@@ -218,17 +253,17 @@ public class ConverterController extends ControllerBase {
 	}
 
 	private void initTextFields() {
-		tfHex = this.textFieldMap.get("hexTF");
-		tfDec = this.textFieldMap.get("decTF");
-		tfOct = this.textFieldMap.get("octTF");
-		tfBin = this.textFieldMap.get("binTF");
-		tfAny = this.textFieldMap.get("anyTF");
+		tfHex = (ValueField) this.textFieldMap.get("hexTF");
+		tfDec = (ValueField) this.textFieldMap.get("decTF");
+		tfOct = (ValueField) this.textFieldMap.get("octTF");
+		tfBin = (ValueField) this.textFieldMap.get("binTF");
+		tfAny = (ValueField) this.textFieldMap.get("anyTF");
 		
-		((ValueField) tfHex).setBase(16);
-		((ValueField) tfDec).setBase(10);
-		((ValueField) tfOct).setBase(8);
-		((ValueField) tfBin).setBase(2);
-		((ValueField) tfAny).setBase(anyBase.getValue());
+		tfHex.setBase(16);
+		tfDec.setBase(10);
+		tfOct.setBase(8);
+		tfBin.setBase(2);
+		tfAny.getBaseProperty().bind(anyBase.valueProperty());
 	}
 
 	private void setTextFieldActions() {
@@ -242,14 +277,14 @@ public class ConverterController extends ControllerBase {
 	}
 
 	private void setTFSelection() {
-		TextField[] textfields = { tfHex, tfDec, tfOct, tfBin, tfAny };
+		ValueField[] textfields = { tfHex, tfDec, tfOct, tfBin, tfAny };
 
-		for (TextField tf : textfields) {
+		for (ValueField tf : textfields) {
 			tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
 					focusedTF = tf;
-					baseProperty.set(((ValueField)tf).getBase());
+					baseProperty.bind(tf.getBaseProperty());
 				}
 			});
 		}
