@@ -34,6 +34,9 @@ public class ExtendedButton extends Button{
 	/*	Ellipse shape = new Ellipse(500, 500);
 		this.setShape(shape);
 	*/	
+		
+		this.setFocusTraversable(false);
+		
 		Rectangle shape = new Rectangle(50, 50);
 		shape.setArcHeight(0);
 		shape.setArcWidth(0);
