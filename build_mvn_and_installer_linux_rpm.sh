@@ -61,7 +61,7 @@ echo ""
 echo "Installer fuer Linux werden erzeugt."
 echo ""
 
-for TYPE in "deb" "rpm"
+for TYPE in "rpm"
 do
 	echo "${NAME-$VERSION}.${TYPE} wird erstellt"
 	echo ""
