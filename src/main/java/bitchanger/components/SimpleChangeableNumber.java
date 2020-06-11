@@ -2,16 +2,20 @@ package bitchanger.components;
 
 import java.util.Objects;
 
+import bitchanger.preferences.Preferences;
+
 public class SimpleChangeableNumber implements ChangeableNumber {
 
-	private String binWert;
-	private String dezWert;
-	private String hexWert;
-	private String octalWert;
+	
+	// Attribute
+	private String binValue;
+	private String decValue;
+	private String hexValue;
+	private String octalValue;
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/**
-	 * Überschreibt alle Werte dieser {@code Zahl} mit dem hexadezimalen Wert
+	/*
+	 * �berschreibt alle Werte dieser {@code Zahl} mit dem hexadezimalen Wert
 	 * {@code binary}
 	 * 
 	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
@@ -26,32 +30,32 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public void setHex(String hexValue) {
-		this.initDezimalString(ConvertingNumbers.basisToDezString(16, hexValue.toUpperCase(), Settings.getComma()));
+		this.initDezimalString(ConvertingNumbers.baseToDecString(16, hexValue.toUpperCase(), Preferences.getComma()));
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/**
-	 * Überschreibt alle Werte dieser {@code Zahl} mit dem Parameter
+	/*
+	 * �berschreibt alle Werte dieser {@code Zahl} mit dem Parameter
 	 * {@code dezimalWert}
 	 * 
 	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
 	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der uebergebene {@code String}
+	 * @throws NumberFormatException         wenn der �bergebene {@code String}
 	 *                                       keine umwandelbare Zahl ist.
 	 * @throws UnsupportedOperationException wenn das erste Zeichen ein '-' ist, da
-	 *                                       negative Zahlen nicht unterstuetzt
+	 *                                       negative Zahlen nicht unterst�tzt
 	 *                                       werden
 	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem
-	 *                    diese {@code Zahl} ueberschriben wird
+	 *                    diese {@code Zahl} �berschriben wird
 	 */
 	@Override
 	public void setDec(String decValue) {
 		// Aufruf von basisToDezString noetig, damit die Exceptions bei falscher Eingabe geworfen werden
-		initDezimalString(ConvertingNumbers.basisToDezString(10, decValue));
+		initDezimalString(decValue);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/**
+	/*
 	 * Überschreibt alle Werte dieser {@code Zahl} mit dem oktalen Wert
 	 * {@code binary}
 	 * 
@@ -67,12 +71,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public void setOct(String octValue) {
-		this.initDezimalString(ConvertingNumbers.basisToDezString(8, octValue, Settings.getComma()));
+		this.initDezimalString(ConvertingNumbers.baseToDecString(8, octValue, Preferences.getComma()));
 
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/**
+	/*
 	 * Überschreibt alle Werte dieser {@code Zahl} mit dem binären Wert
 	 * {@code binary}
 	 * 
@@ -88,14 +92,14 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public void setBin(String binValue) {
-		this.initDezimalString(ConvertingNumbers.basisToDezString(2, binValue, Settings.getComma()));
+		this.initDezimalString(ConvertingNumbers.baseToDecString(2, binValue, Preferences.getComma()));
 
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	@Override
 	public void setValue(String value, int baseOfValue) {
-		this.initDezimalString(ConvertingNumbers.basisToDezString(baseOfValue, value, Settings.getComma()));
+		this.initDezimalString(ConvertingNumbers.baseToDecString(baseOfValue, value, Preferences.getComma()));
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -106,7 +110,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	/**
+	/*
 	 * Gibt einen {@code String} zurueck, der die hexadezimale Darstellung dieser
 	 * {@code Zahl} repräsentiert
 	 * 
@@ -115,15 +119,11 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public String toHexString() {
-		if (this.hexWert == null) {
-			this.hexWert = ConvertingNumbers.dezToBasis(16, this.dezWert, Settings.getComma());
-		}
-
-		return this.hexWert;
+		return this.hexValue;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/**
+	/*
 	 * Gibt einen {@code String} zurueck, der die dezimale Darstellung dieser
 	 * {@code Zahl} repräsentiert
 	 * 
@@ -131,11 +131,11 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public String toDecString() {
-		return this.dezWert;
+		return this.decValue;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/**
+	/*
 	 * Gibt einen {@code String} zurueck, der die oktale Darstellung dieser
 	 * {@code Zahl} repräsentiert
 	 * 
@@ -143,15 +143,11 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public String toOctString() {
-		if (this.octalWert == null) {
-			this.octalWert = ConvertingNumbers.dezToBasis(8, this.dezWert, Settings.getComma());
-		}
-
-		return this.octalWert;
+		return this.octalValue;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/**
+	/*
 	 * Gibt einen {@code String} zurueck, der die binäre Darstellung dieser
 	 * {@code Zahl} repräsentiert
 	 * 
@@ -159,15 +155,11 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public String toBinString() {
-		if (this.binWert == null) {
-			this.binWert = ConvertingNumbers.dezToBasis(2, this.dezWert, Settings.getComma());
-		}
-
-		return this.binWert;
+		return this.binValue;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/**
+	/*
 	 * Gibt einen {@code String} zurueck, der die Darstellung dieser {@code Zahl} zu
 	 * der uebergebenen Basis repräsentiert
 	 * 
@@ -177,18 +169,30 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 *         zurueck.
 	 */
 	@Override
-	public String toBaseString(int base) {
+	public String toBaseString(int base) throws IllegalArgumentException {
+		if(base == 10) {
+			// Ungenauigkeiten beim Umwandeln ins Zehnersystem umgehen
+			return toDecString();
+		}
+		
 		try {
-			return ConvertingNumbers.dezToBasis(base, dezWert, Settings.getComma());
-		} catch (ArrayIndexOutOfBoundsException ae) {
+			return ConvertingNumbers.decToBase(base, decValue, Preferences.getComma());
+		} catch (IllegalArgumentException illArg) {
+			// Auf falsche Basis pr�fen
+			if(base < ConvertingNumbers.MIN_BASE || base > ConvertingNumbers.MAX_BASE) {
+				throw illArg;
+			}
+			
+			// decValue ist ein leerer String (reset Methode wurde aufgerufen)
 			return "";
 		} catch (Exception e) {
+			// Sollte nicht auftreten
 			throw e;
 		}
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
-	/**
+	/*
 	 * Gibt einen {@code String} zurueck, der die hexadezimale, dezimale, oktale und
 	 * binäre Darstellung dieser {@code Zahl} enthält.
 	 * 
@@ -203,28 +207,28 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
-	/**	
+	/*
 	 * Gibt einen {@code String} zurueck, der die Darstellung dieser {@code Zahl} zu der uebergebenen Basis repräsentiert
 	 * 
 	 * @param basis	Ein {@code int} Wert, der die Basis darstellt, in die diese {@code Zahl} ueberfuerht werden soll.
 	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl zurueck.
 	 */
 	public void reset() {
-		this.binWert = "";
-		this.dezWert = "";
-		this.hexWert = "";
-		this.octalWert = "";
+		this.binValue = "";
+		this.decValue = "";
+		this.hexValue = "";
+		this.octalValue = "";
 	}
 
 // Konstruktoren   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	/**	
+	/*
 		 * Erstellt eine neue {@code Zahl} mit dem dezimalen Wert 0,0
 		 */
 		public SimpleChangeableNumber() {
 			this("0");
 		}
 
-	/**
+	/*
 	 * Erstellt eine neue {@code Zahl} mit dem spezifischen dezimalen Wert.
 	 * 
 	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
@@ -243,7 +247,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	}
 
 // Initialisierung	  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	/**
+	/*
 	 * Initialisiet diese {@code Zahl} mit neuem dezimalem Wert aus dem uebergebenem
 	 * {@code double} Wert. Die Darstellungen anderer Zahlensysteme werden mit
 	 * {@code null} initialisiert.
@@ -259,22 +263,14 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 *                    diese {@code Zahl} ueberschrieben wird
 	 */
 	private void initDezimalString(String dezimalWert) throws NullPointerException {
-		this.dezWert = Objects.requireNonNull(dezimalWert);
-		this.hexWert = null;
-		this.octalWert = null;
-		this.binWert = null;
+		this.decValue = Objects.requireNonNull(dezimalWert);
+		this.hexValue = ConvertingNumbers.decToBase(16, this.decValue, Preferences.getComma());
+		this.octalValue = ConvertingNumbers.decToBase(8, this.decValue, Preferences.getComma());
+		this.binValue = ConvertingNumbers.decToBase(2, this.decValue, Preferences.getComma());
 	}
 
 // Getter und Setter  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	/**
-	 * Gibt den Wert des ganzzahligen Anteils dieser {@code Zahl} als {@code double}
-	 * zur Basis 10 zurueck.
-	 * 
-	 * @return ganzzahliger Anteil dieser {@code Zahl} zur Basis 10
-	 */
-	public long getGanzWert() {
-		return ConvertingNumbers.parseGanzenAnteil(this.dezWert);
-	}
+	
 
 	
 }

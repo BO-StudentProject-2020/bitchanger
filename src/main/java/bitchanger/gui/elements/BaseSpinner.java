@@ -32,20 +32,9 @@ public class BaseSpinner<T> extends Spinner<T>{
 			}
 		});
 	}
-	
-//	public void printNode(Node n) {
-//		if(n instanceof Parent) {
-//			for(Node x : ((Parent) n).getChildrenUnmodifiable()) {
-//				printNode(x);
-//			}
-//		}
-//		System.out.println(n.getClass());
-//		System.out.println(n);
-//	}
-	
+		
 	@Override
 	public ObservableList<Node> getChildren() {
-		// TODO Auto-generated method stub
 		return super.getChildren();
 	}
 

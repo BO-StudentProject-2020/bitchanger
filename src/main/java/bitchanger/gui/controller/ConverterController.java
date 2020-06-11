@@ -1,9 +1,9 @@
 package bitchanger.gui.controller;
 
 import java.util.List;
-
 import bitchanger.components.ChangeableNumber;
-import bitchanger.components.Settings;
+import bitchanger.components.ConvertingNumbers;
+import bitchanger.preferences.Preferences;
 import bitchanger.components.SimpleChangeableNumber;
 import bitchanger.gui.elements.BaseSpinner;
 import bitchanger.gui.elements.ValueButton;
@@ -67,7 +67,9 @@ public class ConverterController extends ControllerBase {
 		anyBase.valueProperty().addListener(new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newBase) {
-				setTexts(false, false, false, false, true);
+				if (newBase >= ConvertingNumbers.MIN_BASE && newBase <= ConvertingNumbers.MAX_BASE) {
+					setTexts(false, false, false, false, true);
+				}
 			}
 		});
 		
@@ -151,7 +153,7 @@ public class ConverterController extends ControllerBase {
 				
 				int caretPos = focusedTF.getCaretPosition();
 				StringBuffer sb = new StringBuffer(focusedTF.getText());
-				sb.insert(caretPos, Settings.getComma());
+				sb.insert(caretPos, Preferences.getComma());
 				focusedTF.setText(sb.toString());
 				focusedTF.positionCaret(caretPos + 1);
 			}
@@ -299,7 +301,6 @@ public class ConverterController extends ControllerBase {
 					try {
 						value.setHex(newValue);
 					} catch (Exception e) {
-						e.printStackTrace();
 						value.reset();
 					}
 					setTexts(false, true, true, true, true);
@@ -316,7 +317,6 @@ public class ConverterController extends ControllerBase {
 					try {
 						value.setDec(newValue);
 					} catch (Exception e) {
-						e.printStackTrace();
 						value.reset();
 					}
 					setTexts(true, false, true, true, true);
@@ -333,7 +333,6 @@ public class ConverterController extends ControllerBase {
 					try {
 						value.setOct(newValue);
 					} catch (Exception e) {
-						e.printStackTrace();
 						value.reset();
 					}
 					setTexts(true, true, false, true, true);
@@ -350,7 +349,6 @@ public class ConverterController extends ControllerBase {
 					try {
 						value.setBin(newValue);
 					} catch (Exception e) {
-						e.printStackTrace();
 						value.reset();
 					}
 					setTexts(true, true, true, false, true);
@@ -367,7 +365,6 @@ public class ConverterController extends ControllerBase {
 					try {
 						value.setValue(newValue, anyBase.getValue());
 					} catch (Exception e) {
-						e.printStackTrace();
 						value.reset();
 					}
 					setTexts(true, true, true, true, false);

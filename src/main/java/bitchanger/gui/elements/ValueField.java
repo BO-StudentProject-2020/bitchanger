@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Rectangle;
 
 public class ValueField extends TextField {
 
@@ -40,6 +41,13 @@ public class ValueField extends TextField {
 		this.baseProperty = new SimpleIntegerProperty();
 		this.lastCaretPosition = -1;
 		setListener();
+		
+		Rectangle shape = new Rectangle(50, 50);
+		shape.setArcHeight(0);
+		shape.setArcWidth(0);
+		
+		this.setShape(shape);
+		this.setScaleShape(true);
 	}
 	
 
@@ -47,7 +55,7 @@ public class ValueField extends TextField {
 		this.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(! ConvertingNumbers.isValueToBase(newValue, getBase())) {
+				if(! ConvertingNumbers.isValueToBase(getBase(), newValue)) {
 					int caretPos = getCaretPosition();
 					setText(oldValue);
 					positionCaret(caretPos-1);
@@ -61,7 +69,6 @@ public class ValueField extends TextField {
 				if(!hasSelection() && lastCaretPosition >= 0) {
 					lastCaretPosition = oldValue.intValue();	// letzte Curserposition speichern, fuer den Fall, dass das TF den Focus verliert und wieder ausgewaehlt wird
 				}
-				System.out.println(oldValue + " : " + newValue);
 			}
 		});
 		
@@ -80,7 +87,6 @@ public class ValueField extends TextField {
 							if (hasSelection()) {
 								deselect();
 								positionCaret(lastCaretPosition);
-								System.out.println("deselect " + lastCaretPosition);
 							}
 						}
 					});

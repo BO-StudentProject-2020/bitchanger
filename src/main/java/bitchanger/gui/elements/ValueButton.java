@@ -1,8 +1,8 @@
 package bitchanger.gui.elements;
 
 import bitchanger.components.ConvertingNumbers;
-import bitchanger.components.Settings;
-import bitchanger.components.Settings.Comma;
+import bitchanger.preferences.Preferences;
+import bitchanger.preferences.Comma;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -47,7 +47,7 @@ public class ValueButton extends ExtendedButton{
 		
 		
 		
-		Settings.getCommaProperty().addListener(new ChangeListener<Settings.Comma>() {
+		Preferences.getCommaProperty().addListener(new ChangeListener<Comma>() {
 			@Override
 			public void changed(ObservableValue<? extends Comma> observable, Comma oldValue, Comma newValue) {
 				
@@ -59,7 +59,7 @@ public class ValueButton extends ExtendedButton{
 		baseProperty.addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				if (ConvertingNumbers.isValueToBase(getText(), newValue.intValue())) {
+				if (ConvertingNumbers.isValueToBase(newValue.intValue(), getText())) {
 					setDisable(false);
 				} else {
 					setDisable(true);
@@ -72,7 +72,7 @@ public class ValueButton extends ExtendedButton{
 		textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(newValue.equals(" ") || !ConvertingNumbers.isValueToBase(getText(), baseProperty.get())) {
+				if(newValue.equals(" ") || !ConvertingNumbers.isValueToBase(baseProperty.get(), getText())) {
 					setDisable(true);
 				}
 				else {
