@@ -14,7 +14,7 @@ import bitchanger.preferences.Comma;
 /**
  * Die Klasse {@code ConvertingNumbers} enth�lt Methoden zum Umwandeln von Zahlen mit verschiedenen Zahlensystemen.
  * <p>
- * Die Methoden diese Klasse k�nnen sowohl ganze Zahlen als auch Kommazahlen mit positiven oder negativen Wert umwandeln.
+ * Die Methoden dieser Klasse k�nnen sowohl ganze Zahlen als auch Kommazahlen mit positiven oder negativen Wert umwandeln.
  * Es werden beliebige Zahlensysteme von der Basis 2 bis zur Basis 36 unterst�tzt, was dem Zeichenvorrat 0-9 und A-Z entspricht.
  * In der String-Darstellung k�nnen Zahlen mit Ziffern, Gro�buchstaben und Kleinbuchstaben an die Methoden dieser Klasse
  * �bergeben werden, allerdings enthalten die R�ckgaben in der String-Darstellung aller Methoden ausschlie�lich Zahlen 
@@ -636,6 +636,21 @@ public class ConvertingNumbers {
 	 * 
 	 * @see Preferences#setIndicateFractionalPrecision(boolean)
 	 */
+	
+	/*
+	 * Converts decimal places of decimal system into a value of any base as string representation.
+	 * If the indicator of decimal places is activated in the class {@code Preferences}
+	 * the cut decimal places caused due the maximum number of decimal places will be shown as "..."
+	 * 
+	 * @param newBase				Base of the new numeral system
+	 * @param fractionalPart		Decimal places of the decimal system
+	 * @param fractionalPrecision	Maximum number of decimal places in the result
+	 * @param comma					Character that is placed as comma before the part of decimal places
+	 * 
+	 * @return	converted decimal places of the new base with leading comma as string representation
+	 * 
+	 * @see Preferences#setIndicateFractionalPrecision(boolean)
+	 */
 	private static String convertDecFractionalToBaseString(int newBase, double fractionalPart, int fractionalPrecision, char comma) {
 		// Berechnen der Stellen nach dem Komma mit Hilfe von Multiplikation mit der Basis
 		
@@ -685,6 +700,15 @@ public class ConvertingNumbers {
 	 * 
 	 * @see #valueOfDigit(char)
 	 */
+	
+	/*
+	 * Calculates the char for a value.
+	 * The characters 0 to 9 correspond to the values 0 to 9 - The letters A to Z correspond to the values 10 to 35.
+	 * @param value		Value of the position sought on decimal system
+	 * @return			Character that shows the place value of the submitted value
+	 * 
+	 * @see #valueOfDigit(char)
+	 */
 	private static char digitOfValue(int value){
 		// Ein �berlauf ist m�glich, wenn Die Stellenwertigkeit gr��er als 35 ist und wird nicht abgefangen!
 		if(value >= 10){
@@ -700,6 +724,15 @@ public class ConvertingNumbers {
 	 * Die Ziffern 0 bis 9 entsprechen der Wertigkeit 0 bis 9, die Buchstaben A bis Z entsprechen der Wertigkeit 10 bis 35.
 	 * @param digit		Zeichen, dessen Wertigkeit berechnet wird
 	 * @return			Stellenwertigkeit, die von {@code digit} repr�sentiert wird
+	 * 
+	 * @see #digitOfValue(int)
+	 */
+	
+	/*
+	 * Calculates the place value of represented character.
+	 * The characters 0 to 9 correspond to the values 0 to 9 - The letters A to Z correspond to the values 10 to 35.
+	 * @param digit		Character whose value will be calculated 
+	 * @return			Place value that is represented by {@code digit}
 	 * 
 	 * @see #digitOfValue(int)
 	 */
@@ -727,6 +760,19 @@ public class ConvertingNumbers {
 	 * @return	ganzen Anteil im Index 0 und Nachkommateil im Index 1, jeweils als ganze Zahl in der String-Darstellung
 	 * 
 	 * @throws NumberFormatException	Wenn es sich bei {@code value} nicht um eine Zahl in der String-Darstellung handelt, da zu viele Kommata vorhanden sind
+	 */
+	
+	/*
+	 * Seperated the numbers before and after the comma / point of the submitted string {@code value}, 
+	 * which represents a number of the base {@code base} and returns these seperated strings without
+	 * leading 0 in the decimal part.
+	 * 
+	 * @param base	Base of the numeral system of {@code value}
+	 * @param value	Number tp be disassembled
+	 * 
+	 * @return	Integer in index 0 and decimal place in index 1, both as interger as string representation
+	 * 
+	 * @throws NumberFormatException	If {@code value} is not a number represented as string, caused duo to many commas
 	 */
 	private static String[] separateByComma(int base, String value) throws NumberFormatException {
 		String ganz = "";
@@ -770,6 +816,14 @@ public class ConvertingNumbers {
 	 * @param value	String, der auf Kommata �berpr�ft wird
 	 * 
 	 * @return das Komma, welches zuerst in dem String auftaucht oder {@code null}, wenn kein Komma enthalten ist
+	 */
+	
+	/*
+	 * Checks if the submitted string firstly contains a German comma (,) or an English comma (.).
+	 * 
+	 * @param value	String, which is checked if it contains a comma
+	 * 
+	 * @return the comma which is on the front position or {@code null}if it does not contain a comma
 	 */
 	private static String getFirstComma(String value) {
 		// erstes Komma in String suchen
