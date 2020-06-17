@@ -427,6 +427,9 @@ public class ConvertingNumbers {
 			throw new IllegalArgumentException("Out of Bounds for base = " + newBase + " (base must be within " + MIN_BASE + " and " + MAX_BASE + ")");
 		}
 		
+		// TODO Negative Werte implementieren 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+		
+		
 		// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
 		String[] separated = separateByComma(10, decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
 		
@@ -434,13 +437,6 @@ public class ConvertingNumbers {
 		double fractionalPart = Double.parseDouble("0." + separated[1]);
 		
 		StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
-		
-		// ueberpruefen ob alle Zahlen positiv sind
-		// negative Zahlen werden derzeit nicht unterstuetzt!
-		if(integerPart < 0 || fractionalPart < 0) {
-			throw new UnsupportedOperationException("Negative values are not supported");
-		}
-		// TODO Negative Werte implementieren 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		
 		// Ganzen Anteil umrechnen
 		newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
