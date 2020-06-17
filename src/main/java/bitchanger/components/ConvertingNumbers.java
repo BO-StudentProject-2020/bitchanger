@@ -423,7 +423,7 @@ public class ConvertingNumbers {
 	 * @see Preferences
 	 */
 	public static String decToBase(int newBase, String decValue, char comma, int fractionalPrecision) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		// Prüfen, ob decValue eine Zahl zur Basis 10 repr�sentiert
+		// Prüfen, ob decValue eine Zahl zur Basis 10 repräsentiert
 		checkValue(10, decValue);
 		
 		if(newBase < MIN_BASE || newBase > MAX_BASE) {
@@ -452,7 +452,7 @@ public class ConvertingNumbers {
 			newBaseValue.append(newBaseFractionalPart);
 		}
 		
-		// umgewandelte Zahl in der neuen Basis als String zurueckgeben
+		// umgewandelte Zahl in der neuen Basis als String zurückgeben
 		return newBaseValue.toString();
 	}
 	
@@ -849,7 +849,7 @@ public class ConvertingNumbers {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** Diese Klasse ist nicht instanziierbar **/
-	/* This class is not instantiatable **/
+	/* Do not let anyone instantiate this class **/
 	private ConvertingNumbers() {}
 
 }
