@@ -63,12 +63,15 @@ public class ConvertingNumbers {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/**	Eine Konstante für die kleinstmögliche Basis **/
+	/*	Constant for the lowest possible base **/
 	public static final int MIN_BASE = 2;
 	
 	/** Eine Konstante für die größtmögliche Basis bei einem Zeichenvorrat von 0-9 und A-Z **/
+	/*	Constant for the highest possible base of 36 characters given through 0-9 and A-Z**/
 	public static final int MAX_BASE = 36;
 	
 	/** Indikator für Abgeschnittene Nachkommastellen bei der Umwandlung vom Zehnersystem in ein anderes, beliebiges Zahlensystem **/
+	/*	Indicator for the cut fractional part in case of converting from decimal system into a system of any base **/
 	public static final String FRACTIONAL_PRECISION_INDICATOR = "...";
 	
 	
