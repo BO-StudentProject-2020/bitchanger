@@ -12,11 +12,11 @@ import bitchanger.preferences.Preferences;
 import bitchanger.preferences.Comma;
 
 /**
- * Die Klasse {@code ConvertingNumbers} enth�lt Methoden zum Umwandeln von Zahlen mit verschiedenen Zahlensystemen.
+ * Die Klasse {@code ConvertingNumbers} enthält Methoden zum Umwandeln von Zahlen mit verschiedenen Zahlensystemen.
  * <p>
  * Die Methoden dieser Klasse k�nnen sowohl ganze Zahlen als auch Kommazahlen mit positiven oder negativen Wert umwandeln.
  * Es werden beliebige Zahlensysteme von der Basis 2 bis zur Basis 36 unterst�tzt, was dem Zeichenvorrat 0-9 und A-Z entspricht.
- * In der String-Darstellung k�nnen Zahlen mit Ziffern, Gro�buchstaben und Kleinbuchstaben an die Methoden dieser Klasse
+ * In der String-Darstellung können Zahlen mit Ziffern, Gro�buchstaben und Kleinbuchstaben an die Methoden dieser Klasse
  * �bergeben werden, allerdings enthalten die R�ckgaben in der String-Darstellung aller Methoden ausschlie�lich Zahlen 
  * und Gro�buchstaben.
  * </p>
@@ -37,9 +37,9 @@ import bitchanger.preferences.Comma;
  * The class {@code ConvertingNumbers} contains methods for performing conversions of numbers with different numeral systems.
  * <p>
  * These methods can convert positive and negative integral and float-point numbers.
- * Any numeral systems from base 2 to base 36 can be used. This exactly correspond to the character storage 0-9 and A-Z.
- * As string representation, numbers with capital and lower case letters can be handed over to methods in this class. The return 
- * of these string only contains Numbers and upper case letters.
+ * Any numeral systems from base 2 to base 36 can be used. This exactly corresponds to the character storage 0-9 and A-Z.
+ * As string representation, numbers with capital and lower case letters can be handed over to methods in this class. The returns 
+ * of these string only contain numbers and upper case letters.
  * </p>
  * <p>
  * The comma sign can be selected in German (,) or English (.) with the class {@code Preferences}.
@@ -117,16 +117,17 @@ public class ConvertingNumbers {
 
 		char[] characters = value.toUpperCase().toCharArray();	// Es wird nur mit Gro�buchstaben in Zahlensystemen gr��er 10 gearbeitet
 
-		char end = (char) ('0' + base - 1);	// maximale Zahlen-Ziffer im Zahlensystem zur Basis
+		char endDigit = (char) ('0' + base - 1);	// maximale Zahlen-Ziffer im Zahlensystem zur Basis
+		char endLetter = (char) ('A' + base - 11);	// hoechster Buchstabe im Zahlensystem zur Basis
 		boolean hasComma = false;			// Hilfsvariable zum Pruefen auf mehr als ein Komma
 
 		// Ueberpruefen, ob verbotene Zeichen enthalten sind
 		for(int i = 0; i < characters.length; i++) {
 			char character = characters[i];	// Jeden Character einzeln ueberpruefen
 			
-			if ((character < '0' || character > end)) {
+			if ((character < '0' || character > endDigit)) {
 				// keine oder falsche Zahlen-Ziffer zur geg. Basis -> Pruefen auf Buchstaben
-				if (character < 'A' || character > ('A' + base - 11)) {
+				if (character < 'A' || character > endLetter) {
 					// kein oder falscher Buchstabe zur geg. Basis -> Pruefen auf Komma
 					if (character == Preferences.getComma()) {
 						// Es handelt sich um ein Komma
@@ -763,16 +764,16 @@ public class ConvertingNumbers {
 	 */
 	
 	/*
-	 * Seperated the numbers before and after the comma / point of the submitted string {@code value}, 
-	 * which represents a number of the base {@code base} and returns these seperated strings without
+	 * Separates the numbers before and after the comma / point of the submitted string {@code value}, 
+	 * which represents a number of the base {@code base} and returns these separated strings without
 	 * leading 0 in the decimal part.
 	 * 
 	 * @param base	Base of the numeral system of {@code value}
-	 * @param value	Number tp be disassembled
+	 * @param value	Number to be separated
 	 * 
-	 * @return	Integer in index 0 and decimal place in index 1, both as interger as string representation
+	 * @return	Integer at index 0 and decimal place at index 1, both as integer as string representation
 	 * 
-	 * @throws NumberFormatException	If {@code value} is not a number represented as string, caused duo to many commas
+	 * @throws NumberFormatException	If {@code value} is not a number represented as string, caused due to many commas
 	 */
 	private static String[] separateByComma(int base, String value) throws NumberFormatException {
 		String ganz = "";
@@ -823,7 +824,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @param value	String, which is checked if it contains a comma
 	 * 
-	 * @return the comma which is on the front position or {@code null}if it does not contain a comma
+	 * @return the comma which is on the front position or {@code null} if it does not contain a comma
 	 */
 	private static String getFirstComma(String value) {
 		// erstes Komma in String suchen
@@ -850,7 +851,7 @@ public class ConvertingNumbers {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** Diese Klasse ist nicht instanziierbar **/
-	/* This class is not instantiatable **/
+	/* This class is not instantiable **/
 	private ConvertingNumbers() {}
 
 }
