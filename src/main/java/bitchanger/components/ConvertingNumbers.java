@@ -762,16 +762,16 @@ public class ConvertingNumbers {
 	 */
 	
 	/*
-	 * Seperated the numbers before and after the comma / point of the submitted string {@code value}, 
-	 * which represents a number of the base {@code base} and returns these seperated strings without
+	 * Separated the numbers before and after the comma / point of the submitted string {@code value}, 
+	 * which represents a number of the base {@code base} and returns these separated strings without
 	 * leading 0 in the decimal part.
 	 * 
 	 * @param base	Base of the numeral system of {@code value}
-	 * @param value	Number tp be disassembled
+	 * @param value	Number to be disassembled
 	 * 
-	 * @return	Integer in index 0 and decimal place in index 1, both as interger as string representation
+	 * @return	Integer in index 0 and decimal place in index 1, both as integer as string representation
 	 * 
-	 * @throws NumberFormatException	If {@code value} is not a number represented as string, caused duo to many commas
+	 * @throws NumberFormatException	If {@code value} is not a number represented as string, caused due to many commas
 	 */
 	private static String[] separateByComma(int base, String value) throws NumberFormatException {
 		String ganz = "";
@@ -789,7 +789,7 @@ public class ConvertingNumbers {
 			ganz = sc.next();
 			nach = sc.next();	
 			
-			// Delimiter zurücksetzten und leeren, um fehlerhafte Eingaben nicht zu übergehen
+			// Delimiter zurücksetzen und leeren, um fehlerhafte Eingaben nicht zu übergehen
 			sc.reset();
 			if(sc.hasNext()) {
 				sc.close();
