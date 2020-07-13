@@ -34,9 +34,16 @@ import bitchanger.preferences.Preferences;
 public class SimpleChangeableNumber implements ChangeableNumber {
 	
 // Attribute	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	/** eingeschlossener Wert in der binären String-Darstellung */
 	private String binValue;
+	
+	/** eingeschlossener Wert in der dezimalen String-Darstellung */
 	private String decValue;
+	
+	/** eingeschlossener Wert in der hexadezimalen String-Darstellung */
 	private String hexValue;
+	
+	/** eingeschlossener Wert in der oktalen String-Darstellung */
 	private String octalValue;
 	
 	
