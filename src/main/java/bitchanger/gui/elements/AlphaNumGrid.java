@@ -38,7 +38,7 @@ public class AlphaNumGrid implements Controllable {
 	
 	
 	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/**
+	/*
 	 * Creates a keyboard layout as a new GridPane with included buttons to shift the six letters on the left
 	 */
 	public AlphaNumGrid(double spacing) {

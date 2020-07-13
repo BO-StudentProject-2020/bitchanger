@@ -1,121 +1,165 @@
+/*
+ * Copyright (c)
+ * 
+ * Ersteller: Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.components;
 
 import java.util.Objects;
 
 import bitchanger.preferences.Preferences;
 
+/**
+ * Die Klasse SimpleChangeableNumber bietet eine vollständige Implementierung von {@link ChangeableNumber}.
+ * <p>
+ * Jede Instanz dieser Klasse schließt einen Wert ein, der aus beliebigen Zahlensystemen gesetzt und in
+ * verschiedene Zahlensysteme umgewandelt werden kann. Die String-Darstellungen in den verschiedenen
+ * Zahlensystemen enthalten <b>keine Präfixe</b>, die auf die Basis hinweisen.
+ * </p>
+ * 
+ * @see ChangeableNumber
+ * 
+ * @author Tim
+ * @author Moritz Wolter
+ * 
+ * @since Bitchanger 0.1.0
+ * @version 0.1.4
+ *
+ */
 public class SimpleChangeableNumber implements ChangeableNumber {
-
 	
-	// Attribute
+// Attribute	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 	private String binValue;
 	private String decValue;
 	private String hexValue;
 	private String octalValue;
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/*
-	 * �berschreibt alle Werte dieser {@code Zahl} mit dem hexadezimalen Wert
-	 * {@code binary}
-	 * 
-	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
-	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der uebergebene {@code String}
-	 *                                       keine umwandelbare Zahl ist.
-	 * @throws UnsupportedOperationException wenn das erste Zeichen ein '-' ist, da
-	 *                                       negative Zahlen nicht unterstuetzt
-	 *                                       werden
-	 * @param hex hexadezimaler Wert in der {@code String} Darstellung, mit dem
-	 *            diese {@code Zahl} ueberschriben wird
+	
+	
+	
+// Konstruktoren   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	/**
+	 * Erzeugt eine neue Instanz mit dem eingeschlossenen Wert 0
 	 */
-	@Override
-	public void setHex(String hexValue) {
-		this.initDezimalString(ConvertingNumbers.baseToDecString(16, hexValue.toUpperCase(), Preferences.getComma()));
+	public SimpleChangeableNumber() {
+		this("0");
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/*
-	 * �berschreibt alle Werte dieser {@code Zahl} mit dem Parameter
-	 * {@code dezimalWert}
+
+	/**
+	 * Erzeugt eine neue Instanz, die den übergebenen dezimal-Wert repräsentiert
 	 * 
-	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
-	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der �bergebene {@code String}
-	 *                                       keine umwandelbare Zahl ist.
-	 * @throws UnsupportedOperationException wenn das erste Zeichen ein '-' ist, da
-	 *                                       negative Zahlen nicht unterst�tzt
-	 *                                       werden
-	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem
-	 *                    diese {@code Zahl} �berschriben wird
+	 * @param dezimalWert	Wert, der von diesem Objekt eingeschlossen werden soll
+	 * 
+	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
+	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
+	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist
+	 * 
+	 */
+	public SimpleChangeableNumber(String dezimalWert) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		this.initDecimal(dezimalWert);
+	}
+
+	
+	
+// Initialisierung	  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	
+	/**
+	 * Setzt den eingeschlossenen Wert dieser {@code SimpleChangeableNumber} auf den übergebenen dezimal-Wert.
+	 * Die String-Darstellungen für das Hexadezimal-, Oktal- und Binärsystem werden berechnet und in den Attributen gespeichert.
+	 * 
+	 * @param decValue	neuer Wert, den diese {@code SimpleChangeableNumber} repräsentiert
+	 * 
+	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
+	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
+	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist
+	 * 
+	 */
+	private void initDecimal(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		this.decValue = Objects.requireNonNull(decValue);
+		this.hexValue = ConvertingNumbers.decToBase(16, this.decValue, Preferences.getComma());
+		this.octalValue = ConvertingNumbers.decToBase(8, this.decValue, Preferences.getComma());
+		this.binValue = ConvertingNumbers.decToBase(2, this.decValue, Preferences.getComma());
+	}
+
+	
+	
+// Getter und Setter  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public void setDec(String decValue) {
+	public void setHex(String hexValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		this.setValue(hexValue, 16);
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setDec(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
 		// Aufruf von basisToDezString noetig, damit die Exceptions bei falscher Eingabe geworfen werden
-		initDezimalString(decValue);
+		initDecimal(decValue);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/*
-	 * Überschreibt alle Werte dieser {@code Zahl} mit dem oktalen Wert
-	 * {@code binary}
-	 * 
-	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
-	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der uebergebene {@code String}
-	 *                                       keine umwandelbare Zahl ist.
-	 * @throws UnsupportedOperationException wenn das erste Zeichen ein '-' ist, da
-	 *                                       negative Zahlen nicht unterstuetzt
-	 *                                       werden
-	 * @param octal oktaler Wert in der {@code String} Darstellung, mit dem diese
-	 *              {@code Zahl} ueberschriben wird
+	
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public void setOct(String octValue) {
-		this.initDezimalString(ConvertingNumbers.baseToDecString(8, octValue, Preferences.getComma()));
-
+	public void setOct(String octValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		this.setValue(octValue, 8);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/*
-	 * Überschreibt alle Werte dieser {@code Zahl} mit dem binären Wert
-	 * {@code binary}
-	 * 
-	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
-	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der uebergebene {@code String}
-	 *                                       keine umwandelbare Zahl ist.
-	 * @throws UnsupportedOperationException wenn das erste Zeichen ein '-' ist, da
-	 *                                       negative Zahlen nicht unterstuetzt
-	 *                                       werden
-	 * @param binary binärer Wert in der {@code String} Darstellung, mit dem diese
-	 *               {@code Zahl} ueberschriben wird
+	
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public void setBin(String binValue) {
-		this.initDezimalString(ConvertingNumbers.baseToDecString(2, binValue, Preferences.getComma()));
+	public void setBin(String binValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		this.setValue(binValue, 2);
 
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void setValue(String value, int baseOfValue) {
-		this.initDezimalString(ConvertingNumbers.baseToDecString(baseOfValue, value, Preferences.getComma()));
+	public void setValue(String value, int baseOfValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		this.initDecimal(ConvertingNumbers.baseToDecString(baseOfValue, value, Preferences.getComma()));
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void setByteLength(int numberOfBytes) {
-		// TODO Auto-generated method stub
-
+	public void reset() {
+		this.binValue = "";
+		this.decValue = "";
+		this.hexValue = "";
+		this.octalValue = "";
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	/*
-	 * Gibt einen {@code String} zurueck, der die hexadezimale Darstellung dieser
-	 * {@code Zahl} repräsentiert
-	 * 
-	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl
-	 *         zurueck.
+
+	
+// toString - Methoden	 ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+	
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toHexString() {
@@ -123,11 +167,9 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/*
-	 * Gibt einen {@code String} zurueck, der die dezimale Darstellung dieser
-	 * {@code Zahl} repräsentiert
-	 * 
-	 * @return Die String-Darstellung dieser {@code Zahl} als dezimale Zahl zurueck.
+	
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toDecString() {
@@ -135,11 +177,9 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/*
-	 * Gibt einen {@code String} zurueck, der die oktale Darstellung dieser
-	 * {@code Zahl} repräsentiert
-	 * 
-	 * @return Die String-Darstellung dieser {@code Zahl} als oktale Zahl zurueck.
+	
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toOctString() {
@@ -147,11 +187,9 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/*
-	 * Gibt einen {@code String} zurueck, der die binäre Darstellung dieser
-	 * {@code Zahl} repräsentiert
-	 * 
-	 * @return Die String-Darstellung dieser {@code Zahl} als binäre Zahl zurueck.
+	
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toBinString() {
@@ -159,14 +197,9 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
-	/*
-	 * Gibt einen {@code String} zurueck, der die Darstellung dieser {@code Zahl} zu
-	 * der uebergebenen Basis repräsentiert
-	 * 
-	 * @param basis Ein {@code int} Wert, der die Basis darstellt, in die diese
-	 *              {@code Zahl} ueberfuerht werden soll.
-	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl
-	 *         zurueck.
+	
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toBaseString(int base) throws IllegalArgumentException {
@@ -178,12 +211,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		try {
 			return ConvertingNumbers.decToBase(base, decValue, Preferences.getComma());
 		} catch (IllegalArgumentException illArg) {
-			// Auf falsche Basis pr�fen
+			// Auf falsche Basis prüfen
 			if(base < ConvertingNumbers.MIN_BASE || base > ConvertingNumbers.MAX_BASE) {
 				throw illArg;
 			}
 			
-			// decValue ist ein leerer String (reset Methode wurde aufgerufen)
+			// decValue ist ein leerer String (reset-Methode wurde aufgerufen)
 			return "";
 		} catch (Exception e) {
 			// Sollte nicht auftreten
@@ -192,84 +225,21 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
-	/*
-	 * Gibt einen {@code String} zurueck, der die hexadezimale, dezimale, oktale und
-	 * binäre Darstellung dieser {@code Zahl} enthält.
+	
+	/**
+	 * Gibt einen {@code String} zurück, der die hexadezimale, dezimale, oktale und
+	 * binäre Darstellung des eingeschlossenen Wertes enthält.
 	 * 
-	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl
-	 *         zurueck.
+	 * @return	String bestehend aus der hexadezimalen, dezimalen, oktalen und binären String-Darstellung des eingeschlossenen
+	 * 			Wertes, hintereinander aufgelistet
 	 */
 	@Override
 	public String toString() {
-		String s = String.format("Hexadezimal: %s\nDezimal: %s\nOktal: %s\nBinär: %s", this.toHexString(),
+		String s = String.format("Hex: %s\tDec: %s\tOct: %s\tBin: %s", this.toHexString(),
 				this.toDecString(), this.toOctString(), this.toBinString());
 		return s;
 	}
 	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
-	/*
-	 * Gibt einen {@code String} zurueck, der die Darstellung dieser {@code Zahl} zu der uebergebenen Basis repräsentiert
-	 * 
-	 * @param basis	Ein {@code int} Wert, der die Basis darstellt, in die diese {@code Zahl} ueberfuerht werden soll.
-	 * @return Die String-Darstellung dieser {@code Zahl} als hexadezimale Zahl zurueck.
-	 */
-	public void reset() {
-		this.binValue = "";
-		this.decValue = "";
-		this.hexValue = "";
-		this.octalValue = "";
-	}
-
-// Konstruktoren   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	/*
-		 * Erstellt eine neue {@code Zahl} mit dem dezimalen Wert 0,0
-		 */
-		public SimpleChangeableNumber() {
-			this("0");
-		}
-
-	/*
-	 * Erstellt eine neue {@code Zahl} mit dem spezifischen dezimalen Wert.
-	 * 
-	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
-	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der uebergebene {@code String}
-	 *                                       keine umwandelbare Zahl ist.
-	 * @throws UnsupportedOperationException wenn das erste Zeichen des Parameters
-	 *                                       {@code zahl} ein '-' ist, da negative
-	 *                                       Zahlen hier nicht erlaubt sind
-	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem
-	 *                    diese {@code Zahl} initialisiert wird
-	 */
-	public SimpleChangeableNumber(String dezimalWert)
-			throws NullPointerException, NumberFormatException, UnsupportedOperationException {
-		this.initDezimalString(dezimalWert);
-	}
-
-// Initialisierung	  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	/*
-	 * Initialisiet diese {@code Zahl} mit neuem dezimalem Wert aus dem uebergebenem
-	 * {@code double} Wert. Die Darstellungen anderer Zahlensysteme werden mit
-	 * {@code null} initialisiert.
-	 * 
-	 * @throws NullPointerException          wenn das Argument {@code dezimalWert}
-	 *                                       {@code null} ist.
-	 * @throws NumberFormatException         wenn der uebergebene {@code String}
-	 *                                       keine umwandelbare Zahl ist.
-	 * @throws UnsupportedOperationException wenn das erste Zeichen des Parameters
-	 *                                       {@code zahl} ein '-' ist, da negative
-	 *                                       Zahlen hier nicht erlaubt sind
-	 * @param dezimalWert dezimaler Wert in der {@code String} Darstellung, mit dem
-	 *                    diese {@code Zahl} ueberschrieben wird
-	 */
-	private void initDezimalString(String dezimalWert) throws NullPointerException {
-		this.decValue = Objects.requireNonNull(dezimalWert);
-		this.hexValue = ConvertingNumbers.decToBase(16, this.decValue, Preferences.getComma());
-		this.octalValue = ConvertingNumbers.decToBase(8, this.decValue, Preferences.getComma());
-		this.binValue = ConvertingNumbers.decToBase(2, this.decValue, Preferences.getComma());
-	}
-
-// Getter und Setter  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 	
 
 	

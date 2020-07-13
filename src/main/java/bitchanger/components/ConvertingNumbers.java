@@ -3,6 +3,9 @@
  * 
  * Ersteller: Tim Muehle und Moritz Wolter
  * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
  */
 
 package bitchanger.components;
@@ -27,14 +30,15 @@ import bitchanger.preferences.Comma;
  * 
  * @see Preferences
  * 
- * @author Tim Mühle, Moritz Wolter
+ * @author Tim Mühle
+ * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
  */
 
 /*
- * The class {@code ConvertingNumbers} contains methods for performing conversions of numbers with different numeral systems.
+ * The {@code ConvertingNumbers} class contains methods for performing conversions of numbers with different numeral systems.
  * <p>
  * These methods can convert positive and negative integral and float-point numbers.
  * Any numeral systems from base 2 to base 36 can be used. This exactly correspond to the character storage 0-9 and A-Z.
@@ -309,7 +313,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
@@ -328,7 +332,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code value} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
@@ -352,7 +356,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
@@ -372,7 +376,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code value} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
@@ -397,7 +401,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
@@ -418,7 +422,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code value} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
@@ -495,7 +499,7 @@ public class ConvertingNumbers {
 		}
 		
 		if(value.equals("")) {
-			throw new IllegalArgumentException("for empty String");
+			throw new IllegalArgumentException("empty String");
 		}
 		
 		if(!isValueToBase(base, value)) {	// Prüfen, ob value eine Zahl zur gegebenen Basis repräsentiert

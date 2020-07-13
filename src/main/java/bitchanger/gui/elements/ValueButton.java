@@ -11,7 +11,7 @@ import javafx.scene.Node;
 
 public class ValueButton extends ExtendedButton{
 
-	//TODO Properties zum Ausblenden des Buttons bei unzul‰ssigem Zeichen 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	//TODO Properties zum Ausblenden des Buttons bei unzul√§ssigem Zeichen 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	private IntegerProperty baseProperty;
 	
 	public ValueButton() {
