@@ -67,7 +67,7 @@ public class ConvertingNumbers {
 	public static final int MIN_BASE = 2;
 	
 	/** Eine Konstante für die größtmögliche Basis bei einem Zeichenvorrat von 0-9 und A-Z **/
-	/*	Constant for the highest possible base of 36 characters given through 0-9 and A-Z**/
+	/*	Constant for the highest possible base of 36 characters given through 0-9 and A-Z **/
 	public static final int MAX_BASE = 36;
 	
 	/** Indikator für Abgeschnittene Nachkommastellen bei der Umwandlung vom Zehnersystem in ein anderes, beliebiges Zahlensystem **/
