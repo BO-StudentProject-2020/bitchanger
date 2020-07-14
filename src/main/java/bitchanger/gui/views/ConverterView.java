@@ -221,7 +221,7 @@ public class ConverterView extends ViewBase{
 			center.getChildren().add(l);
 		}
 		
-		// Spinner für die beliebige Basis
+		// Spinner fÃ¼r die beliebige Basis
 		baseSpinner = new BaseSpinner<Integer>();
 		GridPane.setConstraints(baseSpinner, 0, labelText.length);
 		center.getChildren().add(baseSpinner);
