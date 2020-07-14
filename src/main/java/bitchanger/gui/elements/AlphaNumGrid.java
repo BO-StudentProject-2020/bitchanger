@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import bitchanger.gui.views.Controllable;
+import bitchanger.preferences.Comma;
+import bitchanger.preferences.Preferences;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -23,13 +25,13 @@ public class AlphaNumGrid implements Controllable {
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private ArrayList<Node> buttonList;
 	private HashMap<String, Button> buttonMap;
-	private CommaSymbol comma;
 	private final String SIGN_BTN = "signBtn";
 	private final String NUM_0_BTN = "num_0";
 	private final String COMMA_BTN = "commaBtn";
 	private Button keyboardBtn;
 	private Button previousBtn;
 	private Button nextBtn;
+	private Button commaBtn;
 	private HBox arrowButtons;
 	private double spacing;
 	private boolean isShowingKeyboard;
@@ -45,11 +47,8 @@ public class AlphaNumGrid implements Controllable {
 		this.buttonList = new ArrayList<Node>();
 		this.buttonMap = new HashMap<String, Button>();
 		
-		// TODO Settings -> Comma 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		this.comma = CommaSymbol.COMMA_DE;
 		this.spacing = spacing;
 		this.isShowingKeyboard = false;
-		
 		
 		createButtons();
 		setActions();
@@ -67,11 +66,6 @@ public class AlphaNumGrid implements Controllable {
 	public HashMap<String, Button> getButtons() {
 		return this.buttonMap;
 	}
-	
-//	@Override
-//	public ArrayList<Node> getButtonList() {
-//		return buttonList;
-//	}
 	
 	private void setNextButton(Node button, int column, int row, String key) {
 		setNextButton(button, column, row);
@@ -125,8 +119,8 @@ public class AlphaNumGrid implements Controllable {
 	}
 	
 	
-	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	// Buttons erstellen	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// Buttons erstellen	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	private void createButtons() {
 		// Buttons fuer den Tastaturbereich erstellen
 		createMainMatrix();
@@ -136,7 +130,7 @@ public class AlphaNumGrid implements Controllable {
 		
 		Button signBtn = new UnfocusedButton("\u00B1");
 		Button num0 = new ValueButton("0");
-		Button commaBtn = new UnfocusedButton(comma.get());
+		commaBtn = new UnfocusedButton(String.valueOf(Preferences.getComma()));
 		
 		Button[] lastRow = {signBtn, num0, commaBtn};
 		String[] lastRowKeys = {SIGN_BTN, NUM_0_BTN, COMMA_BTN};
@@ -200,7 +194,7 @@ public class AlphaNumGrid implements Controllable {
 	}
 	
 	
-	// Actions	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+// Actions	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	private void setActions() {
 		setKeyboardBtnAction();
 		
@@ -210,8 +204,19 @@ public class AlphaNumGrid implements Controllable {
 		
 		setPreviousBtnDisable();
 		setNextBtnDisable();
+		
+		setCommaBinding();
 	}
 	
+	private void setCommaBinding() {
+		Preferences.getCommaProperty().addListener(new ChangeListener<Comma>() {
+			@Override
+			public void changed(ObservableValue<? extends Comma> observable, Comma oldValue, Comma newComma) {
+				commaBtn.setText(String.valueOf(newComma.get()));
+			}
+		});
+	}
+
 	private void setNextBtnDisable() {
 		buttonMap.get(alphaKeys[alphaKeys.length - 1]).textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -326,18 +331,4 @@ public class AlphaNumGrid implements Controllable {
 		GridPane.setColumnIndex(this.buttonMap.get(SIGN_BTN), GridPane.getColumnIndex(this.buttonMap.get(SIGN_BTN)) - 1);
 	}
 
-	private enum CommaSymbol {
-		COMMA_DE(","), COMMA_EN(".");
-		private String comma;
-		
-		private CommaSymbol(String comma) {
-			this.comma = comma;
-		}
-		
-		protected String get() {
-			return this.comma;
-		}
-	}
-
-	
 }
