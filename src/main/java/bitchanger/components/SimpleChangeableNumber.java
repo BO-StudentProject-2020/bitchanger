@@ -43,7 +43,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der hexadezimalen String-Darstellung */
 	private String hexValue;
 	
-	/** eingeschlossener Wert in der oktalen String-Darstellung */
+	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der oktalen String-Darstellung */
 	private String octalValue;
 	
 	
