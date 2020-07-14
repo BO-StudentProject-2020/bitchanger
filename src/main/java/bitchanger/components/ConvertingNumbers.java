@@ -70,7 +70,6 @@ public class ConvertingNumbers {
 	/*	<!-- $LANGUAGE=EN --> Constant for the lowest possible base **/
 	public static final int MIN_BASE = 2;
 	
-
 	/** <!-- $LANGUAGE=DE --> Eine Konstante für die größtmögliche Basis bei einem Zeichenvorrat von 0-9 und A-Z **/
 	/*	<!-- $LANGUAGE=EN --> Constant for the highest possible base of 36 characters given through 0-9 and A-Z**/
 	public static final int MAX_BASE = 36;

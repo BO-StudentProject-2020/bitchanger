@@ -10,7 +10,7 @@
 
 package bitchanger.components;
 
-/**
+/**	<!-- $LANGUAGE=DE -->
  * Schnittstelle, die Methoden definiert, um eine Zahl aus einem beliebigen Zahlensystem
  * in beliebige andere Zahlensysteme umzuwandeln
  * 
@@ -24,7 +24,7 @@ public interface ChangeableNumber {
 
 // Methoden zum setzen eines Wertes ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines hexadezimalen Strings
 	 * 
 	 * @param hexValue	Neuer Wert, den diese Klasse repräsentiert, als hexadezimaler String
@@ -36,7 +36,7 @@ public interface ChangeableNumber {
 	 */
 	public void setHex(String hexValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines dezimalen Strings
 	 * 
 	 * @param decValue	Neuer Wert, den diese Klasse repräsentiert, als dezimaler String
@@ -48,7 +48,7 @@ public interface ChangeableNumber {
 	 */
 	public void setDec(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines oktalen Strings
 	 * 
 	 * @param octValue	Neuer Wert, den diese Klasse repräsentiert, als oktaler String
@@ -60,7 +60,7 @@ public interface ChangeableNumber {
 	 */
 	public void setOct(String octValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines binären Strings
 	 * 
 	 * @param binValue	Neuer Wert, den diese Klasse repräsentiert, als binärer String
@@ -72,7 +72,7 @@ public interface ChangeableNumber {
 	 */
 	public void setBin(String binValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf einen Wert in einem beliebigen Zahlensystem
 	 * 
 	 * @param value			Neuer Wert, den diese Klasse repräsentiert, in der String-Darstellung
@@ -88,7 +88,7 @@ public interface ChangeableNumber {
 	
 // Umwandlung in String-Darstellungen  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als hexadezimalen String zurück.
 	 * <p>
 	 * Der String wird nicht als hexadezimal gekennzeichnet, es wird also <b>nicht</b> das Präfix {@code 0x} vorangestellt!
@@ -98,14 +98,14 @@ public interface ChangeableNumber {
 	 */
 	public String toHexString();	// hexadezimale Darstellung dieser Zahl als String
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als dezimalen String zurück.
 	 * 
 	 * @return dezimale String-Darstellung dieser {@code ChangeableNumber}
 	 */
 	public String toDecString();	// dezimale Darstellung dieser Zahl als String
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als oktalen String zurück.
 	 * <p>
 	 * Der String wird nicht als oktal gekennzeichnet, es wird also <b>kein</b> Präfix vorangestellt!
@@ -115,7 +115,7 @@ public interface ChangeableNumber {
 	 */
 	public String toOctString();	// oktale Darstellung dieser Zahl als String
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als binären String zurück.
 	 * <p>
 	 * Der String wird nicht als binär gekennzeichnet, es wird also <b>nicht</b> das Präfix {@code 0b} vorangestellt!
@@ -125,7 +125,7 @@ public interface ChangeableNumber {
 	 */
 	public String toBinString();	// binaere Darstellung dieser Zahl als String
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} zu einer beliebigen Basis zurück.
 	 * <p>
 	 * Der String wird <b>nicht</b> durch ein Präfix gekennzeichnet!
@@ -141,7 +141,7 @@ public interface ChangeableNumber {
 	
 // weitere Methoden	 ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 	
-	/**
+	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den eingeschlossenen Wert zurück. <b> Der vorherige Wert wird gelöscht! Wird nach dieser Methode
 	 * eine der toString-Methoden aufgerufen, wird ein leerer String zurückgegeben. </b>
 	 * <p>

@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
-/**
+/** <!-- $LANGUAGE=DE -->
  * Hauptfenster der Applikation mit javaFX
  * <p>
  * Das Fenster bietet verschiedene Szenen zum Rechnen und Umwandeln von verschiedenen Zahlensystemen.
@@ -28,21 +28,21 @@ import javafx.stage.Stage;
 public class Hauptfenster extends Application{
 	
 // Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** aktuell im Fenster dargestellte Szene */
+	/** <!-- $LANGUAGE=DE --> aktuell im Fenster dargestellte Szene */
 	private Scene currentScene;
 	
-	/** aktuelle View */
+	/** <!-- $LANGUAGE=DE --> aktuelle View */
 	private Viewable currentView;
 	
 	// mögliche Views mit Szenen für die verschiedenen Bedien-Oberflächen
-	/** View für die Umwandlung von Zahlensystemen */
+	/** <!-- $LANGUAGE=DE --> View für die Umwandlung von Zahlensystemen */
 	private Viewable converterView;
 	
 	
 	
 // Main-Methode	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/**
+	/** <!-- $LANGUAGE=DE -->
 	 * Startet die Anwendung und öffnet das Applikationsfenster
 	 * 
 	 * @param args	Argumente, die beim Programmstart übergeben werden. Die Argumente werden an die Methode {@code launch} weitergegeben und ansonsten ignoriert.
@@ -57,7 +57,7 @@ public class Hauptfenster extends Application{
 	
 // Start	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	/**
+	/** <!-- $LANGUAGE=DE -->
 	 * Diese Methode erstellt den Inhalt für das Hauptfenster und öffnet dieses.
 	 * <p>
 	 * - Es wird eine Menübar erstellt, die in jeder Szene die Steuerung des Fensters erlaubt.
@@ -106,7 +106,7 @@ public class Hauptfenster extends Application{
 	
 // Layout	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/**
+	/** <!-- $LANGUAGE=DE -->
 	 * Passt die minimale und die maximale Größe des Fensters an die Größe der aktuellen Szene ({@code currentView}) an
 	 * 
 	 * @param primaryStage	Fenster, dessen Größe eingestellt werden soll
@@ -137,7 +137,7 @@ public class Hauptfenster extends Application{
 
 // Menü	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	/**
+	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt eine Menübar, die die das Auswählen der verschiedenen Szenen erlaubt, Programm Einstellungen bietet und
 	 * Informationen über die Applikation enthält.
 	 * <p>

@@ -14,7 +14,7 @@ import java.util.Objects;
 
 import bitchanger.preferences.Preferences;
 
-/**
+/**	<!-- $LANGUAGE=DE -->
  * Die Klasse SimpleChangeableNumber bietet eine vollständige Implementierung von {@link ChangeableNumber}.
  * <p>
  * Jede Instanz dieser Klasse schließt einen Wert ein, der aus beliebigen Zahlensystemen gesetzt und in
@@ -34,13 +34,13 @@ import bitchanger.preferences.Preferences;
 public class SimpleChangeableNumber implements ChangeableNumber {
 	
 // Attribute	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	/** eingeschlossener Wert in der binären String-Darstellung */
+	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der binären String-Darstellung */
 	private String binValue;
 	
-	/** eingeschlossener Wert in der dezimalen String-Darstellung */
+	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der dezimalen String-Darstellung */
 	private String decValue;
 	
-	/** eingeschlossener Wert in der hexadezimalen String-Darstellung */
+	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der hexadezimalen String-Darstellung */
 	private String hexValue;
 	
 	/** eingeschlossener Wert in der oktalen String-Darstellung */
@@ -49,7 +49,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	
 	
 // Konstruktoren   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-	/**
+	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue Instanz mit dem eingeschlossenen Wert 0
 	 */
 	public SimpleChangeableNumber() {
@@ -58,7 +58,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 
-	/**
+	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue Instanz, die den übergebenen dezimal-Wert repräsentiert
 	 * 
 	 * @param dezimalWert	Wert, der von diesem Objekt eingeschlossen werden soll
@@ -76,7 +76,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	
 // Initialisierung	  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 	
-	/**
+	/** <!-- $LANGUAGE=DE -->
 	 * Setzt den eingeschlossenen Wert dieser {@code SimpleChangeableNumber} auf den übergebenen dezimal-Wert.
 	 * Die String-Darstellungen für das Hexadezimal-, Oktal- und Binärsystem werden berechnet und in den Attributen gespeichert.
 	 * 
@@ -233,7 +233,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	
-	/**
+	/** <!-- $LANGUAGE=DE -->
 	 * Gibt einen {@code String} zurück, der die hexadezimale, dezimale, oktale und
 	 * binäre Darstellung des eingeschlossenen Wertes enthält.
 	 * 

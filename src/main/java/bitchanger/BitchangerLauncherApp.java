@@ -13,7 +13,7 @@ package bitchanger;
 import bitchanger.gui.Hauptfenster;
 import bitchanger.preferences.Preferences;
 
-/**
+/** <!-- $LANGUAGE=DE -->
  * Diese Klasse enthält die Main-Methode, die der Einstiegspunkt für die Applikation ist.
  * 
  * @author Tim Mühle
@@ -24,7 +24,7 @@ import bitchanger.preferences.Preferences;
  */
 public class BitchangerLauncherApp {
 
-	/**
+	/** <!-- $LANGUAGE=DE -->
 	 * Die Main Methode liest zuerst alle gespeicherten Einstellungen für die Klasse {@code Preferences} ein.
 	 * Danach wird das Hauptfenster der Anwendung gestartet und gewartet, bis dieses geschlossen wurde.
 	 * 
