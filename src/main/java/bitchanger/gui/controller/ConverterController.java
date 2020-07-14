@@ -1,15 +1,14 @@
 package bitchanger.gui.controller;
 
-import java.util.List;
 import bitchanger.components.ChangeableNumber;
 import bitchanger.components.ConvertingNumbers;
-import bitchanger.preferences.Preferences;
 import bitchanger.components.SimpleChangeableNumber;
 import bitchanger.gui.elements.BaseSpinner;
 import bitchanger.gui.elements.ValueButton;
 import bitchanger.gui.elements.ValueField;
 import bitchanger.gui.views.Controllable;
 import bitchanger.gui.views.ConverterView;
+import bitchanger.preferences.Preferences;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -21,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 
 public class ConverterController extends ControllerBase {
 
@@ -113,7 +111,7 @@ public class ConverterController extends ControllerBase {
 	}
 
 	private void setButtonActions() {
-		setButtonSelection(allButtons);
+//		setButtonSelection(allButtons);
 		setAlphaNumActions();
 		setClearAction();
 		setBackspaceAction();
@@ -216,7 +214,7 @@ public class ConverterController extends ControllerBase {
 		});
 	}
 
-	private void setButtonSelection(List<Node> btnList) {
+/*	private void setButtonSelection(List<Node> btnList) {
 		for (Node n : btnList) {
 			if (n instanceof Pane) {
 				setButtonSelection(((Pane) n).getChildren());
@@ -237,7 +235,7 @@ public class ConverterController extends ControllerBase {
 			}
 		});
 	}
-
+*/
 	private void initButtons() {
 		this.clearBtn = this.buttonMap.get("clearBtn");
 		this.backspcBtn = this.buttonMap.get("backspaceBtn");

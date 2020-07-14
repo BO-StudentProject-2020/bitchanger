@@ -68,10 +68,10 @@ public class AlphaNumGrid implements Controllable {
 		return this.buttonMap;
 	}
 	
-	@Override
-	public ArrayList<Node> getButtonList() {
-		return buttonList;
-	}
+//	@Override
+//	public ArrayList<Node> getButtonList() {
+//		return buttonList;
+//	}
 	
 	private void setNextButton(Node button, int column, int row, String key) {
 		setNextButton(button, column, row);
@@ -134,9 +134,9 @@ public class AlphaNumGrid implements Controllable {
 		// Buttons in der letzten Zeile erstellen
 		createControllButtons();
 		
-		Button signBtn = new ExtendedButton("\u00B1");
+		Button signBtn = new UnfocusedButton("\u00B1");
 		Button num0 = new ValueButton("0");
-		Button commaBtn = new ExtendedButton(comma.get());
+		Button commaBtn = new UnfocusedButton(comma.get());
 		
 		Button[] lastRow = {signBtn, num0, commaBtn};
 		String[] lastRowKeys = {SIGN_BTN, NUM_0_BTN, COMMA_BTN};
@@ -146,11 +146,11 @@ public class AlphaNumGrid implements Controllable {
 	}
 	
 	private void createControllButtons() {
-		keyboardBtn = new ExtendedButton("KEYB");
+		keyboardBtn = new UnfocusedButton("KEYB");
 		setNextButton(keyboardBtn, 0, 3);		
 		
-		previousBtn = new ExtendedButton("<");
-		nextBtn = new ExtendedButton(">");
+		previousBtn = new UnfocusedButton("<");
+		nextBtn = new UnfocusedButton(">");
 		previousBtn.setDisable(true);
 		
 		arrowButtons = new HBox();

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.elements.AlphaNumGrid;
 import bitchanger.gui.elements.BaseSpinner;
-import bitchanger.gui.elements.ExtendedButton;
+import bitchanger.gui.elements.UnfocusedButton;
 import bitchanger.gui.elements.ValueField;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -60,7 +60,7 @@ public class ConverterView extends ViewBase{
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	public ConverterView(MenuBar menu) {
-		super();
+		super(menu);
 		
 		init();
 		
@@ -115,7 +115,8 @@ public class ConverterView extends ViewBase{
 	
 	
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	private void init() {
+	@Override
+	protected void init() {
 		center = new GridPane();
 		btnTexts = new HashMap<String, Object>();
 		
@@ -273,7 +274,7 @@ public class ConverterView extends ViewBase{
 		ArrayList<Button> buttons = new ArrayList<Button>(4);
 		
 		for(String btnKey : BTN_KEYS) {
-			Button b = new ExtendedButton();
+			Button b = new UnfocusedButton();
 			if(this.btnTexts.get(btnKey) instanceof String) {
 				b.setText((String) this.btnTexts.get(btnKey));
 			}

@@ -7,6 +7,7 @@ import bitchanger.gui.controller.ControllerBase;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
@@ -20,10 +21,13 @@ public abstract class ViewBase implements Viewable, Controllable {
 	protected ControllerBase controller;
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	public ViewBase() {
+	public ViewBase(MenuBar menu) {
 		this.tfMap = new HashMap<String, TextField>();
 		this.btnMap = new HashMap<String, Button>();
 	}
+
+
+	protected abstract void init();
 
 
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -42,10 +46,10 @@ public abstract class ViewBase implements Viewable, Controllable {
 		return btnMap;
 	}
 	
-	@Override
-	public ArrayList<Node> getButtonList() {
-		return buttonList;
-	}
+//	@Override
+//	public ArrayList<Node> getButtonList() {
+//		return buttonList;
+//	}
 	
 	protected void setController(ControllerBase controller) {
 		this.controller = controller;

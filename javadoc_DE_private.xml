@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="javadoc">
-    <target name="javadoc">
-        <javadoc access="private" additionalparam=" -link https://docs.oracle.com/en/java/javase/11/docs/api -encoding UTF-8" author="true" classpath="C:\Users\Tim\.m2\repository\org\openjfx\javafx-base\11\javafx-base-11-win.jar;C:\Users\Tim\.m2\repository\org\openjfx\javafx-graphics\11\javafx-graphics-11-win.jar;C:\Users\Tim\.m2\repository\org\openjfx\javafx-controls\11\javafx-controls-11.jar;\bitchanger\target\test-classes;C:\Users\Tim\.m2\repository\org\openjfx\javafx-controls\11\javafx-controls-11-win.jar;C:\Users\Tim\.m2\repository\org\openjfx\javafx-base\11\javafx-base-11.jar;C:\Users\Tim\.m2\repository\org\openjfx\javafx-graphics\11\javafx-graphics-11.jar;C:\Users\Tim\.m2\repository\org\openjfx\javafx-graphics\11\javafx-graphics-11-mac.jar;C:\Users\Tim\.m2\repository\org\openjfx\javafx-graphics\11\javafx-graphics-11-linux.jar" destdir="doc/Private Doc/Deutsch/0.1.4" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="bitchanger.components,bitchanger.gui,bitchanger.gui.controller,bitchanger.gui.views,bitchanger,bitchanger.gui.elements,bitchanger.preferences" source="11" sourcepath="src/main/resources;src/main/java" splitindex="true" use="true" version="true"/>
-    </target>
-</project>
