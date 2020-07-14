@@ -6,7 +6,6 @@ import bitchanger.gui.views.Viewable;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
@@ -28,10 +27,7 @@ import javafx.stage.Stage;
 public class Hauptfenster extends Application{
 	
 // Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE --> aktuell im Fenster dargestellte Szene */
-	private Scene currentScene;
-	
-	/** <!-- $LANGUAGE=DE --> aktuelle View */
+	/** <!-- $LANGUAGE=DE --> aktuell im Fenster dargestellte View */
 	private Viewable currentView;
 	
 	// mögliche Views mit Szenen für die verschiedenen Bedien-Oberflächen
@@ -88,12 +84,11 @@ public class Hauptfenster extends Application{
 		
 		converterView = new ConverterView(menubar);
 		currentView = converterView;
-		currentScene = converterView.getScene();
 		
 		// TODO Testzeile entfernen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		currentScene.getStylesheets().setAll("Layout.css");
+		currentView.getScene().getStylesheets().setAll("Layout.css");
 		
-		primaryStage.setScene(currentScene);
+		primaryStage.setScene(currentView.getScene());
 		primaryStage.setTitle("Bitchanger 0.1.4");
 		
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
