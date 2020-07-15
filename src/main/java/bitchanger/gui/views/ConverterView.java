@@ -12,6 +12,8 @@ package bitchanger.gui.views;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import bitchanger.gui.controller.ControllerBase;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.elements.AlphaNumGrid;
 import bitchanger.gui.elements.BaseSpinner;
@@ -22,7 +24,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -45,56 +46,47 @@ import javafx.scene.layout.RowConstraints;
  * @version 0.1.4
  *
  */
-public class ConverterView extends ViewBase{
+public class ConverterView extends ViewBase<BorderPane> {
+	
+	// Konstanten	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	private static final int TF_MAX_HEIGHT = 40;
+	private static final int TF_MIN_HEIGHT = 40;
+	private static final int BTN_MAX_HEIGTH = 120;
+	private static final int BTN_MIN_HEIGTH = 85;
+	private static final int BTN_MAX_WIDTH = BTN_MAX_HEIGTH;
+	private static final int BTN_MIN_WIDTH = BTN_MIN_HEIGTH;
+	private static final int WHITE_SPACE_HEIGTH = 40;
+	private static final int FIRST_COLUMN_WITH = 80;
+	private static final int PADDING_TOP = 10;
+	private static final int PADDING_RIGTH = 20;
+	private static final int PADDING_BOTTOM = 20;
+	private static final int PADDING_LEFT = 20;
+	private static final int MAX_SPALTEN = 6;
+	private static final int BTN_SPACING = 6;
+	private static final int HGAP = BTN_SPACING;
+	private static final int VGAP = BTN_SPACING;
+	private static final int FIRST_BTN_ROW = 6;
+	private static final int FIRST_BTN_COLUMN = 1;
+	private static final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
+	private static final String CLEAR_BTN_KEY = "clearBtn";
+	private static final String BACKSPACE_BTN_KEY = "backspaceBtn";
+	private static final String[] BTN_KEYS = {CLEAR_BTN_KEY, BACKSPACE_BTN_KEY};
+
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	private final int TF_MAX_HEIGHT = 40;
-	private final int TF_MIN_HEIGHT = 40;
-	private final int BTN_MAX_HEIGTH = 120;
-	private final int BTN_MIN_HEIGTH = 85;
-	private final int BTN_MAX_WIDTH = BTN_MAX_HEIGTH;
-	private final int BTN_MIN_WIDTH = BTN_MIN_HEIGTH;
-	private final int WHITE_SPACE_HEIGTH = 40;
-	private final int FIRST_COLUMN_WITH = 80;
-	private final int PADDING_TOP = 10;
-	private final int PADDING_RIGTH = 20;
-	private final int PADDING_BOTTOM = 20;
-	private final int PADDING_LEFT = 20;
-	private final int MAX_SPALTEN = 6;
-	private final int BTN_SPACING = 6;
-	private final int HGAP = BTN_SPACING;
-	private final int VGAP = BTN_SPACING;
-	private final int FIRST_BTN_ROW = 6;
-	private final int FIRST_BTN_COLUMN = 1;
-	private final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
-	private final String CLEAR_BTN_KEY = "clearBtn";
-	private final String BACKSPACE_BTN_KEY = "backspaceBtn";
-	private final String[] BTN_KEYS = {CLEAR_BTN_KEY, BACKSPACE_BTN_KEY};
-	
 	private GridPane center;
 	private HashMap<String, Object> btnTexts;
 	private AlphaNumGrid alphaNum;
 	private Spinner<Integer> baseSpinner;
 	
+	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	public ConverterView(MenuBar menu) {
-		super(menu);
-		
-		init();
-		
-		BorderPane root = new BorderPane();
-		createRoot(root);
+		super(new BorderPane());
 		
 		if(menu != null) {
 			root.setTop(menu);
 		}
-		
-		this.scene = new Scene(root);
-		
-		setController(new ConverterController(this));
-		
-		// Tests
-//		center.setGridLinesVisible(true);
 	}
 	
 	public ConverterView() {
@@ -111,7 +103,7 @@ public class ConverterView extends ViewBase{
 
 	@Override
 	public double getMaxWidth() {
-		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (this.MAX_SPALTEN - this.FIRST_BTN_COLUMN) * this.BTN_MAX_WIDTH
+		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (MAX_SPALTEN - FIRST_BTN_COLUMN) * BTN_MAX_WIDTH
 				+ (MAX_SPALTEN - 1) * HGAP;
 	}
 
@@ -123,7 +115,7 @@ public class ConverterView extends ViewBase{
 
 	@Override
 	public double getMinWidth() {
-		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (this.MAX_SPALTEN - this.FIRST_BTN_COLUMN) * this.BTN_MIN_WIDTH
+		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (MAX_SPALTEN - FIRST_BTN_COLUMN) * BTN_MIN_WIDTH
 				+ (MAX_SPALTEN - 1) * HGAP;
 	}
 	
@@ -149,6 +141,11 @@ public class ConverterView extends ViewBase{
 		center.setAlignment(Pos.CENTER);
 		center.setPadding(new Insets(PADDING_TOP, PADDING_RIGTH + FIRST_COLUMN_WITH, PADDING_BOTTOM, PADDING_LEFT));
 		root.setCenter(center);
+	}
+	
+	@Override
+	protected ControllerBase createController() {
+		return new ConverterController(this);
 	}
 	
 	// GridPane Center	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
@@ -178,7 +175,7 @@ public class ConverterView extends ViewBase{
 		}
 		
 		// Zeilen zwischen Textfeldern und Buttons
-		for (int i = getTextFields().size(); i < this.FIRST_BTN_ROW; i++) {
+		for (int i = getTextFields().size(); i < FIRST_BTN_ROW; i++) {
 			RowConstraints rowc = new RowConstraints();
 			rowc.setMaxHeight(WHITE_SPACE_HEIGTH);
 			rowc.setMinHeight(WHITE_SPACE_HEIGTH);
@@ -186,7 +183,7 @@ public class ConverterView extends ViewBase{
 		}
 		
 		// RowConstraints fuer die Buttons
-		for (int i = this.FIRST_BTN_ROW; i < center.getRowCount(); i++) {
+		for (int i = FIRST_BTN_ROW; i < center.getRowCount(); i++) {
 			RowConstraints rowc = new RowConstraints();
 			rowc.setFillHeight(true);
 			rowc.setMaxHeight(BTN_MAX_HEIGTH);
@@ -316,8 +313,8 @@ public class ConverterView extends ViewBase{
 
 	private void setButtonConstraints() {
 		// Tastenmatrix in die GridPane integrieren und die Groesse richtig anpassen
-		int zeile = this.FIRST_BTN_ROW;
-		int spalte = this.FIRST_BTN_COLUMN + 2;
+		int zeile = FIRST_BTN_ROW;
+		int spalte = FIRST_BTN_COLUMN + 2;
 		for(Node n: buttonList) {
 			if(GridPane.getColumnSpan(n) == null) {
 				GridPane.setColumnSpan(n, 1);
@@ -344,13 +341,13 @@ public class ConverterView extends ViewBase{
 			}
 			
 			// Wenn maximale Spaltenanzahl ueberschritten: in naechste Zeile wechseln
-			if(spalte >= this.FIRST_BTN_COLUMN + 5) {
+			if(spalte >= FIRST_BTN_COLUMN + 5) {
 				spalte = FIRST_BTN_COLUMN;
 				zeile++;
 			}
 		}
 	}
-	
+
 }
 
 

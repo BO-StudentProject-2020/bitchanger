@@ -15,13 +15,15 @@ import java.util.HashMap;
 
 import bitchanger.gui.controller.ControllerBase;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 
 /**	<!-- $LANGUAGE=DE -->
+ * 
+ * Basisklasse für alle View-Klassen, die das Interface {@code Viewable} implementieren und mit einem
+ * Controller eine Funktion erhalten.
  * 
  * @author Tim
  * 
@@ -29,23 +31,40 @@ import javafx.scene.layout.BorderPane;
  * @version 0.1.4
  *
  */
-public abstract class ViewBase implements Viewable, Controllable {
+public abstract class ViewBase<T extends Parent> implements Viewable, Controllable {
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	protected Scene scene;
+	protected T root;
 	private HashMap<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
 	private HashMap<String, Button> btnMap;
 	protected ArrayList<Node> buttonList;
 	protected ControllerBase controller;
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	public ViewBase(MenuBar menu) {
+	public ViewBase(T root) {
+		this.root = root;
 		this.tfMap = new HashMap<String, TextField>();
 		this.btnMap = new HashMap<String, Button>();
+		init();
+		
+		this.scene = new Scene(this.root);
+		createRoot(this.root);
+		
+		this.controller = createController();
+		
+		if(controller != null) {
+			controller.setControlls();
+		}
 	}
 
-
-	protected abstract void init();
+	protected void init() {
+		// nothing to do
+	}
+	
+	protected abstract void createRoot(T root);
+	
+	protected abstract ControllerBase createController();
 
 
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -68,12 +87,5 @@ public abstract class ViewBase implements Viewable, Controllable {
 //	public ArrayList<Node> getButtonList() {
 //		return buttonList;
 //	}
-	
-	protected void setController(ControllerBase controller) {
-		this.controller = controller;
-		controller.setControlls();
-	}
-
-	protected abstract void createRoot(BorderPane root);
 	
 }
