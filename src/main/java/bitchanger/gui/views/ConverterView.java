@@ -276,7 +276,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 		// Tastenfelder erstellen, die Button zum weiter bzw zurueckschalten existieren bereits
 		alphaNum = new AlphaNumGrid(BTN_SPACING);
 		buttonList.addAll(alphaNum.getButtonMatrix());
-		getButtons().putAll(alphaNum.getButtonMap());
+		getButtons().putAll(alphaNum.getButtons());
 		
 		
 		// Constraints fuer Position in der Tabelle setzen

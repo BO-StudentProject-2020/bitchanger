@@ -1,0 +1,7 @@
+bitchanger
+bitchanger.components
+bitchanger.gui
+bitchanger.gui.controller
+bitchanger.gui.controls
+bitchanger.gui.views
+bitchanger.preferences

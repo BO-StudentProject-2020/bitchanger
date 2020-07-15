@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"bitchanger"},{"l":"bitchanger.components"},{"l":"bitchanger.gui"},{"l":"bitchanger.gui.controller"},{"l":"bitchanger.gui.elements"},{"l":"bitchanger.gui.views"},{"l":"bitchanger.preferences"}]

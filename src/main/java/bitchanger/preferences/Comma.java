@@ -18,7 +18,11 @@ package bitchanger.preferences;
  */
 public enum Comma {
 	
-	COMMA_DE(','), COMMA_EN('.');
+	/** <!-- $LANGUAGE=DE --> Konstante, die das deutsche Komma (',') repräsentiert */
+	COMMA_DE(','),
+	
+	/** <!-- $LANGUAGE=DE --> Konstante, die das englische Komma ('.') repräsentiert */
+	COMMA_EN('.');
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * 
@@ -28,8 +32,9 @@ public enum Comma {
 	private char comma;
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Komma-Zeichen im Konstruktor initialisieren
-	 * @param comma
+	 * Kommazeichen im Konstruktor initialisieren
+	 * 
+	 * @param comma Kommazeichen
 	 * 
 	 */
 	private Comma(char comma) {

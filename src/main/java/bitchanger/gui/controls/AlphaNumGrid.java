@@ -85,6 +85,12 @@ public class AlphaNumGrid implements Controllable {
 		return this.buttonMap;
 	}
 	
+	@Override
+	public HashMap<String, Node> getNodes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	private void setNextButton(Node button, int column, int row, String key) {
 		setNextButton(button, column, row);
 		if(button instanceof Button) {
@@ -100,10 +106,6 @@ public class AlphaNumGrid implements Controllable {
 
 	public ArrayList<Node> getButtonMatrix() {
 		return buttonList;
-	}
-	
-	public HashMap<String, Button> getButtonMap(){
-		return buttonMap;
 	}
 	
 	private void setAlphaButtons(char startLetter) {
@@ -348,5 +350,7 @@ public class AlphaNumGrid implements Controllable {
 		
 		GridPane.setColumnIndex(this.buttonMap.get(SIGN_BTN), GridPane.getColumnIndex(this.buttonMap.get(SIGN_BTN)) - 1);
 	}
+
+
 
 }

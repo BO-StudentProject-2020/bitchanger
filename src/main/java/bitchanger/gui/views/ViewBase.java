@@ -24,7 +24,7 @@ import javafx.scene.control.TextField;
  * Controller eine Funktion erhalten.
  * <p>
  * Die grundlegenden Methoden der Schnittstellen {@code Viewable} und {@code Controllable} sind bereits implementiert.
- * Die dazugehörigen Attribute sind protected geschützt, damit diese direkt in Unterklassen verwendet werden können.
+ * Die dazugehörigen Attribute sind mit protected geschützt, damit diese direkt in Unterklassen verwendet werden können.
  * </p>
  * <p>
  * Es werden abstrakte Methoden definiert, die zur Erstellung des Scenegraphens benötigt werden.
@@ -126,7 +126,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	 * {@link #btnMap}, {@link #tfMap}, {@link #nodeMap}
 	 * </p>
 	 * 
-	 * @param root
+	 * @param root Wurzelknoten des Scenegraphen
 	 */
 	protected abstract void createScenegraph(T root);
 	

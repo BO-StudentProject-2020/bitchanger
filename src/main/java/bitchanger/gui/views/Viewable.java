@@ -16,9 +16,12 @@ import javafx.scene.Scene;
  * Die Schnittstelle {@code Viewable} definiert die Basis für eine View.
  * <p>
  * Eine View ist in einem JavaFX-Fenster (javafx.stage.Stage) darstellbar. Dazu kapselt die View eine {@code Scene}, die
- * in einer Stage präsentiert werden kann. <b> Der Scenegraph wird von der View konstruiert, dabei wird in der View nur das
- * Layout und keine Funktion festgelegt. </b>
+ * in einer Stage präsentiert werden kann. 
  * </p>
+ * <p> <b> 
+ * Der Scenegraph wird von der View konstruiert, dabei wird in der View nur das
+ * Layout und keine Funktion festgelegt. 
+ * </b> </p>
  * <p> <b>
  * Jeder View kann ein Controller zugeordnet werden, um den Bedienelementen im Scenegraph eine Funktion zu geben.
  * </b> </p>
