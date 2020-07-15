@@ -65,6 +65,8 @@ public class ConverterController extends ControllerBase {
 		super(view);
 		this.value = new SimpleChangeableNumber();
 		this.baseProperty = new SimpleIntegerProperty();
+		
+		// TODO ersetzen durch nodeMap	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		this.anyBase = (BaseSpinner<Integer>) ((ConverterView) view).getBaseSpinner();
 	}
 

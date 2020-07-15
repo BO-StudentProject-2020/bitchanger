@@ -11,8 +11,8 @@
 package bitchanger.gui.views;
 
 import java.util.HashMap;
-
 import bitchanger.gui.controller.ControllerBase;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,7 +30,7 @@ import javafx.scene.control.TextField;
  * Es werden abstrakte Methoden definiert, die zur Erstellung des Scenegraphens benötigt werden.
  * </p>
  * 
- * @param <T>	Typ des Wurzelknotens im Scenegraphen
+ * @param <T> Typ des Wurzelknotens im Scenegraphen
  * 
  * @author Tim
  * 
@@ -40,7 +40,7 @@ import javafx.scene.control.TextField;
  */
 public abstract class ViewBase<T extends Parent> implements Viewable, Controllable {
 	
-	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE --> Szene, die von der View repräsentiert wird */
 	protected Scene scene;
 	
@@ -57,18 +57,40 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	 * einem eindeutigen Schlüssel abgelegt werden */
 	private HashMap<String, Button> btnMap;
 	
+	/** <!-- $LANGUAGE=DE --> 
+	 * {@code Map}, in die alle vom Controller benötigten Elemente der View mit einem 
+	 * eindeutigen Schlüssel abgelegt werden, die keine Buttons oder Textfelder sind */
+	private HashMap<String, Node> nodeMap;
+	
 	/** <!-- $LANGUAGE=DE --> Controller, der die Funktion zu den Bedienelementen hinzufügt */
 	protected ControllerBase controller;
 	
-	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
+	 * <p>
+	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()}, {@link #createScenegraph(Parent)} 
+	 * und {@link #createController()} aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss mit Hilfe eines Controllers
+	 * die Funktion der Bedienelemente hinzuzufügen.
+	 * </p>
+	 * 
+	 * @param root	Wurzelknoten des Scenegraphen
+	 * 
+	 * @see #init()
+	 * @see #createScenegraph(Parent)
+	 * @see #createController()
+	 */
 	public ViewBase(T root) {
 		this.root = root;
 		this.tfMap = new HashMap<String, TextField>();
 		this.btnMap = new HashMap<String, Button>();
-		init();
-		
+		this.nodeMap = new HashMap<String, Node>();
 		this.scene = new Scene(this.root);
-		createRoot(this.root);
+		
+		init();
+		createScenegraph(this.root);
 		
 		this.controller = createController();
 		
@@ -77,29 +99,71 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 		}
 	}
 
+	
+	
+// Methoden		##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Initialisierungsmethode. 
+	 * <b> Diese Methode wird als erstes vom Konstruktor aufgerufen, nachdem die Attribute initialisiert wurden. </b>
+	 * <p>
+	 * Unterklassen können diese Methode überschreiben, um Attribute vor der Konstruktion des Scenegraphen zu initialisieren.
+	 * </p>
+	 * <p>
+	 * Die Implementierung der Methode in dieser Klasse hat keine Anweisungen.
+	 * </p>
+	 */
 	protected void init() {
 		// nothing to do
 	}
 	
-	protected abstract void createRoot(T root);
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Methode, die den Scenegraphen konstruiert. <b> Diese Methode wird aufgerufen, nachdem die init-Methode beendet wurde. </b>
+	 * <p>
+	 * In dieser Methode müssen alle Bedien- und Oberflächenelemente zum Scenegraphen hinzugefügt werden. Alle Elemente, die 
+	 * auch im Controller benötigt werden, müssen zu der entsprechenden Map hinzugefügt werden: 
+	 * {@link #btnMap}, {@link #tfMap}, {@link #nodeMap}
+	 * </p>
+	 * 
+	 * @param root
+	 */
+	protected abstract void createScenegraph(T root);
+	
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Methode, die einen neuen Controller für die View erzeugt.
+	 * <b> Diese Methode wird vom Konstruktor aufgerufen, nachdem der Scenegraph konstruiert wurde. </b>
+	 * 
+	 * @return ein <b>neuer</b> Controller für diese View
+	 * 
+	 */
 	protected abstract ControllerBase createController();
 
 
-	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** {@inheritDoc} */
 	@Override
 	public Scene getScene() {
 		return scene;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public HashMap<String, TextField> getTextFields() {
 		return tfMap;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public HashMap<String, Button> getButtons() {
 		return btnMap;
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public HashMap<String, Node> getNodes() {
+		return nodeMap;
 	}
 	
 }

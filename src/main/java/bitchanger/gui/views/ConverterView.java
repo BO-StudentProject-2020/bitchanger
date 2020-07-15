@@ -120,6 +120,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 	}
 	
 	public Spinner<Integer> getBaseSpinner(){
+		// TODO ersetzen durch nodeMap	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		return this.baseSpinner;
 	}
 	
@@ -135,7 +136,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 	}
 	
 	@Override
-	protected void createRoot(BorderPane root) {
+	protected void createScenegraph(BorderPane root) {
 		createCenter();
 		
 		center.setAlignment(Pos.CENTER);
