@@ -12,6 +12,7 @@ package bitchanger.gui.views;
 
 import java.util.HashMap;
 
+import bitchanger.gui.controller.ControllerBase;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -23,6 +24,9 @@ import javafx.scene.control.TextField;
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
+ * 
+ * @see Viewable
+ * @see ControllerBase
  *
  */
 public interface Controllable {

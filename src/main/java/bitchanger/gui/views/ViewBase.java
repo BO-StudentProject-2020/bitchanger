@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 
 /**	<!-- $LANGUAGE=DE -->
  * 
- * Basisklasse für alle View-Klassen, die das Interface {@code Viewable} implementieren und mit einem
+ * Basis-Klasse für alle View-Klassen, die das Interface {@code Viewable} implementieren und mit einem
  * Controller eine Funktion erhalten.
  * <p>
  * Die grundlegenden Methoden der Schnittstellen {@code Viewable} und {@code Controllable} sind bereits implementiert.
