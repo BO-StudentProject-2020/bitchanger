@@ -1,3 +1,13 @@
+/*
+ * Copyright (c)
+ * 
+ * Ersteller: Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.gui.elements;
 
 import bitchanger.components.ConvertingNumbers;
@@ -9,6 +19,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 
+/**	<!-- $LANGUAGE=DE -->
+ * 
+ * @author Tim
+ * 
+ * @since Bitchanger 0.1.0
+ * @version 0.1.4
+ *
+ */
 public class ValueButton extends UnfocusedButton{
 
 	//TODO Properties zum Ausblenden des Buttons bei unzulässigem Zeichen 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!

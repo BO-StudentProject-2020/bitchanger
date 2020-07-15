@@ -1,3 +1,13 @@
+/*
+ * Copyright (c)
+ * 
+ * Ersteller: Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.gui.controller;
 
 import bitchanger.components.ChangeableNumber;
@@ -21,6 +31,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+/**	<!-- $LANGUAGE=DE -->
+ * 
+ * @author Tim
+ * 
+ * @since Bitchanger 0.1.0
+ * @version 0.1.4
+ *
+ */
 public class ConverterController extends ControllerBase {
 
 	// Attribute
