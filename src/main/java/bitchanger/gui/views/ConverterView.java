@@ -15,10 +15,10 @@ import java.util.HashMap;
 
 import bitchanger.gui.controller.ControllerBase;
 import bitchanger.gui.controller.ConverterController;
-import bitchanger.gui.elements.AlphaNumGrid;
-import bitchanger.gui.elements.BaseSpinner;
-import bitchanger.gui.elements.UnfocusedButton;
-import bitchanger.gui.elements.ValueField;
+import bitchanger.gui.controls.AlphaNumGrid;
+import bitchanger.gui.controls.BaseSpinner;
+import bitchanger.gui.controls.UnfocusedButton;
+import bitchanger.gui.controls.ValueField;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -268,7 +268,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 	// Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	private void createButtonMatrix() {
 		// Buttons erstellen und im Array speichern
-		buttonList = new ArrayList<Node>(23);	// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
+		ArrayList<Node> buttonList = new ArrayList<Node>(23);	// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
 		buttonList.addAll(createButtons());
 		
 		
@@ -279,7 +279,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 		
 		
 		// Constraints fuer Position in der Tabelle setzen
-		setButtonConstraints();
+		setButtonConstraints(buttonList);
 		
 		center.getChildren().addAll(buttonList);;
 	}
@@ -311,7 +311,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 		return buttons;
 	}
 
-	private void setButtonConstraints() {
+	private void setButtonConstraints(ArrayList<Node> buttonList) {
 		// Tastenmatrix in die GridPane integrieren und die Groesse richtig anpassen
 		int zeile = FIRST_BTN_ROW;
 		int spalte = FIRST_BTN_COLUMN + 2;

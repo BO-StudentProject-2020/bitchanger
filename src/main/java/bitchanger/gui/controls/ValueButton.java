@@ -8,7 +8,7 @@
  * 
  */
 
-package bitchanger.gui.elements;
+package bitchanger.gui.controls;
 
 import bitchanger.components.ConvertingNumbers;
 import bitchanger.preferences.Preferences;

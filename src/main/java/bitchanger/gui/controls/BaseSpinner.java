@@ -8,7 +8,7 @@
  * 
  */
 
-package bitchanger.gui.elements;
+package bitchanger.gui.controls;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;

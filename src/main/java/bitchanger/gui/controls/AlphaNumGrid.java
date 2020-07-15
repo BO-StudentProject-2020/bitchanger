@@ -8,7 +8,7 @@
  * 
  */
 
-package bitchanger.gui.elements;
+package bitchanger.gui.controls;
 
 import java.util.ArrayList;
 import java.util.HashMap;
