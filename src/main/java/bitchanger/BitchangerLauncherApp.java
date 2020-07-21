@@ -22,6 +22,16 @@ import bitchanger.preferences.Preferences;
  * @version 0.1.0
  * 
  */
+
+/* <!-- $LANGUAGE=EN -->
+ * This class contains the main method that is the entry point for the application.
+ * 
+ * @author Tim Mühle
+ * 
+ * @since 0.1.0
+ * @version 0.1.0
+ * 
+ */
 public class BitchangerLauncherApp {
 
 	/** <!-- $LANGUAGE=DE -->
@@ -29,6 +39,17 @@ public class BitchangerLauncherApp {
 	 * Danach wird das Hauptfenster der Anwendung gestartet und gewartet, bis dieses geschlossen wurde.
 	 * 
 	 * @param args	Argumente, die beim Programmstart übergeben werden. Die Argumente werden vom Programm ignoriert.
+	 * 
+	 * @see Preferences
+	 * @see Hauptfenster#main(String[])
+	 * 
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * The main method first reads in all stored settings for the class {@code Preferences}.
+	 * Then the main window of the application will be started and waits until this main window is closed.
+	 * 
+	 * @param args	Arguments that are committed at the beginning of the program. The program ignores these arguments.
 	 * 
 	 * @see Preferences
 	 * @see Hauptfenster#main(String[])
