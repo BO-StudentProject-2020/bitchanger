@@ -449,7 +449,7 @@ public class ConvertingNumbers {
 		newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
 		
 		
-		// Wenn vorhanden Nachkommateil umwandeln...öö
+		// Wenn vorhanden Nachkommateil umwandeln
 		if(fractionalPart != 0){
 			String newBaseFractionalPart = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma);
 			
