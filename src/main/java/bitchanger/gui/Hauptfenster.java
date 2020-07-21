@@ -85,19 +85,45 @@ public class Hauptfenster extends Application{
 	 * - Es wird eine Menübar erstellt, die in jeder Szene die Steuerung des Fensters erlaubt.
 	 * </p>
 	 * <p>
-	 * - Die verschiedenen Views für die unterschiedlichen Oberflächen werden erzeugt
+	 * - Die verschiedenen Views für die unterschiedlichen Oberflächen werden erzeugt.
 	 * </p>
 	 * <p>
-	 * - Die zuletzt geöffnete Szene wird geladen
+	 * - Die zuletzt geöffnete Szene wird geladen.
 	 * </p>
 	 * <p>
-	 * - Das in den Einstellungen ausgewählte Stylesheet wird geladen
+	 * - Das in den Einstellungen ausgewählte Stylesheet wird geladen.
 	 * </p>
 	 * <p>
-	 * - Das Fenster wird formatiert und geöffnet
+	 * - Das Fenster wird formatiert und geöffnet.
 	 * </p>
 	 * 
 	 * <b> Diese Methode wird erst beendet, wenn das Hauptfenster geschlossen wurde </b>
+	 * 
+	 * @see #createMenuBar()
+	 * @see ConverterView
+	 * @see #setStageSize(Stage)
+	 * 
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * This method creates the content for the main window an opens it.
+	 * <p>
+	 * - A menu bar is created, which allows to control the main window in every scene.
+	 * </p>
+	 * <p>
+	 * - Different views for the various surfaces are created.
+	 * </p>
+	 * <p>
+	 * - The latest scene is loaded.
+	 * </p>
+	 * <p>
+	 * - The in settings selected stylesheet is loaded.
+	 * </p>
+	 * <p>
+	 * - The window is formatted and opened.
+	 * </p>
+	 * 
+	 * <b> This method will end after the main window is closed. </b>
 	 * 
 	 * @see #createMenuBar()
 	 * @see ConverterView
@@ -137,6 +163,17 @@ public class Hauptfenster extends Application{
 	 * @see Viewable#getMinWidth()
 	 * @see Viewable#getMaxWidth()
 	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Adjusts the minimum and maximum size of the window to the size of the current scene ({@code currentView}).
+	 * 
+	 * @param primaryStage	window which size can be adjusted
+	 * 
+	 * @see Viewable#getMinHeigth()
+	 * @see Viewable#getMaxHeigth()
+	 * @see Viewable#getMinWidth()
+	 * @see Viewable#getMaxWidth()
+	 */
 	private void setStageSize(Stage primaryStage) {
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen
 		// (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
@@ -167,6 +204,18 @@ public class Hauptfenster extends Application{
 	 * </p>
 	 * 
 	 * @return	eine neue {@code MenuBar} mit dem benötigten Inhalt
+	 * 
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Creates a menu bar, that allows to select between different scenes, shows informations about this application
+	 * and includes settings.
+	 * <p>
+	 * Each required element is added to a new {@code MenuBar}.
+	 * Every action is set and does not need to be adjusted.
+	 * </p>
+	 * 
+	 * @return	a new {@code MenuBar} with the required content
 	 * 
 	 */
 	private MenuBar createMenuBar() {
