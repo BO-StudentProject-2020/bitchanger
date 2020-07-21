@@ -201,15 +201,15 @@ public class ConvertingNumbers {
 		String[] separated = separateByComma(base, value);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
 		
 		// Strings, die Ganzen- und Nachkommateil zu der uebergebenen Basis repraesentieren, in double Zahlen zur Basis 10 umwandeln
-		double ganzDez = baseToDecIntPart(base, separated[0]);
-		double nachDez = baseToDecFractionalPart(base, separated[1]);
+		double integerPart = baseToDecIntPart(base, separated[0]);
+		double fractionalPart = baseToDecFractionalPart(base, separated[1]);
 		
 		// Vor- und Nachkommateil addieren und Ergebnis zurueckgeben
-		if((ganzDez + nachDez) >= Double.MAX_VALUE) {
+		if((integerPart + fractionalPart) >= Double.MAX_VALUE) {
 			throw new UnsupportedOperationException("for value \"" + value + "\" - value must be within the double value range");
 		}
 		
-		return ganzDez + nachDez;
+		return integerPart + fractionalPart;
 	}
 	
 	
@@ -280,17 +280,17 @@ public class ConvertingNumbers {
 		
 		// Strings die ganzen und Nachkommateil zu der uebergebenen Basis 
 		// repraesentieren in double Zahlen zur Basis 10 umwandeln
-		double ganzDez = baseToDecIntPart(base, separated[0]);
-		double nachDez = baseToDecFractionalPart(base, separated[1]);
+		double integerPart = baseToDecIntPart(base, separated[0]);
+		double fractionalPart = baseToDecFractionalPart(base, separated[1]);
 		
 		// Ueberpruefen ob es Nachkommastellen gibt
-		if(nachDez != 0.0) {
+		if(fractionalPart != 0.0) {
 			// Ja -> Rueckgabe mit Nachkommateil
 			
-			return String.valueOf((long)ganzDez) + comma + String.valueOf(nachDez).substring(2);
+			return String.valueOf((long)integerPart) + comma + String.valueOf(fractionalPart).substring(2);
 		} else {
 			// Nein -> Rueckgabe des ganzen Anteils
-			return String.valueOf((long)ganzDez);
+			return String.valueOf((long)integerPart);
 		}
 		
 	}
@@ -529,16 +529,16 @@ public class ConvertingNumbers {
 	 * @return				Value of the submitted number as decimal representation as{@code double}
 	 */
 	private static double baseToDecIntPart(int base, String integerPart) {
-		char[] ziffern = integerPart.toCharArray();
-		double summe = 0;
+		char[] digits = integerPart.toCharArray();
+		double sum = 0;
 		
 		// umwandeln von beliebiger Basis zum Zehnersystem mit dem Horner-Schema
-		for(int i = 0; i < ziffern.length; i++) {
-			summe *= base;
-			summe += valueOfDigit(ziffern[i]);
+		for(int i = 0; i < digits.length; i++) {
+			sum *= base;
+			sum += valueOfDigit(digits[i]);
 		}
 		
-		return summe;
+		return sum;
 	}
 	
 	
@@ -561,19 +561,19 @@ public class ConvertingNumbers {
 	 */
 	private static double baseToDecFractionalPart(int base, String fractionalPart) {
 		// umwandeln von beliebiger Basis zum Zehnersystem mit dem Horner-Schema
-		// dafuer muss die Reihenfolge der Ziffern umgekehrt und eine 0 angehangen werden
+		// dafür muss die Reihenfolge der Ziffern umgekehrt und eine 0 angehangen werden
 		StringBuffer sb = new StringBuffer(fractionalPart);
 		sb.reverse();
 		sb.append(0);
 		
-		double summe = 0;
+		double sum = 0;
 		
 		for(int i = 0; i < sb.length(); i++) {
-			summe *= 1.0/base;
-			summe += valueOfDigit(sb.charAt(i));
+			sum *= 1.0/base;
+			sum += valueOfDigit(sb.charAt(i));
 		}
 		
-		return summe;
+		return sum;
 	}
 	
 	
@@ -590,7 +590,7 @@ public class ConvertingNumbers {
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
-	 * Converts an interger value of decimal system into a value of any base as string representation.
+	 * Converts an integer value of decimal system into a value of any base as string representation.
 	 * 
 	 * @param newBase		Base of the new numeral system
 	 * @param integerPart	Integer value of decimal system
@@ -614,11 +614,11 @@ public class ConvertingNumbers {
 			// Zaehler fuer naechsten Durchlauf aktualisieren
 			integerPart = integerPart / (long)newBase;
 			
-			char ziffer = digitOfValue(rest);
+			char digit = digitOfValue(rest);
 			
 			/* Das letzte Ergebnis ergibt die erste Stelle, daher muss der 
 			 * vorige String hinter der aktuellen Stelle stehen */
-			ergebnisGanz = ziffer + ergebnisGanz;
+			ergebnisGanz = digit + ergebnisGanz;
 		}
 		
 		return ergebnisGanz;
@@ -663,7 +663,7 @@ public class ConvertingNumbers {
 		}
 		
 		// String in dem das Ergebnis gespeichert wird
-		StringBuffer ergebnisNachkomma = new StringBuffer(String.valueOf(comma));
+		StringBuffer fractionalResult = new StringBuffer(String.valueOf(comma));
 		
 		// Hilfsvariable zum Abbrechen nach x Nachkommastellen
 		int zaehl = 0;
@@ -671,24 +671,24 @@ public class ConvertingNumbers {
 		while(!(fractionalPart % 1 == 0)){
 			if (zaehl >= fractionalPrecision) {
 				if (Preferences.indicateFractionalPrecision()) {
-					ergebnisNachkomma.append(FRACTIONAL_PRECISION_INDICATOR);
+					fractionalResult.append(FRACTIONAL_PRECISION_INDICATOR);
 				}
 				break;
 			}
 			
-			double hilf = fractionalPart * newBase;
-			int stelle = (int) hilf;
-			fractionalPart = hilf % 1;
+			double helper = fractionalPart * newBase;
+			int stelle = (int) helper;
+			fractionalPart = helper % 1;
 			
 			char ziffer = digitOfValue(stelle);
 			
-			ergebnisNachkomma.append(ziffer);
+			fractionalResult.append(ziffer);
 			
 			zaehl++;	// Hilfsvariable zum Abbrechen nach x Nachkommastellen
 			
 		}
 		
-		return ergebnisNachkomma.toString();
+		return fractionalResult.toString();
 	}
 	
 	
@@ -778,8 +778,8 @@ public class ConvertingNumbers {
 	 * @throws NumberFormatException	If {@code value} is not a number represented as string, caused due to many commas
 	 */
 	private static String[] separateByComma(int base, String value) throws NumberFormatException {
-		String ganz = "";
-		String nach = "";
+		String integerPart = "";
+		String fractionalPart = "";
 		
 		// Separator einstellen
 		String separator = getFirstComma(value);
@@ -790,8 +790,8 @@ public class ConvertingNumbers {
 			Scanner sc = new Scanner(value);
 			sc.useDelimiter(separator);
 			
-			ganz = sc.next();
-			nach = sc.next();	
+			integerPart = sc.next();
+			fractionalPart = sc.next();	
 			
 			// Delimiter zurücksetzen und leeren, um fehlerhafte Eingaben nicht zu übergehen
 			sc.reset();
@@ -804,11 +804,11 @@ public class ConvertingNumbers {
 			sc.close();
 		} else {
 			// Keine Trennung durch Komma oder Punkt, eventuell ganze Zahl
-			ganz = value;
-			nach = "0";
+			integerPart = value;
+			fractionalPart = "0";
 		}
 		
-		String[] separated = {ganz, nach};
+		String[] separated = {integerPart, fractionalPart};
 		return separated;
 	}
 
