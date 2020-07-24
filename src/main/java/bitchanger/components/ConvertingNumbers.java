@@ -91,6 +91,7 @@ public class ConvertingNumbers {
 	/** <!-- $LANGUAGE=DE -->
 	 * Prüft, ob {@code value} eine Zahl zur geforderten Basis {@code base} repräsentiert.
 	 * Ist der Indikator für abgeschnittene Nachkommastellen aktiviert, wird dieser bei der Auswertung ignoriert.
+	 * Leerzeichen können als Tausender-Trennung verwendet werden und werden von dieser Methode ebenfalls ignoriert.
 	 * 
 	 * @param value	zu prüfende Zahl repräsentiert als {@code String}
 	 * @param base	geforderte Basis von {@code value} - erlaubt sind nur Werte von 2 bis 36 (einschließlich)
@@ -104,6 +105,7 @@ public class ConvertingNumbers {
 	/* <!-- $LANGUAGE=EN -->
 	 * Checks if {@code value} represents a number to the required base {@code base}.
 	 * If the indicator for truncated fractional digits is activated, it will be ignored in the evaluation.
+	 * Whitespace can be used as thousands separator and will be ignored by this method.
 	 * 
 	 * @param value	number to be checked, represented as {@code String}
 	 * @param base	requested base of {@code value} - only values between 2 and 36 are allowed
