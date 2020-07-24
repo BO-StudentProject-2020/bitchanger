@@ -12,7 +12,6 @@ package bitchanger.gui.views;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import bitchanger.gui.controller.ControllerBase;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.AlphaNumGrid;
@@ -109,19 +108,23 @@ public class ConverterView extends ViewBase<BorderPane> {
 	
 	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter definiert, mit denen die 
 	 * Textfelder in der Map {@code tfMap} gespeichert werden */
-	private static final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
+	public static final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem der Löschen-Button (AC)
 	 * in der Map {@code btnMap} gespeichert wird */
-	private static final String CLEAR_BTN_KEY = "clearBtn";
+	public static final String CLEAR_BTN_KEY = "clearBtn";
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem der Backspace-Button
 	 * in der Map {@code btnMap} gespeichert wird */
-	private static final String BACKSPACE_BTN_KEY = "backspaceBtn";
+	public static final String BACKSPACE_BTN_KEY = "backspaceBtn";
 	
 	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter definiert, mit denen die 
 	 * Buttons in der Map {@code btnMap} gespeichert werden */
-	private static final String[] BTN_KEYS = {CLEAR_BTN_KEY, BACKSPACE_BTN_KEY};
+	public static final String[] BTN_KEYS = {CLEAR_BTN_KEY, BACKSPACE_BTN_KEY};
+	
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem der Spinner für die beliebige Basis
+	 * in der Map {@code nodeMap} gespeichert wird */
+	public static final String BASE_SPINNER_KEY = "baseSpinner";
 
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -197,12 +200,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 				+ (MAX_SPALTEN - 1) * HGAP;
 	}
 	
-	
-	public Spinner<Integer> getBaseSpinner(){
-		// TODO ersetzen durch nodeMap	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		return this.baseSpinner;
-	}
-	
+
 	
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	@Override
@@ -318,7 +316,8 @@ public class ConverterView extends ViewBase<BorderPane> {
 		}
 		
 		// Spinner für die beliebige Basis
-		baseSpinner = new BaseSpinner<Integer>();
+		baseSpinner = new BaseSpinner();
+		getNodes().put(BASE_SPINNER_KEY, baseSpinner);
 		GridPane.setConstraints(baseSpinner, 0, labelText.length);
 		center.getChildren().add(baseSpinner);
 	}

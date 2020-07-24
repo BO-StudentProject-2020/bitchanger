@@ -43,7 +43,7 @@ public class ConverterController extends ControllerBase {
 
 	// Attribute
 	private ChangeableNumber value;
-	private BaseSpinner<Integer> anyBase;
+	private BaseSpinner anyBase;
 	private IntegerProperty baseProperty;
 
 	// TextFields
@@ -66,8 +66,10 @@ public class ConverterController extends ControllerBase {
 		this.value = new SimpleChangeableNumber();
 		this.baseProperty = new SimpleIntegerProperty();
 		
-		// TODO ersetzen durch nodeMap	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		this.anyBase = (BaseSpinner<Integer>) ((ConverterView) view).getBaseSpinner();
+		if(view.getNodes().get(ConverterView.BASE_SPINNER_KEY) instanceof BaseSpinner) {
+			this.anyBase = (BaseSpinner) view.getNodes().get(ConverterView.BASE_SPINNER_KEY);
+		}
+		
 	}
 
 	@Override
