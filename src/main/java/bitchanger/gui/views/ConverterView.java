@@ -39,6 +39,7 @@ import javafx.scene.layout.RowConstraints;
 //TODO Buttons der Liste hinzufuegen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 
 /**	<!-- $LANGUAGE=DE -->
+ * View, die die Scene für die Umwandlung von Zahlensystemen enthält.
  * 
  * @author Tim
  * 
@@ -49,38 +50,108 @@ import javafx.scene.layout.RowConstraints;
 public class ConverterView extends ViewBase<BorderPane> {
 	
 	// Konstanten	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die maximale Höhe der Textfelder in dieser View definiert */
 	private static final int TF_MAX_HEIGHT = 40;
-	private static final int TF_MIN_HEIGHT = 40;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die minimale Höhe der Textfelder in dieser View definiert */
+	private static final int TF_MIN_HEIGHT = TF_MAX_HEIGHT;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die maximale Höhe der Buttons in dieser View definiert */
 	private static final int BTN_MAX_HEIGTH = 120;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die minimale Höhe der Buttons in dieser View definiert  */
 	private static final int BTN_MIN_HEIGTH = 85;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die maximale Breite der Buttons in dieser View definiert */
 	private static final int BTN_MAX_WIDTH = BTN_MAX_HEIGTH;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die minimale Breite der Buttons in dieser View definiert */
 	private static final int BTN_MIN_WIDTH = BTN_MIN_HEIGTH;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die Höhe des Abstands zwischen den Buttons und Textfeldern definiert */
 	private static final int WHITE_SPACE_HEIGTH = 40;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die Breite der ersten Spalte mit den Labels enthält. 
+	 * Wird benötigt, um symmetrisch Weißraum auf der rechten Seite hinzuzufügen. */
 	private static final int FIRST_COLUMN_WITH = 80;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die den Abstand am oberen Rand der GridPane im Center zu definiert */
 	private static final int PADDING_TOP = 10;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die den Abstand am rechten Rand der GridPane im Center zu definiert */
 	private static final int PADDING_RIGTH = 20;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die den Abstand am unteren Rand der GridPane im Center zu definiert */
 	private static final int PADDING_BOTTOM = 20;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die den Abstand am linken Rand der GridPane im Center zu definiert */
 	private static final int PADDING_LEFT = 20;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die Anzahl der Spalten in der GridPane definiert */
 	private static final int MAX_SPALTEN = 6;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die den Abstand der Buttons in der GridPane definiert */
 	private static final int BTN_SPACING = 6;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die den horizontalen Abstand der GridPane im Center definiert */
 	private static final int HGAP = BTN_SPACING;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die den vertikalen Abstand der GridPane im Center definiert */
 	private static final int VGAP = BTN_SPACING;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die erste Zeile der GridPane definiert, 
+	 * in der die Tastatur-Buttons positioniert werden */
 	private static final int FIRST_BTN_ROW = 6;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die erste Spalte der GridPane definiert, 
+	 * in der die Tastatur-Buttons positioniert werden */
 	private static final int FIRST_BTN_COLUMN = 1;
+	
+	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter definiert, mit denen die 
+	 * Textfelder in der Map {@code tfMap} gespeichert werden */
 	private static final String[] TF_KEYS = {"hexTF", "decTF", "octTF", "binTF", "anyTF"};
+	
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem der Löschen-Button (AC)
+	 * in der Map {@code btnMap} gespeichert wird */
 	private static final String CLEAR_BTN_KEY = "clearBtn";
+	
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem der Backspace-Button
+	 * in der Map {@code btnMap} gespeichert wird */
 	private static final String BACKSPACE_BTN_KEY = "backspaceBtn";
+	
+	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter definiert, mit denen die 
+	 * Buttons in der Map {@code btnMap} gespeichert werden */
 	private static final String[] BTN_KEYS = {CLEAR_BTN_KEY, BACKSPACE_BTN_KEY};
 
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Tabelle im Center von {@code root}.
+	 * In dieser Tabelle werden die Textfelder und Buttons für die Zahlenumwandlung positioniert.
+	 */
 	private GridPane center;
+	
+	/** <!-- $LANGUAGE=DE -->	Map, in der die angezeigten Texte oder Icons für die Buttons definiert werden. */
 	private HashMap<String, Object> btnTexts;
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Buttons, die als alpha-numerische Tastatur dienen, die für verschiedene Zahlensysteme ausgelegt ist.
+	 */
 	private AlphaNumGrid alphaNum;
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Spinner zur Auswahl des beliebigen Zahlensystems in den Grenzen 2 bis 36 (beides einschließlich)
+	 */
 	private Spinner<Integer> baseSpinner;
 	
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ConverterView mit vollständigem Scenegraphen und positioniert die 
+	 * Menüleiste im Top der BorderPane, die der Wurzelknoten des Scenegraphen ist.
+	 * 
+	 * @param menu	Menübar, die oben in der Scene angeheftet wird
+	 */
 	public ConverterView(MenuBar menu) {
 		super(new BorderPane());
 		
@@ -89,35 +160,43 @@ public class ConverterView extends ViewBase<BorderPane> {
 		}
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ConverterView mit vollständigem Scenegraphen.
+	 */
 	public ConverterView() {
 		this(null);
 	}
 
 
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** {@inheritDoc} */
 	@Override
 	public double getMaxHeigth() {
 		return PADDING_TOP + PADDING_BOTTOM + getTextFields().size() * TF_MAX_HEIGHT + (center.getRowCount() - 1) * VGAP + 
 				(center.getRowCount() - FIRST_BTN_ROW) * BTN_MAX_HEIGTH + WHITE_SPACE_HEIGTH;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public double getMaxWidth() {
 		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (MAX_SPALTEN - FIRST_BTN_COLUMN) * BTN_MAX_WIDTH
 				+ (MAX_SPALTEN - 1) * HGAP;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public double getMinHeigth() {
 		return PADDING_TOP + PADDING_BOTTOM + getTextFields().size() * TF_MIN_HEIGHT + (center.getRowCount() - 1) * VGAP + 
 				(center.getRowCount() - FIRST_BTN_ROW) * BTN_MIN_HEIGTH + WHITE_SPACE_HEIGTH;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public double getMinWidth() {
 		return PADDING_LEFT + PADDING_RIGTH + FIRST_COLUMN_WITH + (MAX_SPALTEN - FIRST_BTN_COLUMN) * BTN_MIN_WIDTH
 				+ (MAX_SPALTEN - 1) * HGAP;
 	}
+	
 	
 	public Spinner<Integer> getBaseSpinner(){
 		// TODO ersetzen durch nodeMap	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
@@ -131,8 +210,8 @@ public class ConverterView extends ViewBase<BorderPane> {
 		center = new GridPane();
 		btnTexts = new HashMap<String, Object>();
 		
-		btnTexts.put("clearBtn", "AC");
-		btnTexts.put("backspaceBtn", "<--");
+		btnTexts.put(CLEAR_BTN_KEY, "AC");
+		btnTexts.put(BACKSPACE_BTN_KEY, "<--");
 	}
 	
 	@Override
