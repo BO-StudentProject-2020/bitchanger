@@ -12,7 +12,6 @@ package bitchanger.gui.views;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import bitchanger.gui.controller.ControllerBase;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.AlphaNumGrid;
 import bitchanger.gui.controls.BaseSpinner;
@@ -35,7 +34,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
-//TODO Buttons der Liste hinzufuegen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 
 /**	<!-- $LANGUAGE=DE -->
  * View, die die Scene für die Umwandlung von Zahlensystemen enthält.
@@ -142,11 +140,6 @@ public class ConverterView extends ViewBase<BorderPane> {
 	 */
 	private AlphaNumGrid alphaNum;
 	
-	/** <!-- $LANGUAGE=DE -->
-	 * Spinner zur Auswahl des beliebigen Zahlensystems in den Grenzen 2 bis 36 (beides einschließlich)
-	 */
-	private Spinner<Integer> baseSpinner;
-	
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
@@ -175,7 +168,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 	/** {@inheritDoc} */
 	@Override
 	public double getMaxHeigth() {
-		return PADDING_TOP + PADDING_BOTTOM + getTextFields().size() * TF_MAX_HEIGHT + (center.getRowCount() - 1) * VGAP + 
+		return PADDING_TOP + PADDING_BOTTOM + getTextFieldMap().size() * TF_MAX_HEIGHT + (center.getRowCount() - 1) * VGAP + 
 				(center.getRowCount() - FIRST_BTN_ROW) * BTN_MAX_HEIGTH + WHITE_SPACE_HEIGTH;
 	}
 
@@ -189,7 +182,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 	/** {@inheritDoc} */
 	@Override
 	public double getMinHeigth() {
-		return PADDING_TOP + PADDING_BOTTOM + getTextFields().size() * TF_MIN_HEIGHT + (center.getRowCount() - 1) * VGAP + 
+		return PADDING_TOP + PADDING_BOTTOM + getTextFieldMap().size() * TF_MIN_HEIGHT + (center.getRowCount() - 1) * VGAP + 
 				(center.getRowCount() - FIRST_BTN_ROW) * BTN_MIN_HEIGTH + WHITE_SPACE_HEIGTH;
 	}
 
@@ -203,6 +196,10 @@ public class ConverterView extends ViewBase<BorderPane> {
 
 	
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Initialisiert die Attribute {@link #center} und {@link #btnTexts} und füllt {@link #btnTexts}
+	 * mit den Beschriftungen für die Buttons {@link #CLEAR_BTN_KEY} und {@link #BACKSPACE_BTN_KEY}.
+	 */
 	@Override
 	protected void init() {
 		center = new GridPane();
@@ -212,6 +209,13 @@ public class ConverterView extends ViewBase<BorderPane> {
 		btnTexts.put(BACKSPACE_BTN_KEY, "<--");
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt den Scenegraphen und fügt diesen dem Wurzelknoten hinzu.
+	 * 
+	 * @param root Wurzelknoten des Scenegraphen
+	 * 
+	 * @see #createCenter()
+	 */
 	@Override
 	protected void createScenegraph(BorderPane root) {
 		createCenter();
@@ -221,30 +225,52 @@ public class ConverterView extends ViewBase<BorderPane> {
 		root.setCenter(center);
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt einen neuen {@linkplain ConverterController} und speichert diesen im Attribut controller.
+	 */
 	@Override
-	protected ControllerBase createController() {
-		return new ConverterController(this);
+	protected void initController() {
+		this.controller = new ConverterController(this);
 	}
 	
+	
 	// GridPane Center	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt die Kinder im Scenegraphen und setzt das Layout in der GridPane {@link #center}
+	 * 
+	 * @see #createTextFields()
+	 * @see #createButtonMatrix()
+	 * @see #setRowConstraints()
+	 * @see #setColumnConstraints()
+	 */
 	private void createCenter() {
-		// Textfelder erstellen und in die GridPane einfuegen
+		// Label erstellen und in die GridPane einfügen
+		createLabels();
+		
+		// Textfelder erstellen und in die GridPane einfügen
 		createTextFields();
 		
-		// Buttons erstellen und in die GridPane einfuegen		
+		// Buttons erstellen und in die GridPane einfügen		
 		createButtonMatrix();
 		
 		center.setHgap(HGAP);
 		center.setVgap(VGAP);
 		
-		// Constraints fuer Groesse und Wachstum setzen
+		// Constraints für Größe und Wachstum setzen
 		setRowConstraints();
 		setColumnConstraints();
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Setzt alle {@code RowConstraints} für center.
+	 * <p>
+	 * Es werden die Höhe für Zeilen mit Textfeldern, Buttons und Whitespace eingestellt.
+	 * Zudem werden die Anordnung und das Größenwachstum für die Zeilen der GridPane eingestellt.
+	 * </p>
+	 */
 	private void setRowConstraints() {
-		// RowConstraints fuer Zeilen mit Textfeldern
-		for (int i = 0; i < getTextFields().size(); i++) {
+		// RowConstraints für Zeilen mit Textfeldern
+		for (int i = 0; i < getTextFieldMap().size(); i++) {
 			RowConstraints rowc = new RowConstraints();
 			rowc.setFillHeight(true);
 			rowc.setMaxHeight(TF_MAX_HEIGHT);
@@ -253,14 +279,14 @@ public class ConverterView extends ViewBase<BorderPane> {
 		}
 		
 		// Zeilen zwischen Textfeldern und Buttons
-		for (int i = getTextFields().size(); i < FIRST_BTN_ROW; i++) {
+		for (int i = getTextFieldMap().size(); i < FIRST_BTN_ROW; i++) {
 			RowConstraints rowc = new RowConstraints();
 			rowc.setMaxHeight(WHITE_SPACE_HEIGTH);
 			rowc.setMinHeight(WHITE_SPACE_HEIGTH);
 			center.getRowConstraints().add(rowc);
 		}
 		
-		// RowConstraints fuer die Buttons
+		// RowConstraints für die Buttons
 		for (int i = FIRST_BTN_ROW; i < center.getRowCount(); i++) {
 			RowConstraints rowc = new RowConstraints();
 			rowc.setFillHeight(true);
@@ -272,8 +298,15 @@ public class ConverterView extends ViewBase<BorderPane> {
 		}
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Setzt alle {@code ColumnConstraints} für center.
+	 * <p>
+	 * Es werden Breite der Spalten, sowie Anordnung und das Größenwachstum
+	 * für alle Spalten der GridPane eingestellt.
+	 * </p>
+	 */
 	private void setColumnConstraints() {
-		// ColumnConstraints fuer erste Spalte 
+		// ColumnConstraints für erste Spalte 
 		ColumnConstraints column1 = new ColumnConstraints();
 		column1.setFillWidth(true);
 		column1.setHalignment(HPos.CENTER);
@@ -282,7 +315,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 		column1.setMinWidth(FIRST_COLUMN_WITH);
 		center.getColumnConstraints().add(column1);
 		
-		// ColumnConstraints fuer Spalten mit Textfeldern und Buttons
+		// ColumnConstraints für Spalten mit Textfeldern und Buttons
 		for (int i = 1; i < center.getColumnCount(); i++) {
 			ColumnConstraints column = new ColumnConstraints();
 			column.setFillWidth(true);
@@ -294,17 +327,34 @@ public class ConverterView extends ViewBase<BorderPane> {
 		}
 	}
 	
-	
-	// TextFields and Labels	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+
+	// TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt alle Textfelder, für die es einen Schlüssel im Array TF_KEYS gibt.
+	 * Jedes Textfeld wird der GridPane hinzugefügt und die Constraints entsprechend gesetzt.
+	 * Alle Textfelder werden mit den Schlüsselwörtern aus TF_KEYS in der Textfeld-Map gespeichert.
+	 */
 	private void createTextFields() {
-		// Labels erstellen und der GridPane hinzufuegen
-		createLabels();
-		
-		// Textfelder erstellen und in Liste speichern
-		ArrayList<Node> textFieldList = initTextFields();
-		center.getChildren().addAll(textFieldList);
+		for(int i = 0; i < TF_KEYS.length; i++) {
+			TextField tf = new ValueField();
+			
+			// Constraints für GridPane setzen
+			GridPane.setConstraints(tf, 1, i, MAX_SPALTEN - 1, 1, HPos.CENTER, VPos.CENTER, Priority.NEVER, Priority.ALWAYS);
+			
+			// Textfeld der GridPane hinzufügen
+			center.getChildren().add(tf);
+			
+			// Textfeld mit Schlüssel in Map speichern
+			getTextFieldMap().put(TF_KEYS[i], tf);
+		}
 	}
 	
+	
+	// Labels	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt alle Label und den Spinner in der ersten Spalte der GridPane.
+	 * Alle Label und der Spinner werden in der GridPane positioniert. Der Spinner wird mit dem Schlüssel aus {@value #BASE_SPINNER_KEY} in der nodeMap gespeichert.
+	 */
 	private void createLabels() {
 		String[] labelText = {"HEX", "DEC", "OCT", "BIN"};
 		
@@ -316,53 +366,51 @@ public class ConverterView extends ViewBase<BorderPane> {
 		}
 		
 		// Spinner für die beliebige Basis
-		baseSpinner = new BaseSpinner();
-		getNodes().put(BASE_SPINNER_KEY, baseSpinner);
+		Spinner<Integer> baseSpinner = new BaseSpinner();
+		
+		getNodeMap().put(BASE_SPINNER_KEY, baseSpinner);
+		
 		GridPane.setConstraints(baseSpinner, 0, labelText.length);
 		center.getChildren().add(baseSpinner);
 	}
 	
 	
-	private ArrayList<Node> initTextFields() {
-		ArrayList<Node> tfList = new ArrayList<>();
-		
-		for(int i = 0; i < TF_KEYS.length; i++) {
-			String key = TF_KEYS[i];
-			TextField tf = new ValueField();
-			
-			// Constraints fuer GridPane setzen
-			GridPane.setConstraints(tf, 1, i, MAX_SPALTEN - 1, 1, HPos.CENTER, VPos.CENTER, Priority.NEVER, Priority.ALWAYS);
-			
-			// Textfeld mit Schluessel in Map speichern
-			getTextFields().put(key, tf);
-			
-			// Textfeld der Liste fuer die GridPane hinzufuegen
-			tfList.add(tf);
-		}
-		
-		return tfList;
-	}
-	
-	
 	// Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt alle benötigten Buttons und positioniert diese in der GridPane.
+	 * 
+	 * @see #createButtons()
+	 * @see AlphaNumGrid
+	 * @see #setButtonConstraints(ArrayList)
+	 */
 	private void createButtonMatrix() {
 		// Buttons erstellen und im Array speichern
-		ArrayList<Node> buttonList = new ArrayList<Node>(23);	// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
+		// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
+		ArrayList<Node> buttonList = new ArrayList<Node>(23);
 		buttonList.addAll(createButtons());
 		
-		
-		// Tastenfelder erstellen, die Button zum weiter bzw zurueckschalten existieren bereits
+		// Tastaturfeld erstellen
 		alphaNum = new AlphaNumGrid(BTN_SPACING);
 		buttonList.addAll(alphaNum.getButtonMatrix());
-		getButtons().putAll(alphaNum.getButtons());
 		
+		getButtonMap().putAll(alphaNum.getButtonMap());
 		
-		// Constraints fuer Position in der Tabelle setzen
+		// Constraints für Position in der Tabelle setzen
 		setButtonConstraints(buttonList);
 		
 		center.getChildren().addAll(buttonList);;
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt die Buttons, die im Array BTN_KEYS definiert sind und gibt diese in einer ArrayList zurück.
+	 * Die Buttons werden in der Reihenfolge in die ArrayList eingefügt, in der sie in BTN_KEYS definiert sind.
+	 * Alle Buttons werden in der Map für Buttons abgelegt.
+	 * <p><b>
+	 * Alle Buttons werden als Instanz von {@link UnfocusedButton} angelegt.
+	 * </b></p>
+	 * 
+	 * @return	Liste der erstellten Buttons mit der Reihenfolge von {@link #BTN_KEYS}
+	 */
 	private ArrayList<Button> createButtons() {
 		// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
 		ArrayList<Button> buttons = new ArrayList<Button>(4);
@@ -380,30 +428,45 @@ public class ConverterView extends ViewBase<BorderPane> {
 				// BackspaceButton muss auf zwei Spalten verteilt werden!
 				GridPane.setColumnSpan(b, 2);
 			}
-			// Buttons mit Schluessel in Map speichern
-			getButtons().put(btnKey, b);
 			
-			// angelegte Buttons im Array speichern und zurueckgeben
+			// Buttons mit Schlüssel in Map speichern
+			getButtonMap().put(btnKey, b);
+			
+			// angelegte Buttons im Array speichern und zurückgeben
 			buttons.add(b);
 		}
 		
 		return buttons;
 	}
 
+	/** <!-- $LANGUAGE=DE -->
+	 * Setzt die Constrains der Buttons, um diese in der GridPane richtig zu positionieren.
+	 * <p>
+	 * Der erste Button wird an die Position gesetzt, die über die Konstanten FIRST_BTN_ROW und
+	 * FIRST_BTN_COLUMN definiert ist. Die Matrix wird auf fünf Spalten verteilt und die Zeile
+	 * automatisch umgebrochen.
+	 * </p>
+	 * <p>
+	 * Die maximale Größe wird bei allen Buttons eingestellt, damit sich sich die Größe dem Fenster anpassen kann.
+	 * </p>
+	 * 
+	 * @param buttonList	Liste mit Buttons in der richtigen Reihenfolge.
+	 */
 	private void setButtonConstraints(ArrayList<Node> buttonList) {
-		// Tastenmatrix in die GridPane integrieren und die Groesse richtig anpassen
+		// Button-Matrix in die GridPane integrieren und die Größe richtig anpassen
 		int zeile = FIRST_BTN_ROW;
-		int spalte = FIRST_BTN_COLUMN + 2;
+		int spalte = FIRST_BTN_COLUMN + 2;	// in der ersten Zeile bleiben die ersten Felder frei
 		for(Node n: buttonList) {
 			if(GridPane.getColumnSpan(n) == null) {
 				GridPane.setColumnSpan(n, 1);
 			}
 			
-			// maximale Groesse anpassen
+			// maximale Größe anpassen
 			if (n instanceof Button) {
 				((Button) n).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 			}
 			else if (n instanceof Pane) {
+				// Buttons liegen im Layout-Container
 				for(Node b: ((Pane) n).getChildren()) {
 					if(b instanceof Button) {
 						((Button) b).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -414,12 +477,12 @@ public class ConverterView extends ViewBase<BorderPane> {
 			// Position in der Tabelle
 			GridPane.setConstraints(n, spalte, zeile);
 			
-			// Zaehlvariablen inkrementieren
+			// Zählvariablen inkrementieren
 			for (int i = 0; i < GridPane.getColumnSpan(n); i++) {
 				spalte++;	// so viele Spalten weiter, wie das Element einnimmt
 			}
 			
-			// Wenn maximale Spaltenanzahl ueberschritten: in naechste Zeile wechseln
+			// Wenn maximale Spaltenanzahl überschritten: in nächste Zeile wechseln
 			if(spalte >= FIRST_BTN_COLUMN + 5) {
 				spalte = FIRST_BTN_COLUMN;
 				zeile++;

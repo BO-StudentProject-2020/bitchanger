@@ -66,8 +66,8 @@ public class ConverterController extends ControllerBase {
 		this.value = new SimpleChangeableNumber();
 		this.baseProperty = new SimpleIntegerProperty();
 		
-		if(view.getNodes().get(ConverterView.BASE_SPINNER_KEY) instanceof BaseSpinner) {
-			this.anyBase = (BaseSpinner) view.getNodes().get(ConverterView.BASE_SPINNER_KEY);
+		if(view.getNodeMap().get(ConverterView.BASE_SPINNER_KEY) instanceof BaseSpinner) {
+			this.anyBase = (BaseSpinner) view.getNodeMap().get(ConverterView.BASE_SPINNER_KEY);
 		}
 		
 	}

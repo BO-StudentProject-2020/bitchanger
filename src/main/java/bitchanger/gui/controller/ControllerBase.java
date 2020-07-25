@@ -30,8 +30,8 @@ public abstract class ControllerBase {
 //	protected ArrayList<Node> allButtons;
 	
 	protected ControllerBase(Controllable view) {
-		this.textFieldMap = view.getTextFields();
-		this.buttonMap = view.getButtons();
+		this.textFieldMap = view.getTextFieldMap();
+		this.buttonMap = view.getButtonMap();
 //		this.allButtons = view.getButtonList();
 		
 //		this.allButtons = new ArrayList<Node>();

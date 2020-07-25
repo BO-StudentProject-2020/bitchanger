@@ -76,17 +76,17 @@ public class AlphaNumGrid implements Controllable {
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	@Override
-	public HashMap<String, TextField> getTextFields() {
+	public HashMap<String, TextField> getTextFieldMap() {
 		return null;
 	}
 	
 	@Override
-	public HashMap<String, Button> getButtons() {
+	public HashMap<String, Button> getButtonMap() {
 		return this.buttonMap;
 	}
 	
 	@Override
-	public HashMap<String, Node> getNodes() {
+	public HashMap<String, Node> getNodeMap() {
 		// TODO Auto-generated method stub
 		return null;
 	}

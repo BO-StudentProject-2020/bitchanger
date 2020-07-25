@@ -92,7 +92,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 		init();
 		createScenegraph(this.root);
 		
-		this.controller = createController();
+		initController();
 		
 		if(controller != null) {
 			controller.setControlls();
@@ -132,13 +132,13 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Methode, die einen neuen Controller für die View erzeugt.
+	 * Methode, die einen neuen Controller für die View erzeugt und im Attribut {@link #controller} speichert.
 	 * <b> Diese Methode wird vom Konstruktor aufgerufen, nachdem der Scenegraph konstruiert wurde. </b>
 	 * 
 	 * @return ein <b>neuer</b> Controller für diese View
 	 * 
 	 */
-	protected abstract ControllerBase createController();
+	protected abstract void initController();
 
 
 // Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -150,19 +150,19 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, TextField> getTextFields() {
+	public HashMap<String, TextField> getTextFieldMap() {
 		return tfMap;
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, Button> getButtons() {
+	public HashMap<String, Button> getButtonMap() {
 		return btnMap;
 	}
 	
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, Node> getNodes() {
+	public HashMap<String, Node> getNodeMap() {
 		return nodeMap;
 	}
 	
