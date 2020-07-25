@@ -14,17 +14,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
-
-import bitchanger.gui.views.Controllable;
-import bitchanger.preferences.Comma;
+import bitchanger.gui.controller.AlphaNumGridController;
+import bitchanger.gui.controller.Controllable;
+import bitchanger.gui.controller.ControllerBase;
 import bitchanger.preferences.Preferences;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -40,21 +35,26 @@ import javafx.scene.layout.Priority;
  */
 public class AlphaNumGrid implements Controllable {
 	
+	// Konstanten	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	public static final String SIGN_BTN_KEY = "signBtn";
+	public static final String ZERO_BTN_KEY = "num_0";
+	public static final String COMMA_BTN_KEY = "commaBtn";
+	public static final String KEYBOARD_BTN_KEY = "keyboardBtn";
+	public static final String NEXT_BTN_KEY = "nextBtn";
+	public static final String PREVIOUS_BTN_KEY = "previousBtn";
+	public static final String[] ALPHA_KEYS = {"alpha_0", "alpha_1", "alpha_2", "alpha_3", "alpha_4", "alpha_5"};
+	public static final String[] NUM_KEYS = {"num_7", "num_8", "num_9", "num_4", "num_5", "num_6", "num_1", "num_2", "num_3"};
+	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private ArrayList<Node> buttonList;
 	private HashMap<String, Button> buttonMap;
-	private final String SIGN_BTN = "signBtn";
-	private final String NUM_0_BTN = "num_0";
-	private final String COMMA_BTN = "commaBtn";
 	private Button keyboardBtn;
 	private Button previousBtn;
 	private Button nextBtn;
 	private Button commaBtn;
 	private HBox arrowButtons;
 	private double spacing;
-	private boolean isShowingKeyboard;
-	private String[] alphaKeys;
-	private String[] numKeys;
+	private ControllerBase controller;
 	
 	
 	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -64,15 +64,14 @@ public class AlphaNumGrid implements Controllable {
 	public AlphaNumGrid(double spacing) {
 		this.buttonList = new ArrayList<Node>();
 		this.buttonMap = new HashMap<String, Button>();
-		
 		this.spacing = spacing;
-		this.isShowingKeyboard = false;
 		
 		createButtons();
-		setActions();
+		
+		this.controller = new AlphaNumGridController(this);
+		this.controller.setActions();
 	}
 	
-
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	@Override
@@ -87,7 +86,6 @@ public class AlphaNumGrid implements Controllable {
 	
 	@Override
 	public HashMap<String, Node> getNodeMap() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -96,7 +94,6 @@ public class AlphaNumGrid implements Controllable {
 		if(button instanceof Button) {
 			buttonMap.put(key, (Button) button);
 		}
-		
 	}
 
 	private void setNextButton(Node button, int column, int row) {
@@ -108,34 +105,8 @@ public class AlphaNumGrid implements Controllable {
 		return buttonList;
 	}
 	
-	private void setAlphaButtons(char startLetter) {
-		for(String alphaKey: alphaKeys) {
-			if(startLetter < 'A' || startLetter > 'Z') {
-				startLetter = ' ';
-			}
-			Button b = buttonMap.get(alphaKey);
-			b.setText(String.valueOf(startLetter));
-			startLetter++;
-		}
-	}
-	
-	private void setNumButtons() {
-		for(String numKey: numKeys) {
-			Button b = buttonMap.get(numKey);
-			
-			b.setText(String.valueOf(numKey.substring(numKey.indexOf('_') + 1)));
-		}
-	}
-	
-	private void setAllToKeyboard(char startLetter) {
-		for(int i = 0; i < 15; i++) {
-			if(startLetter < 'A' || startLetter > 'Z') {
-				startLetter = ' ';
-			}
-			((Labeled) buttonList.get(i)).setText(String.valueOf(startLetter));
-			
-			startLetter++;
-		}
+	public HBox getArrowButtons() {
+		return this.arrowButtons;
 	}
 	
 	
@@ -153,7 +124,7 @@ public class AlphaNumGrid implements Controllable {
 		commaBtn = new UnfocusedButton(String.valueOf(Preferences.getComma()));
 		
 		Button[] lastRow = {signBtn, num0, commaBtn};
-		String[] lastRowKeys = {SIGN_BTN, NUM_0_BTN, COMMA_BTN};
+		String[] lastRowKeys = {SIGN_BTN_KEY, ZERO_BTN_KEY, COMMA_BTN_KEY};
 		for (int column = 0; column < lastRow.length; column++) {
 			setNextButton(lastRow[column], column + 2, 3, lastRowKeys[column]);
 		}
@@ -161,10 +132,14 @@ public class AlphaNumGrid implements Controllable {
 	
 	private void createControllButtons() {
 		keyboardBtn = new UnfocusedButton("KEYB");
-		setNextButton(keyboardBtn, 0, 3);		
+		setNextButton(keyboardBtn, 0, 3, KEYBOARD_BTN_KEY);		
 		
 		previousBtn = new UnfocusedButton("<");
 		nextBtn = new UnfocusedButton(">");
+		
+		buttonMap.put(PREVIOUS_BTN_KEY, previousBtn);
+		buttonMap.put(NEXT_BTN_KEY, nextBtn);
+		
 		previousBtn.setDisable(true);
 		
 		arrowButtons = new HBox();
@@ -179,23 +154,21 @@ public class AlphaNumGrid implements Controllable {
 	private void createMainMatrix() {
 		// 6 Buttons fuer Buchstaben anlegen
 		Queue<Button> alphaButtons = new LinkedList<Button>();
-		alphaKeys = new String[6];
+
 		for (int i = 0; i < 6; i++) {
 			Button b = new ValueButton(String.valueOf((char)('A' + i)));
 			alphaButtons.add(b);
-			alphaKeys[i] = "alpha_" + i;
-			buttonMap.put(alphaKeys[i], b);
+			buttonMap.put(ALPHA_KEYS[i], b);
 		}
 		
 		// 9 Buttons fuer Zahlen anlegen
 		Queue<Button> numButtons = new LinkedList<Button>();
 		String[] numBtnText = {"7", "8", "9", "4", "5", "6", "1", "2", "3"};
-		numKeys = new String[9];
+
 		for (int i = 0; i < numBtnText.length; i++) {
 			Button b = new ValueButton(numBtnText[i]);
 			numButtons.add(b);
-			numKeys[i] = "num_" + numBtnText[i];
-			buttonMap.put(numKeys[i], b);
+			buttonMap.put(NUM_KEYS[i], b);
 		}
 		
 		for(int row = 0; row <= 2; row++) {
@@ -212,145 +185,7 @@ public class AlphaNumGrid implements Controllable {
 			}
 		}
 	}
-	
-	
-// Actions	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
-	private void setActions() {
-		setKeyboardBtnAction();
-		
-		setPreviousBtnAction();
-		
-		setNextBtnAction();
-		
-		setPreviousBtnDisable();
-		setNextBtnDisable();
-		
-		setCommaBinding();
-	}
-	
-	private void setCommaBinding() {
-		Preferences.getCommaProperty().addListener(new ChangeListener<Comma>() {
-			@Override
-			public void changed(ObservableValue<? extends Comma> observable, Comma oldValue, Comma newComma) {
-				commaBtn.setText(String.valueOf(newComma.get()));
-			}
-		});
-	}
-
-	private void setNextBtnDisable() {
-		buttonMap.get(alphaKeys[alphaKeys.length - 1]).textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(!isShowingKeyboard && newValue.charAt(0) >= 'Z' || newValue.charAt(0) < 'A') {
-					nextBtn.setDisable(true);
-				} else if(! isShowingKeyboard) {
-					nextBtn.setDisable(false);
-				}
-			}
-		});
-		
-		buttonMap.get(numKeys[numKeys.length - 1]).textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(isShowingKeyboard && newValue.charAt(0) >= 'Z' || newValue.charAt(0) == ' ') {
-					nextBtn.setDisable(true);
-				} else if(isShowingKeyboard) {
-					nextBtn.setDisable(false);
-				}
-			}
-		});
-	}
-
-	private void setPreviousBtnDisable() {
-		buttonMap.get(alphaKeys[0]).textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(newValue.charAt(0) <= 'A') {
-					previousBtn.setDisable(true);
-				}
-				else {
-					previousBtn.setDisable(false);
-				}
-			}
-		});
-	}
-
-	private void setNextBtnAction() {
-		nextBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if(isShowingKeyboard) {
-					if(buttonMap.get(alphaKeys[0]).getText().charAt(0) <= 'Z' - 15) {
-						setAllToKeyboard((char) (buttonMap.get(alphaKeys[0]).getText().charAt(0) + 15));
-					}
-				}
-				else {
-					if(buttonMap.get(alphaKeys[0]).getText().charAt(0) <= 'Z' - 6) {
-						setAlphaButtons((char) (buttonMap.get(alphaKeys[0]).getText().charAt(0) + 6));
-					}
-				}
-			}
-		});
-	}
-
-	private void setPreviousBtnAction() {
-		previousBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if(isShowingKeyboard) {
-					if(buttonMap.get(alphaKeys[0]).getText().charAt(0) >= 'A' + 15) {
-						setAllToKeyboard((char) (buttonMap.get(alphaKeys[0]).getText().charAt(0) - 15));
-					}
-				}
-				else {
-					if(buttonMap.get(alphaKeys[0]).getText().charAt(0) >= 'A' + 6) {
-						setAlphaButtons((char) (buttonMap.get(alphaKeys[0]).getText().charAt(0) - 6));
-					}
-				}
-			}
-		});
-	}
-
-	private void setKeyboardBtnAction() {
-		keyboardBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (isShowingKeyboard) {
-					isShowingKeyboard = false;
-					changeToNums();
-				}
-				else {
-					isShowingKeyboard = true;
-					changeToKeyboard();
-				}
-			}
-		});
-	}
-
-	private void changeToKeyboard() {
-		setAllToKeyboard('A');
-		
-		keyboardBtn.setText("NUM");
-		
-		GridPane.setColumnSpan(arrowButtons, 2);
-		
-		this.buttonMap.get(NUM_0_BTN).setVisible(false);
-		GridPane.setColumnIndex(this.buttonMap.get(SIGN_BTN), GridPane.getColumnIndex(this.buttonMap.get(SIGN_BTN)) + 1);
-	}
-
-	private void changeToNums() {
-		setAlphaButtons('A');
-		setNumButtons();
-		
-		keyboardBtn.setText("KEYB");
-		
-		GridPane.setColumnSpan(arrowButtons, 1);
-		
-		this.buttonMap.get(NUM_0_BTN).setVisible(true);
-		
-		GridPane.setColumnIndex(this.buttonMap.get(SIGN_BTN), GridPane.getColumnIndex(this.buttonMap.get(SIGN_BTN)) - 1);
-	}
-
-
 
 }
+
+

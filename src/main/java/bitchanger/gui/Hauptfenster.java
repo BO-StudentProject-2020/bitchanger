@@ -106,7 +106,7 @@ public class Hauptfenster extends Application{
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
-	 * This method creates the content for the main window an opens it.
+	 * This method creates the content for the main window and opens it.
 	 * <p>
 	 * - A menu bar is created, which allows to control the main window in every scene.
 	 * </p>

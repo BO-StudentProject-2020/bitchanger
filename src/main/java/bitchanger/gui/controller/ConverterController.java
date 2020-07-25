@@ -16,7 +16,6 @@ import bitchanger.components.SimpleChangeableNumber;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
-import bitchanger.gui.views.Controllable;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.preferences.Preferences;
 import javafx.beans.property.IntegerProperty;
@@ -65,18 +64,20 @@ public class ConverterController extends ControllerBase {
 		super(view);
 		this.value = new SimpleChangeableNumber();
 		this.baseProperty = new SimpleIntegerProperty();
-		
-		if(view.getNodeMap().get(ConverterView.BASE_SPINNER_KEY) instanceof BaseSpinner) {
-			this.anyBase = (BaseSpinner) view.getNodeMap().get(ConverterView.BASE_SPINNER_KEY);
+	}
+	
+	@Override
+	protected void initControls() {
+		if(nodeMap.get(ConverterView.BASE_SPINNER_KEY) instanceof BaseSpinner) {
+			this.anyBase = (BaseSpinner) nodeMap.get(ConverterView.BASE_SPINNER_KEY);
 		}
 		
+		initTextFields();
+		initButtons();
 	}
 
 	@Override
-	public void setControlls() {
-		initTextFields();
-		initButtons();
-
+	public void setActions() {
 		setTextFieldActions();
 		setSpinnerActions();
 		setButtonActions();
@@ -133,7 +134,6 @@ public class ConverterController extends ControllerBase {
 	}
 
 	private void setButtonActions() {
-//		setButtonSelection(allButtons);
 		setAlphaNumActions();
 		setClearAction();
 		setBackspaceAction();
@@ -236,28 +236,6 @@ public class ConverterController extends ControllerBase {
 		});
 	}
 
-/*	private void setButtonSelection(List<Node> btnList) {
-		for (Node n : btnList) {
-			if (n instanceof Pane) {
-				setButtonSelection(((Pane) n).getChildren());
-			} else {
-				setBtnFocusedProperty(n);
-			}
-		}
-	}
-
-	private void setBtnFocusedProperty(Node button) {
-		// Alternativ: -> ExtendedButton -> setFocusTraversable(false);
-		button.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean focused) {
-				if (focused) {
-					focusedTF.requestFocus();
-				}
-			}
-		});
-	}
-*/
 	private void initButtons() {
 		this.clearBtn = this.buttonMap.get("clearBtn");
 		this.backspcBtn = this.buttonMap.get("backspaceBtn");
@@ -406,5 +384,6 @@ public class ConverterController extends ControllerBase {
 			tfAny.setText(value.toBaseString(anyBase.getValue()));
 		}
 	}
+
 
 }

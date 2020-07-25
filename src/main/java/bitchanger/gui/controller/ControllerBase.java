@@ -11,7 +11,8 @@
 package bitchanger.gui.controller;
 
 import java.util.HashMap;
-import bitchanger.gui.views.Controllable;
+
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -27,17 +28,20 @@ public abstract class ControllerBase {
 
 	protected HashMap<String, TextField> textFieldMap;
 	protected HashMap<String, Button> buttonMap;
-//	protected ArrayList<Node> allButtons;
+	protected HashMap<String, Node> nodeMap;
+	protected Controllable view;
 	
 	protected ControllerBase(Controllable view) {
 		this.textFieldMap = view.getTextFieldMap();
 		this.buttonMap = view.getButtonMap();
-//		this.allButtons = view.getButtonList();
+		this.nodeMap = view.getNodeMap();
+		this.view = view;
 		
-//		this.allButtons = new ArrayList<Node>();
-//		this.allButtons.addAll(this.buttonMap.values());
+		initControls();
 	}
 	
-	public abstract void setControlls();
+	protected abstract void initControls();
+
+	public abstract void setActions();
 	
 }

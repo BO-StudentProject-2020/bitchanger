@@ -11,6 +11,8 @@
 package bitchanger.gui.views;
 
 import java.util.HashMap;
+
+import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.ControllerBase;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -95,7 +97,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 		initController();
 		
 		if(controller != null) {
-			controller.setControlls();
+			controller.setActions();
 		}
 	}
 
