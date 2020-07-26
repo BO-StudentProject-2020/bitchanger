@@ -35,18 +35,40 @@ import javafx.scene.layout.HBox;
 public class AlphaNumGridController extends ControllerBase {
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->	Liste, die alle Buttons der Tastatur-Matrix enthält */
 	private ArrayList<Node> buttonList;
+	
+	/** <!-- $LANGUAGE=DE -->	Button zum Umschalten zwischen Nummernfeld und Alphabet-Ansicht */
 	private Button keyboardBtn;
+	
+	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur zurück gescrollt werden kann */
 	private Button previousBtn;
+	
+	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur vorwärts gescrollt werden kann */
 	private Button nextBtn;
+	
+	/** <!-- $LANGUAGE=DE -->	Button, mit dem das Vorzeichen der eingegebenen Zahl gewechselt wird */
 	private Button signBtn;
+	
+	/** <!-- $LANGUAGE=DE -->	Button, mit dem die Zahl 0 eingegeben wird */
 	private Button zeroBtn;
+	
+	/** <!-- $LANGUAGE=DE -->	Button, mit dem ein Komma eingegeben werden kann */
 	private Button commaBtn;
+	
+	/** <!-- $LANGUAGE=DE -->	HBox mit den Buttons, mit denen durch die Tastatur gescrollt werden kann. */
 	private HBox arrowButtons;
+	
+	/** <!-- $LANGUAGE=DE -->	Merker für den derzeitigen Tastaturmodus */
 	private boolean isShowingKeyboard;
 
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt einen neuen Controller, der einer {@code AlphaNumGrid} eine Funktion gibt.
+	 * 
+	 * @param view	{@code AlphaNumGrid} die an diesen Controller gebunden wird
+	 */
 	public AlphaNumGridController(AlphaNumGrid view) {
 		super(view);
 		this.buttonList = view.getButtonMatrix();
@@ -54,6 +76,7 @@ public class AlphaNumGridController extends ControllerBase {
 	}
 
 
+	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
 		keyboardBtn = buttonMap.get(AlphaNumGrid.KEYBOARD_BTN_KEY);
@@ -67,6 +90,9 @@ public class AlphaNumGridController extends ControllerBase {
 
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setActions() {
 		setKeyboardBtnAction();
@@ -80,6 +106,16 @@ public class AlphaNumGridController extends ControllerBase {
 		
 		setCommaBinding();
 	}
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	private Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
+	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	private void setAlphaButtons(char startLetter) {
 		for(String alphaKey: AlphaNumGrid.ALPHA_KEYS) {

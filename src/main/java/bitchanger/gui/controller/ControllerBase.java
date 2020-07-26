@@ -23,6 +23,9 @@ import javafx.scene.control.TextField;
  * Subklassen müssen die Methoden {@link #initControls()} und {@link #setActions()} implementieren, um die Bedienelemente
  * mit einer Funktion zu belegen.
  * </p>
+ * <p>
+ * Jedem Controller kann nur eine einzige View zugewiesen werden. Umgekehrt ist es möglich eine View mit mehreren Controllern zu verbinden.
+ * </p>
  * 
  * @author Tim
  * 
@@ -30,7 +33,7 @@ import javafx.scene.control.TextField;
  * @version 0.1.4
  *
  */
-public abstract class ControllerBase {
+public abstract class ControllerBase implements Controller {
 
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Textfelder der gekapselten View enthält */
@@ -45,7 +48,7 @@ public abstract class ControllerBase {
 	protected HashMap<String, Node> nodeMap;
 	
 	/** <!-- $LANGUAGE=DE -->	gekapselten View, der durch diesen Controller eine Funktion gegeben wird */
-	protected Controllable view;
+	protected final Controllable view;
 	
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -74,9 +77,4 @@ public abstract class ControllerBase {
 	 */
 	protected abstract void initControls();
 
-	/** <!-- $LANGUAGE=DE -->
-	 * Setzt alle für die View benötigten Funktionen
-	 */
-	public abstract void setActions();
-	
 }

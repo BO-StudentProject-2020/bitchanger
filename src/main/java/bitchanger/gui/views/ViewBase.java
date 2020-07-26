@@ -13,7 +13,7 @@ package bitchanger.gui.views;
 import java.util.HashMap;
 
 import bitchanger.gui.controller.Controllable;
-import bitchanger.gui.controller.ControllerBase;
+import bitchanger.gui.controller.Controller;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -64,8 +64,10 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	 * eindeutigen Schlüssel abgelegt werden, die keine Buttons oder Textfelder sind */
 	private HashMap<String, Node> nodeMap;
 	
-	/** <!-- $LANGUAGE=DE --> Controller, der die Funktion zu den Bedienelementen hinzufügt */
-	protected ControllerBase controller;
+	/** <!-- $LANGUAGE=DE --> 
+	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
+	 * <b> Es ist nur einmalig erlaubt einen Controller zuzuweisen! </b> */
+	protected final Controller controller;
 	
 	
 	
@@ -94,7 +96,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 		init();
 		createScenegraph(this.root);
 		
-		initController();
+		this.controller = createController();
 		
 		if(controller != null) {
 			controller.setActions();
@@ -134,13 +136,14 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Methode, die einen neuen Controller für die View erzeugt und im Attribut {@link #controller} speichert.
-	 * <b> Diese Methode wird vom Konstruktor aufgerufen, nachdem der Scenegraph konstruiert wurde. </b>
+	 * Factory-Methode, die einen neuen Controller für diese View erzeugt und zurückgibt.
+	 * <p><b>
+	 * Diese Methode wird vom Konstruktor aufgerufen, nachdem der Scenegraph konstruiert wurde.
+	 * </b></p>
 	 * 
-	 * @return ein <b>neuer</b> Controller für diese View
-	 * 
+	 * @return Neuer Controller, der mit dieser View verbunden ist oder {@code null}, wenn diese View keinen Controller benötigt.
 	 */
-	protected abstract void initController();
+	protected abstract Controller createController();
 
 
 // Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

@@ -12,6 +12,8 @@ package bitchanger.gui.views;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.AlphaNumGrid;
 import bitchanger.gui.controls.BaseSpinner;
@@ -225,8 +227,6 @@ public class ConverterView extends ViewBase<BorderPane> {
 	 * Erstellt den Scenegraphen und fügt diesen dem Wurzelknoten hinzu.
 	 * 
 	 * @param root Wurzelknoten des Scenegraphen
-	 * 
-	 * @see #createCenter()
 	 */
 	@Override
 	protected void createScenegraph(BorderPane root) {
@@ -238,11 +238,13 @@ public class ConverterView extends ViewBase<BorderPane> {
 	}
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt einen neuen {@linkplain ConverterController} und speichert diesen im Attribut controller.
+	 * Erzeugt einen neuen {@link ConverterController}, der mit dieser View verbunden ist.
+	 * 
+	 * @return neue Instanz von {@link ConverterController}, die mit dieser View verbunden ist
 	 */
 	@Override
-	protected void initController() {
-		this.controller = new ConverterController(this);
+	protected Controller createController() {
+		return new ConverterController(this);
 	}
 	
 	

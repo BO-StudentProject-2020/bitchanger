@@ -99,10 +99,7 @@ public class Hauptfenster extends Application{
 	 * 
 	 * <b> Diese Methode wird erst beendet, wenn das Hauptfenster geschlossen wurde </b>
 	 * 
-	 * @see #createMenuBar()
 	 * @see ConverterView
-	 * @see #setStageSize(Stage)
-	 * 
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
@@ -125,10 +122,7 @@ public class Hauptfenster extends Application{
 	 * 
 	 * <b> This method will end after the main window is closed. </b>
 	 * 
-	 * @see #createMenuBar()
 	 * @see ConverterView
-	 * @see #setStageSize(Stage)
-	 * 
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {		
