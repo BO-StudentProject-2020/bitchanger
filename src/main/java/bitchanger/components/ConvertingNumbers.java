@@ -122,7 +122,7 @@ public class ConvertingNumbers {
 			value = value.replace(FRACTIONAL_PRECISION_INDICATOR, "");	// Indikator für abgeschnittene Nachkommastellen ignorieren
 		}
 
-		char[] characters = value.toUpperCase().toCharArray();	// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
+		char[] characters = value.replace(" ", "").toUpperCase().toCharArray();	// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
 
 		char end = (char) ('0' + base - 1);	// maximale Zahlen-Ziffer im Zahlensystem zur Basis
 		boolean hasComma = false;			// Hilfsvariable zum Pruefen auf mehr als ein Komma
@@ -381,7 +381,7 @@ public class ConvertingNumbers {
 	 * @see Preferences
 	 */
 	public static String decToBase(int newBase, String decValue, char comma) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		return decToBase(newBase, decValue, comma, 15);
+		return decToBase(newBase, decValue, comma, 16);
 	}
 	
 	
@@ -448,19 +448,53 @@ public class ConvertingNumbers {
 		// Ganzen Anteil umrechnen
 		newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
 		
+		//Ganzen Anteil im Binärsystem als vierfach Pakete anzeigen lassen.
+		if(newBase == 2) {
+		
+			binaryPackages(newBaseValue);
+//		
+//			for(int i = 4; i < newBaseValue.length(); i+=5) {
+//				
+//				newBaseValue.reverse();
+//				newBaseValue.insert(i, " ");
+//				newBaseValue.reverse();
+//			}
+			
+		}
 		
 		// Wenn vorhanden Nachkommateil umwandeln
 		if(fractionalPart != 0){
 			String newBaseFractionalPart = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma);
+			StringBuffer newBaseFractionalPartSB = new StringBuffer(newBaseFractionalPart);
 			
-			newBaseValue.append(newBaseFractionalPart);
+			//Nachkmmateil im Binärsystem als vierfach Pakete anzeigen lassen.
+			if(newBase == 2) {
+				
+				binaryPackages(newBaseFractionalPartSB);
+				
+//				StringBuffer newBaseFractionalPartSB = new StringBuffer(newBaseFractionalPart);
+//				
+//				
+//				
+//				for(int i = 1; i < 17; i+=5) {						//<17 weil sonst mit der momentanen ...-Einstellung ein Leerzeichen im Punkt entsteht z.B. -> 101. ..
+//					
+//					newBaseFractionalPartSB.insert(i, " ");
+//					
+//				}
+//				
+//				newBaseFractionalPart = newBaseFractionalPartSB.toString();
+
+			}
+
+			newBaseValue.append(newBaseFractionalPartSB);
+
 		}
 		
 		// umgewandelte Zahl in der neuen Basis als String zurückgeben
 		return newBaseValue.toString();
 	}
 	
-	
+
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -507,7 +541,28 @@ public class ConvertingNumbers {
 		}
 	}
 	
-	
+	private static void binaryPackages(StringBuffer sb) {
+		
+		if(sb.codePointAt(0) == 44) {
+			
+			for(int i = 1; i < 17; i+=5) {						//<17 weil sonst mit der momentanen ...-Einstellung ein Leerzeichen im Punkt entsteht z.B. -> 101. ..
+				
+				sb.insert(i, " ");
+				
+			}
+			
+		}else {
+			
+			for(int i = 4; i < sb.length(); i+=5) {
+				
+				sb.reverse();
+				sb.insert(i, " ");
+				sb.reverse();
+			}
+			
+		}
+		
+	}
 	
 // 	Umwandeln von beliebiger Basis nach dezimal	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
