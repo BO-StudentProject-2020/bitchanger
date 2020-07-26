@@ -33,11 +33,31 @@ import javafx.scene.control.TextField;
 public abstract class ControllerBase {
 
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Textfelder der gekapselten View enthält */
 	protected HashMap<String, TextField> textFieldMap;
+	
+	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Buttons der gekapselten View enthält */
 	protected HashMap<String, Button> buttonMap;
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * {@code Map}, die alle Nodes der gekapselten View enthält, die eine Funktion erhalten 
+	 * und weder eine Instanz von Button noch von Textfeld sind */
 	protected HashMap<String, Node> nodeMap;
+	
+	/** <!-- $LANGUAGE=DE -->	gekapselten View, der durch diesen Controller eine Funktion gegeben wird */
 	protected Controllable view;
 	
+	
+	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Kapselt die übergebene View und initialisiert die Maps mit den Bedienelementen mit Referenzen
+	 * auf die zugehörigen Maps der View.
+	 * <p><b>
+	 * Nach der Initialisierung der allgemeinen Attribute wird die Methode {@link #initControls()} aufgerufen.
+	 * </b></p>
+	 * 
+	 * @param view	View, die mit diesem Controller eine Funktion erhält
+	 */
 	protected ControllerBase(Controllable view) {
 		this.textFieldMap = view.getTextFieldMap();
 		this.buttonMap = view.getButtonMap();
@@ -47,8 +67,16 @@ public abstract class ControllerBase {
 		initControls();
 	}
 	
+	
+	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Initialisiert alle benötigten Bedienelemente mit Referenzen aus den zur Verfügung stehenden Maps.
+	 */
 	protected abstract void initControls();
 
+	/** <!-- $LANGUAGE=DE -->
+	 * Setzt alle für die View benötigten Funktionen
+	 */
 	public abstract void setActions();
 	
 }

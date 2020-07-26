@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+
 import bitchanger.gui.controller.AlphaNumGridController;
 import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.ControllerBase;
@@ -21,7 +22,6 @@ import bitchanger.preferences.Preferences;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
@@ -35,7 +35,7 @@ import javafx.scene.layout.Priority;
  */
 public class AlphaNumGrid implements Controllable {
 	
-	// TODO Constraints anpassen und auslagern	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	// TODO Constraints anpassen und auslagern -> setNextButton() 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
