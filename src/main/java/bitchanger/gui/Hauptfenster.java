@@ -40,7 +40,7 @@ import javafx.stage.Stage;
  * @see ConverterView
  * @see ConverterController
  */
-public class Hauptfenster extends Application{
+public class Hauptfenster extends Application {
 	
 // Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE --> aktuell im Fenster dargestellte View */
