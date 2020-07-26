@@ -11,7 +11,6 @@
 package bitchanger.gui.controller;
 
 import java.util.ArrayList;
-
 import bitchanger.gui.controls.AlphaNumGrid;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
@@ -46,6 +45,8 @@ public class AlphaNumGridController extends ControllerBase {
 	private HBox arrowButtons;
 	private boolean isShowingKeyboard;
 
+	
+	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	public AlphaNumGridController(AlphaNumGrid view) {
 		super(view);
 		this.buttonList = view.getButtonMatrix();
@@ -64,6 +65,8 @@ public class AlphaNumGridController extends ControllerBase {
 		arrowButtons = ((AlphaNumGrid) view).getArrowButtons();;
 	}
 
+	
+	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	@Override
 	public void setActions() {
 		setKeyboardBtnAction();

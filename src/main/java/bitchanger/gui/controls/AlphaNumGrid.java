@@ -35,7 +35,15 @@ import javafx.scene.layout.Priority;
  */
 public class AlphaNumGrid implements Controllable {
 	
-	// Konstanten	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	// TODO Constraints anpassen und auslagern	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	public Constants   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	public static final String SIGN_BTN_KEY = "signBtn";
 	public static final String ZERO_BTN_KEY = "num_0";
 	public static final String COMMA_BTN_KEY = "commaBtn";
@@ -44,6 +52,14 @@ public class AlphaNumGrid implements Controllable {
 	public static final String PREVIOUS_BTN_KEY = "previousBtn";
 	public static final String[] ALPHA_KEYS = {"alpha_0", "alpha_1", "alpha_2", "alpha_3", "alpha_4", "alpha_5"};
 	public static final String[] NUM_KEYS = {"num_7", "num_8", "num_9", "num_4", "num_5", "num_6", "num_1", "num_2", "num_3"};
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Instances   																												 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private ArrayList<Node> buttonList;
@@ -89,6 +105,23 @@ public class AlphaNumGrid implements Controllable {
 		return null;
 	}
 	
+	public HBox getArrowButtons() {
+		return this.arrowButtons;
+	}
+	
+	public ArrayList<Node> getButtonMatrix() {
+		return buttonList;
+	}
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	private Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
+	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private void setNextButton(Node button, int column, int row, String key) {
 		setNextButton(button, column, row);
 		if(button instanceof Button) {
@@ -97,18 +130,9 @@ public class AlphaNumGrid implements Controllable {
 	}
 
 	private void setNextButton(Node button, int column, int row) {
-		GridPane.setConstraints(button, column, row);
+//		GridPane.setConstraints(button, column, row);
 		buttonList.add(button);
 	}
-
-	public ArrayList<Node> getButtonMatrix() {
-		return buttonList;
-	}
-	
-	public HBox getArrowButtons() {
-		return this.arrowButtons;
-	}
-	
 	
 // Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 // Buttons erstellen	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
@@ -117,7 +141,7 @@ public class AlphaNumGrid implements Controllable {
 		createMainMatrix();
 		
 		// Buttons in der letzten Zeile erstellen
-		createControllButtons();
+		createControlButtons();
 		
 		Button signBtn = new UnfocusedButton("\u00B1");
 		Button num0 = new ValueButton("0");
@@ -130,7 +154,7 @@ public class AlphaNumGrid implements Controllable {
 		}
 	}
 	
-	private void createControllButtons() {
+	private void createControlButtons() {
 		keyboardBtn = new UnfocusedButton("KEYB");
 		setNextButton(keyboardBtn, 0, 3, KEYBOARD_BTN_KEY);		
 		

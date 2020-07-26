@@ -17,6 +17,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 /**	<!-- $LANGUAGE=DE -->
+ * Basis für einen Controller, der einer View eine Funktion gibt. Die wichtigsten Attribute, die benötigt werden um Zugriff
+ * auf die Bedienelemente der View zu erhalten, werden im Konstruktor initialisiert und sind in allen Subklassen sichtbar.
+ * <p>
+ * Subklassen müssen die Methoden {@link #initControls()} und {@link #setActions()} implementieren, um die Bedienelemente
+ * mit einer Funktion zu belegen.
+ * </p>
  * 
  * @author Tim
  * 
@@ -26,6 +32,7 @@ import javafx.scene.control.TextField;
  */
 public abstract class ControllerBase {
 
+	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	protected HashMap<String, TextField> textFieldMap;
 	protected HashMap<String, Button> buttonMap;
 	protected HashMap<String, Node> nodeMap;
