@@ -26,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 /**	<!-- $LANGUAGE=DE -->
+ * Dieser Controller gibt den Bedienelementen einer {@link AlphaNumGrid} eine Funktion
  * 
  * @author Tim
  * 

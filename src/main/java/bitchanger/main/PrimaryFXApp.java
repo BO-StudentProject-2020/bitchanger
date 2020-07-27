@@ -10,7 +10,7 @@ import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
 /** <!-- $LANGUAGE=DE -->
- * PrimaryFXApp der Applikation mit javaFX
+ * Hauptfenster der Applikation mit javaFX
  * <p>
  * Das Fenster bietet verschiedene Szenen zum Rechnen und Umwandeln von verschiedenen Zahlensystemen.
  * Über eine Menüleiste kann zwischen den Szenen gewechselt werden, sowie die Programm-Einstellungen geöffnet werden.

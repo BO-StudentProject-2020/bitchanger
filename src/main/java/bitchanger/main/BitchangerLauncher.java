@@ -51,7 +51,7 @@ public class BitchangerLauncher {
 	 * @param args	Arguments that are committed at the beginning of the program. The program ignores these arguments.
 	 * 
 	 * @see Preferences
-	 * @see PrimaryFXApp#main(String[])
+	 * @see PrimaryFXApp#launchFXApplication(String[])
 	 * 
 	 */
 	public static void main(String[] args) {

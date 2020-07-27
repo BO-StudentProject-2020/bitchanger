@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"bitchanger"},{"l":"bitchanger.components"},{"l":"bitchanger.gui"},{"l":"bitchanger.gui.controller"},{"l":"bitchanger.gui.controls"},{"l":"bitchanger.gui.views"},{"l":"bitchanger.preferences"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"bitchanger.calculations"},{"l":"bitchanger.gui.controller"},{"l":"bitchanger.gui.controls"},{"l":"bitchanger.gui.views"},{"l":"bitchanger.main"},{"l":"bitchanger.preferences"}]
