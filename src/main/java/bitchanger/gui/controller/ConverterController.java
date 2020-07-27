@@ -10,9 +10,9 @@
 
 package bitchanger.gui.controller;
 
-import bitchanger.components.ChangeableNumber;
-import bitchanger.components.ConvertingNumbers;
-import bitchanger.components.SimpleChangeableNumber;
+import bitchanger.calculations.ChangeableNumber;
+import bitchanger.calculations.ConvertingNumbers;
+import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;

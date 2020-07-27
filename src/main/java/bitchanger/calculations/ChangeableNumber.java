@@ -8,7 +8,7 @@
  * 
  */
 
-package bitchanger.components;
+package bitchanger.calculations;
 
 /**	<!-- $LANGUAGE=DE -->
  * Schnittstelle, die Methoden definiert, um eine Zahl aus einem beliebigen Zahlensystem

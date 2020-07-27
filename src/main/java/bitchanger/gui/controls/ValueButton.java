@@ -10,8 +10,8 @@
 
 package bitchanger.gui.controls;
 
-import bitchanger.components.ConvertingNumbers;
 import bitchanger.preferences.Preferences;
+import bitchanger.calculations.ConvertingNumbers;
 import bitchanger.preferences.Comma;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

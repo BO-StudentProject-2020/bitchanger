@@ -1,4 +1,4 @@
-package bitchanger.gui;
+package bitchanger.main;
 
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.views.ConverterView;
@@ -10,7 +10,7 @@ import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
 /** <!-- $LANGUAGE=DE -->
- * Hauptfenster der Applikation mit javaFX
+ * PrimaryFXApp der Applikation mit javaFX
  * <p>
  * Das Fenster bietet verschiedene Szenen zum Rechnen und Umwandeln von verschiedenen Zahlensystemen.
  * Über eine Menüleiste kann zwischen den Szenen gewechselt werden, sowie die Programm-Einstellungen geöffnet werden.
@@ -40,7 +40,7 @@ import javafx.stage.Stage;
  * @see ConverterView
  * @see ConverterController
  */
-public class Hauptfenster extends Application {
+public class PrimaryFXApp extends Application {
 	
 // Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE --> aktuell im Fenster dargestellte View */
@@ -54,7 +54,7 @@ public class Hauptfenster extends Application {
 	
 	
 	
-// Main-Methode	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// Launch-Methode	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Startet die Anwendung und öffnet das Applikationsfenster.
@@ -71,7 +71,7 @@ public class Hauptfenster extends Application {
 	 * 
 	 * @see Application#launch(String...)
 	 */
-	public static void main(String[] args) {
+	public static void launchFXApplication(String[] args) {
 		launch(args);
 	}
 	
@@ -80,7 +80,7 @@ public class Hauptfenster extends Application {
 // Start	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Diese Methode erstellt den Inhalt für das Hauptfenster und öffnet dieses.
+	 * Diese Methode erstellt den Inhalt für das PrimaryFXApp und öffnet dieses.
 	 * <p>
 	 * - Es wird eine Menübar erstellt, die in jeder Szene die Steuerung des Fensters erlaubt.
 	 * </p>
@@ -97,7 +97,7 @@ public class Hauptfenster extends Application {
 	 * - Das Fenster wird formatiert und geöffnet.
 	 * </p>
 	 * 
-	 * <b> Diese Methode wird erst beendet, wenn das Hauptfenster geschlossen wurde </b>
+	 * <b> Diese Methode wird erst beendet, wenn das PrimaryFXApp geschlossen wurde </b>
 	 * 
 	 * @see ConverterView
 	 */

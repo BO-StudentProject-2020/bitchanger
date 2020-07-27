@@ -10,7 +10,7 @@
 
 package bitchanger.gui.controls;
 
-import bitchanger.components.ConvertingNumbers;
+import bitchanger.calculations.ConvertingNumbers;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

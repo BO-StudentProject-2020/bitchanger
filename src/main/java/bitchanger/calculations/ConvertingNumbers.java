@@ -8,7 +8,7 @@
  * 
  */
 
-package bitchanger.components;
+package bitchanger.calculations;
 
 import java.util.Scanner;
 import bitchanger.preferences.Preferences;

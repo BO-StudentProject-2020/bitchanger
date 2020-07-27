@@ -8,7 +8,7 @@
  * 
  */
 
-package bitchanger.components;
+package bitchanger.calculations;
 
 public interface Calculable {
 

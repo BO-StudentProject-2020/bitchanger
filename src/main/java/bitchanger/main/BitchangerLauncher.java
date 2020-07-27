@@ -8,9 +8,8 @@
  * 
  */
 
-package bitchanger;
+package bitchanger.main;
 
-import bitchanger.gui.Hauptfenster;
 import bitchanger.preferences.Preferences;
 
 /** <!-- $LANGUAGE=DE -->
@@ -32,16 +31,16 @@ import bitchanger.preferences.Preferences;
  * @version 0.1.0
  * 
  */
-public class BitchangerLauncherApp {
+public class BitchangerLauncher {
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Die Main Methode liest zuerst alle gespeicherten Einstellungen für die Klasse {@code Preferences} ein.
-	 * Danach wird das Hauptfenster der Anwendung gestartet und gewartet, bis dieses geschlossen wurde.
+	 * Danach wird das PrimaryFXApp der Anwendung gestartet und gewartet, bis dieses geschlossen wurde.
 	 * 
 	 * @param args	Argumente, die beim Programmstart übergeben werden. Die Argumente werden vom Programm ignoriert.
 	 * 
 	 * @see Preferences
-	 * @see Hauptfenster#main(String[])
+	 * @see PrimaryFXApp#launchFXApplication(String[])
 	 * 
 	 */
 	
@@ -52,15 +51,15 @@ public class BitchangerLauncherApp {
 	 * @param args	Arguments that are committed at the beginning of the program. The program ignores these arguments.
 	 * 
 	 * @see Preferences
-	 * @see Hauptfenster#main(String[])
+	 * @see PrimaryFXApp#main(String[])
 	 * 
 	 */
 	public static void main(String[] args) {
-		// Der Lauchner startet nur die Main-Methode vom Hauptfenster
+		// Der Lauchner startet nur die Main-Methode vom PrimaryFXApp
 		/* Dies ist notwendig, da ohne den Aufruf mit diesem Launcher der Classpath auf die javafx Runtime
 		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
 		 */
-		Hauptfenster.main(args);
+		PrimaryFXApp.launchFXApplication(args);
 	}
 
 }
