@@ -1,5 +1,5 @@
 
 /** <!-- $LANGUAGE=DE -->
- * Enthält alle Klassen und Pakete für die grafische Oberfläche. Das GUI wird mit JavaFX realisiert.
+ * Enthält alle Komponenten für die grafische Oberfläche, die mit JavaFX realisiert wird.
  */
 package bitchanger.gui;
