@@ -24,32 +24,14 @@ import javafx.stage.Stage;
  * @see ConverterView
  * @see ConverterController
  */
-
-/* <!-- $LANGUAGE=EN -->
- * Main window of the application with javaFX
- * <p>
- * The window contains several scenes for calculations and converting of several numeral systems.
- * These scenes can be changed and program settings can be opened via the menu bar.
- * </p>
- * 
- * @author Tim
- *
- * @since Bitchanger 0.1.0
- * @version 0.1.4
- * 
- * @see ConverterView
- * @see ConverterController
- */
 public class Hauptfenster extends Application{
 	
 // Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE --> aktuell im Fenster dargestellte View */
-	/* <!-- $LANGUAGE=EN --> View currently displayed in the window */
 	private Viewable currentView;
 	
 	// mögliche Views mit Szenen für die verschiedenen Bedien-Oberflächen
 	/** <!-- $LANGUAGE=DE --> View für die Umwandlung von Zahlensystemen */
-	/* <!-- $LANGUAGE=EN --> View for converting of numeral systems */
 	private Viewable converterView;
 	
 	
@@ -57,17 +39,9 @@ public class Hauptfenster extends Application{
 // Main-Methode	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Startet die Anwendung und öffnet das Applikationsfenster.
+	 * Startet die Anwendung und öffnet das Applikationsfenster
 	 * 
 	 * @param args	Argumente, die beim Programmstart übergeben werden. Die Argumente werden an die Methode {@code launch} weitergegeben und ansonsten ignoriert.
-	 * 
-	 * @see Application#launch(String...)
-	 */
-	
-	/* <!-- $LANGUAGE=EN -->
-	 * Starts the applications and opens the application window.
-	 * 
-	 * @param args	Arguments that are committed at the beginning of the application. These arguments are committed to the method {@code launch} and otherwise they will be ignored.
 	 * 
 	 * @see Application#launch(String...)
 	 */
