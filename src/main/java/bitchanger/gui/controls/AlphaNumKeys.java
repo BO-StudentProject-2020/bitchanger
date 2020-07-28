@@ -15,11 +15,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import bitchanger.gui.controller.AlphaNumGridController;
+import bitchanger.gui.controller.AlphaNumKeysController;
 import bitchanger.gui.controller.Controllable;
-import bitchanger.gui.controller.ControllerBase;
+import bitchanger.gui.controller.Controller;
 import bitchanger.preferences.Preferences;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -33,7 +34,7 @@ import javafx.scene.layout.Priority;
  * @version 0.1.4
  *
  */
-public class AlphaNumGrid implements Controllable {
+public class AlphaNumKeys implements Controllable {
 	
 	// TODO Constraints anpassen und auslagern -> setNextButton() 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	
@@ -70,21 +71,21 @@ public class AlphaNumGrid implements Controllable {
 	private Button commaBtn;
 	private HBox arrowButtons;
 	private double spacing;
-	private ControllerBase controller;
+	private Controller controller;
 	
 	
 	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/*
 	 * Creates a keyboard layout as a new GridPane with included buttons to shift the six letters on the left
 	 */
-	public AlphaNumGrid(double spacing) {
+	public AlphaNumKeys(double spacing, Scene scene) {
 		this.buttonList = new ArrayList<Node>();
 		this.buttonMap = new HashMap<String, Button>();
 		this.spacing = spacing;
 		
 		createButtons();
 		
-		this.controller = new AlphaNumGridController(this);
+		this.controller = new AlphaNumKeysController(this, scene);
 		this.controller.setActions();
 	}
 	

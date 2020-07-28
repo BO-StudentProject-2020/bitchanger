@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.ConverterController;
-import bitchanger.gui.controls.AlphaNumGrid;
+import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.gui.controls.ValueField;
@@ -152,7 +152,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE -->
 	 * Buttons, die als alpha-numerische Tastatur dienen, die für verschiedene Zahlensysteme ausgelegt ist.
 	 */
-	private AlphaNumGrid alphaNum;
+	private AlphaNumKeys alphaNum;
 	
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -401,7 +401,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 	 * Erstellt alle benötigten Buttons und positioniert diese in der GridPane.
 	 * 
 	 * @see #createButtons()
-	 * @see AlphaNumGrid
+	 * @see AlphaNumKeys
 	 * @see #setButtonConstraints(ArrayList)
 	 */
 	private void createButtonMatrix() {
@@ -411,7 +411,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 		buttonList.addAll(createButtons());
 		
 		// Tastaturfeld erstellen
-		alphaNum = new AlphaNumGrid(BTN_SPACING);
+		alphaNum = new AlphaNumKeys(BTN_SPACING, this.scene);
 		buttonList.addAll(alphaNum.getButtonMatrix());
 		
 		getButtonMap().putAll(alphaNum.getButtonMap());

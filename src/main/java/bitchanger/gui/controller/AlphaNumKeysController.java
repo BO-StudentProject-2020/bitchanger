@@ -11,8 +11,10 @@
 package bitchanger.gui.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
-import bitchanger.gui.controls.AlphaNumGrid;
+import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
 import javafx.beans.value.ChangeListener;
@@ -20,13 +22,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Labeled;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 /**	<!-- $LANGUAGE=DE -->
- * Dieser Controller gibt den Bedienelementen einer {@link AlphaNumGrid} eine Funktion
+ * Dieser Controller gibt den Bedienelementen einer {@link AlphaNumKeys} eine Funktion
  * 
  * @author Tim
  * 
@@ -34,9 +39,12 @@ import javafx.scene.layout.HBox;
  * @version 0.1.4
  *
  */
-public class AlphaNumGridController extends ControllerBase {
+public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->	Scene, an die dieser Controller gebunden wird und die alle simulierten KeyEvents erhält */
+	private Scene scene;
+	
 	/** <!-- $LANGUAGE=DE -->	Liste, die alle Buttons der Tastatur-Matrix enthält */
 	private ArrayList<Node> buttonList;
 	
@@ -67,13 +75,15 @@ public class AlphaNumGridController extends ControllerBase {
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt einen neuen Controller, der einer {@code AlphaNumGrid} eine Funktion gibt.
+	 * Erzeugt einen neuen Controller, der einer {@code AlphaNumKeys} eine Funktion gibt.
 	 * 
-	 * @param view	{@code AlphaNumGrid}, die an diesen Controller gebunden wird
+	 * @param keys	{@code AlphaNumKeys}, die an diesen Controller gebunden wird
+	 * @param scene {@code Scene}, an die dieser Controller gebunden wird, um alle KeyEvents zum Simulieren einer Tastatur weiterzugeben
 	 */
-	public AlphaNumGridController(AlphaNumGrid view) {
-		super(view);
-		this.buttonList = view.getButtonMatrix();
+	public AlphaNumKeysController(AlphaNumKeys keys, Scene scene) {
+		super(keys);
+		this.scene = scene;
+		this.buttonList = keys.getButtonMatrix();
 		this.isShowingKeyboard = false;
 	}
 
@@ -81,32 +91,38 @@ public class AlphaNumGridController extends ControllerBase {
 	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
-		keyboardBtn = buttonMap.get(AlphaNumGrid.KEYBOARD_BTN_KEY);
-		previousBtn = buttonMap.get(AlphaNumGrid.PREVIOUS_BTN_KEY);
-		nextBtn = buttonMap.get(AlphaNumGrid.NEXT_BTN_KEY);
-		signBtn = buttonMap.get(AlphaNumGrid.SIGN_BTN_KEY);
-		zeroBtn = buttonMap.get(AlphaNumGrid.ZERO_BTN_KEY);
-		commaBtn = buttonMap.get(AlphaNumGrid.COMMA_BTN_KEY);
-		arrowButtons = ((AlphaNumGrid) view).getArrowButtons();;
+		keyboardBtn = buttonMap.get(AlphaNumKeys.KEYBOARD_BTN_KEY);
+		previousBtn = buttonMap.get(AlphaNumKeys.PREVIOUS_BTN_KEY);
+		nextBtn = buttonMap.get(AlphaNumKeys.NEXT_BTN_KEY);
+		signBtn = buttonMap.get(AlphaNumKeys.SIGN_BTN_KEY);
+		zeroBtn = buttonMap.get(AlphaNumKeys.ZERO_BTN_KEY);
+		commaBtn = buttonMap.get(AlphaNumKeys.COMMA_BTN_KEY);
+		arrowButtons = ((AlphaNumKeys) view).getArrowButtons();
 	}
 
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/**
-	 * {@inheritDoc}
+	/** <!-- $LANGUAGE=DE -->
+	 * Setzt die Actions zum Umschalten zwischen den Tastaturmodi, zum scrollen durch die Tastatur, zur Aktualisierung des Kommabuttons
+	 * und simuliert die Tastatureingaben für die alphanumerischen Buttons.
+	 * <p><b>
+	 * Die Funktion des +/- Buttons zum Vorzeichenwechsel bleibt unbelegt, da weitere Bedienelemente benötigt werden. Die Funktion dieses
+	 * Buttons muss in einem anderen Controller implementiert werden.
+	 * </b></p>
 	 */
 	@Override
 	public void setActions() {
 		setKeyboardBtnAction();
 		
 		setPreviousBtnAction();
-		
 		setNextBtnAction();
 		
 		setPreviousBtnDisable();
 		setNextBtnDisable();
 		
 		setCommaBinding();
+		
+		setSimulateKeyEvents();
 	}
 	
 	
@@ -119,13 +135,13 @@ public class AlphaNumGridController extends ControllerBase {
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die Texte der Alpha-Buttons in der Reihenfolge von {@linkplain AlphaNumGrid#ALPHA_KEYS}.
+	 * Setzt die Texte der Alpha-Buttons in der Reihenfolge von {@linkplain AlphaNumKeys#ALPHA_KEYS}.
 	 * Mit jedem Button wird das Zeichen für den Text inkrementiert.
 	 * 
 	 * @param startLetter	Zeichen, das der Erste Alpha-Button erhält
 	 */
-	private void setAlphaButtons(char startLetter) {
-		for(String alphaKey: AlphaNumGrid.ALPHA_KEYS) {
+	private void setAlphaButtonTexts(char startLetter) {
+		for(String alphaKey: AlphaNumKeys.ALPHA_KEYS) {
 			if(startLetter < 'A' || startLetter > 'Z') {
 				startLetter = ' ';
 			}
@@ -136,11 +152,11 @@ public class AlphaNumGridController extends ControllerBase {
 	}
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die Texte der nummerischen-Buttons in der Reihenfolge von {@linkplain AlphaNumGrid#NUM_KEYS}.
-	 * Jedem Button wird die Nummer aus dem Schlüssel in {@linkplain AlphaNumGrid#NUM_KEYS} zugewiesen.
+	 * Setzt die Texte der nummerischen-Buttons in der Reihenfolge von {@linkplain AlphaNumKeys#NUM_KEYS}.
+	 * Jedem Button wird die Nummer aus dem Schlüssel in {@linkplain AlphaNumKeys#NUM_KEYS} zugewiesen.
 	 */
-	private void setNumButtons() {
-		for(String numKey: AlphaNumGrid.NUM_KEYS) {
+	private void setNumButtonTexts() {
+		for(String numKey: AlphaNumKeys.NUM_KEYS) {
 			Button b = buttonMap.get(numKey);
 			
 			b.setText(String.valueOf(numKey.substring(numKey.indexOf('_') + 1)));
@@ -185,7 +201,7 @@ public class AlphaNumGridController extends ControllerBase {
 	 */
 	private void setNextBtnDisable() {
 		// ChangeListener des letzten Alpha-Buttons zum überwachen
-		buttonMap.get(AlphaNumGrid.ALPHA_KEYS[AlphaNumGrid.ALPHA_KEYS.length - 1]).textProperty().addListener(new ChangeListener<String>() {
+		buttonMap.get(AlphaNumKeys.ALPHA_KEYS[AlphaNumKeys.ALPHA_KEYS.length - 1]).textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if(!isShowingKeyboard && newValue.charAt(0) >= 'Z' || newValue.charAt(0) < 'A') {
@@ -196,7 +212,7 @@ public class AlphaNumGridController extends ControllerBase {
 			}
 		});
 		
-		buttonMap.get(AlphaNumGrid.NUM_KEYS[AlphaNumGrid.NUM_KEYS.length - 1]).textProperty().addListener(new ChangeListener<String>() {
+		buttonMap.get(AlphaNumKeys.NUM_KEYS[AlphaNumKeys.NUM_KEYS.length - 1]).textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if(isShowingKeyboard && newValue.charAt(0) >= 'Z' || newValue.charAt(0) == ' ') {
@@ -213,7 +229,7 @@ public class AlphaNumGridController extends ControllerBase {
 	 * Dadurch wird der Button zum zurück-scrollen der Alpha-Tastatur in beiden Tastaturmodi automatisch aktiviert und deaktiviert.
 	 */
 	private void setPreviousBtnDisable() {
-		buttonMap.get(AlphaNumGrid.ALPHA_KEYS[0]).textProperty().addListener(new ChangeListener<String>() {
+		buttonMap.get(AlphaNumKeys.ALPHA_KEYS[0]).textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if(newValue.charAt(0) <= 'A') {
@@ -234,13 +250,13 @@ public class AlphaNumGridController extends ControllerBase {
 			@Override
 			public void handle(ActionEvent event) {
 				if(isShowingKeyboard) {
-					if(buttonMap.get(AlphaNumGrid.ALPHA_KEYS[0]).getText().charAt(0) <= 'Z' - 15) {
-						setAllToKeyboard((char) (buttonMap.get(AlphaNumGrid.ALPHA_KEYS[0]).getText().charAt(0) + 15));
+					if(buttonMap.get(AlphaNumKeys.ALPHA_KEYS[0]).getText().charAt(0) <= 'Z' - 15) {
+						setAllToKeyboard((char) (buttonMap.get(AlphaNumKeys.ALPHA_KEYS[0]).getText().charAt(0) + 15));
 					}
 				}
 				else {
-					if(buttonMap.get(AlphaNumGrid.ALPHA_KEYS[0]).getText().charAt(0) <= 'Z' - 6) {
-						setAlphaButtons((char) (buttonMap.get(AlphaNumGrid.ALPHA_KEYS[0]).getText().charAt(0) + 6));
+					if(buttonMap.get(AlphaNumKeys.ALPHA_KEYS[0]).getText().charAt(0) <= 'Z' - 6) {
+						setAlphaButtonTexts((char) (buttonMap.get(AlphaNumKeys.ALPHA_KEYS[0]).getText().charAt(0) + 6));
 					}
 				}
 			}
@@ -255,13 +271,13 @@ public class AlphaNumGridController extends ControllerBase {
 			@Override
 			public void handle(ActionEvent event) {
 				if(isShowingKeyboard) {
-					if(buttonMap.get(AlphaNumGrid.ALPHA_KEYS[0]).getText().charAt(0) >= 'A' + 15) {
-						setAllToKeyboard((char) (buttonMap.get(AlphaNumGrid.ALPHA_KEYS[0]).getText().charAt(0) - 15));
+					if(buttonMap.get(AlphaNumKeys.ALPHA_KEYS[0]).getText().charAt(0) >= 'A' + 15) {
+						setAllToKeyboard((char) (buttonMap.get(AlphaNumKeys.ALPHA_KEYS[0]).getText().charAt(0) - 15));
 					}
 				}
 				else {
-					if(buttonMap.get(AlphaNumGrid.ALPHA_KEYS[0]).getText().charAt(0) >= 'A' + 6) {
-						setAlphaButtons((char) (buttonMap.get(AlphaNumGrid.ALPHA_KEYS[0]).getText().charAt(0) - 6));
+					if(buttonMap.get(AlphaNumKeys.ALPHA_KEYS[0]).getText().charAt(0) >= 'A' + 6) {
+						setAlphaButtonTexts((char) (buttonMap.get(AlphaNumKeys.ALPHA_KEYS[0]).getText().charAt(0) - 6));
 					}
 				}
 			}
@@ -292,6 +308,69 @@ public class AlphaNumGridController extends ControllerBase {
 		});
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Setzt die Actions aller alphanumerischen Buttons und des Komma-Buttons, um mit diesen Buttons eine Tastatur zu simulieren.
+	 * 
+	 * @see #setSimulateKeyOnAction(Button)
+	 * 
+	 * @since Bitchanger 0.1.4
+	 */
+	private void setSimulateKeyEvents() {
+		// OnActions für die alphanumerischen Buttons setzen, die in ALPHA_KEYS und NUM_KEYS definiert sind
+		Stream.concat(Arrays.stream(AlphaNumKeys.ALPHA_KEYS), Arrays.stream(AlphaNumKeys.NUM_KEYS))
+				.map(buttonMap::get).forEach(this::setSimulateKeyOnAction);
+		
+		// OnAction für den Button zur Simulation der "0"
+		setSimulateKeyOnAction(zeroBtn);
+		
+		// OnAction für den Komma-Button
+		commaBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				KeyCode commaKeyCode = KeyCode.COMMA;
+				if(Preferences.getCommaProperty().get().equals(Comma.COMMA_EN)) {
+					commaKeyCode = KeyCode.PERIOD;
+				}
+				
+				simulateKey(commaBtn, commaKeyCode);
+			}
+		});
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Fügt einem Button die Funktion hinzu, dass dieser beim Klick einen Druck einer Taste auf der Tastatur simuliert.
+	 * Die simulierte Taste wird durch den Text des Buttons festgelegt.
+	 * 
+	 * @param b Button, dessen Action gesetzt wird
+	 * 
+	 * @see #simulateKey(Button, KeyCode)
+	 * 
+	 * @since Bitchanger 0.1.4
+	 */
+	private void setSimulateKeyOnAction(Button b) {
+		b.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				simulateKey(b, KeyCode.getKeyCode(b.getText().toUpperCase()));				
+			}
+		});
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Simuliert den Druck der Taste auf einer Tastatur mit dem spezifischen {@code keycode} und feuert nacheinander die KeyEvents 
+	 * {@link KeyEvent#KEY_PRESSED}, {@link KeyEvent#KEY_TYPED} und {@link KeyEvent#KEY_RELEASED}. Die Events werden an die Scene
+	 * weitergeleitet, an die dieser Controller gebunden ist.
+	 * 
+	 * @param b			Quelle für die gefeuerten Events
+	 * @param keycode	KeyCode der simulierten Taste
+	 * 
+	 * @see #simulateKeyEvents(Button, Node, Scene, String, String, KeyCode)
+	 * 
+	 * @since Bitchanger 0.1.4
+	 */
+	private void simulateKey(Button b, KeyCode keycode) {
+		simulateKeyEvents(b, null, scene, b.getText(), "", keycode);
+	}
 
 	// Methoden		##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
@@ -312,8 +391,8 @@ public class AlphaNumGridController extends ControllerBase {
 	 * Wechselt das Tastaturlayout in die Kombination aus sechs Buchstaben-Buttons und Nummernfeld
 	 */
 	private void changeToNums() {
-		setAlphaButtons('A');
-		setNumButtons();
+		setAlphaButtonTexts('A');
+		setNumButtonTexts();
 		
 		keyboardBtn.setText("KEYB");
 		
