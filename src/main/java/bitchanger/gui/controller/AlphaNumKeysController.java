@@ -31,7 +31,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 /**	<!-- $LANGUAGE=DE -->
- * Dieser Controller gibt den Bedienelementen einer {@link AlphaNumKeys} eine Funktion
+ * Dieser Controller gibt den Bedienelementen einer Instanz von {@link AlphaNumKeys} eine Funktion und bindet die Simulation der
+ * Tastatur an die gekapselte Scene.
+ * <p>
+ * Die Hauptfunktion ist die Simulation einer Tastatur mit den alphanumerischen Buttons. Beim Klick auf einer dieser
+ * Buttons werden die benötigten KeyEvents ausgelöst und an die gebundene Scene weitergeleitet.
+ * Die zur weiteren zur Verfügung gestellten Funktionen sind das Umschalten zwischen den Tastaturmodi, scrollen durch die Tastatur, 
+ * Aktualisierung des Komma-Buttons bei Änderung der CommaProperty aus {@link Preferences}.
+ * </p>
+ * <p><b>
+ * Die Funktion des +/- Buttons zum Vorzeichenwechsel bleibt unbelegt, da weitere Bedienelemente benötigt werden. Die Funktion dieses
+ * Buttons muss in einem anderen Controller implementiert werden.
+ * </b></p>
  * 
  * @author Tim
  * 
@@ -103,7 +114,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die Actions zum Umschalten zwischen den Tastaturmodi, zum scrollen durch die Tastatur, zur Aktualisierung des Kommabuttons
+	 * Setzt die Actions zum Umschalten zwischen den Tastaturmodi, zum scrollen durch die Tastatur, zur Aktualisierung des Komma-Buttons
 	 * und simuliert die Tastatureingaben für die alphanumerischen Buttons.
 	 * <p><b>
 	 * Die Funktion des +/- Buttons zum Vorzeichenwechsel bleibt unbelegt, da weitere Bedienelemente benötigt werden. Die Funktion dieses
