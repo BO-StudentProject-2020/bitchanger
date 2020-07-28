@@ -10,6 +10,8 @@
 
 package bitchanger.gui.views;
 
+import bitchanger.gui.controller.Controllable;
+import bitchanger.gui.controller.Controller;
 import javafx.scene.Scene;
 
 /**	<!-- $LANGUAGE=DE -->
@@ -32,6 +34,7 @@ import javafx.scene.Scene;
  * @version 0.1.0
  * 
  * @see Controllable
+ * @see Controller
  *
  */
 public interface Viewable {

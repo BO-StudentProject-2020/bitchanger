@@ -10,25 +10,23 @@
 
 package bitchanger.gui.controller;
 
-import bitchanger.components.ChangeableNumber;
-import bitchanger.components.ConvertingNumbers;
-import bitchanger.components.SimpleChangeableNumber;
+import bitchanger.calculations.ChangeableNumber;
+import bitchanger.calculations.ConvertingNumbers;
+import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
-import bitchanger.gui.views.Controllable;
 import bitchanger.gui.views.ConverterView;
-import bitchanger.preferences.Preferences;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**	<!-- $LANGUAGE=DE -->
@@ -39,14 +37,14 @@ import javafx.scene.input.MouseEvent;
  * @version 0.1.4
  *
  */
-public class ConverterController extends ControllerBase {
+public class ConverterController extends ControllerBase<ConverterView> {
 
-	// Attribute
+	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private ChangeableNumber value;
-	private BaseSpinner<Integer> anyBase;
+	private BaseSpinner anyBase;
 	private IntegerProperty baseProperty;
 
-	// TextFields
+	// TextFields	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private ValueField tfHex;
 	private ValueField tfDec;
 	private ValueField tfBin;
@@ -54,238 +52,51 @@ public class ConverterController extends ControllerBase {
 	private ValueField tfAny;
 	private ValueField focusedTF;
 
-	// Buttons
+	// Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private Button clearBtn;
 	private Button backspcBtn;
 	private Button[] alphaNumButtons;
 	private Button signBtn;
-	private Button commaBtn;
 
-	public ConverterController(Controllable view) {
+	
+	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	public ConverterController(ConverterView view) {
 		super(view);
 		this.value = new SimpleChangeableNumber();
 		this.baseProperty = new SimpleIntegerProperty();
-		
-		// TODO ersetzen durch nodeMap	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		this.anyBase = (BaseSpinner<Integer>) ((ConverterView) view).getBaseSpinner();
 	}
-
+	
 	@Override
-	public void setControlls() {
+	protected void initControls() {
+		if(nodeMap.get(ConverterView.BASE_SPINNER_KEY) instanceof BaseSpinner) {
+			this.anyBase = (BaseSpinner) nodeMap.get(ConverterView.BASE_SPINNER_KEY);
+		}
+		
 		initTextFields();
 		initButtons();
+	}
 
+	
+	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	@Override
+	public void setActions() {
 		setTextFieldActions();
 		setSpinnerActions();
 		setButtonActions();
 		setInitialState();
 	}
 
-	private void setSpinnerActions() {
-		anyBase.valueProperty().addListener(new ChangeListener<Integer>() {
-			@Override
-			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newBase) {
-				if (newBase >= ConvertingNumbers.MIN_BASE && newBase <= ConvertingNumbers.MAX_BASE) {
-					setTexts(false, false, false, false, true);
-				}
-			}
-		});
-		
-
-		anyBase.getEditor().setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				focusedTF.requestFocus();
-			}
-		});
-		
-		// Focus nach Klick auf Button abgeben
-		anyBase.skinProperty().addListener(e -> {
-			for(Node n: anyBase.getChildren()) {
-				if(isArrowButton(n)) {
-					n.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-						@Override
-						public void handle(MouseEvent event) {
-							focusedTF.requestFocus();
-						}
-					});
-				}
-			}
-		});
-	}
 	
-	private boolean isArrowButton(Node n) {
-		for(String s: n.getStyleClass()) {
-			if(s.contains("arrow-button")) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	private Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	private void setInitialState() {
-		tfDec.requestFocus();
-		focusedTF = tfDec;
-		baseProperty.set(10);
-	}
-
-	private void setButtonActions() {
-//		setButtonSelection(allButtons);
-		setAlphaNumActions();
-		setClearAction();
-		setBackspaceAction();
-		setCommaAction();
-		setSignAction();
-	}
-
-	private void setSignAction() {
-		signBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				int caretPos = focusedTF.getCaretPosition();
-
-				if (focusedTF.getText().startsWith("-")) {
-					focusedTF.setText(focusedTF.getText().substring(1));
-					caretPos--;
-				} else if (focusedTF.getText().startsWith("+")) {
-					focusedTF.setText("-" + focusedTF.getText().substring(1));
-				} else {
-					focusedTF.setText("-" + focusedTF.getText());
-					caretPos++;
-				}
-
-				focusedTF.positionCaret(caretPos);
-			}
-		});
-	}
-
-	private void setCommaAction() {
-		commaBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (focusedTF.getLength() <= 0) {
-					focusedTF.setText("0");
-					focusedTF.positionCaret(1);
-				}
-				
-				int caretPos = focusedTF.getCaretPosition();
-				StringBuffer sb = new StringBuffer(focusedTF.getText());
-				sb.insert(caretPos, Preferences.getComma());
-				focusedTF.setText(sb.toString());
-				focusedTF.positionCaret(caretPos + 1);
-			}
-		});
-	}
-
-	private void setBackspaceAction() {
-		backspcBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// Simulate Backspace-Key
-				KeyEvent pressed = new KeyEvent(backspcBtn, focusedTF, KeyEvent.KEY_PRESSED, "", "", KeyCode.BACK_SPACE, false, false, false, false);
-				focusedTF.fireEvent(pressed);
-				
-				KeyEvent typed = new KeyEvent(backspcBtn, focusedTF, KeyEvent.KEY_TYPED, "", "", KeyCode.BACK_SPACE, false, false, false, false);
-				focusedTF.fireEvent(typed);
-				
-				KeyEvent released = new KeyEvent(backspcBtn, focusedTF, KeyEvent.KEY_RELEASED, "", "", KeyCode.BACK_SPACE, false, false, false, false);
-				focusedTF.fireEvent(released);
-			}
-		});
-	}
-
-	private void setClearAction() {
-		clearBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				value.reset();
-				setTexts(true, true, true, true, true);
-			}
-		});
-	}
-
-	private void setAlphaNumActions() {
-		for (Button b : alphaNumButtons) {
-			setAlphaNumOnAction(b);
-			setAlphaNumBaseBinding(b);
-		}
-	}
-
-	private void setAlphaNumBaseBinding(Button b) {
-		((ValueButton)b).getBaseProperty().bind(baseProperty);
-	}
-
-	private void setAlphaNumOnAction(Button b) {
-		b.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (focusedTF.getText() == null) {
-					focusedTF.setText(b.getText());
-					focusedTF.positionCaret(focusedTF.getLength());
-				} else {
-					int caretPos = focusedTF.getCaretPosition();
-					StringBuffer sb = new StringBuffer(focusedTF.getText());
-					sb.insert(caretPos, b.getText());
-					focusedTF.setText(sb.toString());
-					focusedTF.positionCaret(caretPos + 1);
-				}
-			}
-		});
-	}
-
-/*	private void setButtonSelection(List<Node> btnList) {
-		for (Node n : btnList) {
-			if (n instanceof Pane) {
-				setButtonSelection(((Pane) n).getChildren());
-			} else {
-				setBtnFocusedProperty(n);
-			}
-		}
-	}
-
-	private void setBtnFocusedProperty(Node button) {
-		// Alternativ: -> ExtendedButton -> setFocusTraversable(false);
-		button.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean focused) {
-				if (focused) {
-					focusedTF.requestFocus();
-				}
-			}
-		});
-	}
-*/
-	private void initButtons() {
-		this.clearBtn = this.buttonMap.get("clearBtn");
-		this.backspcBtn = this.buttonMap.get("backspaceBtn");
-		this.signBtn = this.buttonMap.get("signBtn");
-		this.commaBtn = this.buttonMap.get("commaBtn");
-
-		alphaNumButtons = new Button[16];
-		for (int i = 0; i < 6; i++) {
-			alphaNumButtons[i] = this.buttonMap.get("alpha_" + i);
-		}
-
-		for (int i = 0; i < 10; i++) {
-			alphaNumButtons[i + 6] = this.buttonMap.get("num_" + i);
-		}
-	}
-
-	private void initTextFields() {
-		tfHex = (ValueField) this.textFieldMap.get("hexTF");
-		tfDec = (ValueField) this.textFieldMap.get("decTF");
-		tfOct = (ValueField) this.textFieldMap.get("octTF");
-		tfBin = (ValueField) this.textFieldMap.get("binTF");
-		tfAny = (ValueField) this.textFieldMap.get("anyTF");
-		
-		tfHex.setBase(16);
-		tfDec.setBase(10);
-		tfOct.setBase(8);
-		tfBin.setBase(2);
-		tfAny.getBaseProperty().bind(anyBase.valueProperty());
-	}
-
+	
+	// Actions	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	// TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	private void setTextFieldActions() {
 		setHexVal();
 		setDecVal();
@@ -295,22 +106,21 @@ public class ConverterController extends ControllerBase {
 
 		setTFSelection();
 	}
-
-	private void setTFSelection() {
-		ValueField[] textfields = { tfHex, tfDec, tfOct, tfBin, tfAny };
-
-		for (ValueField tf : textfields) {
-			tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					focusedTF = tf;
-					baseProperty.bind(tf.getBaseProperty());
-				}
-			});
+	
+	private void setTexts(boolean setHex, boolean setDec, boolean setOct, boolean setBin, boolean setAny) {
+		if (setBin)
+			tfBin.setText(value.toBinString());
+		if (setOct)
+			tfOct.setText(value.toOctString());
+		if (setDec)
+			tfDec.setText(value.toDecString());
+		if (setHex)
+			tfHex.setText(value.toHexString());
+		if (setAny && anyBase.getValue() != null) {
+			tfAny.setText(value.toBaseString(anyBase.getValue()));
 		}
-
 	}
-
+	
 	private void setHexVal() {
 		tfHex.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -390,19 +200,157 @@ public class ConverterController extends ControllerBase {
 			}
 		});
 	}
+	
+	private void setTFSelection() {
+		ValueField[] textfields = { tfHex, tfDec, tfOct, tfBin, tfAny };
 
-	private void setTexts(boolean setHex, boolean setDec, boolean setOct, boolean setBin, boolean setAny) {
-		if (setBin)
-			tfBin.setText(value.toBinString());
-		if (setOct)
-			tfOct.setText(value.toOctString());
-		if (setDec)
-			tfDec.setText(value.toDecString());
-		if (setHex)
-			tfHex.setText(value.toHexString());
-		if (setAny && anyBase.getValue() != null) {
-			tfAny.setText(value.toBaseString(anyBase.getValue()));
+		for (ValueField tf : textfields) {
+			tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					focusedTF = tf;
+					baseProperty.bind(tf.getBaseProperty());
+				}
+			});
+		}
+
+	}
+
+	
+	// Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	private void setSpinnerActions() {
+		anyBase.valueProperty().addListener(new ChangeListener<Integer>() {
+			@Override
+			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newBase) {
+				if (newBase >= ConvertingNumbers.MIN_BASE && newBase <= ConvertingNumbers.MAX_BASE) {
+					setTexts(false, false, false, false, true);
+				}
+			}
+		});
+		
+
+		anyBase.getEditor().setOnAction(this::focusTF);
+		
+		// Focus nach Klick auf Button abgeben
+		anyBase.skinProperty().addListener(e -> {
+			for(Node n: anyBase.getChildren()) {
+				if(isArrowButton(n)) {
+					n.addEventHandler(MouseEvent.MOUSE_CLICKED, this::focusTF);
+				}
+			}
+		});
+	}
+	
+	private void focusTF(Event e) {
+		focusedTF.requestFocus();
+	}
+
+	
+	// Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	private void setButtonActions() {
+		setAlphaNumBindings();
+		setClearAction();
+		setBackspaceAction();
+		setSignAction();
+	}
+
+	private void setInitialState() {
+		tfDec.requestFocus();
+		focusedTF = tfDec;
+		baseProperty.set(10);
+	}
+
+	private void setSignAction() {
+		signBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				int caretPos = focusedTF.getCaretPosition();
+
+				if (focusedTF.getText().startsWith("-")) {
+					focusedTF.setText(focusedTF.getText().substring(1));
+					caretPos--;
+				} else if (focusedTF.getText().startsWith("+")) {
+					focusedTF.setText("-" + focusedTF.getText().substring(1));
+				} else {
+					focusedTF.setText("-" + focusedTF.getText());
+					caretPos++;
+				}
+
+				focusedTF.positionCaret(caretPos);
+			}
+		});
+	}
+
+	private void setBackspaceAction() {
+		backspcBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Simulate Backspace-Key
+				simulateKeyEvents(null, null, view.getScene(), "", "", KeyCode.BACK_SPACE, false, false, false, false);
+			}
+		});
+	}
+	
+	private void setClearAction() {
+		clearBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				value.reset();
+				setTexts(true, true, true, true, true);
+			}
+		});
+	}
+
+	private void setAlphaNumBindings() {
+		for (Button b : alphaNumButtons) {
+			((ValueButton)b).getBaseProperty().bind(baseProperty);
 		}
 	}
 
+	private void initButtons() {
+		this.clearBtn = this.buttonMap.get("clearBtn");
+		this.backspcBtn = this.buttonMap.get("backspaceBtn");
+		this.signBtn = this.buttonMap.get("signBtn");
+
+		alphaNumButtons = new Button[16];
+		for (int i = 0; i < 6; i++) {
+			alphaNumButtons[i] = this.buttonMap.get("alpha_" + i);
+		}
+
+		for (int i = 0; i < 10; i++) {
+			alphaNumButtons[i + 6] = this.buttonMap.get("num_" + i);
+		}
+	}
+
+	private void initTextFields() {
+		tfHex = (ValueField) this.textFieldMap.get("hexTF");
+		tfDec = (ValueField) this.textFieldMap.get("decTF");
+		tfOct = (ValueField) this.textFieldMap.get("octTF");
+		tfBin = (ValueField) this.textFieldMap.get("binTF");
+		tfAny = (ValueField) this.textFieldMap.get("anyTF");
+		
+		tfHex.setBase(16);
+		tfDec.setBase(10);
+		tfOct.setBase(8);
+		tfBin.setBase(2);
+		tfAny.getBaseProperty().bind(anyBase.valueProperty());
+	}
+
+	private boolean isArrowButton(Node n) {
+		for(String s: n.getStyleClass()) {
+			if(s.contains("arrow-button")) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 }
+
+
+
+
+
+
+

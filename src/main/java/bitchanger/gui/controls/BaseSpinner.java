@@ -26,7 +26,7 @@ import javafx.scene.input.KeyEvent;
  * @version 0.1.4
  *
  */
-public class BaseSpinner<T> extends Spinner<T>{
+public class BaseSpinner extends Spinner<Integer>{
 
 	public BaseSpinner() {
 		super(2, 36, 10);
