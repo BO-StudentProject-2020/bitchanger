@@ -31,19 +31,41 @@ import bitchanger.preferences.Preferences;
  * @version 0.1.4
  *
  */
+
+/*	<!-- $LANGUAGE=EN -->
+ * The class SimpleChangeableNumber offers a complete implementation of {@link ChangeableNumber}.
+ * <p>
+ * Each instance of this class wraps a value, that gets set from different numeral systems and can get
+ * converted into any numeral system. The strings in these numeral systems <b>do not contain any prefixes<b>
+ * that refer to the base.
+ * </p>
+ * 
+ * @see ChangeableNumber
+ * 
+ * @author Tim
+ * @author Moritz Wolter
+ * 
+ * @since Bitchanger 0.1.0
+ * @version 0.1.4
+ *
+ */
 public class SimpleChangeableNumber implements ChangeableNumber {
 	
 // Attribute	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der binären String-Darstellung */
+	/* <!-- $LANGUAGE=EN --> wrapped value as binary string representation */
 	private String binValue;
 	
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der dezimalen String-Darstellung */
+	/* <!-- $LANGUAGE=EN --> wrapped value as decimal string representation */
 	private String decValue;
 	
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der hexadezimalen String-Darstellung */
+	/* <!-- $LANGUAGE=EN --> wrapped value as hexadecimal string representation */
 	private String hexValue;
 	
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der oktalen String-Darstellung */
+	/* <!-- $LANGUAGE=EN --> wrapped value as octal string representation */
 	private String octalValue;
 	
 	
@@ -51,6 +73,10 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 // Konstruktoren   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue Instanz mit dem eingeschlossenen Wert 0
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Generates a new instance with 0 as wrapped value
 	 */
 	public SimpleChangeableNumber() {
 		this("0");
@@ -61,15 +87,26 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue Instanz, die den übergebenen dezimal-Wert repräsentiert
 	 * 
-	 * @param dezimalWert	Wert, der von diesem Objekt eingeschlossen werden soll
+	 * @param decValue	Wert, der von diesem Objekt eingeschlossen werden soll
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
 	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist
 	 * 
 	 */
-	public SimpleChangeableNumber(String dezimalWert) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		this.initDecimal(dezimalWert);
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Generates a new instance that represents the committed decimal value
+	 * 
+	 * @param decValue	Value that should be wrapped by this object
+	 * 
+	 * @throws NullPointerException			if the parameter {@code decValue} is {@code null}
+	 * @throws NumberFormatException		if the parameter {@code decValue} is not a number of the decimal system
+	 * @throws IllegalArgumentException		if {@code decValue} is an empty string
+	 * 
+	 */
+	public SimpleChangeableNumber(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		this.initDecimal(decValue);
 	}
 
 	
@@ -85,6 +122,18 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
 	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist
+	 * 
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Sets the wrapped value of this {@code SimpleChangeableNumber} to the committed decimal value.
+	 * The string representations for the hexadecimal-, octal- an binary-system get calculated and stored in the attributes.
+	 * 
+	 * @param decValue	new value that gets represented by {@code SimpleChangeableNumber}
+	 * 
+	 * @throws NullPointerException			if the parameter {@code decValue} is {@code null}
+	 * @throws NumberFormatException		if the parameter {@code decValue} is not a number of the decimal system
+	 * @throws IllegalArgumentException		if {@code decValue} is an empty string
 	 * 
 	 */
 	private void initDecimal(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
@@ -239,6 +288,14 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 * 
 	 * @return	String bestehend aus der hexadezimalen, dezimalen, oktalen und binären String-Darstellung des eingeschlossenen
 	 * 			Wertes, hintereinander aufgelistet
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns a {@code String} that includes the hexadecimal, decimal, octal and binary
+	 * presentation of the wrapped value.
+	 * 
+	 * @return	String that consists of the hexadecimal, decimal, octal and binary String representation of the wrapped value.
+	 * These Strings are cataloged consecutively.
 	 */
 	@Override
 	public String toString() {
