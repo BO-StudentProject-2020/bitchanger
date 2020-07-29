@@ -61,10 +61,10 @@ public class ConverterView extends ViewBase<BorderPane> {
 	private static final int TF_MIN_HEIGHT = TF_MAX_HEIGHT;
 	
 	/** <!-- $LANGUAGE=DE -->	Konstante, die die maximale Höhe der Buttons in dieser View definiert */
-	private static final int BTN_MAX_HEIGTH = 120;
+	private static final int BTN_MAX_HEIGTH = Integer.MAX_VALUE;
 	
 	/** <!-- $LANGUAGE=DE -->	Konstante, die die minimale Höhe der Buttons in dieser View definiert  */
-	private static final int BTN_MIN_HEIGTH = 85;
+	private static final int BTN_MIN_HEIGTH = 50;
 	
 	/** <!-- $LANGUAGE=DE -->	Konstante, die die maximale Breite der Buttons in dieser View definiert */
 	private static final int BTN_MAX_WIDTH = BTN_MAX_HEIGTH;
