@@ -108,7 +108,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		signBtn = buttonMap.get(AlphaNumKeys.SIGN_BTN_KEY);
 		zeroBtn = buttonMap.get(AlphaNumKeys.ZERO_BTN_KEY);
 		commaBtn = buttonMap.get(AlphaNumKeys.COMMA_BTN_KEY);
-		arrowButtons = ((AlphaNumKeys) view).getArrowButtons();
+		arrowButtons = controllable.getArrowButtons();
 	}
 
 	
@@ -144,7 +144,36 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	// Methoden		##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Wechselt das Tastaturlayout in die Alphabet-Ansicht
+	 */
+	private void changeToKeyboard() {
+		setAllToKeyboard('A');
+		
+		keyboardBtn.setText("NUM");
+		
+		GridPane.setColumnSpan(arrowButtons, 2);
+		
+		zeroBtn.setVisible(false);
+		GridPane.setColumnIndex(signBtn, GridPane.getColumnIndex(signBtn) + 1);
+	}
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Wechselt das Tastaturlayout in die Kombination aus sechs Buchstaben-Buttons und Nummernfeld
+	 */
+	private void changeToNums() {
+		setAlphaButtonTexts('A');
+		setNumButtonTexts();
+		
+		keyboardBtn.setText("KEYB");
+		
+		GridPane.setColumnSpan(arrowButtons, 1);
+		
+		zeroBtn.setVisible(true);
+		GridPane.setColumnIndex(signBtn, GridPane.getColumnIndex(signBtn) - 1);
+	}
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Texte der Alpha-Buttons in der Reihenfolge von {@linkplain AlphaNumKeys#ALPHA_KEYS}.
 	 * Mit jedem Button wird das Zeichen für den Text inkrementiert.
@@ -192,6 +221,8 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		}
 	}
 	
+	
+	// Bindings	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
 	 * Bindet den Text des Komma-Buttons an das CommaProperty.
 	 * 
@@ -253,6 +284,8 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		});
 	}
 
+	
+	// Actions	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Funktion zum vorwärts scrollen durch die Alpha-Tastatur beim Klick auf den Button {@link #nextBtn}.
 	 */
@@ -383,35 +416,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		simulateKeyEvents(b, null, scene, b.getText(), "", keycode);
 	}
 
-	// Methoden		##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE -->
-	 * Wechselt das Tastaturlayout in die Alphabet-Ansicht
-	 */
-	private void changeToKeyboard() {
-		setAllToKeyboard('A');
-		
-		keyboardBtn.setText("NUM");
-		
-		GridPane.setColumnSpan(arrowButtons, 2);
-		
-		zeroBtn.setVisible(false);
-		GridPane.setColumnIndex(signBtn, GridPane.getColumnIndex(signBtn) + 1);
-	}
-
-	/** <!-- $LANGUAGE=DE -->
-	 * Wechselt das Tastaturlayout in die Kombination aus sechs Buchstaben-Buttons und Nummernfeld
-	 */
-	private void changeToNums() {
-		setAlphaButtonTexts('A');
-		setNumButtonTexts();
-		
-		keyboardBtn.setText("KEYB");
-		
-		GridPane.setColumnSpan(arrowButtons, 1);
-		
-		zeroBtn.setVisible(true);
-		GridPane.setColumnIndex(signBtn, GridPane.getColumnIndex(signBtn) - 1);
-	}
+	
 	
 	
 	

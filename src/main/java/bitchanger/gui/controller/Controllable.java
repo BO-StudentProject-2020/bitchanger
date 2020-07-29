@@ -31,7 +31,7 @@ import javafx.scene.control.TextField;
  */
 
 /* <!-- $LANGUAGE=EN -->
- * Interface that defines methods to connect a view with a controller.
+ * Interface that defines methods to connect a controllable with a controller.
  * 
  * @author Tim Mühle
  * 
@@ -55,13 +55,13 @@ public interface Controllable {
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
-	 * Returns a {@code Map} with all text fields of the view. Each text field is allocated to a unique keyword,
+	 * Returns a {@code Map} with all text fields of the controllable. Each text field is allocated to a unique keyword,
 	 * which is used to find the text field out of the map.
 	 * <p>
 	 * Each keyword should have a useful connection to the use of the text field!
 	 * </p>
 	 * 
-	 * @return {@code Map}, that contains all text fields of the view
+	 * @return {@code Map}, that contains all text fields of the controllable
 	 */
 	public HashMap<String, TextField> getTextFieldMap();
 	
@@ -76,13 +76,13 @@ public interface Controllable {
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
-	 * Returns a {@code Map} with all buttons of the view. Each button is allocated to a unique keyword,
+	 * Returns a {@code Map} with all buttons of the controllable. Each button is allocated to a unique keyword,
 	 * which is used to find the button out of the map.
 	 * <p>
 	 * Each Keyword should have a useful connection to the use of the button!
 	 * </p>
 	 * 
-	 * @return {@code Map}, that contains all buttons of the view
+	 * @return {@code Map}, that contains all buttons of the controllable
 	 */
 	public HashMap<String, Button> getButtonMap();
 	
@@ -97,13 +97,13 @@ public interface Controllable {
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
-	 * Returns a {@code Map} with all elements (Nodes) of the view, that are not buttons or text fields and are required in the controller.
+	 * Returns a {@code Map} with all elements (Nodes) of the controllable, that are not buttons or text fields and are required in the controller.
 	 * Each element is allocated to a unique keyword, which is used to find the element out of the map.
 	 * <p>
 	 * Each keyword should have a useful connection to the use of the elements!
 	 * </p>
 	 * 
-	 * @return {@code Map}, which contains all elements of a view, that are not buttons or text fields and are required in the controller
+	 * @return {@code Map}, which contains all elements of a controllable, that are not buttons or text fields and are required in the controller
 	 */
 	public HashMap<String, Node> getNodeMap();
 

@@ -30,6 +30,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 
 /**	<!-- $LANGUAGE=DE -->
+ * Controller, der die Funktion für eine {@linkplain ConverterView} bereitstellt.
  * 
  * @author Tim
  * 
@@ -40,32 +41,68 @@ import javafx.scene.input.MouseEvent;
 public class ConverterController extends ControllerBase<ConverterView> {
 
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/**	<!-- $LANGUAGE=DE -->	Zahl, die in die verschiedenen Zahlensysteme umgewandelt wird */
 	private ChangeableNumber value;
+	
+	/**	<!-- $LANGUAGE=DE -->	Spinner für die auswählbare, beliebige Basis */
 	private BaseSpinner anyBase;
+	
+	/**	<!-- $LANGUAGE=DE -->	Property zum Einstellen der Basis des aktuell fokussierten Textfelds */
 	private IntegerProperty baseProperty;
 
 	// TextFields	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/**	<!-- $LANGUAGE=DE -->	Textfeld für die hexadezimale Darstellung */
 	private ValueField tfHex;
+	
+	/**	<!-- $LANGUAGE=DE -->	Textfeld für die dezimale Darstellung */
 	private ValueField tfDec;
+	
+	/**	<!-- $LANGUAGE=DE -->	Textfeld für die binäre Darstellung */
 	private ValueField tfBin;
+	
+	/**	<!-- $LANGUAGE=DE -->	Textfeld für die oktale Darstellung */
 	private ValueField tfOct;
+	
+	/**	<!-- $LANGUAGE=DE -->	Textfeld für die Darstellung zu einer wählbaren Basis */
 	private ValueField tfAny;
+	
+	/**	<!-- $LANGUAGE=DE -->	Hilfsvariable mit Referenz auf das aktuell oder zuletzt fokussierte Textfeld */
 	private ValueField focusedTF;
 
 	// Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/**	<!-- $LANGUAGE=DE -->
+	 * Button zum Löschen und Zurücksetzen von {@link #value}
+	 * 
+	 * @see ChangeableNumber#reset()
+	 */
 	private Button clearBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button, der die Backspace-Taste auf der Tastatur simuliert */
 	private Button backspcBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	alphanumerische Buttons zur Simulation einer Tastatur */
 	private Button[] alphaNumButtons;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button, mit dem das Vorzeichen der Zahl gewechselt werden kann */
 	private Button signBtn;
 
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/**	<!-- $LANGUAGE=DE -->
+	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
+	 * Referenzen auf die Bedienelemente aus der ConverterView.
+	 * 
+	 * @param view ConverterView, an die dieser Controller gebunden wird
+	 * 
+	 * @see #initControls()
+	 */
 	public ConverterController(ConverterView view) {
 		super(view);
 		this.value = new SimpleChangeableNumber();
 		this.baseProperty = new SimpleIntegerProperty();
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
 		if(nodeMap.get(ConverterView.BASE_SPINNER_KEY) instanceof BaseSpinner) {
@@ -78,6 +115,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/**	{@inheritDoc} */
 	@Override
 	public void setActions() {
 		setTextFieldActions();
@@ -94,34 +132,127 @@ public class ConverterController extends ControllerBase<ConverterView> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
+	// Methods	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/**	<!-- $LANGUAGE=DE -->
+	 * Sucht die benötigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
+	 */
+	private void initButtons() {
+		this.clearBtn = this.buttonMap.get("clearBtn");
+		this.backspcBtn = this.buttonMap.get("backspaceBtn");
+		this.signBtn = this.buttonMap.get("signBtn");
+
+		alphaNumButtons = new Button[16];
+		for (int i = 0; i < 6; i++) {
+			alphaNumButtons[i] = this.buttonMap.get("alpha_" + i);
+		}
+
+		for (int i = 0; i < 10; i++) {
+			alphaNumButtons[i + 6] = this.buttonMap.get("num_" + i);
+		}
+	}
+
+	/**	<!-- $LANGUAGE=DE -->
+	 * Sucht die benötigten Referenzen zu den Textfeldern aus der textFieldMap, speichert diese in den Attributen und setzt die Basis der einzelnen Textfelder.
+	 */
+	private void initTextFields() {
+		tfHex = (ValueField) this.textFieldMap.get("hexTF");
+		tfDec = (ValueField) this.textFieldMap.get("decTF");
+		tfOct = (ValueField) this.textFieldMap.get("octTF");
+		tfBin = (ValueField) this.textFieldMap.get("binTF");
+		tfAny = (ValueField) this.textFieldMap.get("anyTF");
+		
+		tfHex.setBase(16);
+		tfDec.setBase(10);
+		tfOct.setBase(8);
+		tfBin.setBase(2);
+		tfAny.getBaseProperty().bind(anyBase.valueProperty());
+	}
+
+	/**	<!-- $LANGUAGE=DE -->
+	 * Prüft, ob die übergebene Node einer der Pfeil-Buttons zum Scrollen in einem Spinner ist.
+	 * Dies ist der Fall, wenn die StyleClass den String "arrow-button" enthält
+	 * 
+	 * @param n	Testkandidat für einen Pfeil-Button
+	 * @return	{@code true}, wenn die StyleClass von n den String "arrow-button" enthält, {@code false} andernfalls
+	 */
+	private boolean isArrowButton(Node n) {
+		for(String s: n.getStyleClass()) {
+			if(s.contains("arrow-button")) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt die Attribute auf den Ausgangszustand.
+	 */
+	private void setInitialState() {
+		tfDec.requestFocus();
+		focusedTF = tfDec;
+		baseProperty.set(10);
+	}
+	
 	// Actions	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	// TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt Listener für die Textfelder, um die Eingabe direkt in alle anderen Zahlensysteme umzuwandeln.
+	 * Zudem wird das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes aktualisiert und {@link #baseProperty}
+	 * mit der Basis des Textfelds verbunden.
+	 * 
+	 * @see #setHexValListener()
+	 * @see #setDecValListener()
+	 * @see #setOctValListener()
+	 * @see #setBinValListener()
+	 * @see #setAnyValListener()
+	 * @see #setTFSelection()
+	 */
 	private void setTextFieldActions() {
-		setHexVal();
-		setDecVal();
-		setOctVal();
-		setBinVal();
-		setAnyVal();
+		setHexValListener();
+		setDecValListener();
+		setOctValListener();
+		setBinValListener();
+		setAnyValListener();
 
 		setTFSelection();
 	}
 	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Aktualisiert die Texte der gewählten Textfelder mit dem aktuellen Wert von {@link #value} in der
+	 * zum Textfeld gehörenden Darstellung.
+	 * 
+	 * @param setHex	true, wenn der Text von {@link #tfHex} gesetzt werden soll
+	 * @param setDec	true, wenn der Text von {@link #tfDec} gesetzt werden soll
+	 * @param setOct	true, wenn der Text von {@link #tfOct} gesetzt werden soll
+	 * @param setBin	true, wenn der Text von {@link #tfBin} gesetzt werden soll
+	 * @param setAny	true, wenn der Text von {@link #tfAny} gesetzt werden soll
+	 */
 	private void setTexts(boolean setHex, boolean setDec, boolean setOct, boolean setBin, boolean setAny) {
 		if (setBin)
 			tfBin.setText(value.toBinString());
+		
 		if (setOct)
 			tfOct.setText(value.toOctString());
+		
 		if (setDec)
 			tfDec.setText(value.toDecString());
+		
 		if (setHex)
 			tfHex.setText(value.toHexString());
+		
 		if (setAny && anyBase.getValue() != null) {
 			tfAny.setText(value.toBaseString(anyBase.getValue()));
 		}
 	}
 	
-	private void setHexVal() {
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt den Listener für {@link #tfHex}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * 
+	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
+	 */
+	private void setHexValListener() {
 		tfHex.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -137,7 +268,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 
-	private void setDecVal() {
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt den Listener für {@link #tfDec}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * 
+	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
+	 */
+	private void setDecValListener() {
 		tfDec.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -153,7 +289,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 
-	private void setOctVal() {
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt den Listener für {@link #tfOct}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * 
+	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
+	 */
+	private void setOctValListener() {
 		tfOct.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -169,7 +310,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 
-	private void setBinVal() {
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt den Listener für {@link #tfBin}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * 
+	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
+	 */
+	private void setBinValListener() {
 		tfBin.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -185,7 +331,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 
-	private void setAnyVal() {
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt den Listener für {@link #tfAny}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * 
+	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
+	 */
+	private void setAnyValListener() {
 		tfAny.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -201,6 +352,10 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Aktualisiert das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes durch einen Mausklick und 
+	 * verbindet {@link #baseProperty} mit der baseProperty des Textfelds.
+	 */
 	private void setTFSelection() {
 		ValueField[] textfields = { tfHex, tfDec, tfOct, tfBin, tfAny };
 
@@ -218,6 +373,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 
 	
 	// Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	/**	<!-- $LANGUAGE=DE -->
+	 * Aktualisiert die Basis von {@link #tfAny}, wenn sich die valueProperty von {@link #anyBase} ändert.
+	 * Sorgt außerdem dafür, dass anyBase den Focus nach der Eingabe einer Basis im Editor oder mit den 
+	 * Inkrement- und Dekrement-Buttons wieder an {@link #focusedTF} abgibt.
+	 */
 	private void setSpinnerActions() {
 		anyBase.valueProperty().addListener(new ChangeListener<Integer>() {
 			@Override
@@ -233,20 +393,32 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		
 		// Focus nach Klick auf Button abgeben
 		anyBase.skinProperty().addListener(e -> {
-			for(Node n: anyBase.getChildren()) {
-				if(isArrowButton(n)) {
-					n.addEventHandler(MouseEvent.MOUSE_CLICKED, this::focusTF);
-				}
-			}
+			anyBase.getChildren().stream().filter(this::isArrowButton).forEach(node -> {
+				node.addEventHandler(MouseEvent.MOUSE_CLICKED, this::focusTF);
+			});
 		});
 	}
 	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Fokussiert das Textfeld {@link #focusedTF}.
+	 * Diese Methode wird als Referenz für einen EventHandler verwendet.
+	 * 
+	 * @param e	Event, das den EventHanler auslöst
+	 */
 	private void focusTF(Event e) {
 		focusedTF.requestFocus();
 	}
 
 	
 	// Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt die Actions für alle Buttons
+	 * 
+	 * @see #setAlphaNumBindings()
+	 * @see #setClearAction()
+	 * @see #setBackspaceAction()
+	 * @see #setSignAction()
+	 */
 	private void setButtonActions() {
 		setAlphaNumBindings();
 		setClearAction();
@@ -254,43 +426,22 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		setSignAction();
 	}
 
-	private void setInitialState() {
-		tfDec.requestFocus();
-		focusedTF = tfDec;
-		baseProperty.set(10);
+	/**	<!-- $LANGUAGE=DE -->
+	 * Bindet die baseProperty aller alphanumerischen Buttons an das Attribut {@link #baseProperty}, um die Buttons
+	 * bei einem Wechsel der Basis automatisch aus- oder einzublenden.
+	 */
+	private void setAlphaNumBindings() {
+		for (Button b : alphaNumButtons) {
+			((ValueButton)b).getBaseProperty().bind(baseProperty);
+		}
 	}
 
-	private void setSignAction() {
-		signBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				int caretPos = focusedTF.getCaretPosition();
-
-				if (focusedTF.getText().startsWith("-")) {
-					focusedTF.setText(focusedTF.getText().substring(1));
-					caretPos--;
-				} else if (focusedTF.getText().startsWith("+")) {
-					focusedTF.setText("-" + focusedTF.getText().substring(1));
-				} else {
-					focusedTF.setText("-" + focusedTF.getText());
-					caretPos++;
-				}
-
-				focusedTF.positionCaret(caretPos);
-			}
-		});
-	}
-
-	private void setBackspaceAction() {
-		backspcBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// Simulate Backspace-Key
-				simulateKeyEvents(null, null, view.getScene(), "", "", KeyCode.BACK_SPACE, false, false, false, false);
-			}
-		});
-	}
-	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setz {@link #value} bei Klick auf den Clear-Button zurück und aktualisiert alle Textfelder.
+	 * 
+	 * @see ChangeableNumber#reset()
+	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
+	 */
 	private void setClearAction() {
 		clearBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -300,50 +451,46 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			}
 		});
 	}
-
-	private void setAlphaNumBindings() {
-		for (Button b : alphaNumButtons) {
-			((ValueButton)b).getBaseProperty().bind(baseProperty);
-		}
-	}
-
-	private void initButtons() {
-		this.clearBtn = this.buttonMap.get("clearBtn");
-		this.backspcBtn = this.buttonMap.get("backspaceBtn");
-		this.signBtn = this.buttonMap.get("signBtn");
-
-		alphaNumButtons = new Button[16];
-		for (int i = 0; i < 6; i++) {
-			alphaNumButtons[i] = this.buttonMap.get("alpha_" + i);
-		}
-
-		for (int i = 0; i < 10; i++) {
-			alphaNumButtons[i + 6] = this.buttonMap.get("num_" + i);
-		}
-	}
-
-	private void initTextFields() {
-		tfHex = (ValueField) this.textFieldMap.get("hexTF");
-		tfDec = (ValueField) this.textFieldMap.get("decTF");
-		tfOct = (ValueField) this.textFieldMap.get("octTF");
-		tfBin = (ValueField) this.textFieldMap.get("binTF");
-		tfAny = (ValueField) this.textFieldMap.get("anyTF");
-		
-		tfHex.setBase(16);
-		tfDec.setBase(10);
-		tfOct.setBase(8);
-		tfBin.setBase(2);
-		tfAny.getBaseProperty().bind(anyBase.valueProperty());
-	}
-
-	private boolean isArrowButton(Node n) {
-		for(String s: n.getStyleClass()) {
-			if(s.contains("arrow-button")) {
-				return true;
+	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Lässt den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
+	 */
+	private void setBackspaceAction() {
+		backspcBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// Simulate Backspace-Key
+				simulateKeyEvents(null, null, controllable.getScene(), "", "", KeyCode.BACK_SPACE, false, false, false, false);
 			}
-		}
-		
-		return false;
+		});
+	}
+	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Kehrt das Vorzeichen von {@link #value} beim Klick auf den Vorzeichen-Button um und aktualisiert alle Textfelder.
+	 */
+	private void setSignAction() {
+		signBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				int caretPos = focusedTF.getCaretPosition();
+				
+// TODO Anpassung an Zweierkomplement im Binärsystem. IDEE: Nur dezimales Feld prüfen und setzen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+				
+				if (focusedTF.getText().startsWith("-")) {
+					focusedTF.setText(focusedTF.getText().substring(1));
+					caretPos--;
+				} 
+				else if (focusedTF.getText().startsWith("+")) {
+					focusedTF.setText("-" + focusedTF.getText().substring(1));
+				} 
+				else {
+					focusedTF.setText("-" + focusedTF.getText());
+					caretPos++;
+				}
+
+				focusedTF.positionCaret(caretPos);
+			}
+		});
 	}
 
 }
