@@ -334,7 +334,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
@@ -378,7 +378,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
@@ -424,7 +424,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
