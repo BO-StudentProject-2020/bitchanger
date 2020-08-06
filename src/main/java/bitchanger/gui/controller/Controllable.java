@@ -33,7 +33,7 @@ import javafx.scene.control.TextField;
 /* <!-- $LANGUAGE=EN -->
  * Interface that defines methods to connect a controllable with a controller.
  * 
- * @author Tim Mühle
+ * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

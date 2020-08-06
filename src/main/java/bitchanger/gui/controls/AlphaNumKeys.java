@@ -27,13 +27,23 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 /**	<!-- $LANGUAGE=DE -->
+ * AlphaNumKeys stellt ein Tastaturlayout als 4x5 Matrix bereit. Am linken Rand befinden sich sechs "Alpha-Buttons", die 
+ * zur Eingabe von Buchstaben bestimmt sind. Rechts daneben steht ein 3x3 Nummernfeld zur Verfügung, um Zahlen einzugeben.
+ * Die untere Zeile enthält einen Button zum Umschalten in die Alphabet-Ansicht, in der das Alphabet auf allen Alpha- und
+ * Nummern-Buttons abgebildet wird. Zudem gibt es zwei Buttons, mit denen durch die Buchstaben der Tastatur gescrollt werden
+ * kann. Daneben befindet sich ein Button zum invertieren des Vorzeichens einer Zahl, sowie ein Button für die Zahl Null im
+ * Nummernfeld-Modus und ein Button zur Eingabe eines Kommas.
  * 
+ * <p>
+ * Die Funktion erhält die Tastaturmatrix durch einen {@link AlphaNumKeysController}.
+ * </p>
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
  *
+ * @see AlphaNumKeysController
  */
 public class AlphaNumKeys implements Controllable {
 	

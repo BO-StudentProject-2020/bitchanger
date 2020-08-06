@@ -20,7 +20,7 @@ import javafx.scene.input.KeyEvent;
 
 /**	<!-- $LANGUAGE=DE -->
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.2
  * @version 0.1.4

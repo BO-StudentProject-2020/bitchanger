@@ -24,7 +24,7 @@ import bitchanger.preferences.Preferences;
  * 
  * @see ChangeableNumber
  * 
- * @author Tim
+ * @author Tim Mühle
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
@@ -42,7 +42,7 @@ import bitchanger.preferences.Preferences;
  * 
  * @see ChangeableNumber
  * 
- * @author Tim
+ * @author Tim Muehle
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0

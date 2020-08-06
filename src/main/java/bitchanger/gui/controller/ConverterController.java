@@ -32,7 +32,7 @@ import javafx.scene.input.MouseEvent;
 /**	<!-- $LANGUAGE=DE -->
  * Controller, der die Funktion für eine {@linkplain ConverterView} bereitstellt.
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -42,7 +42,7 @@ import javafx.scene.input.MouseEvent;
 /*	<!-- $LANGUAGE=EN -->
  * Controller that provides the function for a {@linkplain ConverterView}.
  * 
- * @author Tim
+ * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

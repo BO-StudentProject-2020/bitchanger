@@ -36,7 +36,7 @@ import javafx.scene.input.KeyEvent;
  * @param <T>	Typ des Controllable (wird benötigt, um auf weitere Methoden zugreifen zu können, die nicht in 
  * 				{@link Controllable} definiert sind)
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

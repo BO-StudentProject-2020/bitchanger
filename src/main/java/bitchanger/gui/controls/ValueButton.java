@@ -21,7 +21,7 @@ import javafx.scene.Node;
 
 /**	<!-- $LANGUAGE=DE -->
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

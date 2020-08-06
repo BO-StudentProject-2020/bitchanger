@@ -25,7 +25,7 @@ import bitchanger.preferences.Preferences;
 /* <!-- $LANGUAGE=EN -->
  * This class contains the main method that is the entry point for the application.
  * 
- * @author Tim Mühle
+ * @author Tim Muehle
  * 
  * @since 0.1.0
  * @version 0.1.0

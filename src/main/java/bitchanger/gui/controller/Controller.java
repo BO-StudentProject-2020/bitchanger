@@ -8,23 +8,21 @@ package bitchanger.gui.controller;
  * einer View mit einer Funktion zu belegen.
  * </p>
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
  *
  */
 
-//TODO Interface that describes/writes on a controller. Welcher Sinn von beschreiben?
-
 /*	<!-- $LANGUAGE=EN -->
- * Interface that describes/writes on a controller.
- * The controller is connected to a view and allocates functions to the operating elements.
+ * Interface for defining a controller.
+ * The controller is connected to a view and provides functions to the controls.
  * <p>
  * This method {@link #setActions()} must be implemented to set actions for the operating elements of a view.
  * </p>
  * 
- * @author Tim
+ * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

@@ -41,7 +41,7 @@ import javafx.scene.layout.RowConstraints;
 /**	<!-- $LANGUAGE=DE -->
  * View, die die Scene für die Umwandlung von Zahlensystemen enthält.
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

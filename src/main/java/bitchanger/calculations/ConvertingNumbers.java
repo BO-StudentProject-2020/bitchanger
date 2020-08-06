@@ -52,7 +52,8 @@ import bitchanger.preferences.Comma;
  * 
  * @see Preferences
  * 
- * @author Tim Mühle, Moritz Wolter
+ * @author Tim Muehle
+ * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

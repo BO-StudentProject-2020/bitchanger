@@ -44,7 +44,7 @@ import javafx.scene.layout.HBox;
  * Buttons muss in einem anderen Controller implementiert werden.
  * </b></p>
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

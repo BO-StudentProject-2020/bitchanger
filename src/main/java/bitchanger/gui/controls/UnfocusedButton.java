@@ -19,7 +19,7 @@ import javafx.scene.text.FontWeight;
 
 /**	<!-- $LANGUAGE=DE -->
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

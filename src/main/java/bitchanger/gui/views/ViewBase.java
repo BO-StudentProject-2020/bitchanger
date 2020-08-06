@@ -34,7 +34,7 @@ import javafx.scene.control.TextField;
  * 
  * @param <T> Typ des Wurzelknotens im Scenegraphen
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

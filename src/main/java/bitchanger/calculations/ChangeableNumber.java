@@ -14,7 +14,7 @@ package bitchanger.calculations;
  * Schnittstelle, die Methoden definiert, um eine Zahl aus einem beliebigen Zahlensystem
  * in beliebige andere Zahlensysteme umzuwandeln
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -24,7 +24,7 @@ package bitchanger.calculations;
 /*	<!-- $LANGUAGE=EN -->
  * Interface that defines methods to convert numbers from any numeral system into another numeral system
  * 
- * @author Tim
+ * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4

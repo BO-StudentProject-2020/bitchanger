@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 /** <!-- $LANGUAGE=DE -->
  * Utility-Klasse zur allgemeinen Verarbeitung von Objekten, die zur Oberfläche gehören.
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
  * @version 0.1.4

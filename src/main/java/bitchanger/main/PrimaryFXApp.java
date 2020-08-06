@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  * Über eine Menüleiste kann zwischen den Szenen gewechselt werden, sowie die Programm-Einstellungen geöffnet werden.
  * </p>
  * 
- * @author Tim
+ * @author Tim Mühle
  *
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  * These scenes can be changed and program settings can be opened via the menu bar.
  * </p>
  * 
- * @author Tim
+ * @author Tim Muehle
  *
  * @since Bitchanger 0.1.0
  * @version 0.1.4
