@@ -47,6 +47,9 @@ public class ValueButton extends UnfocusedButton{
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem spezifischen String und einem Icon als Beschriftung
+	 *
+	 * @param text		Text für die Beschriftung dieses Buttons
+	 * @param graphic	Icon für die Beschriftung dieses Buttons
 	 */
 	public ValueButton(String text, Node graphic) {
 		super(text, graphic);
@@ -55,7 +58,9 @@ public class ValueButton extends UnfocusedButton{
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem spezifischen String als Beschriftung
-	 */
+	*
+	 * @param text		Text für die Beschriftung dieses Buttons
+	  */
 	public ValueButton(String text) {
 		super(text);
 		init();

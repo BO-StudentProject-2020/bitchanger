@@ -56,6 +56,8 @@ public class ValueField extends TextField {
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit dem übergebenen Text als Inhalt und der Basis 10
+	 * 
+	 * @param text	Textinhalt für dieses Textfeld
 	 */
 	public ValueField(String text) {
 		this(text, 10);
@@ -63,6 +65,8 @@ public class ValueField extends TextField {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit leerem Text und der übergebenen Basis
+	 * 
+	 * @param base	Wert für die baseProperty
 	 */
 	public ValueField(int base) {
 		this("", base);
@@ -70,6 +74,9 @@ public class ValueField extends TextField {
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit dem übergebenen Text als Inhalt und der übergebenen Basis
+	 * 
+	 * @param text	Textinhalt für dieses Textfeld
+	 * @param base	Wert für die baseProperty
 	 */
 	public ValueField(String text, int base) {
 		super(text);
@@ -119,8 +126,6 @@ public class ValueField extends TextField {
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
 	 * Initialisiert die Attribute, setzt Listener und passt die Form des ValueFields an.
-	 * 
-	 * @see #setListener()
 	 */
 	private void init() {
 		this.baseProperty = new SimpleIntegerProperty();
