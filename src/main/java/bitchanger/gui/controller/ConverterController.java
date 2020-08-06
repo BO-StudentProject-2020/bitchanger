@@ -514,7 +514,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		
 		// Focus nach Klick auf Button abgeben
 		anyBase.skinProperty().addListener(e -> {
-			anyBase.getChildren().stream().filter(this::isArrowButton).forEach(node -> {
+			anyBase.getChildrenUnmodifiable().stream().filter(this::isArrowButton).forEach(node -> {
 				node.addEventHandler(MouseEvent.MOUSE_CLICKED, this::focusTF);
 			});
 		});

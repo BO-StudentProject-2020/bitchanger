@@ -10,15 +10,22 @@
 
 package bitchanger.gui.controls;
 
+import bitchanger.calculations.ConvertingNumbers;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.input.KeyEvent;
 
 /**	<!-- $LANGUAGE=DE -->
+ * Spinner, mit dem die Basis für ein Zahlensystem ausgewählt werden kann.
+ * 
+ * <p>
+ * Diese Klasse erweitert die Funktion der Klasse Spinner<T> so, dass der Benutzer
+ * Eingaben im Editor des Spinners machen darf und der im Editor eingegebenen Wert 
+ * automatisch während der Eingabe aktualisiert wird, wenn es sich um einen gültigen 
+ * Wert handelt.
+ * </p>
  * 
  * @author Tim Mühle
  * 
@@ -28,12 +35,21 @@ import javafx.scene.input.KeyEvent;
  */
 public class BaseSpinner extends Spinner<Integer>{
 
+	/**	<!-- $LANGUAGE=DE -->
+	 * Erzeugt einen BaseSpinner, bei dem die minimale und maximale einstellbare Basis durch die Konstanten 
+	 * {@link ConvertingNumbers#MIN_BASE} und  {@link ConvertingNumbers#MAX_BASE} gegeben sind. Der Standardwert
+	 * wird mit 10 initialisiert.
+	 */
 	public BaseSpinner() {
-		super(2, 36, 10);
+		super(ConvertingNumbers.MIN_BASE, ConvertingNumbers.MAX_BASE, 10);
 		this.setEditable(true);
 		setActions();
 	}
 
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt einen EventHandler, der bei Eingabe im Editor automatisch den Wert überprüft
+	 * und, wenn möglich, mit der Methode {@link #commitValue()} aktualisiert.
+	 */
 	private void setActions() {
 		this.getEditor().addEventHandler(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
 			@Override
@@ -50,12 +66,13 @@ public class BaseSpinner extends Spinner<Integer>{
 			}
 		});
 	}
-		
-	@Override
-	public ObservableList<Node> getChildren() {
-		return super.getChildren();
-	}
-
+	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Prüft, ob der Text im Editor ein gültiger Wert ist und mit Methode {@link #commitValue()}
+	 * aktualisiert werden kann.
+	 * 
+	 * @return	{@code true} wenn der Text im Editor ein gültiger Wert ist, sonst {@code false}
+	 */
 	private boolean hasValidValue() {
 		int min = ((SpinnerValueFactory.IntegerSpinnerValueFactory) this.getValueFactory()).getMin();
 		int max = ((SpinnerValueFactory.IntegerSpinnerValueFactory) this.getValueFactory()).getMax();
