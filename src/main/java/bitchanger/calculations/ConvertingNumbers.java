@@ -472,7 +472,6 @@ public class ConvertingNumbers {
 	 * @param newBase				Basis des neuen Zahlensystems, in das die Zahl {@code decValue} umgewandelt werden soll
 	 * @param decValue				Wert der Zahl im Zehnersystem in der String-Darstellung
 	 * @param comma					das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
-	 * @param fractionalPrecision	maximale Anzahl der Nachkommastellen
 	 * @param blockSize				Länge der Blöcke, in die der String unterteilt wird
 	 * 
 	 * @return	umgewandelte Zahl zur übergebenen Basis in der String-Darstellung
@@ -499,7 +498,6 @@ public class ConvertingNumbers {
 	 * @param newBase				Base of the new numeral system, which will the number {@code decValue} be converted in
 	 * @param decValue				Value of the number in decimal system as string representation
 	 * @param comma					the char which is used as comma for floating point numbers
-	 * @param fractionalPrecision	maximum number of decimal places
 	 * @param blockSize				length of the blocks into which the string is splitted
 	 * 
 	 * @return Converted number of the submitted base as string representation with default set comma
@@ -860,7 +858,6 @@ public class ConvertingNumbers {
 	 * der eine Zahl zu der Basis {@code base} repräsentiert, und gibt diese beiden separierten Strings ohne führende 0
 	 * im Nachkommateil zurück.
 	 * 
-	 * @param base	Basis des Zahlensystems von {@code value}
 	 * @param value	Zahl, die zerlegt werden soll
 	 * 
 	 * @return	ganzen Anteil im Index 0 und Nachkommateil im Index 1, jeweils als ganze Zahl in der String-Darstellung
@@ -873,7 +870,6 @@ public class ConvertingNumbers {
 	 * which represents a number of the base {@code base} and returns these separated strings without
 	 * leading 0 in the decimal part.
 	 * 
-	 * @param base	Base of the numeral system of {@code value}
 	 * @param value	Number to be disassembled
 	 * 
 	 * @return	Integer in index 0 and decimal place in index 1, both as integer as string representation
