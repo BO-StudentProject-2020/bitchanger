@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
-
 import bitchanger.gui.controller.AlphaNumKeysController;
 import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.Controller;
@@ -23,10 +22,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 /**	<!-- $LANGUAGE=DE -->
+ * 
  * 
  * @author Tim
  * 
@@ -35,8 +36,6 @@ import javafx.scene.layout.Priority;
  *
  */
 public class AlphaNumKeys implements Controllable {
-	
-	// TODO Constraints anpassen und auslagern -> setNextButton() 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -63,6 +62,7 @@ public class AlphaNumKeys implements Controllable {
 
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	private ArrayList<Node> buttonList;
 	private HashMap<String, Button> buttonMap;
 	private Button keyboardBtn;
@@ -70,6 +70,8 @@ public class AlphaNumKeys implements Controllable {
 	private Button nextBtn;
 	private Button commaBtn;
 	private HBox arrowButtons;
+	private int firstRow;
+	private int firstColumn;
 	private double spacing;
 	private Controller controller;
 	
@@ -78,9 +80,11 @@ public class AlphaNumKeys implements Controllable {
 	/*
 	 * Creates a keyboard layout as a new GridPane with included buttons to shift the six letters on the left
 	 */
-	public AlphaNumKeys(double spacing, Scene scene) {
+	public AlphaNumKeys(int firstRow, int firstColumn, double spacing, Scene scene) {
 		this.buttonList = new ArrayList<Node>();
 		this.buttonMap = new HashMap<String, Button>();
+		this.firstRow = firstRow;
+		this.firstColumn = firstColumn;
 		this.spacing = spacing;
 		
 		createButtons();
@@ -93,7 +97,7 @@ public class AlphaNumKeys implements Controllable {
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	@Override
 	public HashMap<String, TextField> getTextFieldMap() {
-		return null;
+		return new HashMap<String, TextField>(0);
 	}
 	
 	@Override
@@ -103,7 +107,7 @@ public class AlphaNumKeys implements Controllable {
 	
 	@Override
 	public HashMap<String, Node> getNodeMap() {
-		return null;
+		return new HashMap<String, Node>(0);
 	}
 	
 	public HBox getArrowButtons() {
@@ -125,13 +129,14 @@ public class AlphaNumKeys implements Controllable {
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	private void setNextButton(Node button, int column, int row, String key) {
 		setNextButton(button, column, row);
+		
 		if(button instanceof Button) {
 			buttonMap.put(key, (Button) button);
 		}
 	}
 
 	private void setNextButton(Node button, int column, int row) {
-//		GridPane.setConstraints(button, column, row);
+		GridPane.setConstraints(button, column, row);
 		buttonList.add(button);
 	}
 	
@@ -151,13 +156,13 @@ public class AlphaNumKeys implements Controllable {
 		Button[] lastRow = {signBtn, num0, commaBtn};
 		String[] lastRowKeys = {SIGN_BTN_KEY, ZERO_BTN_KEY, COMMA_BTN_KEY};
 		for (int column = 0; column < lastRow.length; column++) {
-			setNextButton(lastRow[column], column + 2, 3, lastRowKeys[column]);
+			setNextButton(lastRow[column], column + firstColumn + 2, firstRow + 3, lastRowKeys[column]);
 		}
 	}
 	
 	private void createControlButtons() {
 		keyboardBtn = new UnfocusedButton("KEYB");
-		setNextButton(keyboardBtn, 0, 3, KEYBOARD_BTN_KEY);		
+		setNextButton(keyboardBtn, firstColumn, firstRow + 3, KEYBOARD_BTN_KEY);		
 		
 		previousBtn = new UnfocusedButton("<");
 		nextBtn = new UnfocusedButton(">");
@@ -169,7 +174,7 @@ public class AlphaNumKeys implements Controllable {
 		
 		arrowButtons = new HBox();
 		arrowButtons.getChildren().addAll(previousBtn, nextBtn);
-		setNextButton(arrowButtons, 1, 3);
+		setNextButton(arrowButtons, firstColumn + 1, firstRow + 3);
 		HBox.setHgrow(previousBtn, Priority.ALWAYS);
 		HBox.setHgrow(nextBtn, Priority.ALWAYS);
 		
@@ -196,19 +201,17 @@ public class AlphaNumKeys implements Controllable {
 			buttonMap.put(NUM_KEYS[i], b);
 		}
 		
-		for(int row = 0; row <= 2; row++) {
-			for(int column = 0; column <= 4; column++) {
-				Button nextBtn = null;
-				if(column < 2) {
-					nextBtn = alphaButtons.poll();
-				}
-				else if (column <= 4) {
-					nextBtn = numButtons.poll();
-				}
-				
-				setNextButton(nextBtn, column, row);
-			}
+		Queue<Button> alphaNumButtons = new LinkedList<Button>();
+		
+		for(int i = 0; i < 3; i++) {
+			alphaNumButtons.add(alphaButtons.poll());
+			alphaNumButtons.add(alphaButtons.poll());
+			alphaNumButtons.add(numButtons.poll());
+			alphaNumButtons.add(numButtons.poll());
+			alphaNumButtons.add(numButtons.poll());
 		}
+		
+		FXUtils.setGridConstraints(firstColumn, firstRow, 5, 0, alphaNumButtons, this::setNextButton);
 	}
 
 }

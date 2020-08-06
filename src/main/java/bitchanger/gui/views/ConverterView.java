@@ -10,6 +10,7 @@
 
 package bitchanger.gui.views;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,6 +18,7 @@ import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.controls.BaseSpinner;
+import bitchanger.gui.controls.FXUtils;
 import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.gui.controls.ValueField;
 import javafx.geometry.HPos;
@@ -32,7 +34,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
@@ -378,21 +379,20 @@ public class ConverterView extends ViewBase<BorderPane> {
 	 */
 	private void createLabels() {
 		String[] labelText = {"HEX", "DEC", "OCT", "BIN"};
+		ArrayDeque<Node> labels = new ArrayDeque<>();
 		
 		for(int i = 0; i < labelText.length; i++) {
-			Label l = new Label(labelText[i]);
-			GridPane.setConstraints(l, 0, i);
-			
-			center.getChildren().add(l);
+			labels.add(new Label(labelText[i]));
 		}
 		
 		// Spinner für die beliebige Basis
 		Spinner<Integer> baseSpinner = new BaseSpinner();
+		labels.add(baseSpinner);
 		
 		getNodeMap().put(BASE_SPINNER_KEY, baseSpinner);
 		
-		GridPane.setConstraints(baseSpinner, 0, labelText.length);
-		center.getChildren().add(baseSpinner);
+		FXUtils.setGridConstraints(0, 0, 1, 0, labels);
+		center.getChildren().addAll(labels);
 	}
 	
 	
@@ -407,19 +407,21 @@ public class ConverterView extends ViewBase<BorderPane> {
 	private void createButtonMatrix() {
 		// Buttons erstellen und im Array speichern
 		// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
-		ArrayList<Node> buttonList = new ArrayList<Node>(23);
+		ArrayDeque<Node> buttonList = new ArrayDeque<>();
 		buttonList.addAll(createButtons());
 		
-		// Tastaturfeld erstellen
-		alphaNum = new AlphaNumKeys(BTN_SPACING, this.scene);
-		buttonList.addAll(alphaNum.getButtonMatrix());
+		// Constraints für Position in der Tabelle setzen und in die Tabelle legen
+		FXUtils.setGridConstraints(FIRST_BTN_COLUMN, FIRST_BTN_ROW, 5, 2, buttonList, center::add);
+		
+		// Tastaturfeld erstellen und in die Tabelle legen
+		alphaNum = new AlphaNumKeys(FIRST_BTN_ROW + 1, FIRST_BTN_COLUMN, BTN_SPACING, this.scene);
+		center.getChildren().addAll(alphaNum.getButtonMatrix());
 		
 		getButtonMap().putAll(alphaNum.getButtonMap());
 		
-		// Constraints für Position in der Tabelle setzen
-		setButtonConstraints(buttonList);
-		
-		center.getChildren().addAll(buttonList);;
+		// Maximale Größe der Buttons setzen
+		FXUtils.setMaxSizes(buttonList, Double.MAX_VALUE);
+		FXUtils.setMaxSizes(alphaNum.getButtonMatrix(), Double.MAX_VALUE);
 	}
 	
 	/** <!-- $LANGUAGE=DE -->
@@ -458,57 +460,6 @@ public class ConverterView extends ViewBase<BorderPane> {
 		}
 		
 		return buttons;
-	}
-
-	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die Constrains der Buttons, um diese in der GridPane richtig zu positionieren.
-	 * <p>
-	 * Der erste Button wird an die Position gesetzt, die über die Konstanten FIRST_BTN_ROW und
-	 * FIRST_BTN_COLUMN definiert ist. Die Matrix wird auf fünf Spalten verteilt und die Zeile
-	 * automatisch umgebrochen.
-	 * </p>
-	 * <p>
-	 * Die maximale Größe wird bei allen Buttons eingestellt, damit sich sich die Größe dem Fenster anpassen kann.
-	 * </p>
-	 * 
-	 * @param buttonList	Liste mit Buttons in der richtigen Reihenfolge.
-	 */
-	private void setButtonConstraints(ArrayList<Node> buttonList) {
-		// Button-Matrix in die GridPane integrieren und die Größe richtig anpassen
-		int zeile = FIRST_BTN_ROW;
-		int spalte = FIRST_BTN_COLUMN + 2;	// in der ersten Zeile bleiben die ersten Felder frei
-		for(Node n: buttonList) {
-			if(GridPane.getColumnSpan(n) == null) {
-				GridPane.setColumnSpan(n, 1);
-			}
-			
-			// maximale Größe anpassen
-			if (n instanceof Button) {
-				((Button) n).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-			}
-			else if (n instanceof Pane) {
-				// Buttons liegen im Layout-Container
-				for(Node b: ((Pane) n).getChildren()) {
-					if(b instanceof Button) {
-						((Button) b).setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-					}
-				}
-			}
-			
-			// Position in der Tabelle
-			GridPane.setConstraints(n, spalte, zeile);
-			
-			// Zählvariablen inkrementieren
-			for (int i = 0; i < GridPane.getColumnSpan(n); i++) {
-				spalte++;	// so viele Spalten weiter, wie das Element einnimmt
-			}
-			
-			// Wenn maximale Spaltenanzahl überschritten: in nächste Zeile wechseln
-			if(spalte >= FIRST_BTN_COLUMN + 5) {
-				spalte = FIRST_BTN_COLUMN;
-				zeile++;
-			}
-		}
 	}
 
 }

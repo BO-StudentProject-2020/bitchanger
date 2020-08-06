@@ -9,7 +9,7 @@ package bitchanger.preferences;
  * @author Tim
  * 
  * @since Bitchanger 0.1.3
- * @version 0.1.4
+ * @version 0.1.3
  * 
  * @see Preferences#getCommaProperty()
  * @see Preferences#getComma()
@@ -26,7 +26,7 @@ package bitchanger.preferences;
  * @author Tim
  * 
  * @since Bitchanger 0.1.3
- * @version 0.1.4
+ * @version 0.1.3
  * 
  * @see Preferences#getCommaProperty()
  * @see Preferences#getComma()
