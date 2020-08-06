@@ -1,5 +1,5 @@
 
 /** <!-- $LANGUAGE=DE -->
- * Stellt angepasste Bedienelemente für die Benutzeroberfläche zur Verfügung
+ * Stellt angepasste Bedienelemente und Funktionen für die Benutzeroberfläche zur Verfügung
  */
 package bitchanger.gui.controls;
