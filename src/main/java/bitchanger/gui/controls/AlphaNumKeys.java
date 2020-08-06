@@ -37,6 +37,10 @@ import javafx.scene.layout.Priority;
  * <p>
  * Die Funktion erhält die Tastaturmatrix durch einen {@link AlphaNumKeysController}.
  * </p>
+ * <p>
+ * Alle alphanumerischen Buttons sind Instanzen von {@link ValueButton} und alle weiteren Buttons sind Instanzen von
+ * {@link UnfocusedButton}, um den Fokus nicht auf die Tastatur zu lenken und weitere Funktionen zur Verfügung zu stellen.
+ * </p>
  * 
  * @author Tim Mühle
  * 
@@ -44,6 +48,8 @@ import javafx.scene.layout.Priority;
  * @version 0.1.4
  *
  * @see AlphaNumKeysController
+ * @see UnfocusedButton
+ * @see ValueButton
  */
 public class AlphaNumKeys implements Controllable {
 	

@@ -402,7 +402,8 @@ public class ConverterView extends ViewBase<BorderPane> {
 	 * 
 	 * @see #createButtons()
 	 * @see AlphaNumKeys
-	 * @see #setButtonConstraints(ArrayList)
+	 * @see FXUtils#setMaxSizes(Iterable, double)
+	 * @see FXUtils#setGridConstraints(int, int, int, int, java.util.Queue)
 	 */
 	private void createButtonMatrix() {
 		// Buttons erstellen und im Array speichern

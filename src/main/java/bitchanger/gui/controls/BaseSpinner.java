@@ -21,7 +21,7 @@ import javafx.scene.input.KeyEvent;
  * Spinner, mit dem die Basis für ein Zahlensystem ausgewählt werden kann.
  * 
  * <p>
- * Diese Klasse erweitert die Funktion der Klasse Spinner<T> so, dass der Benutzer
+ * Diese Klasse erweitert die Funktion der Klasse Spinner&lt;T&gt; so, dass der Benutzer
  * Eingaben im Editor des Spinners machen darf und der im Editor eingegebenen Wert 
  * automatisch während der Eingabe aktualisiert wird, wenn es sich um einen gültigen 
  * Wert handelt.

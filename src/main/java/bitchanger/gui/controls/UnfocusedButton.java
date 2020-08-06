@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**	<!-- $LANGUAGE=DE -->
+ * Button, der beim Klick nicht den Fokus erhält und als Grundform ein Rechteck ohne abgerundete Ecken besitzt.
  * 
  * @author Tim Mühle
  * 
@@ -28,16 +29,25 @@ import javafx.scene.text.FontWeight;
 public class UnfocusedButton extends Button{
 
 	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/**	<!-- $LANGUAGE=DE -->
+	 * Erstellt einen UnfocusedButton mit einem leeren String als Beschriftung
+	 */
 	public UnfocusedButton() {
 		super();
 		initShape();
 	}
 
+	/**	<!-- $LANGUAGE=DE -->
+	 * Erstellt einen UnfocusedButton mit einem spezifischen String und einem Icon als Beschriftung
+	 */
 	public UnfocusedButton(String text, Node graphic) {
 		super(text, graphic);
 		initShape();
 	}
 
+	/**	<!-- $LANGUAGE=DE -->
+	 * Erstellt einen UnfocusedButton mit einem spezifischen String als Beschriftung
+	 */
 	public UnfocusedButton(String text) {
 		super(text);
 		initShape();
@@ -45,14 +55,13 @@ public class UnfocusedButton extends Button{
 	
 	
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/**	<!-- $LANGUAGE=DE -->
+	 * Schaltet den Fokus für diesen Button aus und setzt als Grundform dieses Buttons ein Rechteck ohne abgerundete Ecken ein.
+	 */
 	private void initShape() {
 		// TODO REMOVE LATER (Nur zu Testzwecken!!!)	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		this.setFont(Font.font("Consolas", FontWeight.BOLD, 20));
 	
-	/*	Ellipse shape = new Ellipse(500, 500);
-		this.setShape(shape);
-	*/	
-		
 		this.setFocusTraversable(false);
 		
 		Rectangle shape = new Rectangle(50, 50);
@@ -62,11 +71,6 @@ public class UnfocusedButton extends Button{
 		setScaleShape(true);
 		
 		this.setPadding(new Insets(2));
-		
-	/*	// Rundung an Groesse binden (auskommentieren, um Rundung zu loeschen)
-		shape.arcHeightProperty().bind(widthProperty().divide(4));
-		shape.arcWidthProperty().bind(heightProperty().divide(4));
-	*/
 	}
 	
 
