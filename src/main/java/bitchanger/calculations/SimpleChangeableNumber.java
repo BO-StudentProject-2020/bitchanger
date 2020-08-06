@@ -21,6 +21,11 @@ import bitchanger.preferences.Preferences;
  * verschiedene Zahlensysteme umgewandelt werden kann. Die String-Darstellungen in den verschiedenen
  * Zahlensystemen enthalten <b>keine Präfixe</b>, die auf die Basis hinweisen.
  * </p>
+ * <p>
+ * Die String Darstellungen der Zahlensysteme werden für bessere Lesbarkeit in Blöcke unterteilt.
+ * Beim Hexadezimal- und Binärsystem sind die Blöcke vier Zeichen lang, in allen anderen Zahlensystemen
+ * haben die Blöcke eine Länge von drei Zeichen.
+ * </p>
  * 
  * @see ChangeableNumber
  * 
@@ -38,6 +43,11 @@ import bitchanger.preferences.Preferences;
  * Each instance of this class wraps a value, that gets set from different numeral systems and can get
  * converted into any numeral system. The strings in these numeral systems <b>do not contain any prefixes<b>
  * that refer to the base.
+ * </p>
+ * <p>
+ * The string representations of the number systems are splitted into blocks for better readability.
+ * The blocks are four characters long in the hexadecimal and binary systems, in all other number systems
+ * the blocks are three characters long.
  * </p>
  * 
  * @see ChangeableNumber
@@ -137,10 +147,10 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 * 
 	 */
 	private void initDecimal(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		this.decValue = Objects.requireNonNull(decValue);
-		this.hexValue = ConvertingNumbers.decToBase(16, this.decValue, Preferences.getComma());
-		this.octalValue = ConvertingNumbers.decToBase(8, this.decValue, Preferences.getComma());
-		this.binValue = ConvertingNumbers.decToBase(2, this.decValue, Preferences.getComma());
+		this.decValue = ConvertingNumbers.splitInBlocks(Objects.requireNonNull(decValue), 3);
+		this.hexValue = ConvertingNumbers.decToBaseBlocks(16, this.decValue, Preferences.getComma(), 4);
+		this.octalValue = ConvertingNumbers.decToBaseBlocks(8, this.decValue, Preferences.getComma(), 3);
+		this.binValue = ConvertingNumbers.decToBaseBlocks(2, this.decValue, Preferences.getComma(), 4);
 	}
 
 	
@@ -265,7 +275,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		}
 		
 		try {
-			return ConvertingNumbers.decToBase(base, decValue, Preferences.getComma());
+			int blockSize = (base == 2 || base == 16) ? 4 : 3; 
+			return ConvertingNumbers.decToBaseBlocks(base, decValue, Preferences.getComma(), blockSize);
 		} catch (IllegalArgumentException illArg) {
 			// Auf falsche Basis prüfen
 			if(base < ConvertingNumbers.MIN_BASE || base > ConvertingNumbers.MAX_BASE) {

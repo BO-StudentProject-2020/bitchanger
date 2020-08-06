@@ -135,7 +135,7 @@ public class ValueField extends TextField {
 		this.caretPositionProperty().addListener(this::storeCaretPosition);
 		
 		// Bei neuem Focus den Curser an die letzte bekannte Position setzen (behebt fehlerhafte Auswahl, wenn TF aus dem Spinner ausgewaehlt wird)
-		this.focusedProperty().addListener(this::resetCaretPosition);
+		this.focusedProperty().addListener(this::focuse);
 		
 		Rectangle shape = new Rectangle(50, 50);
 		shape.setArcHeight(0);
@@ -178,15 +178,19 @@ public class ValueField extends TextField {
 	}
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die CaretPosition auf den letzten bekannten Wert zurück. 
+	 * Entfernt den Indikator für abgeschnittene Nachkommastellen und setzt die CaretPosition auf den 
+	 * letzten bekannten Wert zurück. 
 	 * Kann als Methoden-Referenz für einen ChangeListener eingesetzt werden.
 	 * 
 	 * @param observable	{@code ObservableValue}, dessen Wert sich ändert
 	 * @param oldValue		neuer Wert
-	 * @param newValue		alter Wert
+	 * @param isFocused		alter Wert
 	 */
-	public void resetCaretPosition(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-		if (newValue) {
+	public void focuse(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean isFocused) {
+		if (isFocused) {
+			// Indikator für abgeschnittene Nachkommastellen entfernen
+			setText(getText().replace(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR, ""));
+			
 			if (lastCaretPosition < 0) {
 				lastCaretPosition = getText().length();
 			}
