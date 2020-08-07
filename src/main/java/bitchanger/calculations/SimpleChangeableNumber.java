@@ -148,9 +148,9 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	private void initDecimal(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
 		this.decValue = ConvertingNumbers.splitInBlocks(Objects.requireNonNull(decValue), 3);
-		this.hexValue = ConvertingNumbers.decToBaseBlocks(16, this.decValue, Preferences.getComma(), 4);
-		this.octalValue = ConvertingNumbers.decToBaseBlocks(8, this.decValue, Preferences.getComma(), 3);
-		this.binValue = ConvertingNumbers.decToBaseBlocks(2, this.decValue, Preferences.getComma(), 4);
+		this.hexValue = ConvertingNumbers.decToBaseBlocks(16, this.decValue, Preferences.getPrefs().getComma(), 4);
+		this.octalValue = ConvertingNumbers.decToBaseBlocks(8, this.decValue, Preferences.getPrefs().getComma(), 3);
+		this.binValue = ConvertingNumbers.decToBaseBlocks(2, this.decValue, Preferences.getPrefs().getComma(), 4);
 	}
 
 	
@@ -204,7 +204,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 */
 	@Override
 	public void setValue(String value, int baseOfValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		this.initDecimal(ConvertingNumbers.baseToDecString(baseOfValue, value, Preferences.getComma()));
+		this.initDecimal(ConvertingNumbers.baseToDecString(baseOfValue, value, Preferences.getPrefs().getComma()));
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
@@ -276,7 +276,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		
 		try {
 			int blockSize = (base == 2 || base == 16) ? 4 : 3; 
-			return ConvertingNumbers.decToBaseBlocks(base, decValue, Preferences.getComma(), blockSize);
+			return ConvertingNumbers.decToBaseBlocks(base, decValue, Preferences.getPrefs().getComma(), blockSize);
 		} catch (IllegalArgumentException illArg) {
 			// Auf falsche Basis prüfen
 			if(base < ConvertingNumbers.MIN_BASE || base > ConvertingNumbers.MAX_BASE) {

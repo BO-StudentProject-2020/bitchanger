@@ -251,7 +251,7 @@ public class AlphaNumKeys implements Controllable {
 		
 		Button signBtn = new UnfocusedButton("\u00B1");
 		Button num0 = new ValueButton("0");
-		commaBtn = new UnfocusedButton(String.valueOf(Preferences.getComma()));
+		commaBtn = new UnfocusedButton(String.valueOf(Preferences.getPrefs().getComma()));
 		
 		Button[] lastRow = {signBtn, num0, commaBtn};
 		String[] lastRowKeys = {SIGN_BTN_KEY, ZERO_BTN_KEY, COMMA_BTN_KEY};

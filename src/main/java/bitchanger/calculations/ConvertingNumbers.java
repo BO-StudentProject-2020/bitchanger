@@ -135,7 +135,7 @@ public class ConvertingNumbers {
 				// keine oder falsche Zahlen-Ziffer zur geg. Basis -> Pruefen auf Buchstaben
 				if (character < 'A' || character > ('A' + base - 11)) {
 					// kein oder falscher Buchstabe zur geg. Basis -> Pruefen auf Komma
-					if (character == Preferences.getComma()) {
+					if (character == Preferences.getPrefs().getComma()) {
 						// Es handelt sich um ein Komma
 						if (hasComma) {
 							// mehr als ein Komma in einer Zahl nicht erlaubt
@@ -239,7 +239,7 @@ public class ConvertingNumbers {
 	 * @throws IllegalArgumentException		if {@code value} is an empty string or {@code basis} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
 	 */
 	public static String baseToDecString(int base, String value) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		return baseToDecString(base, value, Preferences.getComma());
+		return baseToDecString(base, value, Preferences.getPrefs().getComma());
 	}
 	
 	
@@ -337,7 +337,7 @@ public class ConvertingNumbers {
 	 * @see Preferences
 	 */
 	public static String decToBase(int newBase, String decValue) throws NullPointerException, NumberFormatException {
-		return decToBase(newBase, decValue, Preferences.getComma());
+		return decToBase(newBase, decValue, Preferences.getPrefs().getComma());
 	}
 	
 	
@@ -554,7 +554,7 @@ public class ConvertingNumbers {
 		if( ! separated[1].equals("0")) {
 			fractionalPart.append(separated[1]);
 			insertSpace(fractionalPart, blockSize);
-			fractionalPart.insert(0, Preferences.getComma());
+			fractionalPart.insert(0, Preferences.getPrefs().getComma());
 		}
 
 
@@ -771,7 +771,7 @@ public class ConvertingNumbers {
 		
 		while(!(fractionalPart % 1 == 0)){
 			if (zaehl >= fractionalPrecision) {
-				if (Preferences.indicateFractionalPrecision()) {
+				if (Preferences.getPrefs().indicateFractionalPrecision()) {
 					fractionalResult.append(FRACTIONAL_PRECISION_INDICATOR);
 				}
 				break;

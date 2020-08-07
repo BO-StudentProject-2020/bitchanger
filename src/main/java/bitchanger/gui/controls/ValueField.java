@@ -212,7 +212,7 @@ public class ValueField extends TextField {
 	 * bei Änderung an
 	 */
 	private void observeCommaProperty() {
-		Preferences.commaProperty.addListener(new ChangeListener<Comma>() {
+		Preferences.getPrefs().commaProperty.addListener(new ChangeListener<Comma>() {
 			@Override
 			public void changed(ObservableValue<? extends Comma> observable, Comma oldValue, Comma newValue) {
 				if(oldValue.equals(newValue))

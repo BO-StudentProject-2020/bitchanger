@@ -229,7 +229,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	 * @see Preferences#getCommaProperty()
 	 */
 	private void setCommaBinding() {
-		Preferences.commaProperty.addListener(new ChangeListener<Comma>() {
+		Preferences.getPrefs().commaProperty.addListener(new ChangeListener<Comma>() {
 			@Override
 			public void changed(ObservableValue<? extends Comma> observable, Comma oldComma, Comma newComma) {
 				commaBtn.setText(String.valueOf(newComma.get()));
@@ -372,7 +372,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 			@Override
 			public void handle(ActionEvent event) {
 				KeyCode commaKeyCode = KeyCode.COMMA;
-				if(Preferences.commaProperty.get().equals(Comma.COMMA_EN)) {
+				if(Preferences.getPrefs().commaProperty.get().equals(Comma.COMMA_EN)) {
 					commaKeyCode = KeyCode.PERIOD;
 				}
 				

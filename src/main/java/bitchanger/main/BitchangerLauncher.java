@@ -32,7 +32,7 @@ import bitchanger.preferences.Preferences;
  * 
  */
 public class BitchangerLauncher {
-
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Die Main Methode liest zuerst alle gespeicherten Einstellungen für die Klasse {@code Preferences} ein.
 	 * Danach wird das PrimaryFXApp der Anwendung gestartet und gewartet, bis dieses geschlossen wurde.

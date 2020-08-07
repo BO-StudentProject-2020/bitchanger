@@ -1,8 +1,20 @@
+/*
+ * Copyright (c)
+ * 
+ * Ersteller: Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.main;
 
+import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.views.ConverterView;
+import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -41,22 +53,17 @@ import javafx.stage.Stage;
  * @see ConverterView
  * @see ConverterController
  */
-public class PrimaryFXApp extends Application {
+public class PrimaryFXApp extends Application implements ControllableApplication {
 	
-// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE --> aktuell im Fenster dargestellte View */
-	/* <!-- $LANGUAGE=EN --> View currently displayed in the window */
-	private Viewable currentView;
-	
-	// mögliche Views mit Szenen für die verschiedenen Bedien-Oberflächen
-	/** <!-- $LANGUAGE=DE --> View für die Umwandlung von Zahlensystemen */
-	/* <!-- $LANGUAGE=EN --> View for converting of numeral systems */
-	private Viewable converterView;
-	
+// Konstanten	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	public static final String CONVERTER_VIEW_KEY = "converter-view";
+	public static final String IEEE_VIEW_KEY = "ieee-view";
+	public static final String CALCULATOR_VIEW_KEY = "calculator-view";
+	public static final String CURRENT_VIEW_KEY = "current-view";
 	
 	
 // Launch-Methode	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Startet die Anwendung und öffnet das Applikationsfenster.
 	 * 
@@ -76,6 +83,59 @@ public class PrimaryFXApp extends Application {
 		launch(args);
 	}
 	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Instances   																												 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
+// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE --> aktuell im Fenster dargestellte View */
+	/* <!-- $LANGUAGE=EN --> View currently displayed in the window */
+	private Viewable currentView;
+	
+	/** <!-- $LANGUAGE=DE --> View für die Umwandlung von Zahlensystemen */
+	/* <!-- $LANGUAGE=EN --> View for converting of numeral systems */
+	private Viewable converterView;
+	
+	/** <!-- $LANGUAGE=DE --> View für die Umwandlung mit der IEEE-Norm */
+	/* <!-- $LANGUAGE=EN --> View for conversion with the IEEE standard */
+	private Viewable ieeeView;
+	
+	/** <!-- $LANGUAGE=DE --> View für das Rechnen mit Zahlensystemen */
+	/* <!-- $LANGUAGE=EN --> View for calculating with number systems */
+	private Viewable calculatorView;
+	
+	/** <!-- $LANGUAGE=DE --> Hauptfenster der Anwendung */
+	/* <!-- $LANGUAGE=EN --> Main application window */
+	private Stage primaryStage;
+	
+
+// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** {@inheritDoc} */
+	@Override
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public Viewable getViewable(String key) {
+		switch(key) {
+		case CONVERTER_VIEW_KEY:
+			return converterView;
+		case IEEE_VIEW_KEY:
+			return ieeeView;
+		case CALCULATOR_VIEW_KEY:
+			return calculatorView;
+		case CURRENT_VIEW_KEY:
+			return currentView;
+		}
+		
+		return null;
+	}
 	
 	
 // Start	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -102,7 +162,6 @@ public class PrimaryFXApp extends Application {
 	 * 
 	 * @see ConverterView
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * This method creates the content for the main window and opens it.
 	 * <p>
@@ -126,10 +185,13 @@ public class PrimaryFXApp extends Application {
 	 * @see ConverterView
 	 */
 	@Override
-	public void start(Stage primaryStage) throws Exception {		
+	public void start(Stage primaryStage) throws Exception {
+		this.primaryStage = primaryStage;
+		
 		MenuBar menubar = createMenuBar();
 		
 		converterView = new ConverterView(menubar);
+		ieeeView = new IEEEView();
 		currentView = converterView;
 		
 		// TODO Testzeile entfernen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
@@ -220,6 +282,9 @@ public class PrimaryFXApp extends Application {
 		
 		return menubar;
 	}
+
+
+
 
 }
 

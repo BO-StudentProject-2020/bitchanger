@@ -1,8 +1,19 @@
+/*
+ * Copyright (c)
+ * 
+ * Ersteller: Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.gui.controls;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import bitchanger.gui.controller.BasicMenuController;
 import bitchanger.gui.controller.Controllable;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
@@ -16,6 +27,19 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
+/**	<!-- $LANGUAGE=DE -->
+ * Basis Menüleiste, die die allgemein benötigten Menüpunkte enthält.
+ * Über die MenuItems, die in Optionen -> Komma einstellen vorhanden sind, wird
+ * entsprechend das {@link Preferences#commaProperty} geändert.
+ * Weitere Funktionen können über Controller hinzugefügt werden.
+ * 
+ * @author Tim Mühle
+ *
+ * @since Bitchanger 0.4.0
+ * @version 0.1.4
+ * 
+ * @see BasicMenuController
+ */
 public class BasicMenuBar extends MenuBar implements Controllable {
 	
 	public static final String MODUS_MENU_KEY = "modus-menu";
@@ -28,7 +52,6 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	
 	
 	public final HashMap<String, MenuItem> menuItemMap;
-
 	
 	public BasicMenuBar() {
 		super();
@@ -39,7 +62,6 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		createMenuOptions();
 		createMenuWindow();
 		createMenuAbout();
-		
 	}
 
 	private void createMenuModus() {
@@ -77,7 +99,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		chooseComma.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Preferences.commaProperty.setValue(comma);
+				Preferences.getPrefs().commaProperty.setValue(comma);
 			}
 		});
 	}
@@ -86,11 +108,11 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		Menu window = new Menu("Fenster");
 		addMenu(window, MODUS_MENU_KEY);
 		
-		MenuItem newWindow = new MenuItem("Neues Fenster");
 		Menu moveToScreen = new Menu("Auf Monitor bewegen");
 		CheckMenuItem showFullscreen = new CheckMenuItem("Vollbild");
 		
-		window.getItems().addAll(newWindow, moveToScreen, showFullscreen);
+		
+		window.getItems().addAll(moveToScreen, showFullscreen);
 	}
 	
 	private void createMenuAbout() {
