@@ -10,7 +10,8 @@
 
 package bitchanger.gui.controller;
 
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Map;
 
 import bitchanger.gui.views.Viewable;
 import javafx.scene.Node;
@@ -44,6 +45,60 @@ import javafx.scene.control.TextField;
  */
 public interface Controllable {
 	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	public CONSTANTS   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
+	 * Textfelder an seinen Controller übergeben muss
+	 * 
+	 * @see Collections#emptyMap()
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * empty and immutable map that can be used as placeholder if any Controllable does not have to pass textfields to its Controller
+	 * 
+	 * @see Collections#emptyMap()
+	 */
+	public static final Map<String, TextField> EMPTY_TEXTFIELD_MAP = Collections.emptyMap();
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
+	 * Buttons an seinen Controller übergeben muss
+	 * 
+	 * @see Collections#emptyMap()
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * empty and immutable map that can be used as placeholder if any Controllable does not have to pass buttons to its Controller
+	 * 
+	 * @see Collections#emptyMap()
+	 */
+	public static final Map<String, Button> EMPTY_BUTTON_MAP = Collections.emptyMap();
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
+	 * Nodes an seinen Controller übergeben muss
+	 * 
+	 * @see Collections#emptyMap()
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * empty and immutable map that can be used as placeholder if any Controllable does not have to pass nodes to its Controller
+	 * 
+	 * @see Collections#emptyMap()
+	 */
+	public static final Map<String, Node> EMPTY_NODE_MAP = Collections.emptyMap();
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt eine {@code Map} mit allen Textfelder der View zurück. Jedes Textfeld ist einem eindeutigen Schlüsselwort zugeordnet,
 	 * mit dem es aus der Map herausgesucht werden kann.
@@ -63,7 +118,7 @@ public interface Controllable {
 	 * 
 	 * @return {@code Map}, that contains all text fields of the controllable
 	 */
-	public HashMap<String, TextField> getTextFieldMap();
+	public Map<String, TextField> getTextFieldMap();
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt eine {@code Map} mit allen Buttons der View zurück. Jeder Button ist einem eindeutigen Schlüsselwort zugeordnet,
@@ -84,7 +139,7 @@ public interface Controllable {
 	 * 
 	 * @return {@code Map}, that contains all buttons of the controllable
 	 */
-	public HashMap<String, Button> getButtonMap();
+	public Map<String, Button> getButtonMap();
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt eine {@code Map} mit allen Elemente (Nodes) der View zurück, die keine Buttons oder Textfelder sind und im Controller benötigt werden.
@@ -105,6 +160,6 @@ public interface Controllable {
 	 * 
 	 * @return {@code Map}, which contains all elements of a controllable, that are not buttons or text fields and are required in the controller
 	 */
-	public HashMap<String, Node> getNodeMap();
+	public Map<String, Node> getNodeMap();
 
 }

@@ -13,6 +13,7 @@ package bitchanger.gui.controls;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import bitchanger.gui.controller.AlphaNumKeysController;
 import bitchanger.gui.controller.Controllable;
@@ -159,20 +160,20 @@ public class AlphaNumKeys implements Controllable {
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, TextField> getTextFieldMap() {
-		return new HashMap<String, TextField>(0);
+	public Map<String, TextField> getTextFieldMap() {
+		return Controllable.EMPTY_TEXTFIELD_MAP;
 	}
 	
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, Button> getButtonMap() {
+	public Map<String, Button> getButtonMap() {
 		return this.buttonMap;
 	}
 	
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, Node> getNodeMap() {
-		return new HashMap<String, Node>(0);
+	public Map<String, Node> getNodeMap() {
+		return Controllable.EMPTY_NODE_MAP;
 	}
 	
 	/** <!-- $LANGUAGE=DE -->

@@ -11,6 +11,7 @@
 package bitchanger.gui.views;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.Controller;
@@ -52,17 +53,17 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	/** <!-- $LANGUAGE=DE -->
 	 * {@code Map}, in die alle vom Controller benötigten Textfelder der View 
 	 * mit einem eindeutigen Schlüssel abgelegt werden */
-	private HashMap<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
+	private Map<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
 	
 	/** <!-- $LANGUAGE=DE --> 
 	 * {@code Map}, in die alle vom Controller benötigten Buttons der View mit 
 	 * einem eindeutigen Schlüssel abgelegt werden */
-	private HashMap<String, Button> btnMap;
+	private Map<String, Button> btnMap;
 	
 	/** <!-- $LANGUAGE=DE --> 
 	 * {@code Map}, in die alle vom Controller benötigten Elemente der View mit einem 
 	 * eindeutigen Schlüssel abgelegt werden, die keine Buttons oder Textfelder sind */
-	private HashMap<String, Node> nodeMap;
+	private Map<String, Node> nodeMap;
 	
 	/** <!-- $LANGUAGE=DE --> 
 	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
@@ -155,19 +156,19 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, TextField> getTextFieldMap() {
+	public Map<String, TextField> getTextFieldMap() {
 		return tfMap;
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, Button> getButtonMap() {
+	public Map<String, Button> getButtonMap() {
 		return btnMap;
 	}
 	
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, Node> getNodeMap() {
+	public Map<String, Node> getNodeMap() {
 		return nodeMap;
 	}
 	

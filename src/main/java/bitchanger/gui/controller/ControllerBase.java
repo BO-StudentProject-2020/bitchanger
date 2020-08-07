@@ -10,7 +10,7 @@
 
 package bitchanger.gui.controller;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import bitchanger.gui.views.Viewable;
 import javafx.scene.Node;
@@ -46,15 +46,15 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Textfelder des gekapselten Controllables enthält */
-	protected HashMap<String, TextField> textFieldMap;
+	protected Map<String, TextField> textFieldMap;
 	
 	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Buttons des gekapselten Controllables enthält */
-	protected HashMap<String, Button> buttonMap;
+	protected Map<String, Button> buttonMap;
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * {@code Map}, die alle Nodes des gekapselten Controllables enthält, die eine Funktion erhalten 
 	 * und weder eine Instanz von Button noch von Textfeld sind */
-	protected HashMap<String, Node> nodeMap;
+	protected Map<String, Node> nodeMap;
 	
 	/** <!-- $LANGUAGE=DE -->	gekapseltes Controllable, dem durch diesen Controller eine Funktion gegeben wird */
 	protected final T controllable;

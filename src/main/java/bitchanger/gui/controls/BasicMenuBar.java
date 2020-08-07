@@ -2,14 +2,18 @@ package bitchanger.gui.controls;
 
 import java.util.HashMap;
 
+import bitchanger.gui.controller.Controllable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 
-public class BasicMenuBar extends MenuBar {
+public class BasicMenuBar extends MenuBar implements Controllable {
 	
 	public static final String MODUS_KEY = "modus-menu";
 	public static final String OPTIONS_KEY = "options-menu";
@@ -88,6 +92,21 @@ public class BasicMenuBar extends MenuBar {
 	private void addMenu(Menu m, String key) {
 		this.getMenus().add(m);
 		menuMap.put(key, m);
+	}
+
+	@Override
+	public HashMap<String, TextField> getTextFieldMap() {
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Button> getButtonMap() {
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Node> getNodeMap() {
+		return null;
 	}
 	
 }
