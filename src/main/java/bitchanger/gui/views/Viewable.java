@@ -13,6 +13,7 @@ package bitchanger.gui.views;
 import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.Controller;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 
 /**	<!-- $LANGUAGE=DE -->
  * Die Schnittstelle {@code Viewable} definiert die Basis für eine View.
@@ -37,7 +38,6 @@ import javafx.scene.Scene;
  * @see Controller
  *
  */
-
 /*	<!-- $LANGUAGE=EN -->
  * The interface {@code Viewable} defines the base for a view.
  * <p>
@@ -68,14 +68,14 @@ public interface Viewable {
 	 * @return von der View repräsentierte {@code Scene}
 	 * 
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Returns the represented {@code Scene}
 	 * 
 	 * @return from the view represented {@code Scene}
 	 * 
 	 */
-	public Scene getScene();
+	public abstract Scene getScene();
+	
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die maximale Höhe der View an
@@ -83,14 +83,14 @@ public interface Viewable {
 	 * @return maximale Höhe der View
 	 * 
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Indicates the maximum height of the view
 	 * 
 	 * @return maximum height of the view
 	 * 
 	 */
-	public double getMaxHeigth();
+	public abstract double getMaxHeigth();
+	
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die maximale Breite der View an
@@ -98,14 +98,14 @@ public interface Viewable {
 	 * @return maximale Breite der View
 	 * 
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Indicates the maximum width of the view
 	 * 
 	 * @return maximum width of the view
 	 * 
 	 */
-	public double getMaxWidth();
+	public abstract double getMaxWidth();
+	
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die minimale Höhe der View an
@@ -113,14 +113,14 @@ public interface Viewable {
 	 * @return minimale Höhe der View
 	 * 
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Indicates the minimum height of the view
 	 * 
 	 * @return minimum height of the view
 	 * 
 	 */
-	public double getMinHeigth();
+	public abstract double getMinHeigth();
+	
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die minimale Breite der View an
@@ -128,13 +128,29 @@ public interface Viewable {
 	 * @return minimale Breite der View
 	 * 
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Indicates the minimum width of the view
 	 * 
 	 * @return minimum width of the view
 	 * 
 	 */
-	public double getMinWidth();
+	public abstract double getMinWidth();
+	
+	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt die übergebene MenuBar in den Scenegraph der View. Eine eventuell vorhandene MenuBar
+	 * wird zuvor aus dem Scenegraph entfernt und ersetzt. Ist das Argument {@code null} wird nur
+	 * versucht die bereits vorhandene MenuBar aus dem Scenegraphen zu entfernen.
+	 * 
+	 * @param menubar	MenuBar, die von dieser View verwendet werden soll. Darf {@code null} sein, um die aktuelle MenuBar zu entfernen
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Adds the given MenuBar to this View's scenegraph. Any existing MenuBar is removed from the 
+	 * scenegraph and replaced. If the argument is {@code null} the only attempt is to remove the 
+	 * already existing MenuBar from the scenegraph.
+	 * 
+	 * @param menubar	MenuBar to be used by this View, may be {@code null} to remove the current MenuBar
+	 */
+	public abstract <T extends MenuBar> void setMenuBar(T menubar);
 	
 }

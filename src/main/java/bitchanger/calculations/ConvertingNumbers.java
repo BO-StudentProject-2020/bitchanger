@@ -381,7 +381,7 @@ public class ConvertingNumbers {
 	 * @see Preferences
 	 */
 	public static String decToBase(int newBase, String decValue, char comma) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		return decToBase(newBase, decValue, comma, 15);
+		return decToBase(newBase, decValue, comma, 16);
 	}
 	
 	

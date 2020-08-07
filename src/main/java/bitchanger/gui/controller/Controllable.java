@@ -118,7 +118,7 @@ public interface Controllable {
 	 * 
 	 * @return {@code Map}, that contains all text fields of the controllable
 	 */
-	public Map<String, TextField> getTextFieldMap();
+	public abstract Map<String, TextField> getTextFieldMap();
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt eine {@code Map} mit allen Buttons der View zurück. Jeder Button ist einem eindeutigen Schlüsselwort zugeordnet,
@@ -139,7 +139,7 @@ public interface Controllable {
 	 * 
 	 * @return {@code Map}, that contains all buttons of the controllable
 	 */
-	public Map<String, Button> getButtonMap();
+	public abstract Map<String, Button> getButtonMap();
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt eine {@code Map} mit allen Elemente (Nodes) der View zurück, die keine Buttons oder Textfelder sind und im Controller benötigt werden.
@@ -160,6 +160,6 @@ public interface Controllable {
 	 * 
 	 * @return {@code Map}, which contains all elements of a controllable, that are not buttons or text fields and are required in the controller
 	 */
-	public Map<String, Node> getNodeMap();
+	public abstract Map<String, Node> getNodeMap();
 
 }

@@ -11,9 +11,12 @@
 package bitchanger.gui.controls;
 
 import bitchanger.calculations.ConvertingNumbers;
+import bitchanger.preferences.Comma;
+import bitchanger.preferences.Preferences;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Rectangle;
@@ -80,8 +83,25 @@ public class ValueField extends TextField {
 	 */
 	public ValueField(String text, int base) {
 		super(text);
+		
 		this.baseProperty = new SimpleIntegerProperty(base);
-		init();
+		this.baseProperty = new SimpleIntegerProperty();
+		this.lastCaretPosition = -1;
+		
+		this.textProperty().addListener(this::checkText);
+		this.caretPositionProperty().addListener(this::storeCaretPosition);
+		
+		// Bei neuem Focus den Curser an die letzte bekannte Position setzen (behebt fehlerhafte Auswahl, wenn TF aus dem Spinner ausgewaehlt wird)
+		this.focusedProperty().addListener(this::focuse);
+		
+		observeCommaProperty();
+		
+		Rectangle shape = new Rectangle(50, 50);
+		shape.setArcHeight(0);
+		shape.setArcWidth(0);
+		
+		this.setShape(shape);
+		this.setScaleShape(true);
 	}
 	
 	
@@ -124,27 +144,6 @@ public class ValueField extends TextField {
 	
 	
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE -->
-	 * Initialisiert die Attribute, setzt Listener und passt die Form des ValueFields an.
-	 */
-	private void init() {
-		this.baseProperty = new SimpleIntegerProperty();
-		this.lastCaretPosition = -1;
-		
-		this.textProperty().addListener(this::checkText);
-		this.caretPositionProperty().addListener(this::storeCaretPosition);
-		
-		// Bei neuem Focus den Curser an die letzte bekannte Position setzen (behebt fehlerhafte Auswahl, wenn TF aus dem Spinner ausgewaehlt wird)
-		this.focusedProperty().addListener(this::focuse);
-		
-		Rectangle shape = new Rectangle(50, 50);
-		shape.setArcHeight(0);
-		shape.setArcWidth(0);
-		
-		this.setShape(shape);
-		this.setScaleShape(true);
-	}
-	
 	/** <!-- $LANGUAGE=DE -->
 	 * Prüft, ob der eingegebene Text zur Basis passt und setzt die Eingabe zurück, wenn ein verbotenes 
 	 * Zeichen eingegeben wurde. Kann als Methoden-Referenz für einen ChangeListener eingesetzt werden.
@@ -206,6 +205,36 @@ public class ValueField extends TextField {
 			});
 			
 		}
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Überwacht die CommaProperty aus {@link Preferences} und passt das Komma der Zahl in diesem Textfeld
+	 * bei Änderung an
+	 */
+	private void observeCommaProperty() {
+		Preferences.commaProperty.addListener(new ChangeListener<Comma>() {
+			@Override
+			public void changed(ObservableValue<? extends Comma> observable, Comma oldValue, Comma newValue) {
+				if(oldValue.equals(newValue))
+					return;
+				
+				boolean removedIndicator = false;
+				String text = getText();
+				
+				if(getText().endsWith(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR)) {
+					text = text.replace(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR, "");
+					removedIndicator = true;
+				}
+				
+				setText(text.replace(oldValue.get(), newValue.get()));
+				
+				if(removedIndicator) {
+					appendText(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR);
+				}
+				
+				positionCaret(lastCaretPosition);
+			}
+		});
 	}
 	
 	

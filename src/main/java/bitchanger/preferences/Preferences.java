@@ -20,10 +20,10 @@ public class Preferences {
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->	Property für das Kommazeichen */
-	private static ObjectProperty<Comma> commaProperty = new SimpleObjectProperty<Comma>(Comma.COMMA_DE);
+	public final static ObjectProperty<Comma> commaProperty = new SimpleObjectProperty<Comma>(Comma.COMMA_DE);
 	
 	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige von abgebrochenen Nachkommastellen */
-	private static BooleanProperty indicateFractionalPrecisionProperty = new SimpleBooleanProperty(true);
+	public final static BooleanProperty indicateFractionalPrecisionProperty = new SimpleBooleanProperty(true);
 	
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -34,24 +34,6 @@ public class Preferences {
 	 */
 	public static char getComma() {
 		return commaProperty.getValue().get();
-	}
-	
-	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die commaProperty zurück
-	 * 
-	 * @return	commaProperty
-	 */
-	public static ObjectProperty<Comma> getCommaProperty() {
-		return commaProperty;
-	}
-	
-	/** <!-- $LANGUAGE=DE -->
-	 * Stellt das Kommazeichen bei der commaProperty ein
-	 * 
-	 * @param comma	Kommazeichen
-	 */
-	public static void setComma(Comma comma) {
-		commaProperty.setValue(comma);
 	}
 	
 	/** <!-- $LANGUAGE=DE -->
@@ -72,14 +54,6 @@ public class Preferences {
 		indicateFractionalPrecisionProperty.setValue(b);
 	}
 	
-	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die indicateFractionalPrecisionProperty zurück
-	 * 
-	 * @return indicateFractionalPrecisionProperty
-	 */
-	public static BooleanProperty indicateFractionalPrecisionProperty() {
-		return indicateFractionalPrecisionProperty;
-	}
 	
 	// Speichern und Laden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->

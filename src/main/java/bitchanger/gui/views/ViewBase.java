@@ -19,7 +19,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 /**	<!-- $LANGUAGE=DE -->
  * 
@@ -65,11 +68,13 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	 * eindeutigen Schlüssel abgelegt werden, die keine Buttons oder Textfelder sind */
 	private Map<String, Node> nodeMap;
 	
+	/** <!-- $LANGUAGE=DE --> MenuBar des Scenegraphen */
+	private MenuBar menubar;
+	
 	/** <!-- $LANGUAGE=DE --> 
 	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
 	 * <b> Es ist nur einmalig erlaubt einen Controller zuzuweisen! </b> */
 	protected final Controller controller;
-	
 	
 	
 // Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -170,6 +175,37 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	@Override
 	public Map<String, Node> getNodeMap() {
 		return nodeMap;
+	}
+	
+	/**  <!-- $LANGUAGE=DE -->
+	 * {@inheritDoc}
+	 * 
+	 * <p><b>
+	 * Wenn der Wurzelknoten dieser View eine Instanz von BorderPane ist, wird
+	 * die übergebene MenuBar in Top gelegt, ansonsten wird nur die alte MenuBar
+	 * entfernt.
+	 * </b></p>
+	 */
+	/*  <!-- $LANGUAGE=EN -->
+	 * {@inheritDoc}
+	 * 
+	 * <p><b>
+	 * If root is an instance of BorderPane the MenuBar is placed in Top, 
+	 * otherwise only the old MenuBar is removed.
+	 * </b></p>
+	 */
+	@Override
+	public <V extends MenuBar> void setMenuBar(V menubar) {
+		if(! (root instanceof Pane)) {
+			return;
+		}
+		
+		((Pane)root).getChildren().remove(this.menubar);
+		this.menubar = menubar;
+		
+		if(root instanceof BorderPane && menubar != null) {
+			((BorderPane) root).setTop(menubar);
+		}
 	}
 	
 }

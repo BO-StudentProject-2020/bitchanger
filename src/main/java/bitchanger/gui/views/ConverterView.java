@@ -161,14 +161,12 @@ public class ConverterView extends ViewBase<BorderPane> {
 	 * Erzeugt eine neue ConverterView mit vollständigem Scenegraphen und positioniert die 
 	 * Menüleiste im Top der BorderPane, die der Wurzelknoten des Scenegraphen ist.
 	 * 
-	 * @param menu	Menübar, die oben in der Scene angeheftet wird
+	 * @param menubar	Menübar, die oben in der Scene angeheftet wird
 	 */
-	public ConverterView(MenuBar menu) {
+	public ConverterView(MenuBar menubar) {
 		super(new BorderPane());
 		
-		if(menu != null) {
-			root.setTop(menu);
-		}
+		setMenuBar(menubar);
 	}
 	
 	/** <!-- $LANGUAGE=DE -->
@@ -462,6 +460,7 @@ public class ConverterView extends ViewBase<BorderPane> {
 		
 		return buttons;
 	}
+
 
 }
 

@@ -1,8 +1,11 @@
 package bitchanger.gui.controls;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import bitchanger.gui.controller.Controllable;
+import bitchanger.preferences.Comma;
+import bitchanger.preferences.Preferences;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -15,18 +18,22 @@ import javafx.scene.control.TextField;
 
 public class BasicMenuBar extends MenuBar implements Controllable {
 	
-	public static final String MODUS_KEY = "modus-menu";
-	public static final String OPTIONS_KEY = "options-menu";
-	public static final String WINDOW_KEY = "window-menu";
-	public static final String HELP_KEY = "help-menu";
+	public static final String MODUS_MENU_KEY = "modus-menu";
+	public static final String OPTIONS_MENU_KEY = "options-menu";
+	public static final String WINDOW_MENU_KEY = "window-menu";
+	public static final String HELP_MENU_KEY = "help-menu";
+	public static final String MODUS_CONVERTER_ITEM_KEY = "modus-converter-item";
+	public static final String MODUS_IEEE_ITEM_KEY = "modus-ieee-item";
+	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
 	
-	public final HashMap<String, Menu> menuMap;
 	
+	public final HashMap<String, MenuItem> menuItemMap;
 
+	
 	public BasicMenuBar() {
 		super();
 		
-		menuMap = new HashMap<>();
+		this.menuItemMap = new HashMap<>();
 		
 		createMenuModus();
 		createMenuOptions();
@@ -37,40 +44,47 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 
 	private void createMenuModus() {
 		Menu modus = new Menu("Modus");
-		addMenu(modus, MODUS_KEY);
+		addMenu(modus, MODUS_MENU_KEY);
 		
 		MenuItem viewConverter = new MenuItem("Umrechner");
 		MenuItem viewIEEE = new MenuItem("IEEE");
 		MenuItem viewCalculator = new MenuItem("Berechnungen");
 		
-		viewConverter.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		menuItemMap.put(MODUS_CONVERTER_ITEM_KEY, viewConverter);
+		menuItemMap.put(MODUS_IEEE_ITEM_KEY, viewIEEE);
+		menuItemMap.put(MODUS_CALCULATOR_ITEM_KEY, viewCalculator);
 		
 		modus.getItems().addAll(viewConverter, viewIEEE, viewCalculator);
 	}
 	
 	private void createMenuOptions() {
 		Menu options = new Menu("Optionen");
-		addMenu(options, OPTIONS_KEY);
+		addMenu(options, OPTIONS_MENU_KEY);
 		
 		Menu chooseComma = new Menu("Komma wählen");
 		MenuItem chooseCommaDE = new MenuItem("deutsch");
 		MenuItem chooseCommaEN = new MenuItem("englisch");
+		
+		setChooseCommaAction(chooseCommaDE, Comma.COMMA_DE);
+		setChooseCommaAction(chooseCommaEN, Comma.COMMA_EN);
 		
 		chooseComma.getItems().addAll(chooseCommaDE, chooseCommaEN);
 		
 		options.getItems().addAll(chooseComma);
 	}
 	
+	private void setChooseCommaAction(MenuItem chooseComma, Comma comma) {
+		chooseComma.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Preferences.commaProperty.setValue(comma);
+			}
+		});
+	}
+
 	private void createMenuWindow() {
 		Menu window = new Menu("Fenster");
-		addMenu(window, MODUS_KEY);
+		addMenu(window, MODUS_MENU_KEY);
 		
 		MenuItem newWindow = new MenuItem("Neues Fenster");
 		Menu moveToScreen = new Menu("Auf Monitor bewegen");
@@ -81,7 +95,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	
 	private void createMenuAbout() {
 		Menu help = new Menu("Hilfe");
-		addMenu(help, HELP_KEY);
+		addMenu(help, HELP_MENU_KEY);
 		
 		MenuItem about = new MenuItem("Über");
 		MenuItem version = new MenuItem("Version");
@@ -91,22 +105,22 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 
 	private void addMenu(Menu m, String key) {
 		this.getMenus().add(m);
-		menuMap.put(key, m);
+		menuItemMap.put(key, m);
 	}
 
 	@Override
-	public HashMap<String, TextField> getTextFieldMap() {
-		return null;
+	public Map<String, TextField> getTextFieldMap() {
+		return Controllable.EMPTY_TEXTFIELD_MAP;
 	}
 
 	@Override
-	public HashMap<String, Button> getButtonMap() {
-		return null;
+	public Map<String, Button> getButtonMap() {
+		return Controllable.EMPTY_BUTTON_MAP;
 	}
 
 	@Override
-	public HashMap<String, Node> getNodeMap() {
-		return null;
+	public Map<String, Node> getNodeMap() {
+		return Controllable.EMPTY_NODE_MAP;
 	}
 	
 }
