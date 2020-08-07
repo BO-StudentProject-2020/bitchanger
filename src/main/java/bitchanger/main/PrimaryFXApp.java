@@ -1,6 +1,7 @@
 package bitchanger.main;
 
 import bitchanger.gui.controller.ConverterController;
+import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.Viewable;
 import javafx.application.Application;
@@ -213,7 +214,7 @@ public class PrimaryFXApp extends Application {
 	 * 
 	 */
 	private MenuBar createMenuBar() {
-		MenuBar menubar = new MenuBar();
+		MenuBar menubar = new BasicMenuBar();
 		
 		// TODO MENUEBAR IMPLEMENTIEREN	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		
