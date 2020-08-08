@@ -142,6 +142,7 @@ public interface Viewable {
 	 * wird zuvor aus dem Scenegraph entfernt und ersetzt. Ist das Argument {@code null} wird nur
 	 * versucht die bereits vorhandene MenuBar aus dem Scenegraphen zu entfernen.
 	 * 
+	 * @param <T>		Typ der MenuBar zur Laufzeit
 	 * @param menubar	MenuBar, die von dieser View verwendet werden soll. Darf {@code null} sein, um die aktuelle MenuBar zu entfernen
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -149,6 +150,7 @@ public interface Viewable {
 	 * scenegraph and replaced. If the argument is {@code null} the only attempt is to remove the 
 	 * already existing MenuBar from the scenegraph.
 	 * 
+	 * @param <T>		runtime type of the given MenuBar
 	 * @param menubar	MenuBar to be used by this View, may be {@code null} to remove the current MenuBar
 	 */
 	public abstract <T extends MenuBar> void setMenuBar(T menubar);

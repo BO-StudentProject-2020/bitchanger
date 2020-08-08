@@ -31,13 +31,26 @@ import javafx.scene.control.TextField;
 
 /**	<!-- $LANGUAGE=DE -->
  * Basis Menüleiste, die die allgemein benötigten Menüpunkte enthält.
- * Über die MenuItems, die in Optionen -> Komma einstellen vorhanden sind, wird
+ * Über die MenuItems, die in Optionen -&gt; Komma einstellen vorhanden sind, wird
  * entsprechend das {@link Preferences#commaProperty} geändert.
  * Weitere Funktionen können über Controller hinzugefügt werden.
  * 
  * @author Tim Mühle
  *
- * @since Bitchanger 0.4.0
+ * @since Bitchanger 0.1.4
+ * @version 0.1.4
+ * 
+ * @see BasicMenuController
+ */
+/*	<!-- $LANGUAGE=EN -->
+ * Basic MenuBar containing the MenuItems that are generally required.
+ * The {@link Preferences#commaProperty} is changed accordingly via the MenuItems, 
+ * which are available in Options -&gt; Set Comma.
+ * Further functions can be added via Controllers.
+ * 
+ * @author Tim Mühle
+ *
+ * @since Bitchanger 0.1.4
  * @version 0.1.4
  * 
  * @see BasicMenuController
@@ -53,35 +66,56 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das Menu "Modus" in der Map {@link #menuItemMap} abgelegt ist
 	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the Menu "Modus" is associated in the Map {@link #menuItemMap}
+	 */
 	public static final String MODUS_MENU_KEY = "modus-menu";
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das Menu "Optionen" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the Menu "Optionen" is associated in the Map {@link #menuItemMap}
 	 */
 	public static final String OPTIONS_MENU_KEY = "options-menu";
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das Menu "Fenster" in der Map {@link #menuItemMap} abgelegt ist
 	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the Menu "Fenster" is associated in the Map {@link #menuItemMap}
+	 */
 	public static final String WINDOW_MENU_KEY = "window-menu";
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das Menu "Hilfe" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the Menu "Hilfe" is associated in the Map {@link #menuItemMap}
 	 */
 	public static final String HELP_MENU_KEY = "help-menu";
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das MenuItem "Umrechner" in der Map {@link #menuItemMap} abgelegt ist
 	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the MenuItem "Umrechner" is associated in the Map {@link #menuItemMap}
+	 */
 	public static final String MODUS_CONVERTER_ITEM_KEY = "modus-converter-item";
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das MenuItem "IEEE" in der Map {@link #menuItemMap} abgelegt ist
 	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the MenuItem "IEEE" is associated in the Map {@link #menuItemMap}
+	 */
 	public static final String MODUS_IEEE_ITEM_KEY = "modus-ieee-item";
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das MenuItem "Berechnungen" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the MenuItem "Berechnungen" is associated in the Map {@link #menuItemMap}
 	 */
 	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
 	
@@ -96,14 +130,23 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	
 // Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
-	 * {@code Map}, in die alle vom Controller benötigten MenuItems 
-	 * mit einem eindeutigen Schlüssel abgelegt werden */
+	 * {@code Map}, in der alle vom Controller benötigten MenuItems 
+	 * mit einem eindeutigen Schlüssel abgelegt werden
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * {@code Map} in which all MenuItems required by the controller are stored with a unique key
+	 */
 	public final HashMap<String, MenuItem> menuItemMap;
 
 	
 // Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue funktionslose BasicMenuBar mit allen MenuItems.
+	 * Erzeugt eine neue BasicMenuBar mit allen MenuItems. Die einzige bereitgestellte Funktion ist
+	 * die Änderung des CommaProperty in {@link Preferences#getPrefs()} zu englisch oder deutsch.
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Constructs a new BasicMenuBar with all MenuItems. The only function provided is changing the
+	 * CommaProperty in {@link Preferences#getPrefs()} to English or German.
 	 */
 	public BasicMenuBar() {
 		super();
@@ -119,9 +162,16 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue BasicMenuBar mit allen MenuItems, die bereits mit den Basisfunktionen belegt sind.
 	 * 
-	 * @param controllableApp	Anwendungsklasse, mit der die Basisfunktionen verknüft werden
+	 * @param controllableApp	Anwendungsklasse, mit der die Basisfunktionen verknüpft werden
 	 * 
 	 * @throws NullPointerException	wenn der Parameter {@code controllableApp} null ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Constructs a new BasicMenuBar with all MenuItems that are already assigned the basic functions.
+	 * 
+	 * @param controllableApp	Application class with that the basic functions are associated
+	 * 
+	 * @throws NullPointerException	if the argument {@code controllableApp} is null
 	 */
 	public BasicMenuBar(ControllableApplication controllableApp) throws NullPointerException {
 		this();
@@ -166,6 +216,12 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * @param chooseComma	MenuItem, das die Action erhält
 	 * @param comma			spezifisches Comma, das gesetzt wird
 	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Sets the action of the given MenuItem so that the specific Comma is set in the Preferences.
+	 * 
+	 * @param chooseComma	MenuItem receiving the action
+	 * @param comma			specific Comma that is set in the Preferences
+	 */
 	private void setChooseCommaAction(MenuItem chooseComma, Comma comma) {
 		chooseComma.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -179,6 +235,9 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 // Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt das Menu "Modus" mit den Elementen "Umrechner", "IEEE" und "Berechnungen"
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Creates the Menu "Modus" with its Items "Umrechner", "IEEE" and "Berechnungen"
 	 */
 	private void createMenuModus() {
 		Menu modus = new Menu("Modus");
@@ -199,6 +258,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * Erstellt das Menu "Optionen" mit den Elementen "Komma wählen" und den Unterelementen 
 	 * "deutsch" und "englisch"
 	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Creates the Menu "Optionen" with its Items "Komma wählen" and the sub-elements
+	 * "deutsch" and "englisch"
+	 */
 	private void createMenuOptions() {
 		Menu options = new Menu("Optionen");
 		addMenu(options, OPTIONS_MENU_KEY);
@@ -218,6 +281,9 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt das Menu "Fenster" mit den Elementen "Auf Monitor bewegen" und "Vollbild"
 	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Creates the Menu "Fenster" with its Items "Auf Monitor bewegen" and "Vollbild"
+	 */
 	private void createMenuWindow() {
 		Menu window = new Menu("Fenster");
 		addMenu(window, MODUS_MENU_KEY);
@@ -231,6 +297,9 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt das Menu "Hilfe" mit den Elementen "Über" und "Version"
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Creates the Menu "Hilfe" with its Items "Über" and "Version"
 	 */
 	private void createMenuHelp() {
 		Menu help = new Menu("Hilfe");
@@ -248,6 +317,13 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * 
 	 * @param m		Menu, das hinzugefügt und an die nächste Stelle gesetzt wird
 	 * @param key	Schlüsselwort, mit dem {@code m} in der Map {@link #menuItemMap} abgelegt wird
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Adds the given Menu to this MenuBar and puts it in the Map {@link #menuItemMap}
+	 * with the given key
+	 * 
+	 * @param m		Menu that is added
+	 * @param key	key with which the Menu m is to be associated in the Map {@link #menuItemMap}
 	 */
 	private void addMenu(Menu m, String key) {
 		this.getMenus().add(m);

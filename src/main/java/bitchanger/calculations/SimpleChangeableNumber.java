@@ -41,7 +41,7 @@ import bitchanger.preferences.Preferences;
  * The class SimpleChangeableNumber offers a complete implementation of {@link ChangeableNumber}.
  * <p>
  * Each instance of this class wraps a value, that gets set from different numeral systems and can get
- * converted into any numeral system. The strings in these numeral systems <b>do not contain any prefixes<b>
+ * converted into any numeral system. The strings in these numeral systems <b>do not contain any prefixes</b>
  * that refer to the base.
  * </p>
  * <p>

@@ -11,9 +11,9 @@ package bitchanger.preferences;
  * @since Bitchanger 0.1.3
  * @version 0.1.3
  * 
- * @see Preferences#getCommaProperty()
+ * @see Preferences#getPrefs()
+ * @see Preferences#commaProperty
  * @see Preferences#getComma()
- * @see Preferences#setComma(Comma)
  *
  */
 
@@ -28,9 +28,9 @@ package bitchanger.preferences;
  * @since Bitchanger 0.1.3
  * @version 0.1.3
  * 
- * @see Preferences#getCommaProperty()
+ * @see Preferences#getPrefs()
+ * @see Preferences#commaProperty
  * @see Preferences#getComma()
- * @see Preferences#setComma(Comma)
  *
  */
 public enum Comma {

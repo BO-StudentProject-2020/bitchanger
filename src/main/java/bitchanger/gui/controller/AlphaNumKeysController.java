@@ -226,7 +226,8 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	/** <!-- $LANGUAGE=DE -->
 	 * Bindet den Text des Komma-Buttons an das CommaProperty.
 	 * 
-	 * @see Preferences#getCommaProperty()
+	 * @see Preferences#commaProperty
+	 * @see Preferences#getPrefs()
 	 */
 	private void setCommaBinding() {
 		Preferences.getPrefs().commaProperty.addListener(new ChangeListener<Comma>() {
