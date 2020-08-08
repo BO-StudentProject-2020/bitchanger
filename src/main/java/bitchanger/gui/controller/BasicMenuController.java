@@ -17,7 +17,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	
 	protected MenuItem modusConverter;
 
-	protected BasicMenuController(BasicMenuBar controllable, ControllableApplication app) {
+	public BasicMenuController(BasicMenuBar controllable, ControllableApplication app) {
 		super(controllable);
 		// TODO Auto-generated constructor stub
 	}

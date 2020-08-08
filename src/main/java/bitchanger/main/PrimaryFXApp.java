@@ -17,6 +17,8 @@ import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.MenuBar;
@@ -56,10 +58,21 @@ import javafx.stage.Stage;
 public class PrimaryFXApp extends Application implements ControllableApplication {
 	
 // Konstanten	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem über {@link #getViewable(String)} auf die ConverterView zugegriffen werden kann 
+	 */
 	public static final String CONVERTER_VIEW_KEY = "converter-view";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem über {@link #getViewable(String)} auf die IEEEView zugegriffen werden kann 
+	 */
 	public static final String IEEE_VIEW_KEY = "ieee-view";
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem über {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann 
+	 */
 	public static final String CALCULATOR_VIEW_KEY = "calculator-view";
-	public static final String CURRENT_VIEW_KEY = "current-view";
+
 	
 	
 // Launch-Methode	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -92,9 +105,9 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 	
 // Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE --> aktuell im Fenster dargestellte View */
-	/* <!-- $LANGUAGE=EN --> View currently displayed in the window */
-	private Viewable currentView;
+	/** <!-- $LANGUAGE=DE --> Property für die aktuell im Fenster dargestellte View */
+	/* <!-- $LANGUAGE=EN --> Property of the currently displayed View */
+	public final ObjectProperty<Viewable> currentViewProperty;
 	
 	/** <!-- $LANGUAGE=DE --> View für die Umwandlung von Zahlensystemen */
 	/* <!-- $LANGUAGE=EN --> View for converting of numeral systems */
@@ -111,6 +124,24 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	/** <!-- $LANGUAGE=DE --> Hauptfenster der Anwendung */
 	/* <!-- $LANGUAGE=EN --> Main application window */
 	private Stage primaryStage;
+	
+	
+// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue PrimaryFXApp für den Bitchanger
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Construct a new PrimaryFXApp for the Bitchanger
+	 */
+	public PrimaryFXApp() {
+		super();
+		this.currentViewProperty = new SimpleObjectProperty<>();
+		
+		MenuBar menubar = createMenuBar();
+		
+		this.converterView = new ConverterView(menubar);
+		this.ieeeView = new IEEEView();
+	}
 	
 
 // Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -130,13 +161,11 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 			return ieeeView;
 		case CALCULATOR_VIEW_KEY:
 			return calculatorView;
-		case CURRENT_VIEW_KEY:
-			return currentView;
 		}
 		
 		return null;
 	}
-	
+
 	
 // Start	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
@@ -188,16 +217,12 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
 		
-		MenuBar menubar = createMenuBar();
-		
-		converterView = new ConverterView(menubar);
-		ieeeView = new IEEEView();
-		currentView = converterView;
+		currentViewProperty.set(converterView);
 		
 		// TODO Testzeile entfernen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		currentView.getScene().getStylesheets().setAll("Layout.css");
+		currentViewProperty.get().getScene().getStylesheets().setAll("Layout.css");
 		
-		primaryStage.setScene(currentView.getScene());
+		primaryStage.setScene(currentViewProperty.get().getScene());
 		primaryStage.setTitle("Bitchanger 0.1.4");
 		
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)

@@ -12,9 +12,11 @@ package bitchanger.gui.controls;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Objects;
 import bitchanger.gui.controller.BasicMenuController;
 import bitchanger.gui.controller.Controllable;
+import bitchanger.gui.controller.ControllableApplication;
+import bitchanger.gui.controller.Controller;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
 import javafx.event.ActionEvent;
@@ -42,17 +44,67 @@ import javafx.scene.control.TextField;
  */
 public class BasicMenuBar extends MenuBar implements Controllable {
 	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	public Constants   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das Menu "Modus" in der Map {@link #menuItemMap} abgelegt ist
+	 */
 	public static final String MODUS_MENU_KEY = "modus-menu";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das Menu "Optionen" in der Map {@link #menuItemMap} abgelegt ist
+	 */
 	public static final String OPTIONS_MENU_KEY = "options-menu";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das Menu "Fenster" in der Map {@link #menuItemMap} abgelegt ist
+	 */
 	public static final String WINDOW_MENU_KEY = "window-menu";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das Menu "Hilfe" in der Map {@link #menuItemMap} abgelegt ist
+	 */
 	public static final String HELP_MENU_KEY = "help-menu";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das MenuItem "Umrechner" in der Map {@link #menuItemMap} abgelegt ist
+	 */
 	public static final String MODUS_CONVERTER_ITEM_KEY = "modus-converter-item";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das MenuItem "IEEE" in der Map {@link #menuItemMap} abgelegt ist
+	 */
 	public static final String MODUS_IEEE_ITEM_KEY = "modus-ieee-item";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das MenuItem "Berechnungen" in der Map {@link #menuItemMap} abgelegt ist
+	 */
 	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
 	
 	
-	public final HashMap<String, MenuItem> menuItemMap;
 	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Instances   																												 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
+// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * {@code Map}, in die alle vom Controller benötigten MenuItems 
+	 * mit einem eindeutigen Schlüssel abgelegt werden */
+	public final HashMap<String, MenuItem> menuItemMap;
+
+	
+// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue funktionslose BasicMenuBar mit allen MenuItems.
+	 */
 	public BasicMenuBar() {
 		super();
 		
@@ -61,9 +113,73 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		createMenuModus();
 		createMenuOptions();
 		createMenuWindow();
-		createMenuAbout();
+		createMenuHelp();
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue BasicMenuBar mit allen MenuItems, die bereits mit den Basisfunktionen belegt sind.
+	 * 
+	 * @param controllableApp	Anwendungsklasse, mit der die Basisfunktionen verknüft werden
+	 * 
+	 * @throws NullPointerException	wenn der Parameter {@code controllableApp} null ist
+	 */
+	public BasicMenuBar(ControllableApplication controllableApp) throws NullPointerException {
+		this();
+		Objects.requireNonNull(controllableApp);
+		Controller controller = new BasicMenuController(this, controllableApp);
+		controller.setActions();
+	}
+	
+	
+// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** {@inheritDoc} */
+	@Override
+	public Map<String, TextField> getTextFieldMap() {
+		return Controllable.EMPTY_TEXTFIELD_MAP;
 	}
 
+	/** {@inheritDoc} */
+	@Override
+	public Map<String, Button> getButtonMap() {
+		return Controllable.EMPTY_BUTTON_MAP;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public Map<String, Node> getNodeMap() {
+		return Controllable.EMPTY_NODE_MAP;
+	}
+
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	private Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
+// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Setzt die Action des übergebenen MenuItems, sodass das spezifische Comma in den Einstellungen
+	 * gesetzt wird.
+	 * 
+	 * @param chooseComma	MenuItem, das die Action erhält
+	 * @param comma			spezifisches Comma, das gesetzt wird
+	 */
+	private void setChooseCommaAction(MenuItem chooseComma, Comma comma) {
+		chooseComma.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Preferences.getPrefs().commaProperty.setValue(comma);
+			}
+		});
+	}
+	
+	
+// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt das Menu "Modus" mit den Elementen "Umrechner", "IEEE" und "Berechnungen"
+	 */
 	private void createMenuModus() {
 		Menu modus = new Menu("Modus");
 		addMenu(modus, MODUS_MENU_KEY);
@@ -79,6 +195,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		modus.getItems().addAll(viewConverter, viewIEEE, viewCalculator);
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt das Menu "Optionen" mit den Elementen "Komma wählen" und den Unterelementen 
+	 * "deutsch" und "englisch"
+	 */
 	private void createMenuOptions() {
 		Menu options = new Menu("Optionen");
 		addMenu(options, OPTIONS_MENU_KEY);
@@ -94,16 +214,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		
 		options.getItems().addAll(chooseComma);
 	}
-	
-	private void setChooseCommaAction(MenuItem chooseComma, Comma comma) {
-		chooseComma.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Preferences.getPrefs().commaProperty.setValue(comma);
-			}
-		});
-	}
 
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt das Menu "Fenster" mit den Elementen "Auf Monitor bewegen" und "Vollbild"
+	 */
 	private void createMenuWindow() {
 		Menu window = new Menu("Fenster");
 		addMenu(window, MODUS_MENU_KEY);
@@ -115,7 +229,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		window.getItems().addAll(moveToScreen, showFullscreen);
 	}
 	
-	private void createMenuAbout() {
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt das Menu "Hilfe" mit den Elementen "Über" und "Version"
+	 */
+	private void createMenuHelp() {
 		Menu help = new Menu("Hilfe");
 		addMenu(help, HELP_MENU_KEY);
 		
@@ -125,24 +242,17 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		help.getItems().addAll(about, version);
 	}
 
+	/** <!-- $LANGUAGE=DE -->
+	 * Fügt das übergebene Menu zu dieser MenuBar hinzu und speichert dieses mit dem Schlüssel
+	 * {@code key} in der Map {@link #menuItemMap}
+	 * 
+	 * @param m		Menu, das hinzugefügt und an die nächste Stelle gesetzt wird
+	 * @param key	Schlüsselwort, mit dem {@code m} in der Map {@link #menuItemMap} abgelegt wird
+	 */
 	private void addMenu(Menu m, String key) {
 		this.getMenus().add(m);
 		menuItemMap.put(key, m);
 	}
 
-	@Override
-	public Map<String, TextField> getTextFieldMap() {
-		return Controllable.EMPTY_TEXTFIELD_MAP;
-	}
-
-	@Override
-	public Map<String, Button> getButtonMap() {
-		return Controllable.EMPTY_BUTTON_MAP;
-	}
-
-	@Override
-	public Map<String, Node> getNodeMap() {
-		return Controllable.EMPTY_NODE_MAP;
-	}
 	
 }
