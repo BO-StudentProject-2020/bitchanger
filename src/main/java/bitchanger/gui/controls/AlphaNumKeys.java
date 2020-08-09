@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+
 import bitchanger.gui.controller.AlphaNumKeysController;
 import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.Controller;
@@ -86,6 +87,20 @@ public class AlphaNumKeys implements Controllable {
 	public static final String[] NUM_KEYS = {"num_7", "num_8", "num_9", "num_4", "num_5", "num_6", "num_1", "num_2", "num_3"};
 	
 	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	class initialization																										 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	static {
+		// Controller Klasse zuordnen
+		Controller.register(AlphaNumKeys.class, AlphaNumKeysController.class);
+	}
+	
+	
+	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	Instances   																												 #
@@ -152,7 +167,7 @@ public class AlphaNumKeys implements Controllable {
 		
 		createButtons();
 		
-		this.controller = new AlphaNumKeysController(this, scene);
+		this.controller = Controller.ofArg(this, scene);
 		this.controller.setActions();
 	}
 	

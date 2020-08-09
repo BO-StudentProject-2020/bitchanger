@@ -1,7 +1,9 @@
 package bitchanger.gui.controller;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 /**	<!-- $LANGUAGE=DE -->
  * Schnittstelle, die einen Controller beschreibt.
@@ -166,9 +168,11 @@ public interface Controller {
 			classes[i+1] = args[i].getClass();
 		}
 		
+		Object[] constructorArgs = Stream.concat(Stream.of(c), Arrays.stream(args)).toArray();
+		
 		try {
 			Constructor<? extends Controller> constructor = controllerClass.getConstructor(classes);
-			return constructor.newInstance(c);
+			return constructor.newInstance(constructorArgs);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

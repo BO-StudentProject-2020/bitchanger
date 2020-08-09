@@ -13,6 +13,7 @@ package bitchanger.gui.controls;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import bitchanger.gui.controller.BasicMenuController;
 import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.ControllableApplication;
@@ -118,6 +119,51 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * Key with which the MenuItem "Berechnungen" is associated in the Map {@link #menuItemMap}
 	 */
 	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das MenuItem "Auf Monitor bewegen" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the MenuItem "Auf Monitor bewegen" is associated in the Map {@link #menuItemMap}
+	 */
+	public static final String WINDOW_MOVE_TO_SCREEN_ITEM_KEY = "window-movetoscreen-item";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das CheckMenuItem "Vollbild" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the CheckMenuItem "Vollbild" is associated in the Map {@link #menuItemMap}
+	 */
+	public static final String WINDOW_SHOW_FULLSCREEN_ITEM_KEY = "window-showfullscreen-item";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das MenuItem "Über" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the MenuItem "Über" is associated in the Map {@link #menuItemMap}
+	 */
+	public static final String HELP_ABOUT_ITEM_KEY = "help-about-item";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das MenuItem "Version" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the MenuItem "Version" is associated in the Map {@link #menuItemMap}
+	 */
+	public static final String HELP_VERSION_ITEM_KEY = "help-version-item";
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	class initialization																										 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	static {
+		// Controller Klasse zuordnen
+		Controller.register(BasicMenuBar.class, BasicMenuController.class);
+	}
 	
 	
 	
@@ -291,6 +337,8 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		Menu moveToScreen = new Menu("Auf Monitor bewegen");
 		CheckMenuItem showFullscreen = new CheckMenuItem("Vollbild");
 		
+		menuItemMap.put(WINDOW_MOVE_TO_SCREEN_ITEM_KEY, moveToScreen);
+		menuItemMap.put(WINDOW_SHOW_FULLSCREEN_ITEM_KEY, showFullscreen);
 		
 		window.getItems().addAll(moveToScreen, showFullscreen);
 	}
@@ -307,6 +355,9 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		
 		MenuItem about = new MenuItem("Über");
 		MenuItem version = new MenuItem("Version");
+		
+		menuItemMap.put(HELP_ABOUT_ITEM_KEY, about);
+		menuItemMap.put(HELP_VERSION_ITEM_KEY, version);
 		
 		help.getItems().addAll(about, version);
 	}

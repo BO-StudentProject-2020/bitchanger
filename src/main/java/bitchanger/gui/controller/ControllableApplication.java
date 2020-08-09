@@ -1,6 +1,7 @@
 package bitchanger.gui.controller;
 
 import bitchanger.gui.views.Viewable;
+import javafx.beans.property.ObjectProperty;
 import javafx.stage.Stage;
 
 /** <!-- $LANGUAGE=DE -->
@@ -26,7 +27,40 @@ import javafx.stage.Stage;
  *
  */
 public interface ControllableApplication {
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	default methods																												 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Wechselt die Scene der primaryStage zu Scene des übergebenen Viewable
+	 * 
+	 * @param newView	Neue View, die dargestellt werden soll
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Changes the primaryStage's Scene to the Scene of the given Viewable
+	 * 
+	 * @param newView	New View to be presented
+	 */
+	public default void changeView(Viewable newView) {
+		getCurrentViewProperty().set(newView);
+		getPrimaryStage().setScene(newView.getScene());
+	}
+
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract methods																												 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt das Hauptfenster der Application zurück
 	 * 
@@ -52,5 +86,18 @@ public interface ControllableApplication {
 	 * @return		View to which the specified key is mapped, or {@code null} if there is no associated View for the given key
 	 */
 	public abstract Viewable getViewable(String key);
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die CurrentViewProperty zurück
+	 * 
+	 * @return	CurrentViewProperty
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the CurrentViewProperty
+	 * 
+	 * @return	CurrentViewProperty
+	 */
+	public abstract ObjectProperty<Viewable> getCurrentViewProperty();
+	
 	
 }

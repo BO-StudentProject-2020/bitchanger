@@ -10,7 +10,9 @@
 
 package bitchanger.main;
 
+import bitchanger.gui.controller.BasicMenuController;
 import bitchanger.gui.controller.ControllableApplication;
+import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.views.ConverterView;
@@ -136,14 +138,9 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	public PrimaryFXApp() {
 		super();
 		this.currentViewProperty = new SimpleObjectProperty<>();
-		
-		MenuBar menubar = createMenuBar();
-		
-		this.converterView = new ConverterView(menubar);
-		this.ieeeView = new IEEEView();
 	}
-	
 
+	
 // Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** {@inheritDoc} */
 	@Override
@@ -151,6 +148,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		return primaryStage;
 	}
 
+	
 	/** {@inheritDoc} */
 	@Override
 	public Viewable getViewable(String key) {
@@ -161,9 +159,16 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 			return ieeeView;
 		case CALCULATOR_VIEW_KEY:
 			return calculatorView;
+		default:
+			return null;
 		}
-		
-		return null;
+	}
+	
+	
+	/** {@inheritDoc} */
+	@Override
+	public ObjectProperty<Viewable> getCurrentViewProperty() {
+		return this.currentViewProperty;
 	}
 
 	
@@ -216,13 +221,20 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
+
+		this.converterView = new ConverterView();
+		this.ieeeView = new IEEEView();
+		
+		converterView.setMenuBar(createMenuBar());
+		ieeeView.setMenuBar(createMenuBar());
 		
 		currentViewProperty.set(converterView);
 		
 		// TODO Testzeile entfernen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		currentViewProperty.get().getScene().getStylesheets().setAll("Layout.css");
 		
-		primaryStage.setScene(currentViewProperty.get().getScene());
+		changeView(converterView);
+//		primaryStage.setScene(currentViewProperty.get().getScene());
 		primaryStage.setTitle("Bitchanger 0.1.4");
 		
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
@@ -301,9 +313,12 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	 * 
 	 */
 	private MenuBar createMenuBar() {
-		MenuBar menubar = new BasicMenuBar();
+		BasicMenuBar menubar = new BasicMenuBar();
 		
 		// TODO MENUEBAR IMPLEMENTIEREN	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+		
+		Controller cntr = new BasicMenuController(menubar, this);
+		cntr.setActions();
 		
 		return menubar;
 	}

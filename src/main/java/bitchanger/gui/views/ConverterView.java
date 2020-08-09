@@ -28,7 +28,6 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -175,22 +174,10 @@ public class ConverterView extends ViewBase<BorderPane> {
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ConverterView mit vollständigem Scenegraphen und positioniert die 
-	 * Menüleiste im Top der BorderPane, die der Wurzelknoten des Scenegraphen ist.
-	 * 
-	 * @param menubar	Menübar, die oben in der Scene angeheftet wird
-	 */
-	public ConverterView(MenuBar menubar) {
-		super(new BorderPane());
-		
-		setMenuBar(menubar);
-	}
-	
-	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue ConverterView mit vollständigem Scenegraphen.
 	 */
 	public ConverterView() {
-		this(null);
+		super(new BorderPane());
 	}
 
 
