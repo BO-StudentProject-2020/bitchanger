@@ -40,12 +40,16 @@ import javafx.scene.layout.RowConstraints;
 
 /**	<!-- $LANGUAGE=DE -->
  * View, die die Scene für die Umwandlung von Zahlensystemen enthält.
+ * <p><b>
+ * Für diese View-Klasse wird der Controller {@link ConverterController} registriert.
+ * </b></p>
  * 
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
  *
+ * @see ConverterController
  */
 public class ConverterView extends ViewBase<BorderPane> {
 	
@@ -131,7 +135,20 @@ public class ConverterView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem der Spinner für die beliebige Basis
 	 * in der Map {@code nodeMap} gespeichert wird */
 	public static final String BASE_SPINNER_KEY = "baseSpinner";
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	class initialization																										 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	static {
+		// Controller Klasse zuordnen
+		Controller.register(ConverterView.class, ConverterController.class);
+	}
+
+	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -236,15 +253,6 @@ public class ConverterView extends ViewBase<BorderPane> {
 		root.setCenter(center);
 	}
 	
-	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt einen neuen {@link ConverterController}, der mit dieser View verbunden ist.
-	 * 
-	 * @return neue Instanz von {@link ConverterController}, die mit dieser View verbunden ist
-	 */
-	@Override
-	protected Controller createController() {
-		return new ConverterController(this);
-	}
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

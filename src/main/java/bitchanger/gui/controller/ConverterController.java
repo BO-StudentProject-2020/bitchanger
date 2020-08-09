@@ -38,7 +38,6 @@ import javafx.scene.input.MouseEvent;
  * @version 0.1.4
  *
  */
-
 /*	<!-- $LANGUAGE=EN -->
  * Controller that provides the function for a {@linkplain ConverterView}.
  * 
@@ -49,7 +48,7 @@ import javafx.scene.input.MouseEvent;
  *
  */
 public class ConverterController extends ControllerBase<ConverterView> {
-
+	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/**	<!-- $LANGUAGE=DE -->	Zahl, die in die verschiedenen Zahlensysteme umgewandelt wird */
 	/*	<!-- $LANGUAGE=EN -->	Number which gets converted into any numeral system */
@@ -94,7 +93,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * 
 	 * @see ChangeableNumber#reset()
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Button to delete or remove {@link #value}
 	 * 
@@ -124,7 +122,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * 
 	 * @see #initControls()
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Construct a new controller for a ConverterView and links the necessary attributes with
 	 * references to the operating elements of the ConverterView.
@@ -138,6 +135,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		this.value = new SimpleChangeableNumber();
 		this.baseProperty = new SimpleIntegerProperty();
 	}
+	
 	
 	/** {@inheritDoc} */
 	@Override
@@ -173,7 +171,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/**	<!-- $LANGUAGE=DE -->
 	 * Sucht die benötigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Searches the necessary references to the buttons of the buttonMap and stores these in the attributes
 	 */
@@ -191,11 +188,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			alphaNumButtons[i + 6] = this.buttonMap.get("num_" + i);
 		}
 	}
+	
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Sucht die benötigten Referenzen zu den Textfeldern aus der textFieldMap, speichert diese in den Attributen und setzt die Basis der einzelnen Textfelder.
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Searches the necessary references to the text fields of the buttonMap, stores these in the attributes and sets the base of each text field.
 	 */
@@ -213,6 +210,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		tfAny.getBaseProperty().bind(anyBase.valueProperty());
 	}
 
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Prüft, ob die übergebene Node einer der Pfeil-Buttons zum Scrollen in einem Spinner ist.
 	 * Dies ist der Fall, wenn die StyleClass den String "arrow-button" enthält.
@@ -220,7 +218,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * @param n	Testkandidat für einen Pfeil-Button
 	 * @return	{@code true}, wenn die StyleClass von n den String "arrow-button" enthält, {@code false} andernfalls
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Checks if the committed node is one of the button, which is used to scroll the spinner.
 	 * If the StyleClass contains the string "arrow-button", the button is used to scroll the spinner.
@@ -237,11 +234,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		
 		return false;
 	}
+	
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt die Attribute auf den Ausgangszustand.
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the attributes to the initial condition.
 	 */
@@ -250,6 +247,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		focusedTF = tfDec;
 		baseProperty.set(10);
 	}
+	
 	
 	// Actions	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
@@ -266,7 +264,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * @see #setAnyValListener()
 	 * @see #setTFSelection()
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets listener for the text fields, to convert the input in any numeral system immediately.
 	 * Furthermore the attribute {@link #focusedTF} gets updates by selecting another text field
@@ -289,6 +286,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		setTFSelection();
 	}
 	
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert die Texte der gewählten Textfelder mit dem aktuellen Wert von {@link #value} in der
 	 * zum Textfeld gehörenden Darstellung.
@@ -299,7 +297,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * @param setBin	true, wenn der Text von {@link #tfBin} gesetzt werden soll
 	 * @param setAny	true, wenn der Text von {@link #tfAny} gesetzt werden soll
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Refreshes the texts of the chosen text fields to the new value of {@link #value}.
 	 * This new value is always shown in the base which refers to the text field.
@@ -328,12 +325,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		}
 	}
 	
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfHex}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the listener for {@link #tfHex}, to convert the input and update the other text fields immediately.
 	 * 
@@ -354,13 +351,13 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			}
 		});
 	}
+	
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfDec}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the listener for {@link #tfDec}, to convert the input and update the other text fields immediately.
 	 * 
@@ -382,12 +379,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfOct}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the listener for {@link #tfOct}, to convert the input and update the other text fields immediately.
 	 * 
@@ -408,13 +405,13 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			}
 		});
 	}
+	
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfBin}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the listener for {@link #tfBin}, to convert the input and update the other text fields immediately.
 	 * 
@@ -435,13 +432,13 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			}
 		});
 	}
+	
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfAny}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the listener for {@link #tfAny}, to convert the input and update the other text fields immediately.
 	 * 
@@ -463,11 +460,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes durch einen Mausklick und 
 	 * verbindet {@link #baseProperty} mit der baseProperty des Textfelds.
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Updates the attribute {@link #focusedTF} by selecting a text filed with the cursor 
 	 * and connects {@link #baseProperty} with the baseProperty of the text field.
@@ -494,7 +491,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * Sorgt außerdem dafür, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
 	 * Inkrement- und Dekrement-Buttons wieder an {@link #focusedTF} abgibt.
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Updates the base of {@link #tfAny}, if the valueProperty of {@link #anyBase} changes.
 	 * Furthermore makes sure that anyBase is focused on {@link #focusedTF} after an input of a base or using the increment and decrement buttons.
@@ -520,13 +516,13 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Fokussiert das Textfeld {@link #focusedTF}.
 	 * Diese Methode wird als Referenz für einen EventHandler verwendet.
 	 * 
 	 * @param e	Event, das den EventHanler auslöst
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Focuses the text field {@link #focusedTF}.
 	 * This method is used as reference for an EventHandler.
@@ -547,7 +543,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * @see #setBackspaceAction()
 	 * @see #setSignAction()
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets actions for all buttons
 	 * 
@@ -562,12 +557,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		setBackspaceAction();
 		setSignAction();
 	}
+	
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Bindet die baseProperty aller alphanumerischen Buttons an das Attribut {@link #baseProperty}, um die Buttons
 	 * bei einem Wechsel der Basis automatisch aus- oder einzublenden.
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Links the baseProperty of all alphanumeric buttons to the attribute {@link #baseProperty},
 	 * to show or hide the buttons automatically if the base is changing.
@@ -578,13 +573,13 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		}
 	}
 
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt {@link #value} bei Klick auf den Clear-Button zurück und aktualisiert alle Textfelder.
 	 * 
 	 * @see ChangeableNumber#reset()
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Resets {@link #value} by clicking on clear button and updates all text fields.
 	 * 
@@ -601,10 +596,10 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Lässt den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Simulates the backspace button an the keyboard.
 	 */
@@ -618,10 +613,10 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Kehrt das Vorzeichen von {@link #value} beim Klick auf den Vorzeichen-Button um und aktualisiert alle Textfelder.
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Turns the sign of {@link #value} by clicking onto the sign button and updates all text fields.
 	 */

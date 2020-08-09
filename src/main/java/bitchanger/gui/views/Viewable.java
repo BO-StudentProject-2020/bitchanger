@@ -60,7 +60,7 @@ import javafx.scene.control.MenuBar;
  * @see Controller
  *
  */
-public interface Viewable {
+public interface Viewable extends Controllable {
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die repräsentierte {@code Scene} zurück

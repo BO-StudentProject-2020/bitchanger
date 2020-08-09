@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import bitchanger.gui.controller.Controller;
-import bitchanger.gui.controller.ConverterController;
+import bitchanger.gui.controller.IEEEController;
 import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.controls.FXUtils;
 import bitchanger.gui.controls.UnfocusedButton;
@@ -38,12 +38,16 @@ import javafx.scene.layout.RowConstraints;
 
 /**	<!-- $LANGUAGE=DE -->
  * View, die die Scene für die Umwandlung von Zahlensystemen enthält.
+ * <p><b>
+ * Für diese View-Klasse wird der Controller {@link IEEEController} registriert.
+ * </b></p>
  * 
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
- *
+ * 
+ * @see IEEEController
  */
 public class IEEEView extends ViewBase<BorderPane> {
 	
@@ -129,6 +133,20 @@ public class IEEEView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem der Spinner für die beliebige Basis
 	 * in der Map {@code nodeMap} gespeichert wird */
 	public static final String BASE_SPINNER_KEY = "baseSpinner";
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	class initialization																										 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	static {
+		// Controller Klasse zuordnen
+		Controller.register(IEEEView.class, IEEEController.class);
+	}
+	
 
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -234,16 +252,6 @@ public class IEEEView extends ViewBase<BorderPane> {
 		root.setCenter(center);
 	}
 	
-	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt einen neuen {@link ConverterController}, der mit dieser View verbunden ist.
-	 * 
-	 * @return neue Instanz von {@link ConverterController}, die mit dieser View verbunden ist
-	 */
-	@Override
-	protected Controller createController() {
-		// TODO: Controller implementieren	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		return null;
-	}
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

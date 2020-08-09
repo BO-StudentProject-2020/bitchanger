@@ -13,7 +13,6 @@ package bitchanger.gui.views;
 import java.util.HashMap;
 import java.util.Map;
 
-import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.Controller;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -44,7 +43,7 @@ import javafx.scene.layout.Pane;
  * @version 0.1.4
  *
  */
-public abstract class ViewBase<T extends Parent> implements Viewable, Controllable {
+public abstract class ViewBase<T extends Parent> implements Viewable {
 	
 // Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE --> Szene, die von der View repräsentiert wird */
@@ -102,7 +101,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 		init();
 		createScenegraph(this.root);
 		
-		this.controller = createController();
+		this.controller = Controller.of(this);
 		
 		if(controller != null) {
 			controller.setActions();
@@ -141,16 +140,6 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	protected abstract void createScenegraph(T root);
 	
 	
-	/** <!-- $LANGUAGE=DE -->
-	 * Factory-Methode, die einen neuen Controller für diese View erzeugt und zurückgibt.
-	 * <p><b>
-	 * Diese Methode wird vom Konstruktor aufgerufen, nachdem der Scenegraph konstruiert wurde.
-	 * </b></p>
-	 * 
-	 * @return Neuer Controller, der mit dieser View verbunden ist oder {@code null}, wenn diese View keinen Controller benötigt.
-	 */
-	protected abstract Controller createController();
-
 
 // Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** {@inheritDoc} */

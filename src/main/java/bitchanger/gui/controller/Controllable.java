@@ -30,7 +30,6 @@ import javafx.scene.control.TextField;
  * @see Controller
  *
  */
-
 /* <!-- $LANGUAGE=EN -->
  * Interface that defines methods to connect a controllable with a controller.
  * 
@@ -64,6 +63,7 @@ public interface Controllable {
 	 */
 	public static final Map<String, TextField> EMPTY_TEXTFIELD_MAP = Collections.emptyMap();
 
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
 	 * Buttons an seinen Controller übergeben muss
@@ -77,6 +77,7 @@ public interface Controllable {
 	 */
 	public static final Map<String, Button> EMPTY_BUTTON_MAP = Collections.emptyMap();
 
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
 	 * Nodes an seinen Controller übergeben muss
@@ -108,7 +109,6 @@ public interface Controllable {
 	 * 
 	 * @return {@code Map}, die alle Textfelder einer View enthält
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns a {@code Map} with all text fields of the controllable. Each text field is allocated to a unique keyword,
 	 * which is used to find the text field out of the map.
@@ -120,6 +120,7 @@ public interface Controllable {
 	 */
 	public abstract Map<String, TextField> getTextFieldMap();
 	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt eine {@code Map} mit allen Buttons der View zurück. Jeder Button ist einem eindeutigen Schlüsselwort zugeordnet,
 	 * mit dem er aus der Map herausgesucht werden kann.
@@ -129,7 +130,6 @@ public interface Controllable {
 	 * 
 	 * @return {@code Map}, die alle Buttons einer View enthält
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns a {@code Map} with all buttons of the controllable. Each button is allocated to a unique keyword,
 	 * which is used to find the button out of the map.
@@ -141,6 +141,7 @@ public interface Controllable {
 	 */
 	public abstract Map<String, Button> getButtonMap();
 	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt eine {@code Map} mit allen Elemente (Nodes) der View zurück, die keine Buttons oder Textfelder sind und im Controller benötigt werden.
 	 * Jedes Element ist einem eindeutigen Schlüsselwort zugeordnet, mit dem es aus der Map herausgesucht werden kann.
@@ -150,7 +151,6 @@ public interface Controllable {
 	 * 
 	 * @return {@code Map}, die alle Elemente einer View enthält, die keine Buttons oder Textfelder sind und im Controller benötigt werden
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns a {@code Map} with all elements (Nodes) of the controllable, that are not buttons or text fields and are required in the controller.
 	 * Each element is allocated to a unique keyword, which is used to find the element out of the map.
