@@ -17,15 +17,34 @@ import javafx.beans.property.SimpleObjectProperty;
  * @author Tim Mühle
  *
  */
+
+/* <!-- $LANGUAGE=EN -->
+ * Preferences is the global collection for all possible settings that can be selected for the bitchanger.
+ * These settings can be requested and changed from all classes by using the method {@link #getPrefs()}.
+ * 
+ * <p>
+ * Furthermore there are methods to store all settings permanently and load these at a later moment.
+ * </p>
+ * 
+ * @author Tim Mühle
+ *
+ */
 public class Preferences {
 	
 	/** <!-- $LANGUAGE=DE -->	Konstante, die alle aktuellen Einstellungen enthält */
+	/* <!-- $LANGUAGE=EN -->	Constant that contains all the current settings */
 	private static Preferences prefs = new Preferences();
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt die aktuellen Einstellungen zurück
 	 * 
 	 * @return	aktuelle Einstellungen
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the current settings
+	 * 
+	 * @return	current settings
 	 */
 	public static Preferences getPrefs() {
 		return prefs;
@@ -64,6 +83,12 @@ public class Preferences {
 	 * 
 	 * @return eingestelltes Kommazeichen
 	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the selected character for comma
+	 * 
+	 * @return selected character for comma
+	 */
 	public char getComma() {
 		return commaProperty.getValue().get();
 	}
@@ -72,6 +97,12 @@ public class Preferences {
 	 * Gibt den Wert der indicateFractionalPrecisionProperty zurück
 	 * 
 	 * @return	{@code true}, wenn die Anzeige von abgebrochenen Nachkommastellen angeschaltet ist, sonst {@code false}
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the value of indicateFractionalPrecisionProperty
+	 * 
+	 * @return	{@code true}, if the view of cancelled fractional parts is selected, if not {@code false}
 	 */
 	public boolean indicateFractionalPrecision() {
 		return indicateFractionalPrecisionProperty.getValue();
@@ -82,6 +113,12 @@ public class Preferences {
 	 * 
 	 * @param b	{@code true} zum Einschalten oder {@code false} zum Ausschalten
 	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Turns the view of cancelled fractional parts on and off
+	 * 
+	 * @param b	{@code true} to turn on or {@code false} to turn off
+	 */
 	public void setIndicateFractionalPrecision(boolean b) {
 		indicateFractionalPrecisionProperty.setValue(b);
 	}
@@ -91,6 +128,10 @@ public class Preferences {
 	/** <!-- $LANGUAGE=DE -->
 	 * Lädt alle Einstellungen aus der Einstellungsdatei
 	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Loads all settings from the settings data
+	 */
 	public void load() {
 		// TODO load Settings from File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	}
@@ -98,12 +139,20 @@ public class Preferences {
 	/** <!-- $LANGUAGE=DE -->
 	 * Lädt die Standardeinstellungen aus der Einstellungsdatei
 	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Loads the default settings from the settings data
+	 */
 	public void loadDefault() {
 		// TODO load Settings from File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	}
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Speichert alle Einstellungen in der Einstellungsdatei
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Stores all settings into the settings data
 	 */
 	public void store() {
 		// TODO store changed Settings in File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
