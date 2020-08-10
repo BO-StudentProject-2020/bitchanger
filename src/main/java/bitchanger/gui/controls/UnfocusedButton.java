@@ -26,11 +26,25 @@ import javafx.scene.text.FontWeight;
  * @version 0.1.4
  *
  */
+
+/*	<!-- $LANGUAGE=EN -->
+ * Button that does not get focus by clicking and has a rectangle without rounded corners as basic form.
+ * 
+ * @author Tim Mühle
+ * 
+ * @since Bitchanger 0.1.0
+ * @version 0.1.4
+ *
+ */
 public class UnfocusedButton extends Button{
 
 	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen UnfocusedButton mit einem leeren String als Beschriftung
+	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Creates an UnfocusedButton with an empty string as label
 	 */
 	public UnfocusedButton() {
 		super();
@@ -43,6 +57,13 @@ public class UnfocusedButton extends Button{
 	 * @param text		Text für die Beschriftung dieses Buttons
 	 * @param graphic	Icon für die Beschriftung dieses Buttons
 	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Creates an UnfocusedButton with a specific string and an icon as label
+	 *
+	 * @param text		Text for the label of this button
+	 * @param graphic	Icon for the label of this button
+	 */
 	public UnfocusedButton(String text, Node graphic) {
 		super(text, graphic);
 		initShape();
@@ -53,6 +74,12 @@ public class UnfocusedButton extends Button{
 	 * 
 	 * @param text	Text für die Beschriftung dieses Buttons
 	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Creates an UnfocusedButton with a specific string as label
+	 * 
+	 * @param text	Text for the label of this button
+	 */
 	public UnfocusedButton(String text) {
 		super(text);
 		initShape();
@@ -62,6 +89,10 @@ public class UnfocusedButton extends Button{
 	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/**	<!-- $LANGUAGE=DE -->
 	 * Schaltet den Fokus für diesen Button aus und setzt als Grundform dieses Buttons ein Rechteck ohne abgerundete Ecken ein.
+	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Disables the focus for this button and sets rectangle without rounded corners as basic form for this button.
 	 */
 	private void initShape() {
 		// TODO REMOVE LATER (Nur zu Testzwecken!!!)	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
