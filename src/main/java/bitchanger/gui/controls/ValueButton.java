@@ -29,16 +29,34 @@ import javafx.scene.Node;
  * @version 0.1.4
  *
  */
+
+/*	<!-- $LANGUAGE=EN -->
+ * UnfocusedButton with an extra Property to adjust the base.
+ * If the value, that gets represented by this button, is not available for the chosen base,
+ * this button disables itself. If the base is changing and the value agrees to it,
+ * this button gets activated automatically.
+ * 
+ * @author Tim Mühle
+ * 
+ * @since Bitchanger 0.1.0
+ * @version 0.1.4
+ *
+ */
 public class ValueButton extends UnfocusedButton{
 
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->	Property, über das die Basis des aktuellen Zahlensystems eingestellt wird */
+	/* <!-- $LANGUAGE=EN -->	Property that is used to adjust the base of the current numeral system */
 	private IntegerProperty baseProperty;
 	
 	
 	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem leeren String als Beschriftung
+	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Creates a ValueButton with an empty string as caption
 	 */
 	public ValueButton() {
 		super();
@@ -51,6 +69,13 @@ public class ValueButton extends UnfocusedButton{
 	 * @param text		Text für die Beschriftung dieses Buttons
 	 * @param graphic	Icon für die Beschriftung dieses Buttons
 	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Creates a ValueButton with a specific string and an icon as caption
+	 *
+	 * @param text		Text for the caption if this button
+	 * @param graphic	Icon for the caption if this button
+	 */
 	public ValueButton(String text, Node graphic) {
 		super(text, graphic);
 		init();
@@ -58,8 +83,14 @@ public class ValueButton extends UnfocusedButton{
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem spezifischen String als Beschriftung
-	*
+	 *
 	 * @param text		Text für die Beschriftung dieses Buttons
+	  */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Creates a ValueButton with a specific string as caption
+	 *
+	 * @param text		Text for the caption of this button
 	  */
 	public ValueButton(String text) {
 		super(text);
@@ -73,14 +104,26 @@ public class ValueButton extends UnfocusedButton{
 	 * 
 	 * @param base neue Basis
 	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Sets the value of the base
+	 * 
+	 * @param base new base
+	 */
 	public void setBase(int base) {
 		this.baseProperty.set(base);
 	}
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt den Wert das {@link #baseProperty} zurück
+	 * Gibt den Wert der {@link #baseProperty} zurück
 	 * 
 	 * @return baseProperty dieses ValueButtons
+	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Returns the value of the {@link #baseProperty}
+	 * 
+	 * @return baseProperty of this ValueButton
 	 */
 	public IntegerProperty getBaseProperty() {
 		return this.baseProperty;
@@ -95,6 +138,14 @@ public class ValueButton extends UnfocusedButton{
 	 * @see #setTextListener()
 	 * @see #setBaseListener()
 	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Initializes the {@link #baseProperty} and sets listener to activate and disable this button
+	 * by the selected base
+	 * 
+	 * @see #setTextListener()
+	 * @see #setBaseListener()
+	 */
 	private void init() {
 		this.baseProperty = new SimpleIntegerProperty();
 		
@@ -105,6 +156,11 @@ public class ValueButton extends UnfocusedButton{
 	/**	<!-- $LANGUAGE=DE -->
 	 * Überprüft die textProperty und aktiviert bzw. deaktiviert diesen Button, wenn der neue Text
 	 * zur baseProperty passt bzw. nicht passt
+	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Checks the textProperty and activates or disables this button if the new text
+	 * agrees or disagrees to the baseProperty
 	 */
 	private void setTextListener() {
 		textProperty().addListener(new ChangeListener<String>() {
@@ -123,6 +179,11 @@ public class ValueButton extends UnfocusedButton{
 	/**	<!-- $LANGUAGE=DE -->
 	 * Überprüft die baseProperty und aktiviert bzw. deaktiviert diesen Button, wenn der Text
 	 * zum neuen Wert der baseProperty passt bzw. nicht passt
+	 */
+	
+	/*	<!-- $LANGUAGE=EN -->
+	 * Checks the baseProperty and activates or disables this button if the text
+	 * agrees or disagrees to the new value of the baseProperty
 	 */
 	private void setBaseListener() {
 		baseProperty.addListener(new ChangeListener<Number>() {
