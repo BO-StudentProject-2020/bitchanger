@@ -2,8 +2,11 @@ package bitchanger.preferences;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /** <!-- $LANGUAGE=DE -->
  * Preferences ist die globale Sammlung für alle möglichen Einstellungen, die am Bitchanger vorgenommen 
@@ -62,18 +65,29 @@ public class Preferences {
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->	Property für das Kommazeichen */
 	/* <!-- $LANGUAGE=EN -->	Property for comma character */
-	public final ObjectProperty<Comma> commaProperty = new SimpleObjectProperty<Comma>(Comma.COMMA_DE);
+	public final ObjectProperty<Comma> commaProperty;
 	
 	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige von abgebrochenen Nachkommastellen */
 	/* <!-- $LANGUAGE=EN -->	Property for displaying aborted decimal places */
-	public final BooleanProperty indicateFractionalPrecisionProperty = new SimpleBooleanProperty(true);
+	public final BooleanProperty indicateFractionalPrecisionProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für das gewählte Stylesheet */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected Stylesheet */
+	private final StringProperty stylesheetProperty;
+	
+	public final ReadOnlyStringProperty readOnlyStylesheetProperty;
 	
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE --> Diese Klasse ist in keiner anderen Klasse instanziierbar **/
 	/* <!-- $LANGUAGE=EN --> Do not let anyone instantiate this class in any other class **/
 	private Preferences() {
-		load();	// Letzte Einstellungen aus Datei laden
+		this.commaProperty = new SimpleObjectProperty<Comma>(Comma.COMMA_DE);
+		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty(true);
+		this.stylesheetProperty = new SimpleStringProperty();
+		this.readOnlyStylesheetProperty = stylesheetProperty;
+		
+		setStylesheet(Style.LIGTH);
 	}
 	
 	
@@ -121,6 +135,31 @@ public class Preferences {
 	 */
 	public void setIndicateFractionalPrecision(boolean b) {
 		indicateFractionalPrecisionProperty.setValue(b);
+	}
+	
+	
+	public boolean setStylesheet(String path) {
+		try {
+			String url = getClass().getResource(path).toExternalForm();
+			this.stylesheetProperty.set(url);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public void setStylesheet(Style style) {
+		switch(style) {
+		case LIGTH:
+			this.stylesheetProperty.set(getClass().getResource("/style/bitchangerLight.css").toExternalForm());
+			break;
+		case DARK:
+			this.stylesheetProperty.set(getClass().getResource("/style/bitchangerDark.css").toExternalForm());
+			break;
+		default:
+			return;
+		}
 	}
 	
 	

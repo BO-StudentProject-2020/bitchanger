@@ -86,7 +86,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/* <!-- $LANGUAGE=EN -->
 	 * Key with which the Menu "Fenster" is associated in the Map {@link #menuItemMap}
 	 */
-	public static final String WINDOW_MENU_KEY = "window-menu";
+	public static final String VIEW_MENU_KEY = "view-menu";
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das Menu "Hilfe" in der Map {@link #menuItemMap} abgelegt ist
@@ -121,12 +121,36 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
 	
 	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das Menu "Stil" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the Menu "Stil" is associated in the Map {@link #menuItemMap}
+	 */
+	public static final String VIEW_STYLE_MENU_KEY = "view-style-menu";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das MenuItem "Hell" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the MenuItem "Hell" is associated in the Map {@link #menuItemMap}
+	 */
+	public static final String VIEW_STYLE_LIGHT_ITEM_KEY = "view-style-ligth-item";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das MenuItem "Dunkel" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the MenuItem "Dunkel" is associated in the Map {@link #menuItemMap}
+	 */
+	public static final String VIEW_STYLE_DARK_ITEM_KEY = "view-style-dark-item";
+	
+	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das MenuItem "Auf Monitor bewegen" in der Map {@link #menuItemMap} abgelegt ist
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Key with which the MenuItem "Auf Monitor bewegen" is associated in the Map {@link #menuItemMap}
 	 */
-	public static final String WINDOW_MOVE_TO_SCREEN_ITEM_KEY = "window-movetoscreen-item";
+	public static final String VIEW_MOVE_TO_SCREEN_ITEM_KEY = "view-movetoscreen-item";
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das CheckMenuItem "Vollbild" in der Map {@link #menuItemMap} abgelegt ist
@@ -134,7 +158,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/* <!-- $LANGUAGE=EN -->
 	 * Key with which the CheckMenuItem "Vollbild" is associated in the Map {@link #menuItemMap}
 	 */
-	public static final String WINDOW_SHOW_FULLSCREEN_ITEM_KEY = "window-showfullscreen-item";
+	public static final String VIEW_SHOW_FULLSCREEN_ITEM_KEY = "view-showfullscreen-item";
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das MenuItem "Über" in der Map {@link #menuItemMap} abgelegt ist
@@ -201,7 +225,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		
 		createMenuModus();
 		createMenuOptions();
-		createMenuWindow();
+		createMenuView();
 		createMenuHelp();
 	}
 	
@@ -325,22 +349,32 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	}
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Erstellt das Menu "Fenster" mit den Elementen "Auf Monitor bewegen" und "Vollbild"
+	 * Erstellt das Menu "Ansicht" mit den Elementen "Stil", "Auf Monitor bewegen" und "Vollbild"
 	 */
 	/* <!-- $LANGUAGE=EN -->
-	 * Creates the Menu "Fenster" with its Items "Auf Monitor bewegen" and "Vollbild"
+	 * Creates the Menu "Ansicht" with its Items "Stil", "Auf Monitor bewegen" and "Vollbild"
 	 */
-	private void createMenuWindow() {
-		Menu window = new Menu("Fenster");
-		addMenu(window, MODUS_MENU_KEY);
+	private void createMenuView() {
+		Menu viewMenu = new Menu("Ansicht");
+		addMenu(viewMenu, MODUS_MENU_KEY);
+		
+		Menu styleMenu = new Menu("Stil");
+		MenuItem styleLight = new MenuItem("Hell");
+		MenuItem styleDark = new MenuItem("Dunkel");
+		
+		styleMenu.getItems().addAll(styleLight, styleDark);
+		
+		menuItemMap.put(VIEW_STYLE_MENU_KEY, styleMenu);
+		menuItemMap.put(VIEW_STYLE_LIGHT_ITEM_KEY, styleLight);
+		menuItemMap.put(VIEW_STYLE_DARK_ITEM_KEY, styleDark);
 		
 		Menu moveToScreen = new Menu("Auf Monitor bewegen");
 		CheckMenuItem showFullscreen = new CheckMenuItem("Vollbild");
 		
-		menuItemMap.put(WINDOW_MOVE_TO_SCREEN_ITEM_KEY, moveToScreen);
-		menuItemMap.put(WINDOW_SHOW_FULLSCREEN_ITEM_KEY, showFullscreen);
+		menuItemMap.put(VIEW_MOVE_TO_SCREEN_ITEM_KEY, moveToScreen);
+		menuItemMap.put(VIEW_SHOW_FULLSCREEN_ITEM_KEY, showFullscreen);
 		
-		window.getItems().addAll(moveToScreen, showFullscreen);
+		viewMenu.getItems().addAll(styleMenu, moveToScreen, showFullscreen);
 	}
 	
 	/** <!-- $LANGUAGE=DE -->

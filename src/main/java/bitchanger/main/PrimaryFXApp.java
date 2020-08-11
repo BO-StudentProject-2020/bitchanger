@@ -18,12 +18,13 @@ import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
+import bitchanger.preferences.Preferences;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.MenuBar;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /** <!-- $LANGUAGE=DE -->
@@ -74,6 +75,11 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	 * Schlüsselwort, mit dem über {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann 
 	 */
 	public static final String CALCULATOR_VIEW_KEY = "calculator-view";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Aktuelle Version des Bitchangers
+	 */
+	public static final String VERSION = "0.1.4";
 
 	
 	
@@ -224,21 +230,18 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 		this.converterView = new ConverterView();
 		this.ieeeView = new IEEEView();
+		this.calculatorView = new IEEEView();
 		
-		converterView.setMenuBar(createMenuBar());
-		ieeeView.setMenuBar(createMenuBar());
+		adjustViews(converterView, ieeeView, calculatorView);
 		
 		currentViewProperty.set(converterView);
 		
-		// TODO Testzeile entfernen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		currentViewProperty.get().getScene().getStylesheets().setAll("Layout.css");
-		
 		changeView(converterView);
-//		primaryStage.setScene(currentViewProperty.get().getScene());
-		primaryStage.setTitle("Bitchanger 0.1.4");
+		primaryStage.setTitle("Bitchanger " + VERSION);
 		
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
-		setStageSize(primaryStage);
+		observeStageOnShowing();
+		observeScene();
 		
 		primaryStage.show();
 	}
@@ -268,59 +271,65 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	 * @see Viewable#getMinWidth()
 	 * @see Viewable#getMaxWidth()
 	 */
-	private void setStageSize(Stage primaryStage) {
+	private void setStageSize() {
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen
 		// (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
+		primaryStage.sizeToScene();
+		primaryStage.setMinHeight(primaryStage.getHeight());
+		primaryStage.setMinWidth(primaryStage.getWidth());
+//		primaryStage.setMaxHeight(currentView.getMaxHeigth() + primaryStage.getHeight() - currentView.getMinHeigth());
+//		primaryStage.setMaxWidth(currentView.getMaxWidth() + primaryStage.getWidth() - currentView.getMinWidth());
+	}
+	
+	
+	private void observeStageOnShowing() {
 		primaryStage.showingProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean isShowing) {
 				if (isShowing) {
-					primaryStage.sizeToScene();
-					primaryStage.setMinHeight(primaryStage.getHeight());
-					primaryStage.setMinWidth(primaryStage.getWidth());
-//					primaryStage.setMaxHeight(currentView.getMaxHeigth() + primaryStage.getHeight() - currentView.getMinHeigth());
-//					primaryStage.setMaxWidth(currentView.getMaxWidth() + primaryStage.getWidth() - currentView.getMinWidth());
+					setStageSize();
 				}
+			}
+		});
+	}
+	
+	
+	private void observeScene() {
+		primaryStage.sceneProperty().addListener(new ChangeListener<Scene>() {
+			@Override
+			public void changed(ObservableValue<? extends Scene> observable, Scene oldScene, Scene newScene) {
+				setStageSize();
 			}
 		});
 	}
 
 
 
-// Menü	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// Views	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	/** <!-- $LANGUAGE=DE -->
-	 * Erstellt eine Menübar, die die das Auswählen der verschiedenen Szenen erlaubt, Programm Einstellungen bietet und
-	 * Informationen über die Applikation enthält.
-	 * <p>
-	 * Alle benötigten Elemente werden einer neuen {@code MenuBar} hinzugefügt.
-	 * Alle Actions werden gesetzt und müssen nicht mehr angepasst werden.
-	 * </p>
-	 * 
-	 * @return	eine neue {@code MenuBar} mit dem benötigten Inhalt
-	 * 
-	 */
-	
-	/* <!-- $LANGUAGE=EN -->
-	 * Creates a menu bar, that allows to select between different scenes, shows informations about this application
-	 * and includes settings.
-	 * <p>
-	 * Each required element is added to a new {@code MenuBar}.
-	 * Every action is set and does not need to be adjusted.
-	 * </p>
-	 * 
-	 * @return	a new {@code MenuBar} with the required content
-	 * 
-	 */
-	private MenuBar createMenuBar() {
-		BasicMenuBar menubar = new BasicMenuBar();
-		
-		// TODO MENUEBAR IMPLEMENTIEREN	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		
-		Controller cntr = new BasicMenuController(menubar, this);
-		cntr.setActions();
-		
-		return menubar;
+	private void adjustViews(Viewable... views) {
+		for(Viewable view : views) {
+			BasicMenuBar menubar = new BasicMenuBar();
+			Controller cntr = new BasicMenuController(menubar, this);
+			cntr.setActions();
+			
+			view.setMenuBar(menubar);
+			
+			Preferences.getPrefs().readOnlyStylesheetProperty.addListener(new ChangeListener<String>() {
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldStylesheet, String newStylesheet) {
+					try {
+						view.getScene().getStylesheets().remove(oldStylesheet);
+					} catch (Exception e) {
+						// ignore
+					}
+					
+					view.getScene().getStylesheets().add(newStylesheet);
+				}
+			});
+			
+			view.getScene().getStylesheets().add(Preferences.getPrefs().readOnlyStylesheetProperty.get());
+		}
 	}
 
 

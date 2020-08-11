@@ -11,8 +11,12 @@
 package bitchanger.gui.controller;
 
 import bitchanger.gui.controls.BasicMenuBar;
+import bitchanger.gui.controls.InformationDialog;
+import bitchanger.gui.controls.InformationDialog.InformationType;
 import bitchanger.gui.views.Viewable;
 import bitchanger.main.PrimaryFXApp;
+import bitchanger.preferences.Preferences;
+import bitchanger.preferences.Style;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
@@ -31,6 +35,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	protected MenuItem modusIEEE;
 	protected MenuItem modusCalculator;
 	protected Menu options;
+	protected Menu styleMenu;
+	protected MenuItem styleLight;
+	protected MenuItem styleDark;
 	protected Menu moveToScreen;
 	protected CheckMenuItem showFullscreen;
 	protected MenuItem about;
@@ -51,8 +58,11 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		modusIEEE = controllable.menuItemMap.get(BasicMenuBar.MODUS_IEEE_ITEM_KEY);
 		modusCalculator = controllable.menuItemMap.get(BasicMenuBar.MODUS_CALCULATOR_ITEM_KEY);
 		options = (Menu) controllable.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY);
-		moveToScreen = (Menu) controllable.menuItemMap.get(BasicMenuBar.WINDOW_MOVE_TO_SCREEN_ITEM_KEY);
-		showFullscreen = (CheckMenuItem) controllable.menuItemMap.get(BasicMenuBar.WINDOW_SHOW_FULLSCREEN_ITEM_KEY);
+		styleMenu = (Menu) controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
+		styleLight = controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
+		styleDark = controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_DARK_ITEM_KEY);
+		moveToScreen = (Menu) controllable.menuItemMap.get(BasicMenuBar.VIEW_MOVE_TO_SCREEN_ITEM_KEY);
+		showFullscreen = (CheckMenuItem) controllable.menuItemMap.get(BasicMenuBar.VIEW_SHOW_FULLSCREEN_ITEM_KEY);
 		about = controllable.menuItemMap.get(BasicMenuBar.HELP_ABOUT_ITEM_KEY);
 		version = controllable.menuItemMap.get(BasicMenuBar.HELP_VERSION_ITEM_KEY);
 	}
@@ -65,11 +75,13 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		changeToViewAction(modusIEEE, application.getViewable(PrimaryFXApp.IEEE_VIEW_KEY));
 		changeToViewAction(modusCalculator, application.getViewable(PrimaryFXApp.CALCULATOR_VIEW_KEY));
 		
+		changeStyleAction();
 		switchFullscreenAction();
 		setScreenItems();
 		listenScreenConfig();
 		
 		showAboutAction();
+		showVersionAction();
 	}
 
 
@@ -78,6 +90,23 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 			@Override
 			public void handle(ActionEvent event) {
 				application.changeView(view);
+			}
+		});
+	}
+	
+	
+	private void changeStyleAction() {
+		styleLight.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Preferences.getPrefs().setStylesheet(Style.LIGTH);
+			}
+		});
+		
+		styleDark.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Preferences.getPrefs().setStylesheet(Style.DARK);
 			}
 		});
 	}
@@ -106,6 +135,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	}
 	
 	private void listenScreenConfig() {
+		// Menü bei Änderung der Bildschirmkonfiguration anpassen
 		Screen.getScreens().addListener(new InvalidationListener(){
 			@Override
 			public void invalidated(Observable observable) {
@@ -118,9 +148,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		moveToScreen.getItems().clear();
 		
 		// Bildschirme auslesen
-		int num = 1;
+		int screenNum = 1;
 		for(Screen screen: Screen.getScreens()) {
-			MenuItem item = new MenuItem("Monitor " + num);
+			MenuItem item = new MenuItem("Monitor " + screenNum);
 			item.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
@@ -138,7 +168,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 			});
 				
 			moveToScreen.getItems().add(item);
-			num++;
+			screenNum++;
 		}
 	}
 	
@@ -147,13 +177,18 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		about.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-//				Stage about = new Stage(StageStyle.UNDECORATED);
-				Stage about = new Stage();
-				
-				// TODO: Über-Dialog erstellen
-//				about.setScene();
-				about.setAlwaysOnTop(true);
-				about.show();
+				InformationDialog dialog = new InformationDialog(InformationType.ABOUT);
+				dialog.showAndWait();
+			}
+		});
+	}
+	
+	private void showVersionAction() {
+		version.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				InformationDialog dialog = new InformationDialog(InformationType.VERSION);
+				dialog.showAndWait();
 			}
 		});
 	}
