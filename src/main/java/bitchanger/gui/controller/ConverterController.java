@@ -17,6 +17,7 @@ import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.ConverterView;
+import bitchanger.util.ArrayUtils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -49,7 +50,12 @@ import javafx.scene.input.MouseEvent;
  */
 public class ConverterController extends ControllerBase<ConverterView> {
 	
-	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	/**	<!-- $LANGUAGE=DE -->	Zahl, die in die verschiedenen Zahlensysteme umgewandelt wird */
 	/*	<!-- $LANGUAGE=EN -->	Number which gets converted into any numeral system */
 	private ChangeableNumber value;
@@ -62,7 +68,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/*	<!-- $LANGUAGE=EN -->	Property to adjust the base of the currently focused text field */
 	private IntegerProperty baseProperty;
 
-	// TextFields	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// TextFields	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/**	<!-- $LANGUAGE=DE -->	Textfeld für die hexadezimale Darstellung */
 	/*	<!-- $LANGUAGE=EN -->	Text field for the hexadecimal representation */
 	private ValueField tfHex;
@@ -87,7 +93,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/*	<!-- $LANGUAGE=EN -->	Auxiliary variable with reference to the current or last focused text field */
 	private ValueField focusedTF;
 
-	// Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/**	<!-- $LANGUAGE=DE -->
 	 * Button zum Löschen und Zurücksetzen von {@link #value}
 	 * 
@@ -113,7 +119,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	private Button signBtn;
 
 	
-	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
 	 * Referenzen auf die Bedienelemente aus der ConverterView.
@@ -140,8 +151,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
-		if(nodeMap.get(ConverterView.BASE_SPINNER_KEY) instanceof BaseSpinner) {
-			this.anyBase = (BaseSpinner) nodeMap.get(ConverterView.BASE_SPINNER_KEY);
+		if(nodeMap.get(controllable.baseSpinnerKey) instanceof BaseSpinner) {
+			this.anyBase = (BaseSpinner) nodeMap.get(controllable.baseSpinnerKey);
 		}
 		
 		initTextFields();
@@ -149,7 +160,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	}
 
 	
-	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
 	/**	{@inheritDoc} */
 	@Override
 	public void setActions() {
@@ -167,7 +183,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	// Methods	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// Methods	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/**	<!-- $LANGUAGE=DE -->
 	 * Sucht die benötigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
 	 */
@@ -175,9 +191,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * Searches the necessary references to the buttons of the buttonMap and stores these in the attributes
 	 */
 	private void initButtons() {
-		this.clearBtn = this.buttonMap.get("clearBtn");
-		this.backspcBtn = this.buttonMap.get("backspaceBtn");
-		this.signBtn = this.buttonMap.get("signBtn");
+		this.clearBtn = this.buttonMap.get(controllable.clearBtnKey);
+		this.backspcBtn = this.buttonMap.get(controllable.backspaceBtnKey);
+		this.signBtn = this.buttonMap.get(controllable.signBtnKey);
 
 		alphaNumButtons = new Button[16];
 		for (int i = 0; i < 6; i++) {
@@ -197,11 +213,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * Searches the necessary references to the text fields of the buttonMap, stores these in the attributes and sets the base of each text field.
 	 */
 	private void initTextFields() {
-		tfHex = (ValueField) this.textFieldMap.get("hexTF");
-		tfDec = (ValueField) this.textFieldMap.get("decTF");
-		tfOct = (ValueField) this.textFieldMap.get("octTF");
-		tfBin = (ValueField) this.textFieldMap.get("binTF");
-		tfAny = (ValueField) this.textFieldMap.get("anyTF");
+		tfHex = (ValueField) this.textFieldMap.get(controllable.tfHexKey);
+		tfDec = (ValueField) this.textFieldMap.get(controllable.tfDecKey);
+		tfOct = (ValueField) this.textFieldMap.get(controllable.tfOctKey);
+		tfBin = (ValueField) this.textFieldMap.get(controllable.tfBinKey);
+		tfAny = (ValueField) this.textFieldMap.get(controllable.tfAnyKey);
 		
 		tfHex.setBase(16);
 		tfDec.setBase(10);
@@ -249,9 +265,13 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	}
 	
 	
-	// Actions	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Actions			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	// TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+// TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt Listener für die Textfelder, um die Eingabe direkt in alle anderen Zahlensysteme umzuwandeln.
 	 * Zudem wird das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes aktualisiert und {@link #baseProperty}
@@ -470,9 +490,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * and connects {@link #baseProperty} with the baseProperty of the text field.
 	 */
 	private void setTFSelection() {
-		ValueField[] textfields = { tfHex, tfDec, tfOct, tfBin, tfAny };
-
-		for (ValueField tf : textfields) {
+		for (ValueField tf : ArrayUtils.arrayOf(tfHex, tfDec, tfOct, tfBin, tfAny)) {
 			tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
@@ -485,7 +503,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	}
 
 	
-	// Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+// Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert die Basis von {@link #tfAny}, wenn sich die valueProperty von {@link #anyBase} ändert.
 	 * Sorgt außerdem dafür, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
@@ -534,7 +552,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	}
 
 	
-	// Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+// Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt die Actions für alle Buttons
 	 * 

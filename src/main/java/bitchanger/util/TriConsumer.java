@@ -1,4 +1,4 @@
-package bitchanger.gui.controls;
+package bitchanger.util;
 
 /** <!-- $LANGUAGE=DE -->
  * Repräsentiert eine Operation, die drei Übergabeparameter akzeptiert und keine Rückgabe hat.

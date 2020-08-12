@@ -7,9 +7,19 @@
 	-fx-font-size: 25px;
 }
 
-.content {
+.dialog-pane:header .header-panel .label {
+	-fx-font-size: 18;
+	-fx-font-weight: bold;
+}
+
+.dialog-pane > .content {
 	-fx-text-alignment: justify;
-	-fx-text-fill: darkred;
+	-fx-text-fill: black;
+	-fx-font-size: 16px;
+}
+
+.menu-bar {
+	fx-font-size: 16;
 }
 
 .text-field {

@@ -72,17 +72,17 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	
 	/** <!-- $LANGUAGE=DE --> 
 	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
-	 * <b> Es ist nur einmalig erlaubt einen Controller zuzuweisen! </b> */
-	protected final Controller controller;
+	 */
+	protected Controller controller;
 	
 	
 // Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
 	 * <p>
-	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()}, {@link #createScenegraph(Parent)} 
-	 * und {@link #createController()} aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss mit Hilfe eines Controllers
-	 * die Funktion der Bedienelemente hinzuzufügen.
+	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und {@link #createScenegraph(Parent)} 
+	 * aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss wird mit Hilfe eines Controllers die Funktion der Bedienelemente 
+	 * hinzugefügt, wenn ein passender Controller registriert wurde.
 	 * </p>
 	 * 
 	 * @param root	Wurzelknoten des Scenegraphen
@@ -92,6 +92,23 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	 * @see #createController()
 	 */
 	public ViewBase(T root) {
+		this(root, true);
+	}
+	
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
+	 * <p>
+	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und ggf. {@link #createScenegraph(Parent)} 
+	 * aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss wird mit Hilfe eines Controllers die Funktion der Bedienelemente 
+	 * hinzugefügt, wenn ein passender Controller registriert wurde.
+	 * </p>
+	 * 
+	 * @param root				Wurzelknoten des Scenegraphen
+	 * @param createScenegraph	{@code true}, wenn der Scenegraph mit der Methode {@link #createScenegraph()} erstellt und ein Controller
+	 * 							erzeugt werden soll, sonst {@code false}
+	 */
+	public ViewBase(T root, boolean createScenegraph) {
 		this.root = root;
 		this.tfMap = new HashMap<String, TextField>();
 		this.btnMap = new HashMap<String, Button>();
@@ -99,12 +116,9 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 		this.scene = new Scene(this.root);
 		
 		init();
-		createScenegraph(this.root);
 		
-		this.controller = Controller.of(this);
-		
-		if(controller != null) {
-			controller.setActions();
+		if(createScenegraph) {
+			buildScenegraph();
 		}
 	}
 
@@ -128,16 +142,32 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
+	 * Konstruiert den Scenegraphen mit der Methode {@link #createScenegraph()} und gibt den Bedienelementen mit einem
+	 * Controller eine Funktion, falls ein passender Controller mit {@link Controller#register(Class, Class)} registriert
+	 * wurde.
+	 * 
+	 * @see #createScenegraph()
+	 */
+	protected void buildScenegraph() {
+		createScenegraph();
+		
+		this.controller = Controller.of(this);
+		
+		if(controller != null) {
+			controller.setActions();
+		}
+	}
+	
+	
+	/** <!-- $LANGUAGE=DE -->
 	 * Methode, die den Scenegraphen konstruiert. <b> Diese Methode wird aufgerufen, nachdem die init-Methode beendet wurde. </b>
 	 * <p>
 	 * In dieser Methode müssen alle Bedien- und Oberflächenelemente zum Scenegraphen hinzugefügt werden. Alle Elemente, die 
 	 * auch im Controller benötigt werden, müssen zu der entsprechenden Map hinzugefügt werden: 
 	 * {@link #btnMap}, {@link #tfMap}, {@link #nodeMap}
 	 * </p>
-	 * 
-	 * @param root Wurzelknoten des Scenegraphen
 	 */
-	protected abstract void createScenegraph(T root);
+	protected abstract void createScenegraph();
 	
 	
 

@@ -1,4 +1,4 @@
-package bitchanger.gui.controls;
+package bitchanger.util;
 
 import java.util.Queue;
 

@@ -20,6 +20,9 @@ import bitchanger.gui.controller.AlphaNumKeysController;
 import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.Controller;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.FXUtils;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -71,13 +74,13 @@ public class AlphaNumKeys implements Controllable {
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Komma-Button */
 	public static final String COMMA_BTN_KEY = "commaBtn";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum umschalten des Tastaturlayouts */
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Umschalten des Tastaturlayouts */
 	public static final String KEYBOARD_BTN_KEY = "keyboardBtn";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum weiterscrollen durch die Tastatur */
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Weiterscrollen durch die Tastatur */
 	public static final String NEXT_BTN_KEY = "nextBtn";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum rückwärtsscrollen durch die Tastatur */
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Rückwärtsscrollen durch die Tastatur */
 	public static final String PREVIOUS_BTN_KEY = "previousBtn";
 
 	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Buchstaben-Buttons definiert */
@@ -139,7 +142,7 @@ public class AlphaNumKeys implements Controllable {
 	private int firstColumn;
 	
 	/** <!-- $LANGUAGE=DE -->	Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons */
-	private double spacing;
+	private DoubleProperty spacing;
 	
 	/** <!-- $LANGUAGE=DE --> 
 	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
@@ -159,11 +162,25 @@ public class AlphaNumKeys implements Controllable {
 	 * @param scene			Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
 	 */
 	public AlphaNumKeys(int firstRow, int firstColumn, double spacing, Scene scene) {
+		this(firstRow, firstColumn, new SimpleDoubleProperty(spacing), scene);
+	}
+	
+	/* <!-- $LANGUAGE=DE --> 
+	 * Erstellt alle Buttons für das Tastaturlayout und setzt die Constraints für die Positionierung in einer GridPane.
+	 * Zudem werden alle Bedienelemente durch einen {@link AlphaNumKeysController} mit der entsprechenden Funktion belegt, 
+	 * um Tastatureingaben zu simulieren.
+	 * 
+	 * @param firstRow		Erste Zeile, in der die Buttons in einer GridPane positioniert werden
+	 * @param firstColumn	Erste Spalte, in der die Buttons in einer GridPane positioniert werden
+	 * @param spacing		Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons, sollte dem Wert von dem Abstand in der GridPane entsprechen
+	 * @param scene			Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
+	 */
+	public AlphaNumKeys(int firstRow, int firstColumn, DoubleProperty spacingProperty, Scene scene) {
 		this.buttonList = new ArrayList<Node>();
 		this.buttonMap = new HashMap<String, Button>();
 		this.firstRow = firstRow;
 		this.firstColumn = firstColumn;
-		this.spacing = spacing;
+		this.spacing = spacingProperty;
 		
 		createButtons();
 		
@@ -336,7 +353,7 @@ public class AlphaNumKeys implements Controllable {
 		HBox.setHgrow(previousBtn, Priority.ALWAYS);
 		HBox.setHgrow(nextBtn, Priority.ALWAYS);
 		
-		arrowButtons.setSpacing(this.spacing);
+		arrowButtons.spacingProperty().bindBidirectional(this.spacing);
 	}
 	
 }
