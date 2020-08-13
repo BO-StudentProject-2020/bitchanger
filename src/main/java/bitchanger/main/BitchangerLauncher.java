@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -21,7 +19,6 @@ import bitchanger.preferences.Preferences;
  * @version 0.1.0
  * 
  */
-
 /* <!-- $LANGUAGE=EN -->
  * This class contains the main method that is the entry point for the application.
  * 
@@ -43,7 +40,6 @@ public class BitchangerLauncher {
 	 * @see PrimaryFXApp#launchFXApplication(String[])
 	 * 
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * The main method first reads in all stored settings for the class {@code Preferences}.
 	 * Then the main window of the application will be started and waits until this main window is closed.

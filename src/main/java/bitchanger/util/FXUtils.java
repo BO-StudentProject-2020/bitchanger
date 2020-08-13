@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.util;
 
 import java.util.Queue;
@@ -16,7 +24,6 @@ import javafx.scene.layout.GridPane;
  * @version 0.1.4
  *
  */
-
 /* <!-- $LANGUAGE=EN -->
  * Utility class to handle objects whose belong to the user interface.
  * 
@@ -50,7 +57,6 @@ public class FXUtils {
 	 * 
 	 * @see #setGridConstraints(int, int, int, int, Queue, TriConsumer)
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the constrains of the nodes in a queue to position these in a GridPane.
 	 * <p>
@@ -77,6 +83,10 @@ public class FXUtils {
 		setGridConstraints(firstColumn, firstRow, columnCount, columnOffset, controls, GridPane::setConstraints);
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Arbeitet Nodes in einer Schlange als Tabelle ab.
 	 * <p>
@@ -97,7 +107,6 @@ public class FXUtils {
 	 * @param controls		Elemente in der Tabelle, mit der Reihenfolge von oben links nach unten rechts (Spalten werden vor den Zeilen inkrementiert)
 	 * @param consumer		TriConsumer, der die Daten verarbeitet
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Proceed nodes as a table in a queue.
 	 * <p>
@@ -143,13 +152,16 @@ public class FXUtils {
 		}
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die maximale Größe aller Controls in einem Iterable auf den Wert {@code maxSize}.
 	 * 
 	 * @param nodes		Sammlung aller anzupassenden Controls, die auch in Layout-Containern liegen dürfen
 	 * @param maxSize	Maximale Größe der Controls
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the maximum size of all controls inside an Iterable to the value of {@code maxSize}.
 	 * 
@@ -160,6 +172,10 @@ public class FXUtils {
 		setMaxSizes(nodes, maxSize, maxSize);
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die maximale Breite aller Controls in einem Iterable auf den Wert {@code maxWidth} und 
 	 * die maximale Höhe auf den Wert {@code maxHeight}.
@@ -168,7 +184,6 @@ public class FXUtils {
 	 * @param maxWidth	maximale Breite aller Controls
 	 * @param maxHeight	maximale Höhe aller Controls
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the maximum width of all controls inside an Iterable to the value of {@code maxWidth} and 
 	 * the maximum heights to the value of {@code maxHeight}.
@@ -203,3 +218,7 @@ public class FXUtils {
 	private FXUtils() {}
 	
 }
+
+
+
+
