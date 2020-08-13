@@ -80,7 +80,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
 	 * <p>
-	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und {@link #createScenegraph(Parent)} 
+	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und {@link #createScenegraph()} 
 	 * aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss wird mit Hilfe eines Controllers die Funktion der Bedienelemente 
 	 * hinzugefügt, wenn ein passender Controller registriert wurde.
 	 * </p>
@@ -88,8 +88,8 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	 * @param root	Wurzelknoten des Scenegraphen
 	 * 
 	 * @see #init()
-	 * @see #createScenegraph(Parent)
-	 * @see #createController()
+	 * @see #createScenegraph()
+	 * @see #buildScenegraph()
 	 */
 	public ViewBase(T root) {
 		this(root, true);
@@ -99,16 +99,18 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
 	 * <p>
-	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und ggf. {@link #createScenegraph(Parent)} 
+	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und ggf. {@link #buildScenegraph()} 
 	 * aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss wird mit Hilfe eines Controllers die Funktion der Bedienelemente 
 	 * hinzugefügt, wenn ein passender Controller registriert wurde.
 	 * </p>
 	 * 
 	 * @param root				Wurzelknoten des Scenegraphen
-	 * @param createScenegraph	{@code true}, wenn der Scenegraph mit der Methode {@link #createScenegraph()} erstellt und ein Controller
+	 * @param buildScenegraph	{@code true}, wenn der Scenegraph mit der Methode {@link #buildScenegraph()} erstellt und ein Controller
 	 * 							erzeugt werden soll, sonst {@code false}
+	 * 
+	 * @see #buildScenegraph()
 	 */
-	public ViewBase(T root, boolean createScenegraph) {
+	public ViewBase(T root, boolean buildScenegraph) {
 		this.root = root;
 		this.tfMap = new HashMap<String, TextField>();
 		this.btnMap = new HashMap<String, Button>();
@@ -117,7 +119,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 		
 		init();
 		
-		if(createScenegraph) {
+		if(buildScenegraph) {
 			buildScenegraph();
 		}
 	}

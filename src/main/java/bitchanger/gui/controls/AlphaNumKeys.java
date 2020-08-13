@@ -169,7 +169,7 @@ public class AlphaNumKeys implements Controllable {
 	 * 
 	 * @param firstRow		Erste Zeile, in der die Buttons in einer GridPane positioniert werden
 	 * @param firstColumn	Erste Spalte, in der die Buttons in einer GridPane positioniert werden
-	 * @param spacingProperty		Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons, sollte dem Wert von dem 
+	 * @param spacing		Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons, sollte dem Wert von dem 
 	 * 						Abstand in der GridPane entsprechen. Die {@code spacingProperty} wird mit diesem Wert initialisiert.
 	 * @param scene			Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
 	 */

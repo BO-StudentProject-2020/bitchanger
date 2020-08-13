@@ -6,6 +6,8 @@ import javafx.scene.control.Alert;
 
 public class InformationDialog extends Alert {
 	
+	// TODO JavaDoc erstellen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	
 	public static enum InformationType{
 		
 		ABOUT,

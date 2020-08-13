@@ -253,8 +253,6 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	/** <!-- $LANGUAGE=DE -->
 	 * Passt die minimale und die maximale Größe des Fensters an die Größe der aktuellen Szene ({@code currentView}) an
 	 * 
-	 * @param primaryStage	Fenster, dessen Größe eingestellt werden soll
-	 * 
 	 * @see Viewable#getMinHeigth()
 	 * @see Viewable#getMaxHeigth()
 	 * @see Viewable#getMinWidth()
@@ -263,8 +261,6 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	
 	/* <!-- $LANGUAGE=EN -->
 	 * Adjusts the minimum and maximum size of the window to the size of the current scene ({@code currentView}).
-	 * 
-	 * @param primaryStage	window which size can be adjusted
 	 * 
 	 * @see Viewable#getMinHeigth()
 	 * @see Viewable#getMaxHeigth()

@@ -431,8 +431,6 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * Erstellt den Scenegraphen und fügt diesen dem Wurzelknoten hinzu.
 	 * Subklassen können diese Methode überschreiben, um nach der Erstellung des Scenegraphen in dieser
 	 * Klasse weitere Bedienelemente hinzuzufügen.
-	 * 
-	 * @param root Wurzelknoten des Scenegraphen
 	 */
 	@Override
 	protected void createScenegraph() {

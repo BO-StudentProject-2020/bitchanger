@@ -62,7 +62,7 @@ public interface Controller {
 	 * @param controller	Controller-Klasse, die registriert wird
 	 */
 	/* <!-- $LANGUAGE=EN -->
-	 * Registers a Controller class for the factory method {@link #of(controllable)} 
+	 * Registers a Controller class for the factory method {@link #of(Controllable)} 
 	 * and assigns it to a Controllable class.
 	 * 
 	 * @param controllable	Controllable class to which the Controller class is assigned
@@ -129,6 +129,8 @@ public interface Controller {
 	 * </b></p>
 	 * 
 	 * @param c	Controllable, das durch den neuen Controller eine Funktion erhalten soll
+	 * @param args Parameter in der Reihenfolge, wie diese vom Konstruktor benötigt werden
+	 * 
 	 * @return	neuer Controller, der an das Controllable gebunden ist oder {@code null}, wenn kein Controller registriert wurde
 	 * 
 	 * @see #register(Class, Class)
@@ -148,6 +150,8 @@ public interface Controller {
 	 * </b></p>
 	 * 
 	 * @param c	Controllable, which should be given a function by the new Controller
+	 * @param args Arguments in the order they are required by the constructor
+	 * 
 	 * @return	new Controller that is bound to the Controllable or {@code null} if no Controller has been registered
 	 * 
 	 * @see #register(Class, Class)

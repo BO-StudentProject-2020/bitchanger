@@ -261,7 +261,6 @@ public class ValueField extends TextField {
 		}
 	}
 	
-	//TODO bitte einmal boolean oldValue und JavaDoc zur Methode focuse überprüfen ! ! ! ! ! ! ! ! ! 
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Entfernt den Indikator für abgeschnittene Nachkommastellen und setzt die CaretPosition auf den 
@@ -270,7 +269,7 @@ public class ValueField extends TextField {
 	 * 
 	 * @param observable	{@code ObservableValue}, dessen Wert sich ändert
 	 * @param oldValue		alter Wert
-	 * @param isFocused		neuer Wert ?!?!
+	 * @param isFocused		neuer Wert
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
