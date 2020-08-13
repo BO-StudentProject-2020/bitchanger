@@ -102,7 +102,7 @@ public class ConverterView extends AlphaNumGridView {
 	 * der Bedienelemente mit einem {@link ConverterController}.
 	 */
 	public ConverterView() {
-		super(6, 1, LABEL_TEXTS, TF_KEYS);
+		super(0, 0, 0, 1, 6, 1, LABEL_TEXTS, TF_KEYS);
 		
 		this.baseSpinnerKey = "baseSpinner";
 		

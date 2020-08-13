@@ -89,6 +89,12 @@ public class AlphaNumKeys implements Controllable {
 	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Zahlen-Buttons definiert */
 	public static final String[] NUM_KEYS = {"num_7", "num_8", "num_9", "num_4", "num_5", "num_6", "num_1", "num_2", "num_3"};
 	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die Anzahl der Zeilen dieser Tastaturmatrix enthält */
+	public static final int ROW_COUNT = 4;
+	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die Anzahl der Spalten dieser Tastaturmatrix enthält */
+	public static final int COLUMN_COUNT = 5;
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -112,6 +118,10 @@ public class AlphaNumKeys implements Controllable {
 
 	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->	Property für den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons */
+	public final DoubleProperty spacingProperty;
+	
+	
 	/** <!-- $LANGUAGE=DE -->	Liste, die alle Buttons der Tastatur-Matrix enthält */
 	private ArrayList<Node> buttonList;
 	
@@ -141,9 +151,6 @@ public class AlphaNumKeys implements Controllable {
 	/** <!-- $LANGUAGE=DE -->	Erste Spalte, in der die Buttons in einer GridPane positioniert werden */
 	private int firstColumn;
 	
-	/** <!-- $LANGUAGE=DE -->	Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons */
-	private DoubleProperty spacing;
-	
 	/** <!-- $LANGUAGE=DE --> 
 	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
 	 * <b> Es ist nur einmalig erlaubt einen Controller zuzuweisen! </b> */
@@ -155,37 +162,52 @@ public class AlphaNumKeys implements Controllable {
 	 * Erstellt alle Buttons für das Tastaturlayout und setzt die Constraints für die Positionierung in einer GridPane.
 	 * Zudem werden alle Bedienelemente durch einen {@link AlphaNumKeysController} mit der entsprechenden Funktion belegt, 
 	 * um Tastatureingaben zu simulieren.
+	 * <p>
+	 * Wenn {@code firstRow} oder {@code firstColumn} kleiner als 0 sind, werden keine Buttons erzeugt und nur eine leere
+	 * Map bereitgestellt!
+	 * </p>
 	 * 
 	 * @param firstRow		Erste Zeile, in der die Buttons in einer GridPane positioniert werden
 	 * @param firstColumn	Erste Spalte, in der die Buttons in einer GridPane positioniert werden
-	 * @param spacing		Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons, sollte dem Wert von dem Abstand in der GridPane entsprechen
+	 * @param spacingProperty		Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons, sollte dem Wert von dem 
+	 * 						Abstand in der GridPane entsprechen. Die {@code spacingProperty} wird mit diesem Wert initialisiert.
 	 * @param scene			Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
 	 */
 	public AlphaNumKeys(int firstRow, int firstColumn, double spacing, Scene scene) {
 		this(firstRow, firstColumn, new SimpleDoubleProperty(spacing), scene);
 	}
 	
-	/* <!-- $LANGUAGE=DE --> 
+	/** <!-- $LANGUAGE=DE --> 
 	 * Erstellt alle Buttons für das Tastaturlayout und setzt die Constraints für die Positionierung in einer GridPane.
 	 * Zudem werden alle Bedienelemente durch einen {@link AlphaNumKeysController} mit der entsprechenden Funktion belegt, 
 	 * um Tastatureingaben zu simulieren.
+	 * <p>
+	 * Wenn {@code firstRow} oder {@code firstColumn} kleiner als 0 sind, werden keine Buttons erzeugt und nur eine leere
+	 * Map bereitgestellt!
+	 * </p>
 	 * 
-	 * @param firstRow		Erste Zeile, in der die Buttons in einer GridPane positioniert werden
-	 * @param firstColumn	Erste Spalte, in der die Buttons in einer GridPane positioniert werden
-	 * @param spacing		Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons, sollte dem Wert von dem Abstand in der GridPane entsprechen
-	 * @param scene			Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
+	 * @param firstRow			Erste Zeile, in der die Buttons in einer GridPane positioniert werden
+	 * @param firstColumn		Erste Spalte, in der die Buttons in einer GridPane positioniert werden
+	 * @param spacingProperty	Property, an die die {@code spacingProperty} gebunden wird
+	 * @param scene				Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
 	 */
 	public AlphaNumKeys(int firstRow, int firstColumn, DoubleProperty spacingProperty, Scene scene) {
 		this.buttonList = new ArrayList<Node>();
 		this.buttonMap = new HashMap<String, Button>();
 		this.firstRow = firstRow;
 		this.firstColumn = firstColumn;
-		this.spacing = spacingProperty;
+		this.spacingProperty = new SimpleDoubleProperty();
+		this.spacingProperty.bind(spacingProperty);
 		
-		createButtons();
-		
-		this.controller = Controller.ofArg(this, scene);
-		this.controller.setActions();
+		if (firstRow >= 0 && firstColumn >= 0) {
+			createButtons();
+			
+			this.controller = Controller.ofArg(this, scene);
+			this.controller.setActions();
+		}
+		else {
+			this.controller = null;
+		}
 	}
 	
 	
@@ -353,7 +375,7 @@ public class AlphaNumKeys implements Controllable {
 		HBox.setHgrow(previousBtn, Priority.ALWAYS);
 		HBox.setHgrow(nextBtn, Priority.ALWAYS);
 		
-		arrowButtons.spacingProperty().bindBidirectional(this.spacing);
+		arrowButtons.spacingProperty().bindBidirectional(this.spacingProperty);
 	}
 	
 }

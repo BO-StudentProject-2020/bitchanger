@@ -156,7 +156,7 @@ public class FXUtils {
 	 * @param nodes		Collection of all controls that can be adjusted, and also are able to lie inside a layout container
 	 * @param maxSize	Maximum size of the controls
 	 */
-	public static void setMaxSizes(Iterable<Node> nodes, double maxSize) {
+	public static void setMaxSizes(Iterable<? extends Node> nodes, double maxSize) {
 		setMaxSizes(nodes, maxSize, maxSize);
 	}
 	
@@ -177,7 +177,7 @@ public class FXUtils {
 	 * @param maxWidth	maximum width of all controls
 	 * @param maxHeight	maximum height of all controls
 	 */
-	public static void setMaxSizes(Iterable<Node> nodes, double maxWidth, double maxHeight) {
+	public static void setMaxSizes(Iterable<? extends Node> nodes, double maxWidth, double maxHeight) {
 		for (Node n : nodes) {
 			// maximale Größe anpassen
 			if (n instanceof Control) {
