@@ -11,14 +11,17 @@
 package bitchanger.gui.views;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.Controller;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 /**	<!-- $LANGUAGE=DE -->
  * 
@@ -34,13 +37,13 @@ import javafx.scene.control.TextField;
  * 
  * @param <T> Typ des Wurzelknotens im Scenegraphen
  * 
- * @author Tim
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
  *
  */
-public abstract class ViewBase<T extends Parent> implements Viewable, Controllable {
+public abstract class ViewBase<T extends Parent> implements Viewable {
 	
 // Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE --> Szene, die von der View repräsentiert wird */
@@ -52,41 +55,62 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	/** <!-- $LANGUAGE=DE -->
 	 * {@code Map}, in die alle vom Controller benötigten Textfelder der View 
 	 * mit einem eindeutigen Schlüssel abgelegt werden */
-	private HashMap<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
+	private Map<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
 	
 	/** <!-- $LANGUAGE=DE --> 
 	 * {@code Map}, in die alle vom Controller benötigten Buttons der View mit 
 	 * einem eindeutigen Schlüssel abgelegt werden */
-	private HashMap<String, Button> btnMap;
+	private Map<String, Button> btnMap;
 	
 	/** <!-- $LANGUAGE=DE --> 
 	 * {@code Map}, in die alle vom Controller benötigten Elemente der View mit einem 
 	 * eindeutigen Schlüssel abgelegt werden, die keine Buttons oder Textfelder sind */
-	private HashMap<String, Node> nodeMap;
+	private Map<String, Node> nodeMap;
+	
+	/** <!-- $LANGUAGE=DE --> MenuBar des Scenegraphen */
+	private MenuBar menubar;
 	
 	/** <!-- $LANGUAGE=DE --> 
 	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
-	 * <b> Es ist nur einmalig erlaubt einen Controller zuzuweisen! </b> */
-	protected final Controller controller;
-	
+	 */
+	protected Controller controller;
 	
 	
 // Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
 	 * <p>
-	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()}, {@link #createScenegraph(Parent)} 
-	 * und {@link #createController()} aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss mit Hilfe eines Controllers
-	 * die Funktion der Bedienelemente hinzuzufügen.
+	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und {@link #createScenegraph()} 
+	 * aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss wird mit Hilfe eines Controllers die Funktion der Bedienelemente 
+	 * hinzugefügt, wenn ein passender Controller registriert wurde.
 	 * </p>
 	 * 
 	 * @param root	Wurzelknoten des Scenegraphen
 	 * 
 	 * @see #init()
-	 * @see #createScenegraph(Parent)
-	 * @see #createController()
+	 * @see #createScenegraph()
+	 * @see #buildScenegraph()
 	 */
 	public ViewBase(T root) {
+		this(root, true);
+	}
+	
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
+	 * <p>
+	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und ggf. {@link #buildScenegraph()} 
+	 * aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss wird mit Hilfe eines Controllers die Funktion der Bedienelemente 
+	 * hinzugefügt, wenn ein passender Controller registriert wurde.
+	 * </p>
+	 * 
+	 * @param root				Wurzelknoten des Scenegraphen
+	 * @param buildScenegraph	{@code true}, wenn der Scenegraph mit der Methode {@link #buildScenegraph()} erstellt und ein Controller
+	 * 							erzeugt werden soll, sonst {@code false}
+	 * 
+	 * @see #buildScenegraph()
+	 */
+	public ViewBase(T root, boolean buildScenegraph) {
 		this.root = root;
 		this.tfMap = new HashMap<String, TextField>();
 		this.btnMap = new HashMap<String, Button>();
@@ -94,12 +118,9 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 		this.scene = new Scene(this.root);
 		
 		init();
-		createScenegraph(this.root);
 		
-		this.controller = createController();
-		
-		if(controller != null) {
-			controller.setActions();
+		if(buildScenegraph) {
+			buildScenegraph();
 		}
 	}
 
@@ -123,28 +144,34 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 	
 	
 	/** <!-- $LANGUAGE=DE -->
+	 * Konstruiert den Scenegraphen mit der Methode {@link #createScenegraph()} und gibt den Bedienelementen mit einem
+	 * Controller eine Funktion, falls ein passender Controller mit {@link Controller#register(Class, Class)} registriert
+	 * wurde.
+	 * 
+	 * @see #createScenegraph()
+	 */
+	protected void buildScenegraph() {
+		createScenegraph();
+		
+		this.controller = Controller.of(this);
+		
+		if(controller != null) {
+			controller.setActions();
+		}
+	}
+	
+	
+	/** <!-- $LANGUAGE=DE -->
 	 * Methode, die den Scenegraphen konstruiert. <b> Diese Methode wird aufgerufen, nachdem die init-Methode beendet wurde. </b>
 	 * <p>
 	 * In dieser Methode müssen alle Bedien- und Oberflächenelemente zum Scenegraphen hinzugefügt werden. Alle Elemente, die 
 	 * auch im Controller benötigt werden, müssen zu der entsprechenden Map hinzugefügt werden: 
 	 * {@link #btnMap}, {@link #tfMap}, {@link #nodeMap}
 	 * </p>
-	 * 
-	 * @param root Wurzelknoten des Scenegraphen
 	 */
-	protected abstract void createScenegraph(T root);
+	protected abstract void createScenegraph();
 	
 	
-	/** <!-- $LANGUAGE=DE -->
-	 * Factory-Methode, die einen neuen Controller für diese View erzeugt und zurückgibt.
-	 * <p><b>
-	 * Diese Methode wird vom Konstruktor aufgerufen, nachdem der Scenegraph konstruiert wurde.
-	 * </b></p>
-	 * 
-	 * @return Neuer Controller, der mit dieser View verbunden ist oder {@code null}, wenn diese View keinen Controller benötigt.
-	 */
-	protected abstract Controller createController();
-
 
 // Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** {@inheritDoc} */
@@ -155,20 +182,51 @@ public abstract class ViewBase<T extends Parent> implements Viewable, Controllab
 
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, TextField> getTextFieldMap() {
+	public Map<String, TextField> getTextFieldMap() {
 		return tfMap;
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, Button> getButtonMap() {
+	public Map<String, Button> getButtonMap() {
 		return btnMap;
 	}
 	
 	/** {@inheritDoc} */
 	@Override
-	public HashMap<String, Node> getNodeMap() {
+	public Map<String, Node> getNodeMap() {
 		return nodeMap;
+	}
+	
+	/**  <!-- $LANGUAGE=DE -->
+	 * {@inheritDoc}
+	 * 
+	 * <p><b>
+	 * Wenn der Wurzelknoten dieser View eine Instanz von BorderPane ist, wird
+	 * die übergebene MenuBar in Top gelegt, ansonsten wird nur die alte MenuBar
+	 * entfernt.
+	 * </b></p>
+	 */
+	/*  <!-- $LANGUAGE=EN -->
+	 * {@inheritDoc}
+	 * 
+	 * <p><b>
+	 * If root is an instance of BorderPane the MenuBar is placed in Top, 
+	 * otherwise only the old MenuBar is removed.
+	 * </b></p>
+	 */
+	@Override
+	public <V extends MenuBar> void setMenuBar(V menubar) {
+		if(! (root instanceof Pane)) {
+			return;
+		}
+		
+		((Pane)root).getChildren().remove(this.menubar);
+		this.menubar = menubar;
+		
+		if(root instanceof BorderPane && menubar != null) {
+			((BorderPane) root).setTop(menubar);
+		}
 	}
 	
 }

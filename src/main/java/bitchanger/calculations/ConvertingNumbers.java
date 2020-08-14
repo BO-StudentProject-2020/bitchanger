@@ -52,7 +52,8 @@ import bitchanger.preferences.Comma;
  * 
  * @see Preferences
  * 
- * @author Tim Mühle, Moritz Wolter
+ * @author Tim Muehle
+ * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -120,11 +121,8 @@ public class ConvertingNumbers {
 			throw new IllegalArgumentException("Out of Bounds for base = " + base + " (base must be within " + MIN_BASE + " and " + MAX_BASE + ")");
 		}
 		
-		if (Preferences.indicateFractionalPrecision() && value.endsWith(FRACTIONAL_PRECISION_INDICATOR)) {
-			value = value.replace(FRACTIONAL_PRECISION_INDICATOR, "");	// Indikator für abgeschnittene Nachkommastellen ignorieren
-		}
-
-		char[] characters = value.toUpperCase().toCharArray();	// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
+		// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet, Leerzeichen werden ignoriert
+		char[] characters = trimToNumberString(value).toCharArray();
 
 		char end = (char) ('0' + base - 1);	// maximale Zahlen-Ziffer im Zahlensystem zur Basis
 		boolean hasComma = false;			// Hilfsvariable zum Pruefen auf mehr als ein Komma
@@ -137,7 +135,7 @@ public class ConvertingNumbers {
 				// keine oder falsche Zahlen-Ziffer zur geg. Basis -> Pruefen auf Buchstaben
 				if (character < 'A' || character > ('A' + base - 11)) {
 					// kein oder falscher Buchstabe zur geg. Basis -> Pruefen auf Komma
-					if (character == Preferences.getComma()) {
+					if (character == Preferences.getPrefs().getComma()) {
 						// Es handelt sich um ein Komma
 						if (hasComma) {
 							// mehr als ein Komma in einer Zahl nicht erlaubt
@@ -198,9 +196,9 @@ public class ConvertingNumbers {
 		checkValue(base, value);
 		
 		// Uebergebene Zahl in ganzen Anteil und Nachkommastellen trennen
-		value = value.toUpperCase();	// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
+		value = trimToNumberString(value);	// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
 		
-		String[] separated = separateByComma(base, value);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
+		String[] separated = separateByComma(value);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
 		
 		// Strings, die Ganzen- und Nachkommateil zu der uebergebenen Basis repraesentieren, in double Zahlen zur Basis 10 umwandeln
 		double integerPart = baseToDecIntPart(base, separated[0]);
@@ -241,7 +239,7 @@ public class ConvertingNumbers {
 	 * @throws IllegalArgumentException		if {@code value} is an empty string or {@code basis} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
 	 */
 	public static String baseToDecString(int base, String value) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		return baseToDecString(base, value, Preferences.getComma());
+		return baseToDecString(base, value, Preferences.getPrefs().getComma());
 	}
 	
 	
@@ -277,8 +275,8 @@ public class ConvertingNumbers {
 		checkValue(base, value);
 		
 		// Uebergebene Zahl in ganzen Anteil und Nachkommastellen trennen
-		value = value.toUpperCase();	// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
-		String[] separated = separateByComma(base, value);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
+		value = trimToNumberString(value);	// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
+		String[] separated = separateByComma(value);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
 		
 		// Strings die ganzen und Nachkommateil zu der uebergebenen Basis 
 		// repraesentieren in double Zahlen zur Basis 10 umwandeln
@@ -334,12 +332,12 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
 	public static String decToBase(int newBase, String decValue) throws NullPointerException, NumberFormatException {
-		return decToBase(newBase, decValue, Preferences.getComma());
+		return decToBase(newBase, decValue, Preferences.getPrefs().getComma());
 	}
 	
 	
@@ -378,12 +376,12 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
 	public static String decToBase(int newBase, String decValue, char comma) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		return decToBase(newBase, decValue, comma, 15);
+		return decToBase(newBase, decValue, comma, 16);
 	}
 	
 	
@@ -424,7 +422,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * 
 	 * @see Preferences
 	 */
@@ -438,9 +436,10 @@ public class ConvertingNumbers {
 		
 		// TODO Negative Werte implementieren 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		
+		decValue = trimToNumberString(decValue);
 		
 		// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
-		String[] separated = separateByComma(10, decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
+		String[] separated = separateByComma(decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
 		
 		long integerPart = Long.parseLong(separated[0]);
 		double fractionalPart = Double.parseDouble("0." + separated[1]);
@@ -460,6 +459,106 @@ public class ConvertingNumbers {
 		
 		// umgewandelte Zahl in der neuen Basis als String zurückgeben
 		return newBaseValue.toString();
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Wandelt die übergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um
+	 * und unterteilt die Zahl in Blöcke der gewünschten Länge.
+	 * <p>
+	 * Wenn in der Klasse {@code Preferences} der Indikator für Nachkommastellen aktiviert ist, werden die wegen der 
+	 * maximalen Anzahl von Nachkommastellen abgeschnittenen Nachkommastellen durch "..." angedeutet.
+	 * </p>
+	 * 
+	 * @param newBase				Basis des neuen Zahlensystems, in das die Zahl {@code decValue} umgewandelt werden soll
+	 * @param decValue				Wert der Zahl im Zehnersystem in der String-Darstellung
+	 * @param comma					das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
+	 * @param blockSize				Länge der Blöcke, in die der String unterteilt wird
+	 * 
+	 * @return	umgewandelte Zahl zur übergebenen Basis in der String-Darstellung
+	 * 
+	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
+	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
+	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * 
+	 * @see Preferences
+	 * @see #decToBase(int, String, char)
+	 * @see #splitInBlocks(String, int)
+	 * 
+	 * @since Bitchanger 0.1.4
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Converts the submitted number {@code decValue} of base 10 into a number of any base {@code newBase} as string representation
+	 * and splits the number into blockt with given length.
+	 * <p>
+	 * If the indicator of decimal places is activated in the class {@code Preferences}
+	 * the cut decimal places caused due the maximum number of decimal places will be shown as "..."
+	 * </p>
+	 * 
+	 * @param newBase				Base of the new numeral system, which will the number {@code decValue} be converted in
+	 * @param decValue				Value of the number in decimal system as string representation
+	 * @param comma					the char which is used as comma for floating point numbers
+	 * @param blockSize				length of the blocks into which the string is splitted
+	 * 
+	 * @return Converted number of the submitted base as string representation with default set comma
+	 * 
+	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
+	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
+	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * 
+	 * @see Preferences
+	 * @see #decToBase(int, String, char)
+	 * @see #splitInBlocks(String, int)
+	 * 
+	 * @since Bitchanger 0.1.4
+	 */
+	public static String decToBaseBlocks(int newBase, String decValue, char comma, int blockSize) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		String value = decToBase(newBase, decValue, comma);
+		
+		if(value.contains(FRACTIONAL_PRECISION_INDICATOR)) {
+			return splitInBlocks(value.replace(FRACTIONAL_PRECISION_INDICATOR, ""), blockSize) + FRACTIONAL_PRECISION_INDICATOR;
+		}
+		
+		return splitInBlocks(value, blockSize);
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Unterteilt den übergebenen String in Blöcke mit der gegebenen Länge, beispielsweise
+	 * zur Tausendertrennung
+	 * 
+	 * @param value		String, der aufgeteilt wird
+	 * @param blockSize	Länge der Blöcke
+	 * 
+	 * @return	Aufgeteilter String mit Blöcken
+	 * 
+	 * @since Bitchanger 0.1.4
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Splits the String value into blocks of the given length. This is used e.g. to separate thousands.
+	 * 
+	 * @param value		String that is splitted
+	 * @param blockSize	block's length
+	 * 
+	 * @return	splitted String with blocks
+	 * 
+	 * @since Bitchanger 0.1.4
+	 */
+	public static String splitInBlocks(String value, int blockSize) {
+		String[] separated = separateByComma(value);
+		
+		StringBuffer integerPart = new StringBuffer(separated[0]);
+		StringBuffer fractionalPart = new StringBuffer();
+		
+		insertSpace(integerPart.reverse(), blockSize);
+		
+		if( ! separated[1].equals("0")) {
+			fractionalPart.append(separated[1]);
+			insertSpace(fractionalPart, blockSize);
+			fractionalPart.insert(0, Preferences.getPrefs().getComma());
+		}
+
+
+		return integerPart.reverse().toString() + fractionalPart.toString();
 	}
 	
 	
@@ -672,7 +771,7 @@ public class ConvertingNumbers {
 		
 		while(!(fractionalPart % 1 == 0)){
 			if (zaehl >= fractionalPrecision) {
-				if (Preferences.indicateFractionalPrecision()) {
+				if (Preferences.getPrefs().indicateFractionalPrecision()) {
 					fractionalResult.append(FRACTIONAL_PRECISION_INDICATOR);
 				}
 				break;
@@ -759,7 +858,6 @@ public class ConvertingNumbers {
 	 * der eine Zahl zu der Basis {@code base} repräsentiert, und gibt diese beiden separierten Strings ohne führende 0
 	 * im Nachkommateil zurück.
 	 * 
-	 * @param base	Basis des Zahlensystems von {@code value}
 	 * @param value	Zahl, die zerlegt werden soll
 	 * 
 	 * @return	ganzen Anteil im Index 0 und Nachkommateil im Index 1, jeweils als ganze Zahl in der String-Darstellung
@@ -772,14 +870,13 @@ public class ConvertingNumbers {
 	 * which represents a number of the base {@code base} and returns these separated strings without
 	 * leading 0 in the decimal part.
 	 * 
-	 * @param base	Base of the numeral system of {@code value}
 	 * @param value	Number to be disassembled
 	 * 
 	 * @return	Integer in index 0 and decimal place in index 1, both as integer as string representation
 	 * 
 	 * @throws NumberFormatException	If {@code value} is not a number represented as string, caused due to many commas
 	 */
-	private static String[] separateByComma(int base, String value) throws NumberFormatException {
+	private static String[] separateByComma(String value) throws NumberFormatException {
 		String integerPart = "";
 		String fractionalPart = "";
 		
@@ -799,7 +896,7 @@ public class ConvertingNumbers {
 			sc.reset();
 			if(sc.hasNext()) {
 				sc.close();
-				throw new NumberFormatException("For input string: \"" + value + "\" - Value cannot be converted to base " + base + " number");
+				throw new NumberFormatException("For input string: \"" + value + "\" - Cannot be converted to a number");
 			}
 			
 			// Scanner schließen
@@ -845,6 +942,53 @@ public class ConvertingNumbers {
 		return comma;
 	}	
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schneidet den übergebenen String so zu, dass dieser nicht mehr den Indikator für abgeschnittene Nachkommastellen
+	 * und keine Leerzeichen enthält und wandelt alle Buchstaben in Großbuchstaben um.
+	 * 
+	 * @param value String, der formatiert werden soll
+	 * @return	zugeschnittener String
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Deletes the FRACTIONAL_PRECISION_INDICATOR and spaces and converts all letters to uppercase.
+	 * Returns the formatted String.
+	 * 
+	 * @param value String to be formatted
+	 * @return	formatted String
+	 */
+	private static String trimToNumberString(String value) {
+		/* Es wird nur mit Großbuchstaben in Zahlensystemen mit Basis größer 10 gearbeitet, Leerzeichen und 
+		 * der Indikator für abgeschnittene Nachkommastellen werden ignoriert */
+		return value.replace(FRACTIONAL_PRECISION_INDICATOR, "").replace(" ", "").toUpperCase();
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Unterteilt den übergebenen StringBuffer in Blöcke mit bestimmter Länge
+	 * 
+	 * @param sb		StringBuffer, der unterteilt wird
+	 * @param blockSize Länge der Blöcke
+	 * 
+	 * @return den veränderten StringBuffer, der auch übergeben wurde
+	 * 
+	 * @since Bitchanger 0.1.4
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Splits the StringBuffer sb into blocks with given length
+	 * 
+	 * @param sb		StringBuffer that gets split
+	 * @param blockSize block's length
+	 * 
+	 * @return modified StringBuffer, that is same as the argument
+	 * 
+	 * @since Bitchanger 0.1.4
+	 */
+	private static StringBuffer insertSpace(StringBuffer sb, int blockSize) {
+		for(int i = blockSize; i < sb.length(); i += blockSize + 1) {
+			sb.insert(i, " ");
+		}
+		
+		return sb;
+	}
 	
 	
 	

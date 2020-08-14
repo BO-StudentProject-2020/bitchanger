@@ -10,7 +10,7 @@
 
 package bitchanger.gui.controller;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import bitchanger.gui.views.Viewable;
 import javafx.scene.Node;
@@ -21,17 +21,22 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**	<!-- $LANGUAGE=DE -->
- * Basis für einen Controller, der einer View eine Funktion gibt. Die wichtigsten Attribute, die benötigt werden um Zugriff
- * auf die Bedienelemente der View zu erhalten, werden im Konstruktor initialisiert und sind in allen Subklassen sichtbar.
+ * Basis für einen Controller, der einer Instanz von Controllable (z.B. eine View) eine Funktion gibt. Die wichtigsten Attribute, 
+ * die benötigt werden um Zugriff auf die Bedienelemente des Controllables zu erhalten, werden im Konstruktor initialisiert und sind in 
+ * allen Subklassen sichtbar.
  * <p>
  * Subklassen müssen die Methoden {@link #initControls()} und {@link #setActions()} implementieren, um die Bedienelemente
  * mit einer Funktion zu belegen.
  * </p>
  * <p>
- * Jedem Controller kann nur eine einzige View zugewiesen werden. Umgekehrt ist es möglich eine View mit mehreren Controllern zu verbinden.
+ * Jedem Controller kann nur ein einziges Controllable zugewiesen werden. Umgekehrt ist es möglich ein Controllable mit mehreren
+ * Controllern für verschiedene Funktionen zu verbinden.
  * </p>
  * 
- * @author Tim
+ * @param <T>	Typ des Controllable (wird benötigt, um auf weitere Methoden zugreifen zu können, die nicht in 
+ * 				{@link Controllable} definiert sind)
+ * 
+ * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -40,36 +45,36 @@ import javafx.scene.input.KeyEvent;
 public abstract class ControllerBase<T extends Controllable> implements Controller {
 
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Textfelder der gekapselten View enthält */
-	protected HashMap<String, TextField> textFieldMap;
+	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Textfelder des gekapselten Controllables enthält */
+	protected Map<String, TextField> textFieldMap;
 	
-	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Buttons der gekapselten View enthält */
-	protected HashMap<String, Button> buttonMap;
+	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Buttons des gekapselten Controllables enthält */
+	protected Map<String, Button> buttonMap;
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * {@code Map}, die alle Nodes der gekapselten View enthält, die eine Funktion erhalten 
+	 * {@code Map}, die alle Nodes des gekapselten Controllables enthält, die eine Funktion erhalten 
 	 * und weder eine Instanz von Button noch von Textfeld sind */
-	protected HashMap<String, Node> nodeMap;
+	protected Map<String, Node> nodeMap;
 	
-	/** <!-- $LANGUAGE=DE -->	gekapselten View, der durch diesen Controller eine Funktion gegeben wird */
-	protected final T view;
+	/** <!-- $LANGUAGE=DE -->	gekapseltes Controllable, dem durch diesen Controller eine Funktion gegeben wird */
+	protected final T controllable;
 	
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
-	 * Kapselt die übergebene View und initialisiert die Maps mit den Bedienelementen mit Referenzen
-	 * auf die zugehörigen Maps der View.
+	 * Kapselt das übergebene Controllable und initialisiert die Maps mit den Bedienelementen mit Referenzen
+	 * auf die zugehörigen Maps des Controllables.
 	 * <p><b>
 	 * Nach der Initialisierung der allgemeinen Attribute wird die Methode {@link #initControls()} aufgerufen.
 	 * </b></p>
 	 * 
-	 * @param view	View, die mit diesem Controller eine Funktion erhält
+	 * @param controllable	Controllable, das mit diesem Controller eine Funktion erhält
 	 */
-	protected ControllerBase(T view) {
-		this.textFieldMap = view.getTextFieldMap();
-		this.buttonMap = view.getButtonMap();
-		this.nodeMap = view.getNodeMap();
-		this.view = view;
+	protected ControllerBase(T controllable) {
+		this.textFieldMap = controllable.getTextFieldMap();
+		this.buttonMap = controllable.getButtonMap();
+		this.nodeMap = controllable.getNodeMap();
+		this.controllable = controllable;
 		
 		initControls();
 	}
@@ -87,16 +92,16 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	 * {@link KeyEvent#KEY_PRESSED}, {@link KeyEvent#KEY_TYPED} und {@link KeyEvent#KEY_RELEASED} an den gewählten Empfänger 
 	 * {@code target}. Wenn {@code target} den Wert {@code null} hat, werden die Events an die übergebene Scene {@code scene} 
 	 * weitergeleitet. Sind sowohl {@code target} als auch {@code scene} {@code null}, werden die Events an die Scene von 
-	 * {@linkplain #view} weitergeleitet, sofern {@linkplain #view} die Schnittstelle {@link Viewable} implementiert.
+	 * {@linkplain #controllable} weitergeleitet, sofern {@linkplain #controllable} die Schnittstelle {@link Viewable} implementiert.
 	 * <p><b>
-	 * Wenn die Parameter {@code target} und {@code scene} beide den Wert {@code null} haben und {@linkplain #view} nicht die Schnittstelle
+	 * Wenn die Parameter {@code target} und {@code scene} beide den Wert {@code null} haben und {@linkplain #controllable} nicht die Schnittstelle
 	 * {@link Viewable} implementiert, werden keine Events gefeuert und die Methode hat keine weiteren Auswirkungen.
 	 * Insbesondere wird auch keine Exception geworfen!
 	 * </b></p>
 	 * 
 	 * @param source		Quelle des Events, darf {@code null} sein
-	 * @param target		Ziel des Events, darf {@code null} sein, wenn das Attribut {@linkplain #view} eine Instanz von {@link Viewable} ist
-	 * @param scene			Scene, die die KeyEvents konsumiert, wenn {@code target} den Wert {@code null} hat. Darf {@code null sein
+	 * @param target		Ziel des Events, darf {@code null} sein, wenn das Attribut {@linkplain #controllable} eine Instanz von {@link Viewable} ist
+	 * @param scene			Scene, die die KeyEvents konsumiert, wenn {@code target} den Wert {@code null} hat. Darf {@code null} sein
 	 * @param character		Zeichen oder Zeichenkette, die mit dem Event verbunden wird
 	 * @param text			String, der den KeyCode beschreibt
 	 * @param keycode		KeyCode, der die Taste repräsentiert
@@ -119,8 +124,8 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 		KeyEvent typed = new KeyEvent(source, target, KeyEvent.KEY_TYPED, character, text, keycode, shiftDown, controlDown, altDown, metaDown);
 		KeyEvent released = new KeyEvent(source, target, KeyEvent.KEY_RELEASED, character, text, keycode, shiftDown, controlDown, altDown, metaDown);
 		
-		if(scene == null && view instanceof Viewable) {
-			scene = ((Viewable) view).getScene();
+		if(scene == null && controllable instanceof Viewable) {
+			scene = ((Viewable) controllable).getScene();
 		}
 		
 		if (target != null){
@@ -139,6 +144,13 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	/**  <!-- $LANGUAGE=DE -->
 	 * Verhält sich wie {@link #simulateKeyEvents(Button, Node, Scene, String, String, KeyCode, boolean, boolean, boolean, boolean)},
 	 * bis auf dass die Parameter shiftDown, controlDown, altDown und metaDown alle den Wert {@code false} haben.
+	 *  
+	 * @param source		Quelle des Events, darf {@code null} sein
+	 * @param target		Ziel des Events, darf {@code null} sein, wenn das Attribut {@linkplain #controllable} eine Instanz von {@link Viewable} ist
+	 * @param scene			Scene, die die KeyEvents konsumiert, wenn {@code target} den Wert {@code null} hat. Darf {@code null} sein
+	 * @param character		Zeichen oder Zeichenkette, die mit dem Event verbunden wird
+	 * @param text			String, der den KeyCode beschreibt
+	 * @param keycode		KeyCode, der die Taste repräsentiert
 	 * 
 	 * @see #simulateKeyEvents(Button, Node, Scene, String, String, KeyCode, boolean, boolean, boolean, boolean)
 	 */

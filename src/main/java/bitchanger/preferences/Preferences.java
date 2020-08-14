@@ -2,52 +2,207 @@ package bitchanger.preferences;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
+/** <!-- $LANGUAGE=DE -->
+ * Preferences ist die globale Sammlung für alle möglichen Einstellungen, die am Bitchanger vorgenommen 
+ * werden können. Die Einstellungen können über die Methode {@link #getPrefs()} aus allen anderen Klassen
+ * abgefragt und geändert werden.
+ * 
+ * <p>
+ * Zudem gibt es Methoden, mit denen alle Einstellungen dauerhaft abgespeichert und wieder geladen werden können.
+ * </p>
+ * 
+ * @author Tim Mühle
+ *
+ */
+
+/* <!-- $LANGUAGE=EN -->
+ * Preferences is the global collection for all possible settings that can be selected for the bitchanger.
+ * These settings can be requested and changed from all classes by using the method {@link #getPrefs()}.
+ * 
+ * <p>
+ * Furthermore there are methods to store all settings permanently and load these at a later moment.
+ * </p>
+ * 
+ * @author Tim Mühle
+ *
+ */
 public class Preferences {
 	
+	/** <!-- $LANGUAGE=DE -->	Konstante, die alle aktuellen Einstellungen enthält */
+	/* <!-- $LANGUAGE=EN -->	Constant that contains all the current settings */
+	private static Preferences prefs = new Preferences();
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die aktuellen Einstellungen zurück
+	 * 
+	 * @return	aktuelle Einstellungen
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the current settings
+	 * 
+	 * @return	current settings
+	 */
+	public static Preferences getPrefs() {
+		return prefs;
+	}
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Instances		   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	
 	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	private static ObjectProperty<Comma> commaProperty = new SimpleObjectProperty<Comma>(Comma.COMMA_DE);
-	private static BooleanProperty indicateFractionalPrecision = new SimpleBooleanProperty(true);
+	/** <!-- $LANGUAGE=DE -->	Property für das Kommazeichen */
+	/* <!-- $LANGUAGE=EN -->	Property for comma character */
+	public final ObjectProperty<Comma> commaProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige von abgebrochenen Nachkommastellen */
+	/* <!-- $LANGUAGE=EN -->	Property for displaying aborted decimal places */
+	public final BooleanProperty indicateFractionalPrecisionProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für das gewählte Stylesheet */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected Stylesheet */
+	private final StringProperty stylesheetProperty;
+	
+	public final ReadOnlyStringProperty readOnlyStylesheetProperty;
+	
+	
+	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE --> Diese Klasse ist in keiner anderen Klasse instanziierbar **/
+	/* <!-- $LANGUAGE=EN --> Do not let anyone instantiate this class in any other class **/
+	private Preferences() {
+		this.commaProperty = new SimpleObjectProperty<Comma>(Comma.COMMA_DE);
+		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty(true);
+		this.stylesheetProperty = new SimpleStringProperty();
+		this.readOnlyStylesheetProperty = stylesheetProperty;
+		
+		setStylesheet(Style.LIGTH);
+	}
 	
 	
 	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	public static char getComma() {
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das eingestellte Kommazeichen zurück
+	 * 
+	 * @return eingestelltes Kommazeichen
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the selected character for comma
+	 * 
+	 * @return selected character for comma
+	 */
+	public char getComma() {
 		return commaProperty.getValue().get();
 	}
 	
-	public static ObjectProperty<Comma> getCommaProperty() {
-		return commaProperty;
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt den Wert der indicateFractionalPrecisionProperty zurück
+	 * 
+	 * @return	{@code true}, wenn die Anzeige von abgebrochenen Nachkommastellen angeschaltet ist, sonst {@code false}
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the value of indicateFractionalPrecisionProperty
+	 * 
+	 * @return	{@code true}, if the view of cancelled fractional parts is selected, if not {@code false}
+	 */
+	public boolean indicateFractionalPrecision() {
+		return indicateFractionalPrecisionProperty.getValue();
 	}
 	
-	public static void setComma(Comma comma) {
-		commaProperty.setValue(comma);
+	/** <!-- $LANGUAGE=DE -->
+	 * Schaltet die Anzeige von abgebrochenen Nachkommastellen ein und aus
+	 * 
+	 * @param b	{@code true} zum Einschalten oder {@code false} zum Ausschalten
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Turns the view of cancelled fractional parts on and off
+	 * 
+	 * @param b	{@code true} to turn on or {@code false} to turn off
+	 */
+	public void setIndicateFractionalPrecision(boolean b) {
+		indicateFractionalPrecisionProperty.setValue(b);
 	}
 	
-	public static boolean indicateFractionalPrecision() {
-		return indicateFractionalPrecision.getValue();
+	
+	public boolean setStylesheet(String path) {
+		try {
+			String url = getClass().getResource(path).toExternalForm();
+			this.stylesheetProperty.set(url);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return true;
 	}
 	
-	public static void setIndicateFractionalPrecision(boolean b) {
-		indicateFractionalPrecision.setValue(b);
+	public void setStylesheet(Style style) {
+		switch(style) {
+		case LIGTH:
+			this.stylesheetProperty.set(getClass().getResource("/style/bitchangerLight.css").toExternalForm());
+			break;
+		case DARK:
+			this.stylesheetProperty.set(getClass().getResource("/style/bitchangerDark.css").toExternalForm());
+			break;
+		default:
+			return;
+		}
 	}
 	
-	public static BooleanProperty indicateFractionalPrecisionProperty() {
-		return indicateFractionalPrecision;
-	}
 	
-	// Methoden		##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	public static void load() {
+	// Speichern und Laden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	/** <!-- $LANGUAGE=DE -->
+	 * Lädt alle Einstellungen aus der Einstellungsdatei
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Loads all settings from the settings data
+	 */
+	public void load() {
 		// TODO load Settings from File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	}
 	
-	public static void store() {
-		// TODO store changed Settings in File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	/** <!-- $LANGUAGE=DE -->
+	 * Lädt die Standardeinstellungen aus der Einstellungsdatei
+	 */
+	
+	/* <!-- $LANGUAGE=EN -->
+	 * Loads the default settings from the settings data
+	 */
+	public void loadDefault() {
+		// TODO load Settings from File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Speichert alle Einstellungen in der Einstellungsdatei
+	 */
 	
-	// Innere Klassen	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	
+	/* <!-- $LANGUAGE=EN -->
+	 * Stores all settings into the settings data
+	 */
+	public void store() {
+		// TODO store changed Settings in File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	}
+
 	
 }
+
+
+
+
+
+
+

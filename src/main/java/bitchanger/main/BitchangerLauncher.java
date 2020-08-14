@@ -25,14 +25,14 @@ import bitchanger.preferences.Preferences;
 /* <!-- $LANGUAGE=EN -->
  * This class contains the main method that is the entry point for the application.
  * 
- * @author Tim Mühle
+ * @author Tim Muehle
  * 
  * @since 0.1.0
  * @version 0.1.0
  * 
  */
 public class BitchangerLauncher {
-
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Die Main Methode liest zuerst alle gespeicherten Einstellungen für die Klasse {@code Preferences} ein.
 	 * Danach wird das PrimaryFXApp der Anwendung gestartet und gewartet, bis dieses geschlossen wurde.
