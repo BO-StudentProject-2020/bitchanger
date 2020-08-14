@@ -433,32 +433,84 @@ public class ConvertingNumbers {
 		if(newBase < MIN_BASE || newBase > MAX_BASE) {
 			throw new IllegalArgumentException("Out of Bounds for base = " + newBase + " (base must be within " + MIN_BASE + " and " + MAX_BASE + ")");
 		}
-		
+	
 		// TODO Negative Werte implementieren 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		
-		decValue = trimToNumberString(decValue);
+		//Implementierung von negativen Zahlen
 		
-		// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
-		String[] separated = separateByComma(decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
+		//System.out.println(decValue);
 		
-		long integerPart = Long.parseLong(separated[0]);
-		double fractionalPart = Double.parseDouble("0." + separated[1]);
+		StringBuffer sb = new StringBuffer (decValue);
 		
-		StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
-		
-		// Ganzen Anteil umrechnen
-		newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
-		
-		
-		// Wenn vorhanden Nachkommateil umwandeln
-		if(fractionalPart != 0){
-			String newBaseFractionalPart = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma);
+		if (sb.charAt(0)=='-') {
 			
-			newBaseValue.append(newBaseFractionalPart);
-		}
+			sb.deleteCharAt(0);
 		
-		// umgewandelte Zahl in der neuen Basis als String zurückgeben
-		return newBaseValue.toString();
+			decValue = sb.toString();
+		
+			//System.out.println(sb.toString());
+			
+			decValue = trimToNumberString(decValue);
+			
+			// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
+			String[] separated = separateByComma(decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
+			
+			long integerPart = Long.parseLong(separated[0]);
+			double fractionalPart = Double.parseDouble("0." + separated[1]);
+			
+			StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
+			
+			// Ganzen Anteil umrechnen
+			newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
+			
+			//System.out.println(newBaseValue);
+			
+			
+			// Wenn vorhanden Nachkommateil umwandeln
+			if(fractionalPart != 0){
+				String newBaseFractionalPart = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma);
+				
+				newBaseValue.append(newBaseFractionalPart);
+				
+			}
+		
+			System.out.println(newBaseValue.toString());
+			
+			newBaseValue.insert(0, '-');
+			
+			System.out.println(newBaseValue.toString());
+			
+			// umgewandelte Zahl in der neuen Basis als String zurückgeben
+			return newBaseValue.toString();
+		
+		}else {
+		
+			decValue = trimToNumberString(decValue);
+			
+			// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
+			String[] separated = separateByComma(decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
+			
+			long integerPart = Long.parseLong(separated[0]);
+			double fractionalPart = Double.parseDouble("0." + separated[1]);
+			
+			StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
+			
+			// Ganzen Anteil umrechnen
+			newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
+			
+			//System.out.println(newBaseValue);
+			
+			
+			// Wenn vorhanden Nachkommateil umwandeln
+			if(fractionalPart != 0){
+				String newBaseFractionalPart = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma);
+				
+				newBaseValue.append(newBaseFractionalPart);
+			}
+			
+			// umgewandelte Zahl in der neuen Basis als String zurückgeben
+			return newBaseValue.toString();
+		}
 	}
 	
 	/** <!-- $LANGUAGE=DE -->
