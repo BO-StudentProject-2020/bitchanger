@@ -57,7 +57,7 @@ public class BitchangerLauncher {
 		 */
 		PrimaryFXApp.launchFXApplication(args);
 		
-		Preferences.getPrefs().store();
+		Preferences.storeCustom();
 	}
 
 }

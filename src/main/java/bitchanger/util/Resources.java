@@ -1,19 +1,27 @@
 package bitchanger.util;
 
+import java.io.File;
+
 public class Resources {
 	
 	// TODO formatieren + JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 
-	public static final String KEYBORD_ICON = getResource("/graphic/keyboard-icon.png");
+	public static final String KEYBORD_ICON = getResourceAsExternalForm("/graphic/keyboard-icon.png");
 	
-	public static final String LIGHT_CSS = getResource("/style/bitchangerLight.css");
+	public static final String LIGHT_CSS = getResourceAsExternalForm("/style/bitchangerLight.css");
 	
-	public static final String DARK_CSS = getResource("/style/bitchangerDark.css");
+	public static final String DARK_CSS = getResourceAsExternalForm("/style/bitchangerDark.css");
 	
-	public static final String DEFAULT_PREFERENCES = getResource("/preferences/DefaultPreferences.xml");
+	public static final File CUSTOM_PREFERENCES = getResourceAsFile("/preferences/CustomSettings.prefs");
+	
+	public static final File DEFAULT_PREFERENCES = getResourceAsFile("/preferences/DefaultSettings.prefs");
+	
+	static {
+		DEFAULT_PREFERENCES.setReadOnly();
+	}
 	
 	
-	public static String getResource(String name) {
+	public static String getResourceAsExternalForm(String name) {
 		String url;
 		try {
 			 url = Resources.class.getResource(name).toExternalForm();
@@ -22,6 +30,19 @@ public class Resources {
 		}
 		
 		return url;
+	}
+	
+	public static File getResourceAsFile(String name) {
+		File file;
+		
+		try {
+			String url = Resources.class.getResource(name).getFile();
+			file = new File(url);
+		} catch (Exception e) {
+			file = null;
+		}
+		
+		return file;
 	}
 	
 	private Resources() {};

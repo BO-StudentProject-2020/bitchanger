@@ -12,16 +12,15 @@ import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import bitchanger.util.Resources;
 import javafx.beans.property.BooleanProperty;
@@ -31,6 +30,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.property.StringPropertyBase;
 
 /** <!-- $LANGUAGE=DE -->
  * Preferences ist die globale Sammlung für alle möglichen Einstellungen, die am Bitchanger vorgenommen 
@@ -63,7 +63,7 @@ public class Preferences {
 	
 	/** <!-- $LANGUAGE=DE -->	Konstante, die alle aktuellen Einstellungen enthält */
 	/* <!-- $LANGUAGE=EN -->	Constant that contains all the current settings */
-	private static Preferences prefs = new Preferences();
+	private static Preferences prefs = new Preferences(Resources.CUSTOM_PREFERENCES);
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
@@ -83,6 +83,19 @@ public class Preferences {
 	 */
 	public static Preferences getPrefs() {
 		return prefs;
+	}
+	
+	
+	public static void storeCustom() {
+		prefs.store(Resources.CUSTOM_PREFERENCES);
+	}
+	
+	public static void loadCustom() {
+		prefs.load(Resources.CUSTOM_PREFERENCES);
+	}
+	
+	public static void loadDefault() {
+		prefs.load(Resources.DEFAULT_PREFERENCES);
 	}
 	
 	
@@ -115,6 +128,10 @@ public class Preferences {
 	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
 	public final ReadOnlyStringProperty readOnlyStylesheetProperty;
 	
+	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
+	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
+	public final ReadOnlyStringProperty readOnlyStyleProperty;
+	
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
@@ -145,13 +162,24 @@ public class Preferences {
 	 * @since Bitchanger 0.1.4
 	 **/
 	private Preferences() {
-		this.commaProperty = new SimpleObjectProperty<Comma>(Comma.COMMA_DE);
-		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty(true);
-		this.stylesheetProperty = new SimpleStringProperty();
-		this.readOnlyStylesheetProperty = stylesheetProperty;
-		this.styleProperty = new SimpleStringProperty();
+		this(Resources.DEFAULT_PREFERENCES);
+	}
+	
+	
+	private Preferences(File file) {
+		this.commaProperty = new SimpleObjectProperty<>();
+		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty();
 		
-		setStylesheet(Style.LIGTH);
+		this.stylesheetProperty = new SimpleStringProperty();
+		this.readOnlyStylesheetProperty = new SimpleStringProperty();
+		((StringPropertyBase) this.readOnlyStylesheetProperty).bind(stylesheetProperty);
+		
+		this.styleProperty = new SimpleStringProperty();
+		this.readOnlyStyleProperty = new SimpleStringProperty();
+		((StringPropertyBase) this.readOnlyStyleProperty).bind(styleProperty);
+		
+		
+		this.load(file);
 	}
 	
 	
@@ -242,7 +270,7 @@ public class Preferences {
 	 */
 	public boolean setStylesheet(String path) {
 		try {
-			String url = Resources.getResource(path);
+			String url = Resources.getResourceAsExternalForm(path);
 			this.stylesheetProperty.set(url);
 			this.styleProperty.set(url);
 		} catch (Exception e) {
@@ -267,7 +295,7 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
-	public void setStylesheet(Style style) {
+	public boolean setStylesheet(Style style) {
 		switch(style) {
 		case LIGTH:
 			this.stylesheetProperty.set(Resources.LIGHT_CSS);
@@ -276,10 +304,11 @@ public class Preferences {
 			this.stylesheetProperty.set(Resources.DARK_CSS);
 			break;
 		default:
-			return;
+			return false;
 		}
 		
 		this.styleProperty.set(style.name());
+		return true;
 	}
 	
 	
@@ -301,23 +330,27 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
-	public void load() {
-		// TODO load Settings from File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-	}
-	
-	
-	/** <!-- $LANGUAGE=DE -->
-	 * Lädt die Standardeinstellungen aus der Einstellungsdatei
-	 * 
-	 * @since Bitchanger 0.1.4
-	 */
-	/* <!-- $LANGUAGE=EN -->
-	 * Loads the default settings from the settings data
-	 * 
-	 * @since Bitchanger 0.1.4
-	 */
-	public void loadDefault() {
-		// TODO load Settings from File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	private void load(File file) {
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			NodeList nodes = doc.getElementsByTagName("preferences");
+			
+			Element prefs = (Element) nodes.item(0);
+			
+			String comma = prefs.getElementsByTagName("comma").item(0).getTextContent();
+			this.commaProperty.set(Comma.valueOf(comma));
+			
+			String indicateFractionalPrecision = prefs.getElementsByTagName("indicateFractionalPrecision").item(0).getTextContent();
+			this.indicateFractionalPrecisionProperty.set(Boolean.valueOf(indicateFractionalPrecision));
+			
+			String style = prefs.getElementsByTagName("style").item(0).getTextContent();
+			this.setStylesheet(Style.valueOf(style));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -331,8 +364,7 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
-	public void store() {
-		// TODO store changed Settings in File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	private void store(File file) {
 		try {
 			DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			Document doc = docBuilder.newDocument();
@@ -341,38 +373,44 @@ public class Preferences {
 			Element xmlRoot = doc.createElement("bitchanger");
 			doc.appendChild(xmlRoot);
 			
-			// Preferences
-			Element prefs = doc.createElement("preferences");
-			xmlRoot.appendChild(prefs);
-			
-			// commaProperty
-			Element commaPropertyTag = doc.createElement("comma");
-			commaPropertyTag.appendChild(doc.createTextNode(this.commaProperty.get().name()));
-			prefs.appendChild(commaPropertyTag);
-			
-			// indicateFractionalPrecisionProperty
-			Element indicateFractionalPrecisionPropertyTag = doc.createElement("indicateFractionalPrecision");
-			indicateFractionalPrecisionPropertyTag.appendChild(doc.createTextNode(String.valueOf(this.indicateFractionalPrecisionProperty.get())));
-			prefs.appendChild(indicateFractionalPrecisionPropertyTag);
-			
-			// styleProperty
-			Element stylePropertyTag = doc.createElement("style");
-			stylePropertyTag.appendChild(doc.createTextNode(this.styleProperty.get()));
-			prefs.appendChild(stylePropertyTag);
+			// XML-Baum erstellen
+			createXMLTree(doc, xmlRoot);
 			
 			// in Datei Schreiben
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			DOMSource source = new DOMSource(doc);
 			
-			File file = new File(Resources.DEFAULT_PREFERENCES);
 			StreamResult result = new StreamResult(file);
 			
+			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.transform(source, result);
 			
-		} catch (ParserConfigurationException | TransformerFactoryConfigurationError | TransformerException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void createXMLTree(Document doc, Element xmlRoot) {
+		// Preferences
+		Element prefs = doc.createElement("preferences");
+		xmlRoot.appendChild(prefs);
+
+		// commaProperty
+		Element commaPropertyTag = doc.createElement("comma");
+		commaPropertyTag.appendChild(doc.createTextNode(this.commaProperty.get().name()));
+		prefs.appendChild(commaPropertyTag);
+
+		// indicateFractionalPrecisionProperty
+		Element indicateFractionalPrecisionPropertyTag = doc.createElement("indicateFractionalPrecision");
+		indicateFractionalPrecisionPropertyTag
+				.appendChild(doc.createTextNode(String.valueOf(this.indicateFractionalPrecisionProperty.get())));
+		prefs.appendChild(indicateFractionalPrecisionPropertyTag);
+
+		// styleProperty
+		Element stylePropertyTag = doc.createElement("style");
+		stylePropertyTag.appendChild(doc.createTextNode(this.styleProperty.get()));
+		prefs.appendChild(stylePropertyTag);
 	}
 
 	
