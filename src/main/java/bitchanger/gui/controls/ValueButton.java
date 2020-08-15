@@ -57,8 +57,7 @@ public class ValueButton extends UnfocusedButton{
 	 * Creates a ValueButton with an empty string as caption
 	 */
 	public ValueButton() {
-		super();
-		init();
+		this("");
 	}
 
 	/**	<!-- $LANGUAGE=DE -->
@@ -77,6 +76,8 @@ public class ValueButton extends UnfocusedButton{
 	public ValueButton(String text, Node graphic) {
 		super(text, graphic);
 		init();
+		
+		getStyleClass().add("value-button");
 	}
 
 	/**	<!-- $LANGUAGE=DE -->
@@ -91,8 +92,7 @@ public class ValueButton extends UnfocusedButton{
 	 * @param text		Text for the caption of this button
 	  */
 	public ValueButton(String text) {
-		super(text);
-		init();
+		this(text, null);
 	}
 	
 	
@@ -164,7 +164,7 @@ public class ValueButton extends UnfocusedButton{
 		textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(newValue.equals(" ") || !ConvertingNumbers.isValueToBase(baseProperty.get(), getText())) {
+				if(newValue.equals("") || !ConvertingNumbers.isValueToBase(baseProperty.get(), getText())) {
 					setDisable(true);
 				}
 				else {

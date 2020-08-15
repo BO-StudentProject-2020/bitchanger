@@ -174,25 +174,25 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 // Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** {@inheritDoc} */
 	@Override
-	public Scene getScene() {
+	public final Scene getScene() {
 		return scene;
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public Map<String, TextField> getTextFieldMap() {
+	public final Map<String, TextField> getTextFieldMap() {
 		return tfMap;
 	}
 
 	/** {@inheritDoc} */
 	@Override
-	public Map<String, Button> getButtonMap() {
+	public final Map<String, Button> getButtonMap() {
 		return btnMap;
 	}
 	
 	/** {@inheritDoc} */
 	@Override
-	public Map<String, Node> getNodeMap() {
+	public final Map<String, Node> getNodeMap() {
 		return nodeMap;
 	}
 	

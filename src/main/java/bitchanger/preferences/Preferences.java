@@ -8,6 +8,22 @@
 
 package bitchanger.preferences;
 
+import java.io.File;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import bitchanger.util.Resources;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -106,6 +122,10 @@ public class Preferences {
 	/* <!-- $LANGUAGE=EN -->	Property for the selected Stylesheet */
 	private final StringProperty stylesheetProperty;
 	
+	/** <!-- $LANGUAGE=DE -->	Property für den gewählten Style des Stylesheets */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected Style of the Stylesheet */
+	private final StringProperty styleProperty;
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -129,6 +149,7 @@ public class Preferences {
 		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty(true);
 		this.stylesheetProperty = new SimpleStringProperty();
 		this.readOnlyStylesheetProperty = stylesheetProperty;
+		this.styleProperty = new SimpleStringProperty();
 		
 		setStylesheet(Style.LIGTH);
 	}
@@ -221,8 +242,9 @@ public class Preferences {
 	 */
 	public boolean setStylesheet(String path) {
 		try {
-			String url = getClass().getResource(path).toExternalForm();
+			String url = Resources.getResource(path);
 			this.stylesheetProperty.set(url);
+			this.styleProperty.set(url);
 		} catch (Exception e) {
 			return false;
 		}
@@ -248,14 +270,16 @@ public class Preferences {
 	public void setStylesheet(Style style) {
 		switch(style) {
 		case LIGTH:
-			this.stylesheetProperty.set(getClass().getResource("/style/bitchangerLight.css").toExternalForm());
+			this.stylesheetProperty.set(Resources.LIGHT_CSS);
 			break;
 		case DARK:
-			this.stylesheetProperty.set(getClass().getResource("/style/bitchangerDark.css").toExternalForm());
+			this.stylesheetProperty.set(Resources.DARK_CSS);
 			break;
 		default:
 			return;
 		}
+		
+		this.styleProperty.set(style.name());
 	}
 	
 	
@@ -303,12 +327,52 @@ public class Preferences {
 	 * @since Bitchanger 0.1.4
 	 */
 	/* <!-- $LANGUAGE=EN -->
-	 * Stores all settings into the settings data
+	 * Stores all preferences into the settings data
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
 	public void store() {
 		// TODO store changed Settings in File	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+		try {
+			DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
+			
+			// XML-Root
+			Element xmlRoot = doc.createElement("bitchanger");
+			doc.appendChild(xmlRoot);
+			
+			// Preferences
+			Element prefs = doc.createElement("preferences");
+			xmlRoot.appendChild(prefs);
+			
+			// commaProperty
+			Element commaPropertyTag = doc.createElement("comma");
+			commaPropertyTag.appendChild(doc.createTextNode(this.commaProperty.get().name()));
+			prefs.appendChild(commaPropertyTag);
+			
+			// indicateFractionalPrecisionProperty
+			Element indicateFractionalPrecisionPropertyTag = doc.createElement("indicateFractionalPrecision");
+			indicateFractionalPrecisionPropertyTag.appendChild(doc.createTextNode(String.valueOf(this.indicateFractionalPrecisionProperty.get())));
+			prefs.appendChild(indicateFractionalPrecisionPropertyTag);
+			
+			// styleProperty
+			Element stylePropertyTag = doc.createElement("style");
+			stylePropertyTag.appendChild(doc.createTextNode(this.styleProperty.get()));
+			prefs.appendChild(stylePropertyTag);
+			
+			// in Datei Schreiben
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			DOMSource source = new DOMSource(doc);
+			
+			File file = new File(Resources.DEFAULT_PREFERENCES);
+			StreamResult result = new StreamResult(file);
+			
+			transformer.transform(source, result);
+			
+		} catch (ParserConfigurationException | TransformerFactoryConfigurationError | TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	

@@ -267,7 +267,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			int firstKeyBtnColumn, String[] labelTexts, String... tfKeys) {
 		
 		this(firstLabelRow, labelColumn, firstTFRow, tfColumn, firstKeyBtnRow, firstKeyBtnColumn, labelTexts, 
-				tfKeys, 40, Double.MAX_VALUE, 50, 40, 80, 20, 6);
+				tfKeys, 40, Double.MAX_VALUE, 50, 40, 70, 20, 6);
 	}
 
 	

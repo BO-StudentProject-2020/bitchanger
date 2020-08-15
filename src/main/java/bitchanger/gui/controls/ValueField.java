@@ -143,6 +143,8 @@ public class ValueField extends TextField {
 		
 		this.setShape(shape);
 		this.setScaleShape(true);
+		
+		this.getStyleClass().add("value-field");
 	}
 	
 	

@@ -45,8 +45,7 @@ public class UnfocusedButton extends Button{
 	 * Creates an UnfocusedButton with an empty string as label
 	 */
 	public UnfocusedButton() {
-		super();
-		initShape();
+		this("");
 	}
 
 	/**	<!-- $LANGUAGE=DE -->
@@ -64,7 +63,10 @@ public class UnfocusedButton extends Button{
 	 */
 	public UnfocusedButton(String text, Node graphic) {
 		super(text, graphic);
+		
 		initShape();
+		
+		getStyleClass().add("unfocused-button");
 	}
 
 	/**	<!-- $LANGUAGE=DE -->
@@ -79,8 +81,7 @@ public class UnfocusedButton extends Button{
 	 * @param text	Text for the label of this button
 	 */
 	public UnfocusedButton(String text) {
-		super(text);
-		initShape();
+		this(text, null);
 	}
 	
 	

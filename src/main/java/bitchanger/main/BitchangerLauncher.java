@@ -56,6 +56,8 @@ public class BitchangerLauncher {
 		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
 		 */
 		PrimaryFXApp.launchFXApplication(args);
+		
+		Preferences.getPrefs().store();
 	}
 
 }

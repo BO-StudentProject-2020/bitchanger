@@ -61,6 +61,9 @@ public class BaseSpinner extends Spinner<Integer>{
 	 */
 	public BaseSpinner() {
 		super(ConvertingNumbers.MIN_BASE, ConvertingNumbers.MAX_BASE, 10);
+		
+		getStyleClass().add("base-spinner");
+		
 		this.setEditable(true);
 		setActions();
 	}

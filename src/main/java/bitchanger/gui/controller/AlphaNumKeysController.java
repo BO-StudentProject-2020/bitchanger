@@ -229,23 +229,32 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Texte der Alpha-Buttons in der Reihenfolge von {@linkplain AlphaNumKeys#ALPHA_KEYS}.
-	 * Mit jedem Button wird das Zeichen für den Text inkrementiert.
+	 * Mit jedem Button wird das Zeichen für den Text inkrementiert. Diese Methode setzt nur die Zeichen 'A' bis 'Z' als
+	 * Text der Buttons, wird dieser Bereich verlassen wird stattdessen ein leerer String gesetzt und der betroffene Button 
+	 * ausgeblendet.
 	 * 
 	 * @param startLetter	Zeichen, das der Erste Alpha-Button erhält
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the texts of the alpha buttons into the order of {@linkplain AlphaNumKeys#ALPHA_KEYS}.
-	 * The character for the text gets incremented with each button.
+	 * The character for the text gets incremented with each button. This method only sets the characters 'A' to 'Z' as Button
+	 * texts. If this range is leaved, an empty string is set and the Button is set to be invisible.
 	 * 
 	 * @param startLetter	Character that is contained in the first alpha button
 	 */
 	private void setAlphaButtonTexts(char startLetter) {
 		for(String alphaKey: AlphaNumKeys.ALPHA_KEYS) {
+			Button b = buttonMap.get(alphaKey);
+			
 			if(startLetter < 'A' || startLetter > 'Z') {
 				startLetter = ' ';
+				b.setVisible(false);
 			}
-			Button b = buttonMap.get(alphaKey);
+			else {
+				b.setVisible(true);
+			}
+			
 			b.setText(String.valueOf(startLetter));
 			startLetter++;
 		}
@@ -257,8 +266,8 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
-	 * sets the texts of the numeric buttons in order of {@linkplain AlphaNumKeys#NUM_KEYS}.
-	 * Each button is allocated to the number of the key of {@linkplain AlphaNumKeys#NUM_KEYS}.
+	 * Sets the texts of the numeric Buttons in order of {@linkplain AlphaNumKeys#NUM_KEYS}.
+	 * Each Button is allocated to the number of the key of {@linkplain AlphaNumKeys#NUM_KEYS}.
 	 */
 	private void setNumButtonTexts() {
 		for(String numKey: AlphaNumKeys.NUM_KEYS) {
@@ -271,15 +280,16 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt bei allen Buttons die Texte. Der erste Button erhält den übergebenen Buchstaben als Text, für jeden weiteren
 	 * Button in {@link #buttonList} wird der Buchstabe inkrementiert. Diese Methode setzt nur die Zeichen 'A' bis 'Z' als
-	 * Text der Buttons, wird dieser Bereich verlassen wird stattdessen ein leerer String gesetzt.
+	 * Text der Buttons, wird dieser Bereich verlassen wird stattdessen ein leerer String gesetzt und der betroffene Button 
+	 * ausgeblendet.
 	 * 
 	 * @param startLetter	Buchstabe des ersten Tastatur-Buttons
 	 */
 	
 	/* <!-- $LANGUAGE=EN -->
-	 * Sets the texts of all buttons. The first button receives the committed letter as text, for each following
-	 * button in {@link #buttonList} the letter is incremented. This method only sets the characters 'A' to 'Z' as text of the buttons,
-	 * if this range is leaved, an empty string gets set.
+	 * Sets the texts of all Buttons. The first button receives the committed letter as text, for each following
+	 * Button in {@link #buttonList} the letter is incremented. This method only sets the characters 'A' to 'Z' Button texts.
+	 * If this range is leaved, an empty string is set and the Button is set to be invisible.
 	 * 
 	 * @param startLetter	Letter of the first keyboard button
 	 */
@@ -287,7 +297,12 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		for(int i = 0; i < 15; i++) {
 			if(startLetter < 'A' || startLetter > 'Z') {
 				startLetter = ' ';
+				buttonList.get(i).setVisible(false);
 			}
+			else {
+				buttonList.get(i).setVisible(true);
+			}
+			
 			((Labeled) buttonList.get(i)).setText(String.valueOf(startLetter));
 			
 			startLetter++;
