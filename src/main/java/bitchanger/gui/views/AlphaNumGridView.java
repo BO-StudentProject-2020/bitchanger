@@ -22,7 +22,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -446,12 +445,9 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		setColumnConstraints();
 
 		// GridPane formatieren
-		center.hgapProperty().bindBidirectional(hgapProperty);
-		center.vgapProperty().bindBidirectional(vgapProperty);
-
 		updatePadding(null, null, null);
 
-		center.setAlignment(Pos.CENTER);
+		center.getStyleClass().add("grid-pane");
 
 		root.setCenter(center);
 
@@ -757,6 +753,11 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			}
 		});
 
+		center.hgapProperty().bindBidirectional(hgapProperty);
+		center.vgapProperty().bindBidirectional(vgapProperty);
+		btnSpacingProperty.bindBidirectional(hgapProperty);
+		btnSpacingProperty.bindBidirectional(vgapProperty);
+		
 		paddingTopProperty.addListener(this::updatePadding);
 		paddingRigthProperty.addListener(this::updatePadding);
 		paddingBottomProperty.addListener(this::updatePadding);

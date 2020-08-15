@@ -17,6 +17,7 @@ import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.Resources;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -321,6 +322,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 				}
 			});
 			
+			view.getScene().getStylesheets().add(Resources.LAYOUT_CSS);
 			view.getScene().getStylesheets().add(Preferences.getPrefs().readOnlyStylesheetProperty.get());
 		}
 	}

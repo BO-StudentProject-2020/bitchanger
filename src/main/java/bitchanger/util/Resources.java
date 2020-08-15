@@ -8,9 +8,11 @@ public class Resources {
 
 	public static final String KEYBORD_ICON = getResourceAsExternalForm("/graphic/keyboard-icon.png");
 	
-	public static final String LIGHT_CSS = getResourceAsExternalForm("/style/bitchangerLight.css");
+	public static final String LAYOUT_CSS = getResourceAsExternalForm("/style/bitchangerLayout.css");
+
+	public static final String LIGHT_CSS = getResourceAsExternalForm("/style/bitchangerLightTheme.css");
 	
-	public static final String DARK_CSS = getResourceAsExternalForm("/style/bitchangerDark.css");
+	public static final String DARK_CSS = getResourceAsExternalForm("/style/bitchangerDarkTheme.css");
 	
 	public static final File CUSTOM_PREFERENCES = getResourceAsFile("/preferences/CustomSettings.prefs");
 	

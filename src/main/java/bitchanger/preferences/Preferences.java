@@ -85,15 +85,17 @@ public class Preferences {
 		return prefs;
 	}
 	
-	
+	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	public static void storeCustom() {
 		prefs.store(Resources.CUSTOM_PREFERENCES);
 	}
 	
+	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	public static void loadCustom() {
 		prefs.load(Resources.CUSTOM_PREFERENCES);
 	}
 	
+	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	public static void loadDefault() {
 		prefs.load(Resources.DEFAULT_PREFERENCES);
 	}
@@ -165,7 +167,7 @@ public class Preferences {
 		this(Resources.DEFAULT_PREFERENCES);
 	}
 	
-	
+	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	private Preferences(File file) {
 		this.commaProperty = new SimpleObjectProperty<>();
 		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty();
@@ -321,12 +323,12 @@ public class Preferences {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Lädt alle Einstellungen aus der Einstellungsdatei
+	 * Lädt alle Einstellungen aus der übergebenen XML-Datei
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
 	/* <!-- $LANGUAGE=EN -->
-	 * Loads all settings from the settings data
+	 * Loads all settings from the given XML file
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
@@ -355,12 +357,12 @@ public class Preferences {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Speichert alle Einstellungen in der Einstellungsdatei
+	 * Speichert alle Einstellungen in der übergebenen Datei im XML Format
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
 	/* <!-- $LANGUAGE=EN -->
-	 * Stores all preferences into the settings data
+	 * Stores all preferences into the given file as XML document
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
@@ -391,6 +393,7 @@ public class Preferences {
 		}
 	}
 
+	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 	private void createXMLTree(Document doc, Element xmlRoot) {
 		// Preferences
 		Element prefs = doc.createElement("preferences");

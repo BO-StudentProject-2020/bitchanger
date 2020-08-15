@@ -334,7 +334,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		Menu options = new Menu("Optionen");
 		addMenu(options, OPTIONS_MENU_KEY);
 		
-		Menu chooseComma = new Menu("Komma wählen");
+		Menu chooseComma = new Menu("Komma w\u00E4hlen");
 		MenuItem chooseCommaDE = new MenuItem("deutsch");
 		MenuItem chooseCommaEN = new MenuItem("englisch");
 		
@@ -385,7 +385,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		Menu help = new Menu("Hilfe");
 		addMenu(help, HELP_MENU_KEY);
 		
-		MenuItem about = new MenuItem("Über");
+		MenuItem about = new MenuItem("\u00DCber");
 		MenuItem version = new MenuItem("Version");
 		
 		menuItemMap.put(HELP_ABOUT_ITEM_KEY, about);
