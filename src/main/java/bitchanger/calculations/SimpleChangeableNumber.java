@@ -150,7 +150,11 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		this.decValue = ConvertingNumbers.splitInBlocks(Objects.requireNonNull(decValue), 3);
 		this.hexValue = ConvertingNumbers.decToBaseBlocks(16, this.decValue, Preferences.getPrefs().getComma(), 4);
 		this.octalValue = ConvertingNumbers.decToBaseBlocks(8, this.decValue, Preferences.getPrefs().getComma(), 3);
-		this.binValue = ConvertingNumbers.decToBaseBlocks(2, this.decValue, Preferences.getPrefs().getComma(), 4);
+		try {
+			this.binValue = ConvertingNumbers.decToBaseBlocks(2, this.decValue, Preferences.getPrefs().getComma(), 4);
+		} catch (Exception e) {
+			this.binValue = "";
+		}
 	}
 
 	

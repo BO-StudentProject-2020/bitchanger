@@ -192,6 +192,19 @@ public class ConvertingNumbers {
 	 */
 	// &#160; = geschütztes Leerzeichen
 	public static double baseToDec(int base, String value) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		
+		//Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
+		boolean isNegative = value.startsWith("-");
+		
+		if(isNegative) {
+		
+			StringBuffer sb = new StringBuffer(value);
+			
+			sb.deleteCharAt(0);
+			
+			value = sb.toString();
+		
+		}
 		// Prüfen, ob value eine Zahl zur gegebenen Basis repräsentiert
 		checkValue(base, value);
 		
@@ -208,6 +221,11 @@ public class ConvertingNumbers {
 		if((integerPart + fractionalPart) >= Double.MAX_VALUE) {
 			throw new UnsupportedOperationException("for value \"" + value + "\" - value must be within the double value range");
 		}
+		if(isNegative) {
+			
+			return -integerPart-fractionalPart;
+			
+		}else
 		
 		return integerPart + fractionalPart;
 	}
@@ -271,6 +289,21 @@ public class ConvertingNumbers {
 	 * @throws IllegalArgumentException		if {@code value} is an empty string or {@code basis} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
 	 */
 	public static String baseToDecString(int base, String value, char comma) throws NullPointerException, NumberFormatException, IllegalArgumentException {	
+		
+		
+		//Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
+		boolean isNegative = value.startsWith("-");
+		
+		if(isNegative) {
+		
+		StringBuffer sb = new StringBuffer(value);
+		
+		sb.deleteCharAt(0);
+		
+		value = sb.toString();
+		
+		}
+		
 		// Prüfen, ob value eine Zahl zur gegebenen Basis repräsentiert
 		checkValue(base, value);
 		
@@ -283,16 +316,38 @@ public class ConvertingNumbers {
 		double integerPart = baseToDecIntPart(base, separated[0]);
 		double fractionalPart = baseToDecFractionalPart(base, separated[1]);
 		
-		// Ueberpruefen ob es Nachkommastellen gibt
 		if(fractionalPart != 0.0) {
 			// Ja -> Rueckgabe mit Nachkommateil
 			
-			return String.valueOf((long)integerPart) + comma + String.valueOf(fractionalPart).substring(2);
+			return isNegative ? (String.valueOf((long)(-integerPart)) + comma + String.valueOf(fractionalPart).substring(2))
+					: (String.valueOf((long)integerPart) + comma + String.valueOf(fractionalPart).substring(2));
 		} else {
 			// Nein -> Rueckgabe des ganzen Anteils
-			return String.valueOf((long)integerPart);
+			return isNegative ? String.valueOf(-(long)integerPart) : String.valueOf((long)integerPart);
 		}
 		
+///*		if (isNegative) {
+//			//Rückgabe, wenn es sich um eine negative Zahl handelt
+//			// Ueberpruefen ob es Nachkommastellen gibt
+//			if(fractionalPart != 0.0) {
+//				// Ja -> Rueckgabe der negativen Zahl mit Nachkommateil
+//				
+//				return String.valueOf((long)(-integerPart)) + comma + String.valueOf(fractionalPart).substring(2);
+//			} else {
+//				// Nein -> Rueckgabe des negativen ganzen Anteils
+//				return String.valueOf((long)(-integerPart));
+//			}
+//		}else {		//Rückgabe, wenn es sich um eine positive Zahl handelt
+//			
+//			if(fractionalPart != 0.0) {
+//				// Ja -> Rueckgabe mit Nachkommateil
+//				
+//				return String.valueOf((long)integerPart) + comma + String.valueOf(fractionalPart).substring(2);
+//			} else {
+//				// Nein -> Rueckgabe des ganzen Anteils
+//				return String.valueOf((long)integerPart);
+//			}
+//		}*/
 	}
 
 	
@@ -399,9 +454,10 @@ public class ConvertingNumbers {
 	 * 
 	 * @return	umgewandelte Zahl zur übergebenen Basis in der String-Darstellung
 	 * 
-	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
-	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws NullPointerException				wenn der Parameter {@code decValue} {@code null} ist
+	 * @throws NumberFormatException			wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
+	 * @throws IllegalArgumentException			wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws UnsupportedOperationException 	wenn {@code decValue} negativ ist und Nachkommastellen enthält und gleichzeitig {@code newBase} zwei ist 
 	 * 
 	 * @see Preferences
 	 */
@@ -414,19 +470,20 @@ public class ConvertingNumbers {
 	 * </p>
 	 * 
 	 * @param newBase	Base of the new numeral system, which will the number {@code decValue} be converted in
-	 * @param decValue	Value of the number in decimal system as string representation
+	 * @param decValue	Value of the number in decimal system as String representation
 	 * @param comma		the char which is used as comma for floating point numbers
 	 * @param fractionalPrecision	maximum number of decimal places
 	 * 
 	 * @return Converted number of the submitted base as string representation with default set comma
 	 * 
-	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
-	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws NullPointerException				If the parameter {@code decValue} is {@code null}
+	 * @throws NumberFormatException			If the parameter {@code decValue} is not a number of base 10
+	 * @throws IllegalArgumentException			If {@code decValue} is an empty String or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws UnsupportedOperationException 	
 	 * 
 	 * @see Preferences
 	 */
-	public static String decToBase(int newBase, String decValue, char comma, int fractionalPrecision) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+	public static String decToBase(int newBase, String decValue, char comma, int fractionalPrecision) throws NullPointerException, NumberFormatException, IllegalArgumentException, UnsupportedOperationException {
 		// Prüfen, ob decValue eine Zahl zur Basis 10 repräsentiert
 		checkValue(10, decValue);
 		
@@ -434,22 +491,65 @@ public class ConvertingNumbers {
 			throw new IllegalArgumentException("Out of Bounds for base = " + newBase + " (base must be within " + MIN_BASE + " and " + MAX_BASE + ")");
 		}
 	
-		// TODO Negative Werte implementieren 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		
 		//Implementierung von negativen Zahlen
 		
-		//System.out.println(decValue);
+		boolean isNegative = decValue.startsWith("-");
 		
-		StringBuffer sb = new StringBuffer (decValue);
-		
-		if (sb.charAt(0)=='-') {
+		if (isNegative) {
+			
+			StringBuffer sb = new StringBuffer (decValue);
 			
 			sb.deleteCharAt(0);
 		
 			decValue = sb.toString();
-		
-			//System.out.println(sb.toString());
 			
+			decValue = trimToNumberString(decValue);
+		}
+		
+			//Sonderfall für Zahlensystem der Basis 2
+			
+			if (newBase == 2 && isNegative) {
+				
+				// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
+				String[] separated = separateByComma(decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
+				
+				long integerPart = Long.parseLong(separated[0]);
+				double fractionalPart = Double.parseDouble("0." + separated[1]);
+				
+				StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
+				
+				//Umwandlung ins Zweierkomplement
+				String posDecString = Long.toString(integerPart);
+				
+				int posDec = Integer.parseInt(posDecString);
+				
+				int negDec = (~posDec)+1;
+				
+				String negBinString = Integer.toBinaryString(negDec);
+			
+				newBaseValue.append(negBinString);
+				
+				int index = newBaseValue.indexOf("0")-1;
+				
+				if (index < 0) {
+					
+					index = 0;
+					
+				}
+				
+				newBaseValue.delete(0, index);
+
+				
+				// Wenn Nachkommateil vorhanden, dann binär leeren String ausgeben
+				if(fractionalPart != 0)
+					
+					throw new UnsupportedOperationException("Nachkommateil bei binärer negativer Zahl");
+				
+				// umgewandelte Zahl in 2er Basis als String zurückgeben
+				return newBaseValue.toString();
+				
+			}else {
+		
 			decValue = trimToNumberString(decValue);
 			
 			// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
@@ -463,44 +563,6 @@ public class ConvertingNumbers {
 			// Ganzen Anteil umrechnen
 			newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
 			
-			//System.out.println(newBaseValue);
-			
-			
-			// Wenn vorhanden Nachkommateil umwandeln
-			if(fractionalPart != 0){
-				String newBaseFractionalPart = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma);
-				
-				newBaseValue.append(newBaseFractionalPart);
-				
-			}
-		
-			System.out.println(newBaseValue.toString());
-			
-			newBaseValue.insert(0, '-');
-			
-			System.out.println(newBaseValue.toString());
-			
-			// umgewandelte Zahl in der neuen Basis als String zurückgeben
-			return newBaseValue.toString();
-		
-		}else {
-		
-			decValue = trimToNumberString(decValue);
-			
-			// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
-			String[] separated = separateByComma(decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
-			
-			long integerPart = Long.parseLong(separated[0]);
-			double fractionalPart = Double.parseDouble("0." + separated[1]);
-			
-			StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
-			
-			// Ganzen Anteil umrechnen
-			newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
-			
-			//System.out.println(newBaseValue);
-			
-			
 			// Wenn vorhanden Nachkommateil umwandeln
 			if(fractionalPart != 0){
 				String newBaseFractionalPart = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma);
@@ -508,6 +570,10 @@ public class ConvertingNumbers {
 				newBaseValue.append(newBaseFractionalPart);
 			}
 			
+			if(isNegative)
+				
+				newBaseValue.insert(0, '-');
+				
 			// umgewandelte Zahl in der neuen Basis als String zurückgeben
 			return newBaseValue.toString();
 		}
