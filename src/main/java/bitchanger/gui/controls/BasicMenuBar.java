@@ -119,6 +119,14 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
 	
 	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das CheckMenuItem "abgeschnittene Nachkommastellen kennzeichnen" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the CheckMenuItem "abgeschnittene Nachkommastellen kennzeichnen" is associated in the Map {@link #menuItemMap}
+	 */
+	public static final String OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY = "modus-calculator-item";
+	
+	/** <!-- $LANGUAGE=DE -->
 	 * Schlüsselwort, mit dem das Menu "Stil" in der Map {@link #menuItemMap} abgelegt ist
 	 */
 	/* <!-- $LANGUAGE=EN -->
@@ -173,6 +181,14 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * Key with which the MenuItem "Version" is associated in the Map {@link #menuItemMap}
 	 */
 	public static final String HELP_VERSION_ITEM_KEY = "help-version-item";
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Schlüsselwort, mit dem das MenuItem "Einstellungen zurücksetzen" in der Map {@link #menuItemMap} abgelegt ist
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Key with which the MenuItem "Einstellungen zurücksetzen" is associated in the Map {@link #menuItemMap}
+	 */
+	public static final String HELP_RESET_PREFS_ITEM_KEY = "help-reset-preferences-item";
 	
 	
 	
@@ -337,13 +353,16 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		Menu chooseComma = new Menu("Komma w\u00E4hlen");
 		MenuItem chooseCommaDE = new MenuItem("deutsch");
 		MenuItem chooseCommaEN = new MenuItem("englisch");
+		CheckMenuItem indicateFractionalInaccuracy = new CheckMenuItem("abgeschnittene Nachkommastellen kennzeichnen");
 		
 		setChooseCommaAction(chooseCommaDE, Comma.COMMA_DE);
 		setChooseCommaAction(chooseCommaEN, Comma.COMMA_EN);
 		
+		menuItemMap.put(OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY, indicateFractionalInaccuracy);
+		
 		chooseComma.getItems().addAll(chooseCommaDE, chooseCommaEN);
 		
-		options.getItems().addAll(chooseComma);
+		options.getItems().addAll(chooseComma, indicateFractionalInaccuracy);
 	}
 
 	/** <!-- $LANGUAGE=DE -->
@@ -387,11 +406,13 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		
 		MenuItem about = new MenuItem("\u00DCber");
 		MenuItem version = new MenuItem("Version");
+		MenuItem resetPreferences = new MenuItem("Einstellungen zur\u00FCcksetzen");
 		
 		menuItemMap.put(HELP_ABOUT_ITEM_KEY, about);
 		menuItemMap.put(HELP_VERSION_ITEM_KEY, version);
+		menuItemMap.put(HELP_RESET_PREFS_ITEM_KEY, resetPreferences);
 		
-		help.getItems().addAll(about, version);
+		help.getItems().addAll(about, version, resetPreferences);
 	}
 
 	/** <!-- $LANGUAGE=DE -->

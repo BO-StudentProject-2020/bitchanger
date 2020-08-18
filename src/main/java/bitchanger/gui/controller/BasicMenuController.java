@@ -38,8 +38,10 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	protected MenuItem styleDark;
 	protected Menu moveToScreen;
 	protected CheckMenuItem showFullscreen;
+	protected CheckMenuItem indicateFractionalInaccuracy;
 	protected MenuItem about;
 	protected MenuItem version;
+	protected MenuItem resetPreferences;
 	private ControllableApplication application;
 	
 	public BasicMenuController(BasicMenuBar controllable, ControllableApplication application) {
@@ -52,34 +54,43 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
-		modusConverter = controllable.menuItemMap.get(BasicMenuBar.MODUS_CONVERTER_ITEM_KEY);
-		modusIEEE = controllable.menuItemMap.get(BasicMenuBar.MODUS_IEEE_ITEM_KEY);
-		modusCalculator = controllable.menuItemMap.get(BasicMenuBar.MODUS_CALCULATOR_ITEM_KEY);
-		options = (Menu) controllable.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY);
-		styleMenu = (Menu) controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
-		styleLight = controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
-		styleDark = controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_DARK_ITEM_KEY);
-		moveToScreen = (Menu) controllable.menuItemMap.get(BasicMenuBar.VIEW_MOVE_TO_SCREEN_ITEM_KEY);
-		showFullscreen = (CheckMenuItem) controllable.menuItemMap.get(BasicMenuBar.VIEW_SHOW_FULLSCREEN_ITEM_KEY);
-		about = controllable.menuItemMap.get(BasicMenuBar.HELP_ABOUT_ITEM_KEY);
-		version = controllable.menuItemMap.get(BasicMenuBar.HELP_VERSION_ITEM_KEY);
+		this.modusConverter = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_CONVERTER_ITEM_KEY);
+		this.modusIEEE = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_IEEE_ITEM_KEY);
+		this.modusCalculator = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_CALCULATOR_ITEM_KEY);
+		this.options = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY);
+		this.indicateFractionalInaccuracy = (CheckMenuItem) this.controllable.menuItemMap.get(BasicMenuBar.OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY);
+		this.styleMenu = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
+		this.styleLight = this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
+		this.styleDark = this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_DARK_ITEM_KEY);
+		this.moveToScreen = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_MOVE_TO_SCREEN_ITEM_KEY);
+		this.showFullscreen = (CheckMenuItem) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_SHOW_FULLSCREEN_ITEM_KEY);
+		this.about = this.controllable.menuItemMap.get(BasicMenuBar.HELP_ABOUT_ITEM_KEY);
+		this.version = this.controllable.menuItemMap.get(BasicMenuBar.HELP_VERSION_ITEM_KEY);
+		this.resetPreferences = this.controllable.menuItemMap.get(BasicMenuBar.HELP_RESET_PREFS_ITEM_KEY);
 	}
 	
 	
 	/** {@inheritDoc} */
 	@Override
 	public void setActions() {
+		// Menu Modus
 		changeToViewAction(modusConverter, application.getViewable(PrimaryFXApp.CONVERTER_VIEW_KEY));
 		changeToViewAction(modusIEEE, application.getViewable(PrimaryFXApp.IEEE_VIEW_KEY));
 		changeToViewAction(modusCalculator, application.getViewable(PrimaryFXApp.CALCULATOR_VIEW_KEY));
 		
+		//  Menu Options
+		switchIndicateFractionalInaccuracyAction();
+		
+		// Menu View
 		changeStyleAction();
 		switchFullscreenAction();
 		setScreenItems();
 		listenScreenConfig();
 		
+		// Menu Help
 		showAboutAction();
 		showVersionAction();
+		resetPreferencesAction();
 	}
 
 
@@ -88,6 +99,17 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 			@Override
 			public void handle(ActionEvent event) {
 				application.changeView(view);
+			}
+		});
+	}
+	
+	
+	private void switchIndicateFractionalInaccuracyAction() {
+		this.indicateFractionalInaccuracy.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				indicateFractionalInaccuracy.setSelected(! indicateFractionalInaccuracy.isSelected());
+				Preferences.getPrefs().indicateFractionalPrecisionProperty.set(indicateFractionalInaccuracy.isSelected());
 			}
 		});
 	}
@@ -191,6 +213,15 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		});
 	}
 
+	
+	private void resetPreferencesAction() {
+		this.resetPreferences.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Preferences.loadDefault();
+			}
+		});
+	}
 
 }
 
