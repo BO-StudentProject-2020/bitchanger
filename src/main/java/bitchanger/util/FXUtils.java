@@ -8,12 +8,22 @@
 
 package bitchanger.util;
 
+import java.io.File;
 import java.util.Queue;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Control;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.FillRule;
+import javafx.scene.shape.SVGPath;
 
 /** <!-- $LANGUAGE=DE -->
  * Utility-Klasse zur allgemeinen Verarbeitung von Objekten, die zur Oberfläche gehören.
@@ -205,6 +215,40 @@ public class FXUtils {
 		}
 	}
 
+	
+	public static Node loadSVG(File svgFile) {
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document doc = builder.parse(svgFile);
+			
+			NodeList nodes = doc.getElementsByTagName("svg");
+			
+			Element svg = (Element) nodes.item(0);
+			
+			String width = svg.getAttribute("width");
+			String height = svg.getAttribute("height");
+			String fillRule = svg.getAttribute("fill-rule");
+			
+			String path = ((Element)svg.getElementsByTagName("path").item(0)).getAttribute("d");
+			
+			SVGPath svgPath = new SVGPath();
+			
+			svgPath.setContent(path);
+			svgPath.setFillRule(fillRule.equalsIgnoreCase("evenodd") ? FillRule.EVEN_ODD : FillRule.NON_ZERO);
+			
+			svgPath.prefWidth(Double.parseDouble(width));
+			svgPath.prefHeight(Double.parseDouble(height));
+			svgPath.setScaleX(1.2);
+			svgPath.setScaleY(1.2);
+			
+			return svgPath;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

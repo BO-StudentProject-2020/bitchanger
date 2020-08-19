@@ -17,6 +17,7 @@ import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
+import bitchanger.util.Resources;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
@@ -373,7 +374,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.backspaceBtnKey = "backspaceBtn";
 
 		this.btnTexts = new HashMap<String, Object>();
-		this.btnTexts.put(clearBtnKey, "AC");
+		this.btnTexts.put(clearBtnKey, Resources.TRASH_ICON == null ? "AC" : Resources.TRASH_ICON);
 		this.btnTexts.put(backspaceBtnKey, "<--");
 
 		this.center = new GridPane();

@@ -2,6 +2,8 @@ package bitchanger.util;
 
 import java.io.File;
 
+import javafx.scene.Node;
+
 public class Resources {
 	
 	// TODO formatieren + JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
@@ -17,6 +19,8 @@ public class Resources {
 	public static final File CUSTOM_PREFERENCES = getResourceAsFile("/preferences/CustomSettings.prefs");
 	
 	public static final File DEFAULT_PREFERENCES = getResourceAsFile("/preferences/DefaultSettings.prefs");
+	
+	public static final Node TRASH_ICON = FXUtils.loadSVG(getResourceAsFile("/graphic/iconmonstr-trash-can-30.svg"));
 	
 	static {
 		DEFAULT_PREFERENCES.setReadOnly();
