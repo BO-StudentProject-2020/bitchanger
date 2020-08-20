@@ -28,10 +28,12 @@ public enum Style {
 	
 	/** <!-- $LANGUAGE=DE -->	Konstante für ein helles Layout */
 	/* <!-- $LANGUAGE=EN -->	Constant for a light layout */
-	LIGTH,
+	LIGHT,
 	
 	/** <!-- $LANGUAGE=DE -->	Konstante für ein dunkles Layout */
 	/* <!-- $LANGUAGE=EN -->	Constant for a dark layout */
-	DARK;
+	DARK,
+	
+	UNKNOWN;
 	
 }

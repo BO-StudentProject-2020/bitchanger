@@ -216,7 +216,7 @@ public class FXUtils {
 	}
 
 	
-	public static Node loadSVG(File svgFile) {
+	public static SVGPath loadSVG(File svgFile) {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			Document doc = builder.parse(svgFile);

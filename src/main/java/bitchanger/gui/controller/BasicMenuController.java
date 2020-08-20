@@ -119,7 +119,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		styleLight.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Preferences.getPrefs().setStylesheet(Style.LIGTH);
+				Preferences.getPrefs().setStylesheet(Style.LIGHT);
 			}
 		});
 		

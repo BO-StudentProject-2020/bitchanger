@@ -19,6 +19,7 @@ import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.Controller;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.FXUtils;
+import bitchanger.util.IconFactory;
 import bitchanger.util.Resources;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -26,7 +27,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -358,11 +358,7 @@ public class AlphaNumKeys implements Controllable {
 	 * hinzu und setzt die Constraint zur Positionierung in einer GridPane.
 	 */
 	private void createControlButtons() {
-		ImageView icon = new ImageView(Resources.KEYBORD_ICON);
-		icon.setFitHeight(35);
-		icon.setFitWidth(35);
-		keyboardBtn = new UnfocusedButton();
-		keyboardBtn.setGraphic(icon);
+		keyboardBtn = new UnfocusedButton(IconFactory.styleBindIcon(Resources.KEYBORD_OPEN_ICON, Resources.KEYBORD_OPEN_FILLED_ICON));
 		setNextButton(keyboardBtn, firstColumn, firstRow + 3, KEYBOARD_BTN_KEY);		
 		
 		previousBtn = new UnfocusedButton("<");

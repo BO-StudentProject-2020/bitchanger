@@ -13,8 +13,11 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import bitchanger.gui.controls.AlphaNumKeys;
+import bitchanger.gui.controls.SVGIcon;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.IconFactory;
+import bitchanger.util.Resources;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -111,6 +114,11 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	/** <!-- $LANGUAGE=DE -->	Merker für den derzeitigen Tastaturmodus */
 	/* <!-- $LANGUAGE=EN -->	Flag for the currently used keyboard mode */
 	private boolean isShowingKeyboard;
+	
+	
+	private SVGIcon keyboardOpenGraphic;
+	
+	private SVGIcon keyboardCloseGraphic;
 
 	
 	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -132,6 +140,9 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		this.scene = scene;
 		this.buttonList = keys.getButtonMatrix();
 		this.isShowingKeyboard = false;
+		
+		this.keyboardOpenGraphic = IconFactory.styleBindIcon(Resources.KEYBORD_OPEN_ICON, Resources.KEYBORD_OPEN_FILLED_ICON);
+		this.keyboardCloseGraphic = IconFactory.styleBindIcon(Resources.KEYBORD_CLOSE_ICON, Resources.KEYBORD_CLOSE_FILLED_ICON);
 	}
 
 
@@ -200,7 +211,12 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	private void changeToKeyboard() {
 		setAllToKeyboard('A');
 		
-		keyboardBtn.setText("NUM");
+		if(this.keyboardCloseGraphic != null) {
+			keyboardBtn.setGraphic(this.keyboardCloseGraphic);
+			keyboardBtn.setText("");
+		} else {
+			keyboardBtn.setText("123");
+		}
 		
 		GridPane.setColumnSpan(arrowButtons, 2);
 		
@@ -219,7 +235,12 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		setAlphaButtonTexts('A');
 		setNumButtonTexts();
 		
-		keyboardBtn.setText("KEYB");
+		if(this.keyboardOpenGraphic != null) {
+			keyboardBtn.setGraphic(keyboardOpenGraphic);
+			keyboardBtn.setText("");
+		} else {
+			keyboardBtn.setText("ABC");
+		}
 		
 		GridPane.setColumnSpan(arrowButtons, 1);
 		

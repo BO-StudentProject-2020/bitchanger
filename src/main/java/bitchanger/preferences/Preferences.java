@@ -25,6 +25,7 @@ import org.w3c.dom.NodeList;
 import bitchanger.util.Resources;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -132,7 +133,7 @@ public class Preferences {
 	
 	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
 	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
-	public final ReadOnlyStringProperty readOnlyStyleProperty;
+	public final ReadOnlyObjectProperty<Style> readOnlyStyleProperty;
 	
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -143,7 +144,7 @@ public class Preferences {
 	
 	/** <!-- $LANGUAGE=DE -->	Property für den gewählten Style des Stylesheets */
 	/* <!-- $LANGUAGE=EN -->	Property for the selected Style of the Stylesheet */
-	private final StringProperty styleProperty;
+	private final ObjectProperty<Style> styleProperty;
 	
 	
 	
@@ -176,9 +177,9 @@ public class Preferences {
 		this.readOnlyStylesheetProperty = new SimpleStringProperty();
 		((StringPropertyBase) this.readOnlyStylesheetProperty).bind(stylesheetProperty);
 		
-		this.styleProperty = new SimpleStringProperty();
-		this.readOnlyStyleProperty = new SimpleStringProperty();
-		((StringPropertyBase) this.readOnlyStyleProperty).bind(styleProperty);
+		this.styleProperty = new SimpleObjectProperty<>();
+		this.readOnlyStyleProperty = new SimpleObjectProperty<>();
+		((ObjectProperty<Style>) this.readOnlyStyleProperty).bind(styleProperty);
 		
 		
 		this.load(file);
@@ -274,7 +275,7 @@ public class Preferences {
 		try {
 			String url = Resources.getResourceAsExternalForm(path);
 			this.stylesheetProperty.set(url);
-			this.styleProperty.set(url);
+			this.styleProperty.set(Style.UNKNOWN);
 		} catch (Exception e) {
 			return false;
 		}
@@ -299,7 +300,7 @@ public class Preferences {
 	 */
 	public boolean setStylesheet(Style style) {
 		switch(style) {
-		case LIGTH:
+		case LIGHT:
 			this.stylesheetProperty.set(Resources.LIGHT_CSS);
 			break;
 		case DARK:
@@ -309,7 +310,7 @@ public class Preferences {
 			return false;
 		}
 		
-		this.styleProperty.set(style.name());
+		this.styleProperty.set(style);
 		return true;
 	}
 	
@@ -412,7 +413,7 @@ public class Preferences {
 
 		// styleProperty
 		Element stylePropertyTag = doc.createElement("style");
-		stylePropertyTag.appendChild(doc.createTextNode(this.styleProperty.get()));
+		stylePropertyTag.appendChild(doc.createTextNode(this.styleProperty.get().name()));
 		prefs.appendChild(stylePropertyTag);
 	}
 

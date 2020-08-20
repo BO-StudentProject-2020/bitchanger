@@ -13,10 +13,12 @@ import java.util.HashMap;
 import java.util.function.BiConsumer;
 
 import bitchanger.gui.controls.AlphaNumKeys;
+import bitchanger.gui.controls.SVGIcon;
 import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
+import bitchanger.util.IconFactory;
 import bitchanger.util.Resources;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -374,8 +376,10 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.backspaceBtnKey = "backspaceBtn";
 
 		this.btnTexts = new HashMap<String, Object>();
-		this.btnTexts.put(clearBtnKey, Resources.TRASH_ICON == null ? "AC" : Resources.TRASH_ICON);
-		this.btnTexts.put(backspaceBtnKey, "<--");
+		SVGIcon trashIcon = IconFactory.styleBindIcon(Resources.TRASH_X_ICON, Resources.TRASH_X_FILLED_ICON);
+		this.btnTexts.put(clearBtnKey, trashIcon == null ? "AC" : trashIcon);
+		SVGIcon backSpaceIcon = IconFactory.styleBindIcon(Resources.X_MARK_ARROW_LEFT_ICON, Resources.X_MARK_ARROW_LEFT_FILLED_ICON);
+		this.btnTexts.put(backspaceBtnKey, backSpaceIcon == null ? "<--" : backSpaceIcon);
 
 		this.center = new GridPane();
 		this.alphaNum = new AlphaNumKeys(firstKeyBtnRow + 1, firstKeyBtnColumn, btnSpacingProperty, this.scene);
@@ -672,6 +676,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	private void createButtonMatrix() {
 		// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
 		ArrayDeque<Button> buttonList = createButtons();
+		formatButtons();
 
 		if (useClearAndBackBtn) {
 			// Constraints für Position in der Tabelle setzen und in die Tabelle legen
@@ -702,16 +707,12 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		ArrayDeque<Button> buttons = new ArrayDeque<>(2);
 
 		for (String btnKey : ArrayUtils.arrayOf(clearBtnKey, backspaceBtnKey)) {
-			Button b = new UnfocusedButton();
+			UnfocusedButton b = new UnfocusedButton();
+			
 			if (this.btnTexts.get(btnKey) instanceof String) {
 				b.setText((String) this.btnTexts.get(btnKey));
 			} else if (this.btnTexts.get(btnKey) instanceof Node) {
 				b.setGraphic((Node) this.btnTexts.get(btnKey));
-			}
-
-			if (btnKey.equals(backspaceBtnKey)) {
-				// BackspaceButton muss auf zwei Spalten verteilt werden!
-				GridPane.setColumnSpan(b, 2);
 			}
 
 			// Buttons mit Schlüssel in Map speichern
@@ -720,8 +721,17 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			// angelegte Buttons im Array speichern und zurückgeben
 			buttons.add(b);
 		}
-
+		
 		return buttons;
+	}
+	
+	// TODO JavaDoc
+	private void formatButtons() {
+		// BackspaceButton muss auf zwei Spalten verteilt werden!
+		GridPane.setColumnSpan(getButtonMap().get(backspaceBtnKey), 2);
+		
+		// Skalierungsfaktor für das Icon im Reset-Button anpassen
+		((UnfocusedButton)getButtonMap().get(clearBtnKey)).setGraphicScaleFactor(0.023);
 	}
 
 
