@@ -216,6 +216,7 @@ public class FXUtils {
 	}
 
 	
+	// TODO JavaDoc
 	public static SVGPath loadSVG(File svgFile) {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

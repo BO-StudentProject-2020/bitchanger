@@ -49,8 +49,6 @@ public class IconFactory {
 			default:
 				return;
 		}
-		
-		System.out.println(icon);
 	}
 
 }

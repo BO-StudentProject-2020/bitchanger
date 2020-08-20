@@ -54,8 +54,10 @@ public interface ControllableApplication {
 	 * @param newView	New View to be presented
 	 */
 	public default void changeView(Viewable newView) {
+		boolean wasFullScreen = getPrimaryStage().isFullScreen();
 		getCurrentViewProperty().set(newView);
 		getPrimaryStage().setScene(newView.getScene());
+		getPrimaryStage().setFullScreen(wasFullScreen);
 	}
 
 	

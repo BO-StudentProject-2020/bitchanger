@@ -5,6 +5,13 @@
 	-fx-background-color: background;
 	-fx-text-box-border: dimgray;
 	-fx-control-inner-background: darkgray;
+	
+	-fx-hover-base: midnightblue;
+	-fx-accent: midnightblue;
+}
+
+.svg-icon {
+	-fx-fill: cornsilk;
 }
 
 .label {
@@ -32,8 +39,19 @@
 	-fx-background-color: background;
 }
 
-.menu-item:hover, .menu-item .label:hover, .menu .label:hover {
-	-fx-background-color: midnightblue;
+.menu-item:focused, 
+.menu-item:focused > .label, 
+.menu:focused,
+.menu:focused > .label, 
+.menu-item:hover, 
+.menu-item:hover > .label,
+.menu:hover, 
+.menu:hover > .label,
+.menu:showing,
+.menu:showing > .label,
+.menu-item:showing,
+.menu-item:showing > .label {
+	-fx-background-color: -fx-hover-base;
 }
 
 .menu-item .label, .menu .label {
@@ -72,10 +90,6 @@
 	-fx-font-weight: bold;
 }
 
-.button:hover {
-  -fx-background-color: yellow;
-} 
-
 .button:pressed {
   -fx-background-color: brown;
 }
@@ -84,6 +98,28 @@
 }
 
 .text-field:focused {
+}
+
+
+.button:hover,
+.toggle-button:hover,
+.radio-button:hover > .radio,
+.check-box:hover > .box,
+.split-menu-button > .label:hover,
+.split-menu-button > .arrow-button:hover,
+.slider .thumb:hover,
+.scroll-bar > .thumb:hover,
+.scroll-bar > .increment-button:hover, 
+.scroll-bar > .decrement-button:hover,
+.choice-box:hover,
+.color-picker.split-button > .arrow-button:hover,
+.color-picker.split-button > .color-picker-label:hover,
+.combo-box-base:hover,
+.combo-box-base:editable > .arrow-button:hover,
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover,
+.tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button:hover {
+    -fx-background-color: -fx-hover-base;
 }
 
 

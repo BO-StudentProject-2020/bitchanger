@@ -355,7 +355,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.btnSpacingProperty = new SimpleDoubleProperty(btnSpacing);
 		this.hgapProperty = new SimpleDoubleProperty(hgap);
 		this.vgapProperty = new SimpleDoubleProperty(vgap);
-
+		
 		this.firstTFRow = (firstTFRow >= 0 && tfColumn >= 0) ? firstTFRow : -1;
 		this.tfColumn = (firstTFRow >= 0 && tfColumn >= 0) ? tfColumn : -1;
 		this.firstLabelRow = (firstLabelRow >= 0 && labelColumn >= 0) ? firstLabelRow : -1;
@@ -410,16 +410,32 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	/** {@inheritDoc} */
 	@Override
 	public double getMinHeigth() {
-		return paddingTopProperty.get() + paddingBottomProperty.get()
-				+ getTextFieldMap().size() * tfMinHeightProperty.get() + (center.getRowCount() - 1) * vgapProperty.get()
-				+ (center.getRowCount() - firstKeyBtnRow) * btnMinHeigthProperty.get() + whiteSpaceHeigthProperty.get();
+		double minHeight = root.getTop().minHeight(Double.NaN);
+		
+		for(RowConstraints rc : center.getRowConstraints()) {
+			minHeight += rc.getMinHeight();
+		}
+		
+		minHeight += center.getPadding().getTop() + center.getPadding().getBottom();
+		minHeight += (center.getRowCount() - 1) * center.getHgap();
+		
+		return minHeight;
 	}
 
 	/** {@inheritDoc} */
 	@Override
 	public double getMinWidth() {
-		return paddingLeftProperty.get() + paddingRigthProperty.get() + firstColumnWidthProperty.get()
-				+ AlphaNumKeys.COLUMN_COUNT * btnMinWidthProperty.get() + (center.getColumnCount() - 1) * hgapProperty.get();
+		// TODO: Berechnung der Größe anpassen
+		double minWidth = center.getPadding().getLeft() * 2 + firstColumnWidthProperty.get() + vgapProperty.get();
+		
+		for(ColumnConstraints cc : center.getColumnConstraints()) {
+			minWidth += cc.getMinWidth();
+			System.out.println(cc);
+		}
+		
+		minWidth += (center.getColumnCount() - 1) * center.getVgap();
+		
+		return minWidth + 10;
 	}
 
 	
@@ -458,6 +474,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 		// Properties binden
 		bindProperties();
+		
 	}
 
 	

@@ -141,7 +141,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	 */
 	public PrimaryFXApp() {
 		super();
-		this.currentViewProperty = new SimpleObjectProperty<>();
+		this.currentViewProperty = new SimpleObjectProperty<Viewable>();
 	}
 
 	
@@ -268,11 +268,40 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	private void setStageSize() {
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen
 		// (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
+		primaryStage.setMinHeight(currentViewProperty.get().getMinHeigth());
+		primaryStage.setMinWidth(currentViewProperty.get().getMinWidth());
+		
 		primaryStage.sizeToScene();
-		primaryStage.setMinHeight(primaryStage.getHeight());
-		primaryStage.setMinWidth(primaryStage.getWidth());
-//		primaryStage.setMaxHeight(currentView.getMaxHeigth() + primaryStage.getHeight() - currentView.getMinHeigth());
-//		primaryStage.setMaxWidth(currentView.getMaxWidth() + primaryStage.getWidth() - currentView.getMinWidth());
+		System.out.println(primaryStage.getWidth());
+		System.out.println(primaryStage.getMinWidth());
+		
+
+		// TODO Größe anpassen
+//		Scene sc = new Scene(new Label("Hallo1"));
+//		Scene sc2 = new Scene(new Label("Hallo2"));
+//		Stage st = new Stage(StageStyle.DECORATED);
+//		st.setScene(sc);
+//		st.setOnShowing(e->{
+//			
+//			Platform.runLater(()->{
+//				st.sizeToScene();
+//				System.out.println(st.getHeight());
+//				st.hide();
+//			});
+//		});
+//		
+//		Stage st2 = new Stage(StageStyle.UNDECORATED);
+//		st2.setScene(sc2);
+//		st2.setOnShowing(e->{
+//			Platform.runLater(()->{
+//				st2.sizeToScene();
+//				System.out.println(st2.getHeight());
+//				st2.hide();
+//			});
+//		});
+//		
+//		st.show();
+//		st2.show();
 	}
 	
 	
