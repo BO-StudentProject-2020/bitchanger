@@ -86,20 +86,39 @@ public class Preferences {
 		return prefs;
 	}
 	
-	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Speichert die aktuellen Einstellungen in der Datei {@link Resources#CUSTOM_PREFERENCES}
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Stores the current settings in the File {@link Resources#CUSTOM_PREFERENCES}
+	 */
 	public static void storeCustom() {
 		prefs.store(Resources.CUSTOM_PREFERENCES);
 	}
 	
-	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Lädt die letzten Einstellungen aus der Datei {@link Resources#CUSTOM_PREFERENCES}
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Loads the last settings from the file {@link Resources#CUSTOM_PREFERENCES}
+	 */
 	public static void loadCustom() {
 		prefs.load(Resources.CUSTOM_PREFERENCES);
 	}
 	
-	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Lädt die Standardeinstellungen aus der Datei {@link Resources#DEFAULT_PREFERENCES}
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Loads the default settings from the file {@link Resources#DEFAULT_PREFERENCES}
+	 */
 	public static void loadDefault() {
 		prefs.load(Resources.DEFAULT_PREFERENCES);
 	}
+	
 	
 	
 	
@@ -168,7 +187,19 @@ public class Preferences {
 		this(Resources.DEFAULT_PREFERENCES);
 	}
 	
-	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt neue Preferences mit den Einstellungen, die in der übergebenen Datei gespeichert sind oder den Standardeinstellungen,
+	 * wenn die übergebene Datei nicht gefunden oder geladen werden konnte.
+	 * 
+	 * @param file	Datei mit den Einstellungen, die geladen werden sollen, im XML-Format
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Creates new Preferences with the settings that are saved in the given File or the default settings,
+	 * if the given File could not be found or loaded.
+	 * 
+	 * @param file	File with the settings to be loaded in XML format
+	 */
 	private Preferences(File file) {
 		this.commaProperty = new SimpleObjectProperty<>();
 		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty();
@@ -182,7 +213,14 @@ public class Preferences {
 		((ObjectProperty<Style>) this.readOnlyStyleProperty).bind(styleProperty);
 		
 		
-		this.load(file);
+		try {
+			this.load(file);
+		} catch (Exception e) {
+			this.commaProperty.set(Comma.COMMA_DE);
+			this.indicateFractionalPrecisionProperty.set(true);
+			this.stylesheetProperty.set("");
+			this.styleProperty.set(Style.UNKNOWN);
+		}
 	}
 	
 	
@@ -358,7 +396,7 @@ public class Preferences {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Speichert alle Einstellungen in der übergebenen Datei im XML Format
+	 * Speichert alle Einstellungen in der übergebenen Datei im XML-Format
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
@@ -394,7 +432,19 @@ public class Preferences {
 		}
 	}
 
-	// TODO JavaDoc	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Fügt alle Einstellungen dieser Preferences zu dem XML-Baum des Element xmlRoot hinzu
+	 * 
+	 * @param doc		XML-Dokument, in dem xmlRoot gespeichert ist
+	 * @param xmlRoot	Wurzelelement des XML-Baumes, der erweitert wird
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Adds all settings of these Preferences to the XML tree of the Element xmlRoot
+	 * 
+	 * @param doc		XML document in which xmlRoot is stored
+	 * @param xmlRoot	root element of the XML tree that is being expanded
+	 */
 	private void createXMLTree(Document doc, Element xmlRoot) {
 		// Preferences
 		Element prefs = doc.createElement("preferences");

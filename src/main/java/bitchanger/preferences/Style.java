@@ -34,6 +34,8 @@ public enum Style {
 	/* <!-- $LANGUAGE=EN -->	Constant for a dark layout */
 	DARK,
 	
+	/** <!-- $LANGUAGE=DE -->	Konstante für ein unbekanntes Layout */
+	/* <!-- $LANGUAGE=EN -->	Constant for a unknown layout */
 	UNKNOWN;
 	
 }
