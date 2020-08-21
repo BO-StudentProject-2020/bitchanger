@@ -15,8 +15,8 @@ import bitchanger.preferences.Preferences;
  * 
  * @author Tim Mühle
  * 
- * @since 0.1.0
- * @version 0.1.0
+ * @since Bitchanger 0.1.0
+ * @version 0.1.4
  * 
  */
 /* <!-- $LANGUAGE=EN -->
@@ -24,15 +24,15 @@ import bitchanger.preferences.Preferences;
  * 
  * @author Tim Muehle
  * 
- * @since 0.1.0
- * @version 0.1.0
+ * @since Bitchanger 0.1.0
+ * @version 0.1.4
  * 
  */
 public class BitchangerLauncher {
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Die Main Methode liest zuerst alle gespeicherten Einstellungen für die Klasse {@code Preferences} ein.
-	 * Danach wird das PrimaryFXApp der Anwendung gestartet und gewartet, bis dieses geschlossen wurde.
+	 * Die Main Methode startet die PrimaryFXApp der Anwendung und wartet, bis das Anwendungsfenster geschlossen wurde.
+	 * Danach werden zuerst alle Einstellungen aus {@link Preferences} gespeichert, bevor das Programm beendet wird.
 	 * 
 	 * @param args	Argumente, die beim Programmstart übergeben werden. Die Argumente werden vom Programm ignoriert.
 	 * 
@@ -41,8 +41,8 @@ public class BitchangerLauncher {
 	 * 
 	 */
 	/* <!-- $LANGUAGE=EN -->
-	 * The main method first reads in all stored settings for the class {@code Preferences}.
-	 * Then the main window of the application will be started and waits until this main window is closed.
+	 * The main method launches the application's main window and waits until this main window was closed.
+	 * All settings from {@link Preferences} are saved before the program is terminated.
 	 * 
 	 * @param args	Arguments that are committed at the beginning of the program. The program ignores these arguments.
 	 * 
