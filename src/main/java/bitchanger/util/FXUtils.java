@@ -214,9 +214,25 @@ public class FXUtils {
 			}
 		}
 	}
-
 	
-	// TODO JavaDoc
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Lädt ein Icon im svg-Format aus der übergebenen Datei und erstellt aus der Datei ein SVGPath Objekt,
+	 * das dem Scenegraph in javaFX hinzugefügt werden kann.
+	 * 
+	 * @param svgFile	Icon als svg-Datei
+	 * @return			Eingelesenes Icon als SVGPath oder {@code null}, wenn die Datei nicht eingelesen werden konnte
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Loads an icon in svg format from the given file and creates an SVGPath object from the file that can be added to 
+	 * the Scenegraph in javaFX.
+	 * 
+	 * @param svgFile	Icon as an svg file
+	 * @return			Loaded icon as SVGPath or {@code null} if the file could not be read correctly
+	 */
 	public static SVGPath loadSVG(File svgFile) {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -246,9 +262,8 @@ public class FXUtils {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		
-		return null;
 	}
 	
 	

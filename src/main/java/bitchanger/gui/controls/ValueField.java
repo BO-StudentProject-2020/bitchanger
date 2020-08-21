@@ -126,7 +126,6 @@ public class ValueField extends TextField {
 		super(text);
 		
 		this.baseProperty = new SimpleIntegerProperty(base);
-		this.baseProperty = new SimpleIntegerProperty();
 		this.lastCaretPosition = -1;
 		
 		this.textProperty().addListener(this::checkText);
