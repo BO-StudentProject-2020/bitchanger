@@ -353,6 +353,8 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		Menu chooseComma = new Menu("Komma w\u00E4hlen");
 		MenuItem chooseCommaDE = new MenuItem("deutsch");
 		MenuItem chooseCommaEN = new MenuItem("englisch");
+		
+		// TODO verschieben zur ConverterView
 		CheckMenuItem indicateFractionalInaccuracy = new CheckMenuItem("abgeschnittene Nachkommastellen kennzeichnen");
 		
 		setChooseCommaAction(chooseCommaDE, Comma.COMMA_DE);
