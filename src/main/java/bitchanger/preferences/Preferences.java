@@ -220,6 +220,7 @@ public class Preferences {
 		try {
 			this.load(file);
 		} catch (Exception e) {
+			e.printStackTrace();
 			this.commaProperty.set(Comma.COMMA_DE);
 			this.indicateFractionalPrecisionProperty.set(true);
 			this.stylesheetProperty.set("");
@@ -320,6 +321,7 @@ public class Preferences {
 			this.stylesheetProperty.set(url);
 			this.styleProperty.set(Style.UNKNOWN);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 		

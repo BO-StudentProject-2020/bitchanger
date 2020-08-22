@@ -8,6 +8,8 @@
 
 package bitchanger.gui.controller;
 
+import java.util.NoSuchElementException;
+
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.ConvertingNumbers;
 import bitchanger.calculations.SimpleChangeableNumber;
@@ -384,6 +386,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setHex(newValue);
 					} catch (Exception e) {
 						value.reset();
+						e.printStackTrace();
 					}
 					setTexts(false, true, true, true, true);
 				}
@@ -412,6 +415,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setDec(newValue);
 					} catch (Exception e) {
 						value.reset();
+						if (! (e instanceof NoSuchElementException)) { // NoSuchElementException tritt auf, wenn Nachkommateil fehlt (wegen Scanner)
+							e.printStackTrace();
+						}
 					}
 					setTexts(true, false, true, true, true);
 				}
@@ -440,6 +446,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setOct(newValue);
 					} catch (Exception e) {
 						value.reset();
+						e.printStackTrace();
 					}
 					setTexts(true, true, false, true, true);
 				}
@@ -467,6 +474,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setBin(newValue);
 					} catch (Exception e) {
 						value.reset();
+						e.printStackTrace();
 					}
 					setTexts(true, true, true, false, true);
 				}
@@ -495,6 +503,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setValue(newValue, anyBase.getValue());
 					} catch (Exception e) {
 						value.reset();
+						e.printStackTrace();
 					}
 					setTexts(true, true, true, true, false);
 				}

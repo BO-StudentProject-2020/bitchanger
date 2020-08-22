@@ -493,6 +493,7 @@ public class Resources {
 		try {
 			 url = Resources.class.getResource(name).toExternalForm();
 		} catch (Exception e) {
+			e.printStackTrace();
 			url = null;
 		}
 		
@@ -516,6 +517,7 @@ public class Resources {
 			String url = Resources.class.getResource(name).getFile();
 			file = new File(url);
 		} catch (Exception e) {
+			e.printStackTrace();
 			file = null;
 		}
 		

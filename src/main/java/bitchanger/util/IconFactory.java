@@ -58,6 +58,7 @@ public class IconFactory {
 			return icon;
 		} 
 		catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
