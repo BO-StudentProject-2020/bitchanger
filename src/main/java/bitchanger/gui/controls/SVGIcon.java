@@ -17,15 +17,25 @@ import javafx.scene.shape.SVGPath;
 // TODO JavaDoc
 public class SVGIcon extends SVGPath {
 
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	// TODO JavaDoc
 	public SVGIcon() {
 		this(new SVGPath());
 	}
 
+	
 	// TODO JavaDoc
 	public SVGIcon(File svgFile) {
 		this(FXUtils.loadSVG(svgFile));
 	}
+	
 	
 	// TODO JavaDoc
 	public SVGIcon(SVGPath svgPath) {
@@ -36,6 +46,13 @@ public class SVGIcon extends SVGPath {
 	}
 	
 	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
 
 	// TODO JavaDoc
 	public void setSVG(SVGPath svgPath) {
@@ -49,7 +66,14 @@ public class SVGIcon extends SVGPath {
 		this.setContent(svgPath.getContent());;
 	}
 	
-	
-	
-	
 }
+
+
+
+
+
+
+
+
+
+

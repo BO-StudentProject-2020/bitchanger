@@ -38,11 +38,26 @@ import javafx.scene.text.FontWeight;
  *
  */
 public class UnfocusedButton extends Button{
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+
 	private final DoubleProperty graphicScaleProperty;
 	private final DoubleProperty graphicScaleFactorProperty;
 
-	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen UnfocusedButton mit einem leeren String als Beschriftung
 	 */
@@ -53,6 +68,7 @@ public class UnfocusedButton extends Button{
 		this("");
 	}
 
+	
 	// TODO: JavaDoc
 	public UnfocusedButton(Node graphic) {
 		this("", graphic);
@@ -104,7 +120,14 @@ public class UnfocusedButton extends Button{
 	}
 	
 	
-	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	private Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Schaltet den Fokus für diesen Button aus und setzt als Grundform dieses Buttons ein Rechteck ohne abgerundete Ecken ein.
 	 */
@@ -160,3 +183,17 @@ public class UnfocusedButton extends Button{
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

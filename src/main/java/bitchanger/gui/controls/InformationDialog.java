@@ -12,21 +12,23 @@ import bitchanger.main.PrimaryFXApp;
 import bitchanger.preferences.Preferences;
 import javafx.scene.control.Alert;
 
+//TODO JavaDoc erstellen
 public class InformationDialog extends Alert {
-	
-	// TODO JavaDoc erstellen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-	
-	public static enum InformationType{
-		
-		ABOUT,
-		VERSION,
-		NONE;
-	}
 
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
+	// TODO JavaDoc erstellen
 	public InformationDialog() {
 		this(InformationType.NONE);
 	}
 	
+	
+	// TODO JavaDoc erstellen
 	public InformationDialog(InformationType informationType) {
 		super(AlertType.INFORMATION);
 		
@@ -46,6 +48,16 @@ public class InformationDialog extends Alert {
 		}
 	}
 
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	private Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
+	// TODO JavaDoc erstellen
 	private void createAboutDialog() {
 		// TODO Über-Dialog erstellen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 		this.setTitle("Über");
@@ -65,7 +77,9 @@ public class InformationDialog extends Alert {
 				+ "dolor sit amet.");
 		
 	}
+	
 
+	// TODO JavaDoc erstellen
 	private void createVersionDialog() {
 		this.setTitle("Version");
 		
@@ -80,5 +94,37 @@ public class InformationDialog extends Alert {
 		this.setContentText(content.toString());
 
 	}
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	nested Classes   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
+	// TODO JavaDoc erstellen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+	public static enum InformationType{
+		
+		// TODO JavaDoc erstellen
+		ABOUT,
+		
+		// TODO JavaDoc erstellen
+		VERSION,
+		
+		// TODO JavaDoc erstellen
+		NONE;
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
