@@ -60,6 +60,13 @@ import javafx.scene.control.MenuBar;
  */
 public interface Viewable extends Controllable {
 	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die repräsentierte {@code Scene} zurück
 	 * 

@@ -41,40 +41,65 @@ import javafx.scene.layout.Pane;
  * @version 0.1.4
  *
  */
+//TODO JavaDoc EN
 public abstract class ViewBase<T extends Parent> implements Viewable {
 	
-// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+// protected	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	/** <!-- $LANGUAGE=DE --> Szene, die von der View repräsentiert wird */
-	protected Scene scene;
+	// TODO JavaDoc EN
+	protected final Scene scene;
 	
 	/** <!-- $LANGUAGE=DE --> Wurzelknoten im Scenegraph */
-	protected T root;
-	
-	/** <!-- $LANGUAGE=DE -->
-	 * {@code Map}, in die alle vom Controller benötigten Textfelder der View 
-	 * mit einem eindeutigen Schlüssel abgelegt werden */
-	private Map<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
-	
-	/** <!-- $LANGUAGE=DE --> 
-	 * {@code Map}, in die alle vom Controller benötigten Buttons der View mit 
-	 * einem eindeutigen Schlüssel abgelegt werden */
-	private Map<String, Button> btnMap;
-	
-	/** <!-- $LANGUAGE=DE --> 
-	 * {@code Map}, in die alle vom Controller benötigten Elemente der View mit einem 
-	 * eindeutigen Schlüssel abgelegt werden, die keine Buttons oder Textfelder sind */
-	private Map<String, Node> nodeMap;
-	
-	/** <!-- $LANGUAGE=DE --> MenuBar des Scenegraphen */
-	private MenuBar menubar;
+	// TODO JavaDoc EN
+	protected final T root;
 	
 	/** <!-- $LANGUAGE=DE --> 
 	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
 	 */
+	// TODO JavaDoc EN
 	protected Controller controller;
 	
+	/** <!-- $LANGUAGE=DE --> MenuBar des Scenegraphen */
+	// TODO JavaDoc EN
+	protected MenuBar menubar;
 	
-// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+// private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	/** <!-- $LANGUAGE=DE -->
+	 * {@code Map}, in die alle vom Controller benötigten Textfelder der View 
+	 * mit einem eindeutigen Schlüssel abgelegt werden */
+	// TODO JavaDoc EN
+	private final Map<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
+	
+	/** <!-- $LANGUAGE=DE --> 
+	 * {@code Map}, in die alle vom Controller benötigten Buttons der View mit 
+	 * einem eindeutigen Schlüssel abgelegt werden */
+	// TODO JavaDoc EN
+	private final Map<String, Button> btnMap;
+	
+	/** <!-- $LANGUAGE=DE --> 
+	 * {@code Map}, in die alle vom Controller benötigten Elemente der View mit einem 
+	 * eindeutigen Schlüssel abgelegt werden, die keine Buttons oder Textfelder sind */
+	// TODO JavaDoc EN
+	private final Map<String, Node> nodeMap;
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
 	 * <p>
@@ -89,6 +114,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	 * @see #createScenegraph()
 	 * @see #buildScenegraph()
 	 */
+	// TODO JavaDoc EN
 	public ViewBase(T root) {
 		this(root, true);
 	}
@@ -108,6 +134,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	 * 
 	 * @see #buildScenegraph()
 	 */
+	// TODO JavaDoc EN
 	public ViewBase(T root, boolean buildScenegraph) {
 		this.root = root;
 		this.tfMap = new HashMap<String, TextField>();
@@ -124,59 +151,19 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 
 	
 	
-// Methoden		##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	
-	/** <!-- $LANGUAGE=DE -->
-	 * Initialisierungsmethode. 
-	 * <b> Diese Methode wird als erstes vom Konstruktor aufgerufen, nachdem die Attribute initialisiert wurden. </b>
-	 * <p>
-	 * Unterklassen können diese Methode überschreiben, um Attribute vor der Konstruktion des Scenegraphen zu initialisieren.
-	 * </p>
-	 * <p>
-	 * Die Implementierung der Methode in dieser Klasse hat keine Anweisungen.
-	 * </p>
-	 */
-	protected void init() {
-		// nothing to do
-	}
-	
-	
-	/** <!-- $LANGUAGE=DE -->
-	 * Konstruiert den Scenegraphen mit der Methode {@link #createScenegraph()} und gibt den Bedienelementen mit einem
-	 * Controller eine Funktion, falls ein passender Controller mit {@link Controller#register(Class, Class)} registriert
-	 * wurde.
-	 * 
-	 * @see #createScenegraph()
-	 */
-	protected void buildScenegraph() {
-		createScenegraph();
-		
-		this.controller = Controller.of(this);
-		
-		if(controller != null) {
-			controller.setActions();
-		}
-	}
-	
-	
-	/** <!-- $LANGUAGE=DE -->
-	 * Methode, die den Scenegraphen konstruiert. <b> Diese Methode wird aufgerufen, nachdem die init-Methode beendet wurde. </b>
-	 * <p>
-	 * In dieser Methode müssen alle Bedien- und Oberflächenelemente zum Scenegraphen hinzugefügt werden. Alle Elemente, die 
-	 * auch im Controller benötigt werden, müssen zu der entsprechenden Map hinzugefügt werden: 
-	 * {@link #btnMap}, {@link #tfMap}, {@link #nodeMap}
-	 * </p>
-	 */
-	protected abstract void createScenegraph();
-	
-	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	/** {@inheritDoc} */
 	@Override
 	public final Scene getScene() {
 		return scene;
 	}
+	
 
 	/** {@inheritDoc} */
 	@Override
@@ -184,17 +171,20 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 		return tfMap;
 	}
 
+	
 	/** {@inheritDoc} */
 	@Override
 	public final Map<String, Button> getButtonMap() {
 		return btnMap;
 	}
 	
+	
 	/** {@inheritDoc} */
 	@Override
 	public final Map<String, Node> getNodeMap() {
 		return nodeMap;
 	}
+	
 	
 	/**  <!-- $LANGUAGE=DE -->
 	 * {@inheritDoc}
@@ -227,4 +217,76 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 		}
 	}
 	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Methods   																													 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Initialisierungsmethode. 
+	 * <b> Diese Methode wird als erstes vom Konstruktor aufgerufen, nachdem die Attribute initialisiert wurden. </b>
+	 * <p>
+	 * Unterklassen können diese Methode überschreiben, um Attribute vor der Konstruktion des Scenegraphen zu initialisieren.
+	 * </p>
+	 * <p>
+	 * Die Implementierung der Methode in dieser Klasse hat keine Anweisungen.
+	 * </p>
+	 */
+	// TODO JavaDoc EN
+	protected void init() {
+		// nothing to do
+	}
+	
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Konstruiert den Scenegraphen mit der Methode {@link #createScenegraph()} und gibt den Bedienelementen mit einem
+	 * Controller eine Funktion, falls ein passender Controller mit {@link Controller#register(Class, Class)} registriert
+	 * wurde.
+	 * 
+	 * @see #createScenegraph()
+	 */
+	// TODO JavaDoc EN
+	protected void buildScenegraph() {
+		createScenegraph();
+		
+		this.controller = Controller.of(this);
+		
+		if(controller != null) {
+			controller.setActions();
+		}
+	}
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Methode, die den Scenegraphen konstruiert. <b> Diese Methode wird aufgerufen, nachdem die init-Methode beendet wurde. </b>
+	 * <p>
+	 * In dieser Methode müssen alle Bedien- und Oberflächenelemente zum Scenegraphen hinzugefügt werden. Alle Elemente, die 
+	 * auch im Controller benötigt werden, müssen zu der entsprechenden Map hinzugefügt werden: 
+	 * {@link #btnMap}, {@link #tfMap}, {@link #nodeMap}
+	 * </p>
+	 */
+	// TODO JavaDoc EN
+	protected abstract void createScenegraph();
+	
 }
+
+
+
+
+
+
+
+
+
