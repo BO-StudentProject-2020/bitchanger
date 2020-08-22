@@ -31,10 +31,16 @@ public interface ChangeableNumber {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
-// 	#	Setter			   																											 #
+// 	#	abstract Methods   																											 #
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines hexadezimalen Strings
@@ -56,9 +62,10 @@ public interface ChangeableNumber {
 	 * @throws IllegalArgumentException		if {@code hexValue} is an empty string
 	 *
 	 */
-	public void setHex(String hexValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
+	public abstract void setHex(String hexValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines dezimalen Strings
 	 * 
@@ -79,9 +86,10 @@ public interface ChangeableNumber {
 	 * @throws IllegalArgumentException		if {@code decValue} is an empty string
 	 *
 	 */
-	public void setDec(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
+	public abstract void setDec(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines oktalen Strings
 	 * 
@@ -102,7 +110,7 @@ public interface ChangeableNumber {
 	 * @throws IllegalArgumentException		if {@code octValue} is an empty string
 	 *
 	 */
-	public void setOct(String octValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
+	public abstract void setOct(String octValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
 	
 	/**	<!-- $LANGUAGE=DE -->
@@ -125,9 +133,10 @@ public interface ChangeableNumber {
 	 * @throws IllegalArgumentException		if {@code binValue} is an empty string
 	 *
 	 */
-	public void setBin(String binValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
+	public abstract void setBin(String binValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf einen Wert in einem beliebigen Zahlensystem
 	 * 
@@ -150,7 +159,25 @@ public interface ChangeableNumber {
 	 * @throws IllegalArgumentException		if {@code value} is an empty string or if {@code baseOfValue} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link ConvertingNumbers#isValueToBase(int base, String value)}
 	 *
 	 */
-	public void setValue(String value, int baseOfValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
+	public abstract void setValue(String value, int baseOfValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt den eingeschlossenen Wert zurück. <b> Der vorherige Wert wird gelöscht! Wird nach dieser Methode
+	 * eine der toString-Methoden aufgerufen, wird ein leerer String zurückgegeben. </b>
+	 * <p>
+	 * Mit einer der set-Methoden kann der eingeschlossene Wert wieder neu gesetzt werden.
+	 * </p>
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Resets the wrapped value. <b> The previous value gets deleted! If a toString method is called
+	 * after this method, an empty string will be returned.</b>
+	 * <p>
+	 * The wrapped value can be set again by using one of the set methods.
+	 * </p>
+	 */
+	public abstract void reset();
 	
 	
 	
@@ -177,9 +204,10 @@ public interface ChangeableNumber {
 	 * 
 	 * @return hexadecimal string representation of this {@code ChangeableNumber}
 	 */
-	public String toHexString();	// hexadezimale Darstellung dieser Zahl als String
+	public abstract String toHexString();	// hexadezimale Darstellung dieser Zahl als String
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als dezimalen String zurück.
 	 * 
@@ -190,9 +218,10 @@ public interface ChangeableNumber {
 	 * 
 	 * @return decimal string representation of this {@code ChangeableNumber}
 	 */
-	public String toDecString();	// dezimale Darstellung dieser Zahl als String
+	public abstract String toDecString();	// dezimale Darstellung dieser Zahl als String
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als oktalen String zurück.
 	 * <p>
@@ -209,9 +238,10 @@ public interface ChangeableNumber {
 	 * 
 	 * @return octal string representation of this {@code ChangeableNumber}
 	 */
-	public String toOctString();	// oktale Darstellung dieser Zahl als String
+	public abstract String toOctString();	// oktale Darstellung dieser Zahl als String
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als binären String zurück.
 	 * <p>
@@ -230,7 +260,8 @@ public interface ChangeableNumber {
 	 */
 	public String toBinString();	// binaere Darstellung dieser Zahl als String
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} zu einer beliebigen Basis zurück.
 	 * <p>
@@ -255,32 +286,15 @@ public interface ChangeableNumber {
 	 * 
 	 * @throws IllegalArgumentException		if {@code base} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link ConvertingNumbers#isValueToBase(int, String)}
 	 */
-	public String toBaseString(int base) throws IllegalArgumentException;	// Darstellung dieser Zahl als String zu der uebergebenen Basis base
+	public abstract String toBaseString(int base) throws IllegalArgumentException;	// Darstellung dieser Zahl als String zu der uebergebenen Basis base
 	
 	
-	
-//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-//  #																																 #
-// 	#	other methods	   																											 #
-//  #																																 #
-//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	
-	
-	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den eingeschlossenen Wert zurück. <b> Der vorherige Wert wird gelöscht! Wird nach dieser Methode
-	 * eine der toString-Methoden aufgerufen, wird ein leerer String zurückgegeben. </b>
-	 * <p>
-	 * Mit einer der set-Methoden kann der eingeschlossene Wert wieder neu gesetzt werden.
-	 * </p>
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Resets the wrapped value. <b> The previous value gets deleted! If a toString method is called
-	 * after this method, an empty string will be returned.</b>
-	 * <p>
-	 * The wrapped value can be set again by using one of the set methods.
-	 * </p>
-	 */
-	public void reset();
-		
 
 }
+
+
+
+
+
+
+
