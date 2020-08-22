@@ -1,10 +1,20 @@
 .root {
+	-fx-background: #fefefe;
+	-fx-border: lightgrey;
+	-fx-text: black;
+	
+	-fx-background-color: -fx-background;
 }
 
-.grid-pane {
-	-fx-hgap: 6;
-	-fx-vgap: 6;
-	-fx-alignment: center;
+.label {
+	-fx-text-fill: -fx-text;
+}
+
+
+
+.text-input {
+	-fx-text-fill: mediumblue;
+	-fx-font-weight: bold;
 }
 
 

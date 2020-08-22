@@ -1,23 +1,22 @@
 .root {
 	background: #404040;
 	
-	-fx-font-size: 18px;
 	-fx-background-color: background;
 	-fx-text-box-border: dimgray;
 	-fx-control-inner-background: darkgray;
 	
 	-fx-hover-base: midnightblue;
 	-fx-accent: midnightblue;
+	
+	text: cornsilk;
 }
 
 .svg-icon {
-	-fx-fill: cornsilk;
+	-fx-fill: text;
 }
 
 .label {
-	-fx-font-size: 25px;
-	-fx-background-color: background;
-	-fx-text-fill: cornsilk;
+	-fx-text-fill: text;
 }
 
 .unfocused-button {
