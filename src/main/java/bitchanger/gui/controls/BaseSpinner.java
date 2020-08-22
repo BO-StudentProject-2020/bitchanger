@@ -107,7 +107,8 @@ public class BaseSpinner extends Spinner<Integer>{
 		});
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Prüft, ob der Text im Editor ein gültiger Wert ist und mit Methode {@link #commitValue()}
 	 * aktualisiert werden kann.

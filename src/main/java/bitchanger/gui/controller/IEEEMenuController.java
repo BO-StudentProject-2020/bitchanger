@@ -11,8 +11,10 @@ package bitchanger.gui.controller;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.views.IEEEView;
 
+//TODO JavaDoc
 public class IEEEMenuController extends BasicMenuController {
 
+	// TODO JavaDoc
 	protected IEEEMenuController(BasicMenuBar controllable, ControllableApplication app, IEEEView view) {
 		super(controllable, app);
 		// TODO Auto-generated constructor stub

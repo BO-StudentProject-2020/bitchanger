@@ -499,7 +499,8 @@ public class Resources {
 		return url;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Sucht die Ressource mit gegebenem Namen und gibt diese als File zurück.
 	 * 

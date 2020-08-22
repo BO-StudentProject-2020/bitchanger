@@ -83,6 +83,8 @@ public interface ControllableApplication {
 	 */
 	public abstract Stage getPrimaryStage();
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt die mit dem String {@code key} verknüpfte View zurück
 	 * 
@@ -97,6 +99,8 @@ public interface ControllableApplication {
 	 */
 	public abstract Viewable getViewable(String key);
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt die CurrentViewProperty zurück
 	 * 

@@ -72,7 +72,8 @@ public class ValueButton extends UnfocusedButton{
 		this("");
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem spezifischen String und einem Icon als Beschriftung
 	 *
@@ -95,7 +96,8 @@ public class ValueButton extends UnfocusedButton{
 		getStyleClass().add("value-button");
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem spezifischen String als Beschriftung
 	 *
@@ -133,7 +135,8 @@ public class ValueButton extends UnfocusedButton{
 		this.baseProperty.set(base);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt den Wert der {@link #baseProperty} zurück
 	 * 
@@ -176,7 +179,8 @@ public class ValueButton extends UnfocusedButton{
 		setBaseListener();
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Überprüft die textProperty und aktiviert bzw. deaktiviert diesen Button, wenn der neue Text
 	 * zur baseProperty passt bzw. nicht passt
@@ -199,7 +203,8 @@ public class ValueButton extends UnfocusedButton{
 		});
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Überprüft die baseProperty und aktiviert bzw. deaktiviert diesen Button, wenn der Text
 	 * zum neuen Wert der baseProperty passt bzw. nicht passt

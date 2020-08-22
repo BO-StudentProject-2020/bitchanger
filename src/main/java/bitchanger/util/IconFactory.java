@@ -62,7 +62,8 @@ public class IconFactory {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt den SVG-Pfad des SVGIcon icon auf den Pfad von lightSVG oder darkSVG, basierend auf dem Style style.
 	 * 
@@ -83,5 +84,21 @@ public class IconFactory {
 				return;
 		}
 	}
-
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Instances		   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	/** <!-- $LANGUAGE=DE --> Diese Klasse ist nicht instanziierbar **/
+	/*  <!-- $LANGUAGE=EN --> Do not let anyone instantiate this class **/
+	private IconFactory() {}
+	
 }
+
+
+
+

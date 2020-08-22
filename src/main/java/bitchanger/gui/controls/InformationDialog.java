@@ -27,7 +27,8 @@ public class InformationDialog extends Alert {
 		this(InformationType.NONE);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	// TODO JavaDoc erstellen
 	public InformationDialog(InformationType informationType) {
 		super(AlertType.INFORMATION);
@@ -78,6 +79,7 @@ public class InformationDialog extends Alert {
 		
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc erstellen
 	private void createVersionDialog() {

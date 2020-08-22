@@ -86,7 +86,8 @@ public class Preferences {
 		return prefs;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Speichert die aktuellen Einstellungen in der Datei {@link Resources#CUSTOM_PREFERENCES}
 	 */
@@ -97,7 +98,8 @@ public class Preferences {
 		prefs.store(Resources.CUSTOM_PREFERENCES);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Lädt die letzten Einstellungen aus der Datei {@link Resources#CUSTOM_PREFERENCES}
 	 */
@@ -108,7 +110,8 @@ public class Preferences {
 		prefs.load(Resources.CUSTOM_PREFERENCES);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Lädt die Standardeinstellungen aus der Datei {@link Resources#DEFAULT_PREFERENCES}
 	 */
@@ -187,7 +190,8 @@ public class Preferences {
 		this(Resources.DEFAULT_PREFERENCES);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue Preferences mit den Einstellungen, die in der übergebenen Datei gespeichert sind oder den Standardeinstellungen,
 	 * wenn die übergebene Datei nicht gefunden oder geladen werden konnte.
@@ -270,7 +274,8 @@ public class Preferences {
 		return indicateFractionalPrecisionProperty.getValue();
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Schaltet die Anzeige von abgebrochenen Nachkommastellen ein und aus
 	 * 
@@ -321,7 +326,8 @@ public class Preferences {
 		return true;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Speichert den Speicherort des Stylesheets mit dem vorgegebenen Style in der {@link #stylesheetProperty}.
 	 * 
@@ -394,7 +400,8 @@ public class Preferences {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Speichert alle Einstellungen in der übergebenen Datei im XML-Format
 	 * 
@@ -432,7 +439,8 @@ public class Preferences {
 		}
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Fügt alle Einstellungen dieser Preferences zu dem XML-Baum des Element xmlRoot hinzu
 	 * 

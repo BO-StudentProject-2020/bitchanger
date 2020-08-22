@@ -186,7 +186,8 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		createMenuHelp();
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue BasicMenuBar mit allen MenuItems, die bereits mit den Basisfunktionen belegt sind.
 	 * 
@@ -222,12 +223,14 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	public Map<String, TextField> getTextFieldMap() {
 		return Controllable.EMPTY_TEXTFIELD_MAP;
 	}
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
 	@Override
 	public Map<String, Button> getButtonMap() {
 		return Controllable.EMPTY_BUTTON_MAP;
 	}
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
 	@Override
@@ -266,7 +269,8 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		});
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt das Menu "Modus" mit den Elementen "Umrechner", "IEEE" und "Berechnungen"
 	 */
@@ -288,7 +292,8 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		modus.getItems().addAll(viewConverter, viewIEEE, viewCalculator);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt das Menu "Optionen" mit den Elementen "Komma wählen" und den Unterelementen 
 	 * "deutsch" und "englisch"
@@ -318,7 +323,8 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		options.getItems().addAll(chooseComma, indicateFractionalInaccuracy);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt das Menu "Ansicht" mit den Elementen "Stil", "Auf Monitor bewegen" und "Vollbild"
 	 */
@@ -348,7 +354,8 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		viewMenu.getItems().addAll(styleMenu, moveToScreen, showFullscreen);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt das Menu "Hilfe" mit den Elementen "Über" und "Version"
 	 */
@@ -370,7 +377,8 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		help.getItems().addAll(about, version, resetPreferences);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Fügt das übergebene Menu zu dieser MenuBar hinzu und speichert dieses mit dem Schlüssel
 	 * {@code key} in der Map {@link #menuItemMap}

@@ -119,7 +119,8 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 		this(root, true);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
 	 * <p>
@@ -164,6 +165,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 		return scene;
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
 	@Override
@@ -171,21 +173,24 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 		return tfMap;
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public final Map<String, Button> getButtonMap() {
 		return btnMap;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public final Map<String, Node> getNodeMap() {
 		return nodeMap;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**  <!-- $LANGUAGE=DE -->
 	 * {@inheritDoc}
 	 * 
@@ -241,7 +246,8 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 		// nothing to do
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Konstruiert den Scenegraphen mit der Methode {@link #createScenegraph()} und gibt den Bedienelementen mit einem
 	 * Controller eine Funktion, falls ein passender Controller mit {@link Controller#register(Class, Class)} registriert

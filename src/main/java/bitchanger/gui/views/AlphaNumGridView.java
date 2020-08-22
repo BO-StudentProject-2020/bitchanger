@@ -276,7 +276,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this(-1, -1, -1, -1, firstKeyBtnRow, firstKeyBtnColumn, null);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels in der Spalte 0 ab Zeile 0 und ihre Textfelder in der Spalte 1 
 	 * ab Zeile 0 positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -292,7 +293,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this(0, 0, 0, 1, Math.max(labelTexts.length, tfKeys.length) + 1, 1, labelTexts, tfKeys);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels, Textfelder und die Tastaturmatrix nach den übergebenen Parametern
 	 * positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -315,7 +317,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 				tfKeys, 40, Double.MAX_VALUE, 50, 40, 70, 20, 6);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels, Textfelder und die Tastaturmatrix nach den übergebenen Parametern
 	 * positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -347,7 +350,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 				paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, spacing, spacing, spacing);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**<!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels, Textfelder und die Tastaturmatrix nach den übergebenen Parametern
 	 * positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -446,7 +450,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 				+ (center.getRowCount() - firstKeyBtnRow) * btnMaxHeigthProperty.get() + whiteSpaceHeigthProperty.get();
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public double getMaxWidth() {
@@ -454,7 +459,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 				+ AlphaNumKeys.COLUMN_COUNT * btnMaxWidthProperty.get() + (center.getColumnCount() - 1) * hgapProperty.get();
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public double getMinHeigth() {
@@ -470,7 +476,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		return minHeight;
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public double getMinWidth() {
@@ -569,7 +576,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue RowConstraints für die Zeile mit dem Index {@code rowIndex}, die an den ConstraintType angepasst sind.
 	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
@@ -623,7 +631,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		center.getRowConstraints().add(rowIndex, rowc);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt alle {@code ColumnConstraints} für center.
 	 * <p>
@@ -646,7 +655,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		}
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue ColumnConstraints für die Spalte mit dem Index {@code columnIndex}, die an den ConstraintType angepasst sind.
 	 * Der ConstraintType bestimmt, ob es sich um die erste Spalte oder um eine Spalte mit Buttons handelt, um Hgrow
@@ -771,6 +781,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		FXUtils.setMaxSizes(alphaNum.getButtonMatrix(), Double.MAX_VALUE);
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt die Buttons {@link #clearBtnKey} und {@link #backspaceBtnKey} und gibt diese in einer ArrayList zurück.
@@ -857,7 +868,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		paddingLeftProperty.addListener(this::updatePadding);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Methode, die als Referenz für einen ChangeListener eingesetzt werden kann, um die Paddings der GridPane zu aktualisieren.
 	 * 

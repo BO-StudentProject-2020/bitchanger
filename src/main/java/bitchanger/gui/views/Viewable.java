@@ -81,7 +81,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract Scene getScene();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die maximale Höhe der View an
 	 * 
@@ -96,7 +97,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract double getMaxHeigth();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die maximale Breite der View an
 	 * 
@@ -111,7 +113,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract double getMaxWidth();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die minimale Höhe der View an
 	 * 
@@ -126,7 +129,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract double getMinHeigth();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die minimale Breite der View an
 	 * 
@@ -141,7 +145,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract double getMinWidth();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt die übergebene MenuBar in den Scenegraph der View. Eine eventuell vorhandene MenuBar
 	 * wird zuvor aus dem Scenegraph entfernt und ersetzt. Ist das Argument {@code null} wird nur

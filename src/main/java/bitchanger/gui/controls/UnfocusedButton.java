@@ -68,13 +68,15 @@ public class UnfocusedButton extends Button{
 		this("");
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	// TODO: JavaDoc
 	public UnfocusedButton(Node graphic) {
 		this("", graphic);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen UnfocusedButton mit einem spezifischen String und einem Icon als Beschriftung
 	 *
@@ -104,7 +106,8 @@ public class UnfocusedButton extends Button{
 		getStyleClass().add("unfocused-button");
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen UnfocusedButton mit einem spezifischen String als Beschriftung
 	 * 
@@ -149,7 +152,8 @@ public class UnfocusedButton extends Button{
 		this.setPadding(new Insets(2));
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	// TODO JavaDoc
 	private void observeGraphicScaling() {
 		this.graphicProperty().addListener(new ChangeListener<Node>() {
@@ -166,7 +170,8 @@ public class UnfocusedButton extends Button{
 		this.widthProperty().addListener(this::bindScaleProperty);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	// TODO JavaDoc
 	private void bindScaleProperty(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 		if (getHeight() < getWidth()) {
@@ -176,7 +181,8 @@ public class UnfocusedButton extends Button{
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	// TODO JavaDoc
 	public void setGraphicScaleFactor(Double factor) {
 		graphicScaleFactorProperty.set(factor);

@@ -148,7 +148,8 @@ public class ConverterView extends AlphaNumGridView {
 		createAnyBase();
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Fügt einen {@link BaseSpinner} zur Auswahl einer beliebigen (gültigen) Basis zur GridPane
 	 * {@link AlphaNumGridView#center} hinzu und speichert diesen in der Map {@code nodeMap}.

@@ -179,7 +179,8 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		return primaryStage;
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public Viewable getViewable(String key) {
@@ -195,7 +196,8 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public ObjectProperty<Viewable> getCurrentViewProperty() {

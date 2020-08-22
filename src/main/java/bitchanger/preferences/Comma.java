@@ -51,10 +51,26 @@ public enum Comma {
 	COMMA_EN('.');
 	
 	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/**	<!-- $LANGUAGE=DE --> Eingeschlossenes Kommazeichen */
 	/*	<!-- $LANGUAGE=EN --> Wrapped comma sign */
 	private char comma;
 	
+	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Kommazeichen im Konstruktor initialisieren
@@ -71,6 +87,14 @@ public enum Comma {
 	}
 	
 	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt das repräsentierte Kommazeichen zurück
 	 * 

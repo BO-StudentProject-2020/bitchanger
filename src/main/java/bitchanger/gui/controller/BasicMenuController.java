@@ -27,23 +27,68 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+//TODO JavaDoc
 public class BasicMenuController extends ControllerBase<BasicMenuBar> {
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+
+	// TODO JavaDoc
 	protected MenuItem modusConverter;
+
+	// TODO JavaDoc
 	protected MenuItem modusIEEE;
+
+	// TODO JavaDoc
 	protected MenuItem modusCalculator;
+
+	// TODO JavaDoc
 	protected Menu options;
+
+	// TODO JavaDoc
 	protected Menu styleMenu;
+
+	// TODO JavaDoc
 	protected MenuItem styleLight;
+
+	// TODO JavaDoc
 	protected MenuItem styleDark;
+
+	// TODO JavaDoc
 	protected Menu moveToScreen;
+
+	// TODO JavaDoc
 	protected CheckMenuItem showFullscreen;
+
+	// TODO JavaDoc
 	protected CheckMenuItem indicateFractionalInaccuracy;
+
+	// TODO JavaDoc
 	protected MenuItem about;
+
+	// TODO JavaDoc
 	protected MenuItem version;
+
+	// TODO JavaDoc
 	protected MenuItem resetPreferences;
+
+	// TODO JavaDoc
 	private ControllableApplication application;
 	
+	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
+	// TODO JavaDoc
 	public BasicMenuController(BasicMenuBar controllable, ControllableApplication application) {
 		super(controllable);
 		
@@ -51,6 +96,14 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	}
 
 	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	initializing	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
 	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
@@ -70,6 +123,14 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	}
 	
 	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
 	/** {@inheritDoc} */
 	@Override
 	public void setActions() {
@@ -94,6 +155,15 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	}
 
 
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Actions																														 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
+	// TODO JavaDoc
 	private void changeToViewAction(MenuItem source, Viewable view) {
 		source.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -103,7 +173,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		});
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
 	private void switchIndicateFractionalInaccuracyAction() {
 		this.indicateFractionalInaccuracy.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -114,7 +186,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		});
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
 	private void changeStyleAction() {
 		styleLight.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -131,7 +205,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		});
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
 	private void switchFullscreenAction() {
 		showFullscreen.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -154,45 +230,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		});
 	}
 	
-	private void listenScreenConfig() {
-		// Menü bei Änderung der Bildschirmkonfiguration anpassen
-		Screen.getScreens().addListener(new InvalidationListener(){
-			@Override
-			public void invalidated(Observable observable) {
-				setScreenItems();		
-			}
-		});
-	}
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	private void setScreenItems() {
-		moveToScreen.getItems().clear();
-		
-		// Bildschirme auslesen
-		int screenNum = 1;
-		for(Screen screen: Screen.getScreens()) {
-			MenuItem item = new MenuItem("Monitor " + screenNum);
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					// mittig auf Bildschirm positionieren
-					Stage primaryStage = application.getPrimaryStage();
-					
-					if(primaryStage.isFullScreen()) {
-						primaryStage.setX(screen.getBounds().getMinX()+(screen.getBounds().getWidth()/2)-primaryStage.getWidth()/2);
-						primaryStage.setY(screen.getBounds().getMinY()+(screen.getBounds().getHeight()/2)-primaryStage.getHeight()/2);
-					} else {
-						primaryStage.setX(screen.getVisualBounds().getMinX()+(screen.getVisualBounds().getWidth()/2)-primaryStage.getWidth()/2);
-						primaryStage.setY(screen.getVisualBounds().getMinY()+(screen.getVisualBounds().getHeight()/2)-primaryStage.getHeight()/2);
-					}					
-				}
-			});
-				
-			moveToScreen.getItems().add(item);
-			screenNum++;
-		}
-	}
-	
-
+	// TODO JavaDoc
 	private void showAboutAction() {
 		about.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -203,6 +243,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		});
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
 	private void showVersionAction() {
 		version.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -212,8 +255,10 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 			}
 		});
 	}
-
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
 	private void resetPreferencesAction() {
 		this.resetPreferences.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -222,7 +267,61 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 			}
 		});
 	}
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Bindings and Listeners																										 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+
+	// TODO JavaDoc
+	private void listenScreenConfig() {
+		// Menü bei Änderung der Bildschirmkonfiguration anpassen
+		Screen.getScreens().addListener(new InvalidationListener() {
+			@Override
+			public void invalidated(Observable observable) {
+				setScreenItems();
+			}
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void setScreenItems() {
+		moveToScreen.getItems().clear();
+
+		// Bildschirme auslesen
+		int screenNum = 1;
+		for (Screen screen : Screen.getScreens()) {
+			MenuItem item = new MenuItem("Monitor " + screenNum);
+			item.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					// mittig auf Bildschirm positionieren
+					Stage primaryStage = application.getPrimaryStage();
+
+					if (primaryStage.isFullScreen()) {
+						primaryStage.setX(screen.getBounds().getMinX() + (screen.getBounds().getWidth() / 2)
+								- primaryStage.getWidth() / 2);
+						primaryStage.setY(screen.getBounds().getMinY() + (screen.getBounds().getHeight() / 2)
+								- primaryStage.getHeight() / 2);
+					} else {
+						primaryStage.setX(screen.getVisualBounds().getMinX() + (screen.getVisualBounds().getWidth() / 2)
+								- primaryStage.getWidth() / 2);
+						primaryStage.setY(screen.getVisualBounds().getMinY()
+								+ (screen.getVisualBounds().getHeight() / 2) - primaryStage.getHeight() / 2);
+					}
+				}
+			});
+
+			moveToScreen.getItems().add(item);
+			screenNum++;
+		}
+	}
 }
 
 

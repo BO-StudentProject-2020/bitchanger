@@ -230,7 +230,8 @@ public class AlphaNumKeys implements Controllable {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE --> 
 	 * Erstellt alle Buttons für das Tastaturlayout und setzt die Constraints für die Positionierung in einer GridPane.
 	 * Zudem werden alle Bedienelemente durch einen {@link AlphaNumKeysController} mit der entsprechenden Funktion belegt, 
@@ -267,21 +268,24 @@ public class AlphaNumKeys implements Controllable {
 		return Controllable.EMPTY_TEXTFIELD_MAP;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public Map<String, Button> getButtonMap() {
 		return this.buttonMap;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public Map<String, Node> getNodeMap() {
 		return Controllable.EMPTY_NODE_MAP;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt die HBox mit den Buttons, mit denen durch die Tastatur gescrollt werden kann, zurück
 	 * 
@@ -292,7 +296,8 @@ public class AlphaNumKeys implements Controllable {
 		return this.arrowButtons;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt die Liste mit allen Nodes der Tastatur-Matrix zurück. Alle Elemente sind in der Reihenfolge
 	 * angeordnet, wie sie Zeilenweise in der Tabelle positioniert sind.
@@ -330,7 +335,8 @@ public class AlphaNumKeys implements Controllable {
 		}
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Fügt den nächsten Button zur Liste {@link #buttonList} hinzu
 	 * und setzt die Constraints zur Positionierung in einer GridPane.
@@ -374,7 +380,8 @@ public class AlphaNumKeys implements Controllable {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt die Matrix mit den sechs Buchstaben- und neun Zahlen-Buttons.
 	 * Alle Buttons werden in der Map {@link #buttonMap} gespeichert und die
@@ -414,7 +421,8 @@ public class AlphaNumKeys implements Controllable {
 		FXUtils.setGridConstraints(firstColumn, firstRow, 5, 0, alphaNumButtons, this::addButton);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt die Steuer-Buttons in der untersten Zeile des Tastaturlayouts, fügt diese der Map {@link #buttonMap}
 	 * hinzu und setzt die Constraint zur Positionierung in einer GridPane.

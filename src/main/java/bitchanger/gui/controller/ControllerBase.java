@@ -40,25 +40,43 @@ import javafx.scene.input.KeyEvent;
  * @version 0.1.4
  *
  */
+//TODO JavaDoc EN
 public abstract class ControllerBase<T extends Controllable> implements Controller {
 
-	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
 	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Textfelder des gekapselten Controllables enthält */
+	// TODO JavaDoc EN
 	protected Map<String, TextField> textFieldMap;
 	
 	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Buttons des gekapselten Controllables enthält */
+	// TODO JavaDoc EN
 	protected Map<String, Button> buttonMap;
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * {@code Map}, die alle Nodes des gekapselten Controllables enthält, die eine Funktion erhalten 
 	 * und weder eine Instanz von Button noch von Textfeld sind */
+	// TODO JavaDoc EN
 	protected Map<String, Node> nodeMap;
 	
 	/** <!-- $LANGUAGE=DE -->	gekapseltes Controllable, dem durch diesen Controller eine Funktion gegeben wird */
+	// TODO JavaDoc EN
 	protected final T controllable;
 	
 	
-	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Kapselt das übergebene Controllable und initialisiert die Maps mit den Bedienelementen mit Referenzen
 	 * auf die zugehörigen Maps des Controllables.
@@ -68,6 +86,7 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	 * 
 	 * @param controllable	Controllable, das mit diesem Controller eine Funktion erhält
 	 */
+	// TODO JavaDoc EN
 	protected ControllerBase(T controllable) {
 		this.textFieldMap = controllable.getTextFieldMap();
 		this.buttonMap = controllable.getButtonMap();
@@ -78,13 +97,29 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	}
 	
 	
-	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Initialisiert alle benötigten Bedienelemente mit Referenzen aus den zur Verfügung stehenden Maps.
 	 */
+	// TODO JavaDoc EN
 	protected abstract void initControls();
 	
 	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Methods   																													 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
 	/**  <!-- $LANGUAGE=DE -->
 	 * Simuliert den Druck der Taste auf einer Tastatur mit dem spezifischen {@code keycode} und feuert nacheinander die KeyEvents 
 	 * {@link KeyEvent#KEY_PRESSED}, {@link KeyEvent#KEY_TYPED} und {@link KeyEvent#KEY_RELEASED} an den gewählten Empfänger 
@@ -117,6 +152,7 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	 * @Moritz: DIE BESCHREIBUNG FÜR DIE PARAMETER KANNST DU AUS DEM DOC VOM KONSTRUKTOR VON KeyEvent KOPIEREN! (Du kannst ja auf die Verlinkung klicken ;) )
 	 * 
 	 */
+	// TODO JavaDoc EN
 	protected void simulateKeyEvents(Button source, Node target, Scene scene, String character, String text, KeyCode keycode, boolean shiftDown, boolean controlDown, boolean altDown, boolean metaDown) {
 		KeyEvent pressed = new KeyEvent(source, target, KeyEvent.KEY_PRESSED, character, text, keycode, shiftDown, controlDown, altDown, metaDown);
 		KeyEvent typed = new KeyEvent(source, target, KeyEvent.KEY_TYPED, character, text, keycode, shiftDown, controlDown, altDown, metaDown);
@@ -139,6 +175,8 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 		
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**  <!-- $LANGUAGE=DE -->
 	 * Verhält sich wie {@link #simulateKeyEvents(Button, Node, Scene, String, String, KeyCode, boolean, boolean, boolean, boolean)},
 	 * bis auf dass die Parameter shiftDown, controlDown, altDown und metaDown alle den Wert {@code false} haben.
@@ -152,8 +190,19 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	 * 
 	 * @see #simulateKeyEvents(Button, Node, Scene, String, String, KeyCode, boolean, boolean, boolean, boolean)
 	 */
+	// TODO JavaDoc EN
 	protected void simulateKeyEvents(Button source, Node target, Scene scene, String character, String text, KeyCode keycode) {
 		simulateKeyEvents(source, target, scene, character, text, keycode, false, false, false, false);
 	}
 
 }
+
+
+
+
+
+
+
+
+
+

@@ -30,13 +30,15 @@ public class SVGIcon extends SVGPath {
 		this(new SVGPath());
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	// TODO JavaDoc
 	public SVGIcon(File svgFile) {
 		this(FXUtils.loadSVG(svgFile));
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	// TODO JavaDoc
 	public SVGIcon(SVGPath svgPath) {
 		super();

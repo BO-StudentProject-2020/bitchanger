@@ -51,7 +51,13 @@ import java.util.stream.Stream;
  */
 public interface Controller {
 	
-// Konstanten	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constants		   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Map, die die für ein Controllable registrierten Controller speichert und diese verknüpft
 	 */
@@ -61,7 +67,14 @@ public interface Controller {
 	public static final HashMap<Class<? extends Controllable>, Class<? extends Controller>> REGISTERED_CONTROLLERS = new HashMap<>();
 	
 	
-// statische Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	static Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Registriert eine Controller-Klasse für die Factory-Methode {@link #of(Controllable)} 
 	 * und ordnet diese einer Controllable-Klasse zu.
@@ -80,7 +93,8 @@ public interface Controller {
 		REGISTERED_CONTROLLERS.put(controllable, controller);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Factory-Methode, die einen neuen Controller für das übergebene Controllable erzeugt und zurückgibt.
 	 * <p><b>
@@ -123,6 +137,8 @@ public interface Controller {
 		return ofArg(c);
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Factory-Methode, die einen neuen Controller für das übergebene Controllable erzeugt und zurückgibt.
 	 * <p><b>
@@ -192,7 +208,14 @@ public interface Controller {
 	}
 	
 	
-// abstrakte Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt alle für die View benötigten Funktionen.
 	 */
@@ -202,3 +225,9 @@ public interface Controller {
 	public abstract void setActions();
 
 }
+
+
+
+
+
+

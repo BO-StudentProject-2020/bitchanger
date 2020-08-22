@@ -91,7 +91,8 @@ public class ValueField extends TextField {
 		this(10);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit dem übergebenen Text als Inhalt und der Basis 10
 	 * 
@@ -106,7 +107,8 @@ public class ValueField extends TextField {
 		this(text, 10);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit leerem Text und der übergebenen Basis
 	 * 
@@ -121,7 +123,8 @@ public class ValueField extends TextField {
 		this("", base);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit dem übergebenen Text als Inhalt und der übergebenen Basis
 	 * 
@@ -181,7 +184,8 @@ public class ValueField extends TextField {
 		this.baseProperty.setValue(base);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt den Wert der {@link #baseProperty} zurück
 	 * 
@@ -196,7 +200,8 @@ public class ValueField extends TextField {
 		return this.baseProperty.get();
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt die {@link #baseProperty} dieses ValueFields zurück
 	 * 
@@ -211,7 +216,8 @@ public class ValueField extends TextField {
 		return this.baseProperty;
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Überprüft, ob es eine Textauswahl in diesem ValueField gibt
 	 * 
@@ -260,7 +266,8 @@ public class ValueField extends TextField {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Speichert die letzte bekannte CaretPosition, um diese zurücksetzen zu können. 
 	 * Kann als Methoden-Referenz für einen ChangeListener eingesetzt werden.
@@ -284,7 +291,8 @@ public class ValueField extends TextField {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Entfernt den Indikator für abgeschnittene Nachkommastellen und setzt die CaretPosition auf den 
 	 * letzten bekannten Wert zurück. 
@@ -324,7 +332,8 @@ public class ValueField extends TextField {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Überwacht die CommaProperty aus {@link Preferences} und passt das Komma der Zahl in diesem Textfeld
 	 * bei Änderung an
