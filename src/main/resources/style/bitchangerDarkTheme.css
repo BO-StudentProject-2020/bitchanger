@@ -1,22 +1,21 @@
 .root {
-	background: #404040;
-	
-	-fx-background-color: background;
+	-fx-background: #404040;
+	-fx-background-color: -fx-background;
 	-fx-text-box-border: dimgray;
 	-fx-control-inner-background: darkgray;
 	
 	-fx-hover-base: midnightblue;
 	-fx-accent: midnightblue;
 	
-	text: cornsilk;
+	-fx-text: cornsilk;
 }
 
 .svg-icon {
-	-fx-fill: text;
+	-fx-fill: -fx-text;
 }
 
 .label {
-	-fx-text-fill: text;
+	-fx-text-fill: -fx-text;
 }
 
 .unfocused-button {
@@ -24,13 +23,14 @@
 	-fx-background-color: gray;
 }
 
+
 .menu-bar {
-	-fx-background-color: background;
-	-fx-control-inner-background: background;
+	-fx-background-color: #404040;
+	-fx-control-inner-background: #404040;
 }
 
 .menu-item {
-	-fx-background-color: background;
+	-fx-background-color: #404040;
 }
 
 .menu-item:focused, 
@@ -50,7 +50,7 @@
 
 .menu-item .label, .menu .label {
 	-fx-font-size: 16px;
-	-fx-background-color: background;
+	-fx-background-color: #404040;
 }
 
 .dialog-pane:header .header-panel .label {

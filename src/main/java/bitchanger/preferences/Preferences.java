@@ -335,12 +335,16 @@ public class Preferences {
 	 * 
 	 * @param style	Stil, den das Stylesheet haben soll
 	 * 
+	 * @return		{@code true}, wenn der Style bekannt ist und das Stylesheet gesetzt wurde, sonst {@code false}
+	 * 
 	 * @since Bitchanger 0.1.4
 	 */
 	/* <!-- $LANGUAGE=DE -->
 	 * Saves the location of the Stylesheet with the given Style in the {@link #stylesheetProperty}.
 	 * 
 	 * @param style	Style of the Stylesheet to be set
+	 * 
+	 * @return		{@code true} if Style is not UNKNOWN if the Stylesheet was set, otherwise {@code false}
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
@@ -372,10 +376,14 @@ public class Preferences {
 	/** <!-- $LANGUAGE=DE -->
 	 * Lädt alle Einstellungen aus der übergebenen XML-Datei
 	 * 
+	 * @param file	Datei, aus der die Einstellungen geladen werden sollen
+	 * 
 	 * @since Bitchanger 0.1.4
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Loads all settings from the given XML file
+	 * 
+	 * @param file	File from which the settings are loaded
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
@@ -407,10 +415,14 @@ public class Preferences {
 	/** <!-- $LANGUAGE=DE -->
 	 * Speichert alle Einstellungen in der übergebenen Datei im XML-Format
 	 * 
+	 * @param file	Datei, in der die Einstellungen gespeichert werden. Der eventuelle Inhalt der Datei wird überschrieben!
+	 * 
 	 * @since Bitchanger 0.1.4
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Stores all preferences into the given file as XML document
+	 * 
+	 * @param file	File in which the preferences are stored. Any content of the file will be overwritten!
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */

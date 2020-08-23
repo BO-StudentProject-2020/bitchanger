@@ -8,18 +8,9 @@
 
 package bitchanger.gui.views;
 
-import java.io.File;
-import java.util.ArrayDeque;
-
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.IEEEController;
-import bitchanger.gui.controls.SVGIcon;
-import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.util.ArrayUtils;
-import bitchanger.util.FXUtils;
-import bitchanger.util.Resources;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 
 
 /**	<!-- $LANGUAGE=DE -->
@@ -108,26 +99,6 @@ public class IEEEView extends AlphaNumGridView {
 		
 		buildScenegraph();
 		
-		ArrayDeque<Button> buttons = new ArrayDeque<>();
-		for(File file : Resources.ICON_LIST) {
-			Button b = new UnfocusedButton("", FXUtils.loadSVG(file));
-			b.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-			buttons.add(b);
-		}
-		
-		FXUtils.setGridConstraints(7, 0, 9, 0, buttons);
-		center.getChildren().addAll(buttons);
-		
-		for(int row = 0; row < center.getRowCount(); row++) {
-			this.addRowConstraint(row, ConstraintType.BUTTON_ROW);
-		}
-		for(int column = 7; column < center.getColumnCount(); column++) {
-			this.addColumnConstraint(column, ConstraintType.BUTTON_COLUMN);
-		}
-		
-		StackPane  sp = new StackPane(new SVGIcon(Resources.ABC_BRICKS_FILLED_ICON));
-		sp.getStyleClass().add("stack-pane");
-		center.add(sp, 15, 11);
 	}
 	
 	
