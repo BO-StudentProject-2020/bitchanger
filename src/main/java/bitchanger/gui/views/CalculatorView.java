@@ -11,7 +11,6 @@ package bitchanger.gui.views;
 import java.io.File;
 import java.util.ArrayDeque;
 
-import bitchanger.gui.controller.IEEEController;
 import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.util.FXUtils;
 import bitchanger.util.IconFactory;
@@ -19,20 +18,7 @@ import bitchanger.util.Resources;
 import javafx.scene.control.Button;
 
 
-/**	<!-- $LANGUAGE=DE -->
- * View, die die Scene für die Umwandlung zwischen dezimal Zahlen und der IEEE-Norm enthält.
- * <p><b>
- * Für diese View-Klasse wird der Controller {@link IEEEController} registriert.
- * </b></p>
- * 
- * @author Tim Mühle
- * 
- * @since Bitchanger 0.1.4
- * @version 0.1.4
- * 
- * @see IEEEController
- */
-//TODO JavaDoc EN
+//TODO JavaDoc
 public class CalculatorView extends AlphaNumGridView {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -79,13 +65,13 @@ public class CalculatorView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfDecKey = "dec-TF";
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfIEEEKey = "ieee-TF";
+//	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
+//	// TODO JavaDoc EN
+//	public final String tfDecKey = "dec-TF";
+//	
+//	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
+//	// TODO JavaDoc EN
+//	public final String tfIEEEKey = "ieee-TF";
 	
 	
 	
@@ -95,11 +81,11 @@ public class CalculatorView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue IEEEView mit vollständigem Scenegraphen und initialisiert die Funktionen
-	 * der Bedienelemente mit einem {@link IEEEController}.
-	 */
-	// TODO JavaDoc EN
+//	/** <!-- $LANGUAGE=DE -->
+//	 * Erzeugt eine neue IEEEView mit vollständigem Scenegraphen und initialisiert die Funktionen
+//	 * der Bedienelemente mit einem {@link IEEEController}.
+//	 */
+	// TODO JavaDoc
 	public CalculatorView() {
 		super(0, 0, 0, 1, 6, 1, null);
 		
