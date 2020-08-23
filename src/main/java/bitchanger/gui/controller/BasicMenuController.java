@@ -65,9 +65,6 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	protected CheckMenuItem showFullscreen;
 
 	// TODO JavaDoc
-	protected CheckMenuItem indicateFractionalInaccuracy;
-
-	// TODO JavaDoc
 	protected MenuItem about;
 
 	// TODO JavaDoc
@@ -111,7 +108,6 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		this.modusIEEE = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_IEEE_ITEM_KEY);
 		this.modusCalculator = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_CALCULATOR_ITEM_KEY);
 		this.options = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY);
-		this.indicateFractionalInaccuracy = (CheckMenuItem) this.controllable.menuItemMap.get(BasicMenuBar.OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY);
 		this.styleMenu = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
 		this.styleLight = this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
 		this.styleDark = this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_DARK_ITEM_KEY);
@@ -138,9 +134,6 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		changeToViewAction(modusConverter, application.getViewable(PrimaryFXApp.CONVERTER_VIEW_KEY));
 		changeToViewAction(modusIEEE, application.getViewable(PrimaryFXApp.IEEE_VIEW_KEY));
 		changeToViewAction(modusCalculator, application.getViewable(PrimaryFXApp.CALCULATOR_VIEW_KEY));
-		
-		//  Menu Options
-		switchIndicateFractionalInaccuracyAction();
 		
 		// Menu View
 		changeStyleAction();
@@ -169,19 +162,6 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 			@Override
 			public void handle(ActionEvent event) {
 				application.changeView(view);
-			}
-		});
-	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	private void switchIndicateFractionalInaccuracyAction() {
-		this.indicateFractionalInaccuracy.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				indicateFractionalInaccuracy.setSelected(! indicateFractionalInaccuracy.isSelected());
-				Preferences.getPrefs().indicateFractionalPrecisionProperty.set(indicateFractionalInaccuracy.isSelected());
 			}
 		});
 	}

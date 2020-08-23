@@ -10,12 +10,16 @@ package bitchanger.gui.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.controls.SVGIcon;
+import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.FXUtils;
 import bitchanger.util.IconFactory;
 import bitchanger.util.Resources;
 import javafx.beans.value.ChangeListener;
@@ -237,14 +241,10 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	private void changeToKeyboard() {
 		setAllToKeyboard('A');
 		
-		if(this.keyboardCloseGraphic != null) {
-			keyboardBtn.setGraphic(this.keyboardCloseGraphic);
-			keyboardBtn.setText("");
-		} else {
-			keyboardBtn.setText("123");
-		}
+		FXUtils.setIconOrText(keyboardBtn, keyboardCloseGraphic, "123");
 		
 		GridPane.setColumnSpan(arrowButtons, 2);
+		setArrowScaleFactors(0.015);
 		
 		zeroBtn.setVisible(false);
 		GridPane.setColumnIndex(signBtn, GridPane.getColumnIndex(signBtn) + 1);
@@ -264,17 +264,34 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		setAlphaButtonTexts('A');
 		setNumButtonTexts();
 		
-		if(this.keyboardOpenGraphic != null) {
-			keyboardBtn.setGraphic(keyboardOpenGraphic);
-			keyboardBtn.setText("");
-		} else {
-			keyboardBtn.setText("ABC");
-		}
+		FXUtils.setIconOrText(keyboardBtn, keyboardOpenGraphic, "ABC");
 		
 		GridPane.setColumnSpan(arrowButtons, 1);
+		setArrowScaleFactors(UnfocusedButton.DEFAULT_GRAPHIC_SCALE_FACTOR);
 		
 		zeroBtn.setVisible(true);
 		GridPane.setColumnIndex(signBtn, GridPane.getColumnIndex(signBtn) - 1);
+	}
+	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	
+	// TODO JavaDoc
+	private void setArrowScaleFactors(double factor) {
+		arrowButtons.getChildren().stream()
+			.filter(new Predicate<Node>() {
+				@Override
+				public boolean test(Node t) {
+					return t instanceof UnfocusedButton;
+				}
+			})
+			.forEach(new Consumer<Node>() {
+				@Override
+				public void accept(Node button) {
+					((UnfocusedButton)button).setGraphicScaleFactor(factor);
+				}
+			});
 	}
 	
 	

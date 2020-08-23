@@ -11,13 +11,25 @@ package bitchanger.gui.controls;
 import java.io.File;
 
 import bitchanger.util.FXUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.shape.SVGPath;
 
 
 // TODO JavaDoc
 public class SVGIcon extends SVGPath {
 
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
+	private boolean hasPath;
+	
+	
+	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	Constructors	   																											 #
@@ -44,6 +56,13 @@ public class SVGIcon extends SVGPath {
 		super();
 		this.getStyleClass().add("svg-icon");
 		
+		contentProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newPath) {
+				hasPath = ! newPath.equals("");
+			}
+		});
+		
 		setSVG(svgPath);
 	}
 	
@@ -66,6 +85,12 @@ public class SVGIcon extends SVGPath {
 		this.setFill(svgPath.getFill());
 		this.setFillRule(svgPath.getFillRule());
 		this.setContent(svgPath.getContent());;
+	}
+	
+	
+	// TODO JavaDoc
+	public boolean hasPath() {
+		return hasPath;
 	}
 	
 }

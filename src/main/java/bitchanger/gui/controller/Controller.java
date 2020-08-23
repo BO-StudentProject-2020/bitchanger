@@ -189,26 +189,54 @@ public interface Controller {
 			return null;
 		}
 		
-		Class<?>[] classes = new Class<?>[args.length + 1];
-		classes[0] = c.getClass();
+		Class<?>[] argClasses = new Class<?>[args.length + 1];
+		argClasses[0] = c.getClass();
 		
 		for(int i = 0; i < args.length; i++) {
-			classes[i+1] = args[i].getClass();
+			argClasses[i+1] = args[i].getClass();
 		}
 		
 		Object[] constructorArgs = Stream.concat(Stream.of(c), Arrays.stream(args)).toArray();
 		
 		try {
-			Constructor<? extends Controller> constructor = controllerClass.getConstructor(classes);
+			Constructor<? extends Controller> constructor = controllerClass.getConstructor(argClasses);
 			return constructor.newInstance(constructorArgs);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		} 
+		catch (Exception e) {
+			return getConstructorForArgs(controllerClass, argClasses, constructorArgs);
 		}
 	}
 	
 	
+	// TODO JavaDoc
+	private static Controller getConstructorForArgs(Class<? extends Controller> controllerClass, Class<?>[] argClasses, Object[] constructorArgs) {
+		try {
+			Constructor<?>[] constructors = controllerClass.getConstructors();
+
+			_CONTRUCTOR_LOOP:
+			for (Constructor<?> constructor : constructors) {
+				if (constructor.getParameterTypes().length != argClasses.length) {
+					continue;
+				}
+
+				for (int i = 0; i < argClasses.length; i++) {
+					if (!constructor.getParameterTypes()[i].isAssignableFrom(argClasses[i])) {
+						continue _CONTRUCTOR_LOOP;
+					}
+				}
+
+				return (Controller) constructor.newInstance(constructorArgs);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	
+	
+
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	abstract Methods   																											 #

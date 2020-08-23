@@ -429,11 +429,15 @@ public class AlphaNumKeys implements Controllable {
 	 */
 	// TODO JavaDoc EN
 	private void createControlButtons() {
-		keyboardBtn = new UnfocusedButton(IconFactory.styleBindIcon(Resources.KEYBORD_OPEN_ICON, Resources.KEYBORD_OPEN_FILLED_ICON));
+		keyboardBtn = new UnfocusedButton("ABC");
+		FXUtils.setIconOrText(keyboardBtn, IconFactory.styleBindIcon(Resources.KEYBORD_OPEN_ICON, Resources.KEYBORD_OPEN_FILLED_ICON));
 		addButton(keyboardBtn, firstColumn, firstRow + 3, KEYBOARD_BTN_KEY);		
 		
-		previousBtn = new UnfocusedButton("<");
-		nextBtn = new UnfocusedButton(">");
+		previousBtn = new UnfocusedButton();
+		nextBtn = new UnfocusedButton();
+		
+		FXUtils.setIconOrText(previousBtn, IconFactory.ofSVGFile(Resources.ARROW_LEFT_ICON), "<");
+		FXUtils.setIconOrText(nextBtn, IconFactory.ofSVGFile(Resources.ARROW_RIGHT_ICON), ">");
 		
 		buttonMap.put(PREVIOUS_BTN_KEY, previousBtn);
 		buttonMap.put(NEXT_BTN_KEY, nextBtn);

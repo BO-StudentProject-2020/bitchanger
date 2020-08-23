@@ -802,7 +802,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			
 			if (this.btnTexts.get(btnKey) instanceof String) {
 				b.setText((String) this.btnTexts.get(btnKey));
-			} else if (this.btnTexts.get(btnKey) instanceof Node) {
+			} 
+			else if (this.btnTexts.get(btnKey) instanceof Node) {
 				b.setGraphic((Node) this.btnTexts.get(btnKey));
 			}
 

@@ -8,11 +8,10 @@
 
 package bitchanger.main;
 
-import bitchanger.gui.controller.BasicMenuController;
 import bitchanger.gui.controller.ControllableApplication;
-import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BasicMenuBar;
+import bitchanger.gui.views.CalculatorView;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
@@ -265,7 +264,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 		this.converterView = new ConverterView();
 		this.ieeeView = new IEEEView();
-		this.calculatorView = new IEEEView();
+		this.calculatorView = new CalculatorView();
 		
 		adjustViews(converterView, ieeeView, calculatorView);
 		
@@ -377,10 +376,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	// TODO JavaDoc
 	private void adjustViews(Viewable... views) {
 		for(Viewable view : views) {
-			BasicMenuBar menubar = new BasicMenuBar();
-			Controller cntr = new BasicMenuController(menubar, this);
-			cntr.setActions();
-			
+			BasicMenuBar menubar = view.generateMenuBar(this);
 			view.setMenuBar(menubar);
 			
 			Preferences.getPrefs().readOnlyStylesheetProperty.addListener(new ChangeListener<String>() {

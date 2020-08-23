@@ -217,7 +217,11 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 		((Pane)root).getChildren().remove(this.menubar);
 		this.menubar = menubar;
 		
-		if(root instanceof BorderPane && menubar != null) {
+		if(menubar == null) {
+			return;
+		}
+		
+		if(root instanceof BorderPane) {
 			((BorderPane) root).setTop(menubar);
 		}
 	}

@@ -20,13 +20,8 @@
 }
 
 .unfocused-button {
-	-fx-text-fill: darkorange;
+	-fx-text-fill: black;
 	-fx-background-color: gray;
-	-fx-graphic-fill: red;
-}
-
-.value-button {
-	-fx-text-fill: red;
 }
 
 .menu-bar {

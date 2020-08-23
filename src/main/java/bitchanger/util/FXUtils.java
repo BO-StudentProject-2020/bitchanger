@@ -18,9 +18,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import bitchanger.gui.controls.SVGIcon;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Control;
+import javafx.scene.control.Labeled;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.FillRule;
 import javafx.scene.shape.SVGPath;
@@ -265,6 +268,50 @@ public class FXUtils {
 			return null;
 		}
 	}
+	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	public static void setIconOrText(MenuItem menuItem, SVGIcon icon, String alternativeText) {
+		if(icon != null && icon.hasPath()) {
+			menuItem.setText("");
+			menuItem.setGraphic(icon);
+		}
+		else {
+			menuItem.setText(alternativeText);
+			menuItem.setGraphic(null);
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	public static void setIconOrText(MenuItem menuItem, SVGIcon icon) {
+		setIconOrText(menuItem, icon, menuItem.getText());
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	public static void setIconOrText(Labeled labeled, SVGIcon icon, String alternativeText) {
+		if(icon != null && icon.hasPath()) {
+			labeled.setText("");
+			labeled.setGraphic(icon);
+		}
+		else {
+			labeled.setText(alternativeText);
+			labeled.setGraphic(null);
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	public static void setIconOrText(Labeled labeled, SVGIcon icon) {
+		setIconOrText(labeled, icon, labeled.getText());
+	}
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

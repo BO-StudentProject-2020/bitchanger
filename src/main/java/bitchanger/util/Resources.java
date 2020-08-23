@@ -276,6 +276,15 @@ public class Resources {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
+	/** <!-- $LANGUAGE=DE -->	Speicherort des gefüllten Monitor Icons oder {@code null}, wenn das Icon nicht gefunden wurde */
+	public static final File MONITOR_FILLED_ICON = getResourceAsFile("/graphic/svg/iconmonstr-computer-3.svg");
+
+	/** <!-- $LANGUAGE=DE -->	Speicherort des Monitor Icons oder {@code null}, wenn das Icon nicht gefunden wurde */
+	public static final File MONITOR_ICON = getResourceAsFile("/graphic/svg/iconmonstr-computer-4.svg");
+
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 	/** <!-- $LANGUAGE=DE -->	Speicherort des gefüllten Pinsel Icons oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File PAINT_BRUSH_FILLED_ICON = getResourceAsFile("/graphic/svg/iconmonstr-paintbrush-3.svg");
 	

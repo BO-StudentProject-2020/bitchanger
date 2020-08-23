@@ -9,7 +9,9 @@
 package bitchanger.gui.views;
 
 import bitchanger.gui.controller.Controllable;
+import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
+import bitchanger.gui.controls.BasicMenuBar;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 
@@ -59,6 +61,31 @@ import javafx.scene.control.MenuBar;
  *
  */
 public interface Viewable extends Controllable {
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	// TODO JavaDoc
+	default BasicMenuBar generateMenuBar() {
+		return new BasicMenuBar();
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	default BasicMenuBar generateMenuBar(ControllableApplication controllableApp) {
+		try {
+			return new BasicMenuBar(controllableApp);
+		} catch (NullPointerException e) {
+			return generateMenuBar();
+		}
+	}
+	
+	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #

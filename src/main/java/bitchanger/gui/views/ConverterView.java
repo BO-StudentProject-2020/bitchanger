@@ -8,9 +8,12 @@
 
 package bitchanger.gui.views;
 
+import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BaseSpinner;
+import bitchanger.gui.controls.BasicMenuBar;
+import bitchanger.gui.controls.ConverterMenuBar;
 import javafx.scene.control.Spinner;
 
 /**	<!-- $LANGUAGE=DE -->
@@ -133,7 +136,7 @@ public class ConverterView extends AlphaNumGridView {
 		buildScenegraph();
 	}
 	
-	
+
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -141,6 +144,27 @@ public class ConverterView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+	
+	/** {@inheritDoc} */
+	@Override
+	public BasicMenuBar generateMenuBar(ControllableApplication controllableApp) {
+		try {
+			return new ConverterMenuBar(controllableApp);
+		} catch (NullPointerException e) {
+			return generateMenuBar();
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** {@inheritDoc} */
+	@Override
+	public BasicMenuBar generateMenuBar() {
+		return new ConverterMenuBar();
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	protected void createScenegraph() {
@@ -162,8 +186,6 @@ public class ConverterView extends AlphaNumGridView {
 		center.add(baseSpinner, 0, LABEL_TEXTS.length);
 	}
 	
-	
-	// TODO Menübar -> Elemente hinzufügen
 	
 
 }

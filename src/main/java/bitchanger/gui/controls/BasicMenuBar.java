@@ -18,6 +18,9 @@ import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.FXUtils;
+import bitchanger.util.IconFactory;
+import bitchanger.util.Resources;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -89,10 +92,6 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Berechnungen" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Berechnungen" is associated in the Map {@link #menuItemMap} */
 	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das CheckMenuItem "abgeschnittene Nachkommastellen kennzeichnen" in der Map {@link #menuItemMap} abgelegt ist */
-	/* <!-- $LANGUAGE=EN -->	Key with which the CheckMenuItem "abgeschnittene Nachkommastellen kennzeichnen" is associated in the Map {@link #menuItemMap} */
-	public static final String OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY = "modus-calculator-item";
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das Menu "Stil" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the Menu "Stil" is associated in the Map {@link #menuItemMap} */
@@ -279,11 +278,12 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 */
 	private void createMenuModus() {
 		Menu modus = new Menu("Modus");
+		FXUtils.setIconOrText(modus, IconFactory.ofSVGFile(Resources.MENU_ICON));
 		addMenu(modus, MODUS_MENU_KEY);
 		
-		MenuItem viewConverter = new MenuItem("Umrechner");
-		MenuItem viewIEEE = new MenuItem("IEEE");
-		MenuItem viewCalculator = new MenuItem("Berechnungen");
+		MenuItem viewConverter = new MenuItem("Umrechner", IconFactory.ofSVGFile(Resources.SYNC_2_ICON));
+		MenuItem viewIEEE = new MenuItem("IEEE", IconFactory.ofSVGFile(Resources.TEXTFIELD_ICON));
+		MenuItem viewCalculator = new MenuItem("Berechnungen", IconFactory.styleBindIcon(Resources.CALCULATOR_SYMBOLS_ICON, Resources.CALCULATOR_SYMBOLS_FILLED_ICON));
 		
 		menuItemMap.put(MODUS_CONVERTER_ITEM_KEY, viewConverter);
 		menuItemMap.put(MODUS_IEEE_ITEM_KEY, viewIEEE);
@@ -291,6 +291,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		
 		modus.getItems().addAll(viewConverter, viewIEEE, viewCalculator);
 	}
+	
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -303,24 +304,19 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * "deutsch" and "englisch"
 	 */
 	private void createMenuOptions() {
-		Menu options = new Menu("Optionen");
+		Menu options = new Menu("Optionen", IconFactory.ofSVGFile(Resources.PREFERENCES_GEAR_3_ICON));
 		addMenu(options, OPTIONS_MENU_KEY);
 		
 		Menu chooseComma = new Menu("Komma w\u00E4hlen");
 		MenuItem chooseCommaDE = new MenuItem("deutsch");
 		MenuItem chooseCommaEN = new MenuItem("englisch");
 		
-		// TODO verschieben zur ConverterView
-		CheckMenuItem indicateFractionalInaccuracy = new CheckMenuItem("abgeschnittene Nachkommastellen kennzeichnen");
-		
 		setChooseCommaAction(chooseCommaDE, Comma.COMMA_DE);
 		setChooseCommaAction(chooseCommaEN, Comma.COMMA_EN);
 		
-		menuItemMap.put(OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY, indicateFractionalInaccuracy);
-		
 		chooseComma.getItems().addAll(chooseCommaDE, chooseCommaEN);
 		
-		options.getItems().addAll(chooseComma, indicateFractionalInaccuracy);
+		options.getItems().addAll(chooseComma);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -332,12 +328,12 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * Creates the Menu "Ansicht" with its Items "Stil", "Auf Monitor bewegen" and "Vollbild"
 	 */
 	private void createMenuView() {
-		Menu viewMenu = new Menu("Ansicht");
+		Menu viewMenu = new Menu("Ansicht", IconFactory.ofSVGFile(Resources.WINDOW_THIN_2_ICON));
 		addMenu(viewMenu, MODUS_MENU_KEY);
 		
-		Menu styleMenu = new Menu("Stil");
-		MenuItem styleLight = new MenuItem("Hell");
-		MenuItem styleDark = new MenuItem("Dunkel");
+		Menu styleMenu = new Menu("Stil", IconFactory.ofSVGFile(Resources.PAINT_BRUSH_WINDOW_ICON));
+		MenuItem styleLight = new MenuItem("Hell", IconFactory.ofSVGFile(Resources.SUN_ICON));
+		MenuItem styleDark = new MenuItem("Dunkel", IconFactory.ofSVGFile(Resources.SUN_FILLED_ICON));
 		
 		styleMenu.getItems().addAll(styleLight, styleDark);
 		
@@ -345,7 +341,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		menuItemMap.put(VIEW_STYLE_LIGHT_ITEM_KEY, styleLight);
 		menuItemMap.put(VIEW_STYLE_DARK_ITEM_KEY, styleDark);
 		
-		Menu moveToScreen = new Menu("Auf Monitor bewegen");
+		Menu moveToScreen = new Menu("Auf Monitor bewegen", IconFactory.styleBindIcon(Resources.MONITOR_ICON, Resources.MONITOR_FILLED_ICON));
 		CheckMenuItem showFullscreen = new CheckMenuItem("Vollbild");
 		
 		menuItemMap.put(VIEW_MOVE_TO_SCREEN_ITEM_KEY, moveToScreen);
@@ -363,12 +359,12 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * Creates the Menu "Hilfe" with its Items "Über" and "Version"
 	 */
 	private void createMenuHelp() {
-		Menu help = new Menu("Hilfe");
+		Menu help = new Menu("Hilfe", IconFactory.styleBindIcon(Resources.QUESTION_CIRCLE_ICON, Resources.QUESTION_CIRCLE_FILLED_ICON));
 		addMenu(help, HELP_MENU_KEY);
 		
-		MenuItem about = new MenuItem("\u00DCber");
-		MenuItem version = new MenuItem("Version");
-		MenuItem resetPreferences = new MenuItem("Einstellungen zur\u00FCcksetzen");
+		MenuItem about = new MenuItem("\u00DCber", IconFactory.styleBindIcon(Resources.QUESTION_SPEECH_BUBBLE_ICON, Resources.QUESTION_SPEECH_BUBBLE_FILLED_ICON));
+		MenuItem version = new MenuItem("Version", IconFactory.styleBindIcon(Resources.INFO_CIRCLE_ICON, Resources.INFO_CIRCLE_FILLED_ICON));
+		MenuItem resetPreferences = new MenuItem("Einstellungen zur\u00FCcksetzen", IconFactory.ofSVGFile(Resources.PREFERENCES_WRENCH_RESET_ICON));
 		
 		menuItemMap.put(HELP_ABOUT_ITEM_KEY, about);
 		menuItemMap.put(HELP_VERSION_ITEM_KEY, version);

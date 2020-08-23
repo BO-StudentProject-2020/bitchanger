@@ -16,8 +16,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**	<!-- $LANGUAGE=DE -->
  * Button, der beim Klick nicht den Fokus erhält und als Grundform ein Rechteck ohne abgerundete Ecken besitzt.
@@ -38,6 +36,11 @@ import javafx.scene.text.FontWeight;
  *
  */
 public class UnfocusedButton extends Button{
+	
+	// TODO JavaDoc
+	public static final double DEFAULT_GRAPHIC_SCALE_FACTOR = 0.03;
+	
+	
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -46,7 +49,10 @@ public class UnfocusedButton extends Button{
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 
+	// TODO JavaDoc
 	private final DoubleProperty graphicScaleProperty;
+	
+	// TODO JavaDoc
 	private final DoubleProperty graphicScaleFactorProperty;
 
 	
@@ -93,7 +99,7 @@ public class UnfocusedButton extends Button{
 		super(text, graphic);
 		
 		this.graphicScaleProperty = new SimpleDoubleProperty(Math.min(this.getHeight(), this.getWidth()));
-		this.graphicScaleFactorProperty = new SimpleDoubleProperty(0.03);
+		this.graphicScaleFactorProperty = new SimpleDoubleProperty(DEFAULT_GRAPHIC_SCALE_FACTOR);
 		
 		if(graphic != null) {
 			graphic.scaleXProperty().bind(graphicScaleProperty);
@@ -138,9 +144,6 @@ public class UnfocusedButton extends Button{
 	 * Disables the focus for this button and sets rectangle without rounded corners as basic form for this button.
 	 */
 	private void initShape() {
-		// TODO REMOVE LATER (Nur zu Testzwecken!!!)	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
-		this.setFont(Font.font("Consolas", FontWeight.BOLD, 20));
-	
 		this.setFocusTraversable(false);
 		
 		Rectangle shape = new Rectangle(50, 50);
