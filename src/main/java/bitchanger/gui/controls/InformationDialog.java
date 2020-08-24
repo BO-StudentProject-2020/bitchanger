@@ -65,18 +65,16 @@ public class InformationDialog extends Alert {
 		
 		this.setHeaderText("Über Bitchanger");
 		
-		this.setContentText("Lorem ipsum dolor sit amet, consetetur "
-				+ "sadipscing elitr, sed diam nonumy eirmod tempor invidunt "
-				+ "ut labore et dolore magna aliquyam erat, sed diam voluptua. "
-				+ "At vero eos et accusam et justo duo dolores et ea rebum. Stet "
-				+ "clita kasd gubergren, no sea takimata sanctus est Lorem ipsum "
-				+ "dolor sit amet. Lorem ipsum dolor sit amet, consetetur "
-				+ "sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut "
-				+ "labore et dolore magna aliquyam erat, sed diam voluptua. At "
-				+ "vero eos et accusam et justo duo dolores et ea rebum. Stet "
-				+ "clita kasd gubergren, no sea takimata sanctus est Lorem ipsum "
-				+ "dolor sit amet.");
+		this.setContentText("Bei dem Programm Bitchanger handelt es sich um einen Zahlenrechner, der mathematische Berechnungen, "
+				+ "Bitoperationen und Zahlenumwandlungen von Zahlen mit der Basis 2 bis 36 durchführen kann. "
+				+ "Es werden negative Zahlen, Nachkommastellen und die IEEE-Norm (16- und 32-Bit) unterstützt.\n\n"
+				+ "Der Bitchanger ist als Entwicklungsprojekt im Elektrotechnik Studium an der Hochschule Bochum entstanden "
+				+ "und wurde von Tim Mühle und Moritz Wolter im Auftrag von unter Aufsicht Prof. Dr. rer. nat. Katrin Brabender "
+				+ "und Herrn Andreas Koch für das AID-Labor der Hochschule Bochum entwickelt.\n\n"
+				+ "Der Bitchanger ist als Lehrmittel für die Hochschule Bochum gedacht und eine kommerzielle Nutzung ist untersagt.\n\n"
+				+ "");
 		
+		this.getDialogPane().setMinWidth(700);
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -91,7 +89,7 @@ public class InformationDialog extends Alert {
 		
 		content.append(PrimaryFXApp.VERSION);
 		content.append("\n\n");
-		content.append("All rights reserved (c)");
+		content.append("Copyright (c) 2020 - Tim Mühle und Moritz Wolter");
 		
 		this.setContentText(content.toString());
 

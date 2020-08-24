@@ -594,11 +594,7 @@ public class ConvertingNumbers {
 		if (newBase == 2 && isNegative) {
 
 			//Umwandlung ins Zweierkomplement
-			String posDecString = Long.toString(integerPart);
-				
-			long posDec = Integer.parseInt(posDecString);
-				
-			long negDec = (~posDec)+1;
+			long negDec = (~integerPart)+1;
 				
 			String negBinString = Long.toBinaryString(negDec);
 			
