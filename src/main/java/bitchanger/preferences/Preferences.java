@@ -9,9 +9,13 @@
 package bitchanger.preferences;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -21,6 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import bitchanger.util.Resources;
 import javafx.beans.property.BooleanProperty;
@@ -45,7 +50,7 @@ import javafx.beans.property.StringPropertyBase;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  */
 /* <!-- $LANGUAGE=EN -->
  * Preferences is the global collection for all possible settings that can be selected for the bitchanger.
@@ -58,7 +63,7 @@ import javafx.beans.property.StringPropertyBase;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  */
 public class Preferences {
 	
@@ -107,7 +112,11 @@ public class Preferences {
 	 * Loads the last settings from the file {@link Resources#CUSTOM_PREFERENCES}
 	 */
 	public static void loadCustom() {
-		prefs.load(Resources.CUSTOM_PREFERENCES);
+		try {
+			prefs.load(Resources.customPreferencesStream());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -119,7 +128,11 @@ public class Preferences {
 	 * Loads the default settings from the file {@link Resources#DEFAULT_PREFERENCES}
 	 */
 	public static void loadDefault() {
-		prefs.load(Resources.DEFAULT_PREFERENCES);
+		try {
+			prefs.load(Resources.defaultPreferencesStream());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -218,7 +231,45 @@ public class Preferences {
 		
 		
 		try {
-			this.load(file);
+			this.load(new FileInputStream(file));
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.commaProperty.set(Comma.COMMA_DE);
+			this.indicateFractionalPrecisionProperty.set(true);
+			this.stylesheetProperty.set("");
+			this.styleProperty.set(Style.UNKNOWN);
+		}
+	}	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt neue Preferences mit den Einstellungen, die in der übergebenen Datei gespeichert sind oder den Standardeinstellungen,
+	 * wenn die übergebene Datei nicht gefunden oder geladen werden konnte.
+	 * 
+	 * @param in	Stream mit den Einstellungen, die geladen werden sollen, im XML-Format
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Creates new Preferences with the settings that are saved in the given File or the default settings,
+	 * if the given File could not be found or loaded.
+	 * 
+	 * @param in	Stream with the settings to be loaded in XML format
+	 */
+	private Preferences(InputStream in) {
+		this.commaProperty = new SimpleObjectProperty<>();
+		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty();
+		
+		this.stylesheetProperty = new SimpleStringProperty();
+		this.readOnlyStylesheetProperty = new SimpleStringProperty();
+		((StringPropertyBase) this.readOnlyStylesheetProperty).bind(stylesheetProperty);
+		
+		this.styleProperty = new SimpleObjectProperty<>();
+		this.readOnlyStyleProperty = new SimpleObjectProperty<>();
+		((ObjectProperty<Style>) this.readOnlyStyleProperty).bind(styleProperty);
+		
+		
+		try {
+			this.load(in);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.commaProperty.set(Comma.COMMA_DE);
@@ -376,38 +427,41 @@ public class Preferences {
 	/** <!-- $LANGUAGE=DE -->
 	 * Lädt alle Einstellungen aus der übergebenen XML-Datei
 	 * 
-	 * @param file	Datei, aus der die Einstellungen geladen werden sollen
+	 * @param in	Stream, aus dem die Einstellungen gelesen werden sollen
+	 * 
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Loads all settings from the given XML file
 	 * 
-	 * @param file	File from which the settings are loaded
+	 * @param in	Stream from which the settings are read
+	 * 
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
-	private void load(File file) {
-		try {
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			Document doc = builder.parse(file);
-			
-			NodeList nodes = doc.getElementsByTagName("preferences");
-			
-			Element prefs = (Element) nodes.item(0);
-			
-			String comma = prefs.getElementsByTagName("comma").item(0).getTextContent();
-			this.commaProperty.set(Comma.valueOf(comma));
-			
-			String indicateFractionalPrecision = prefs.getElementsByTagName("indicateFractionalPrecision").item(0).getTextContent();
-			this.indicateFractionalPrecisionProperty.set(Boolean.valueOf(indicateFractionalPrecision));
-			
-			String style = prefs.getElementsByTagName("style").item(0).getTextContent();
-			this.setStylesheet(Style.valueOf(style));
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	private void load(InputStream in) throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		Document doc = builder.parse(in);
+		
+		NodeList nodes = doc.getElementsByTagName("preferences");
+		
+		Element prefs = (Element) nodes.item(0);
+		
+		String comma = prefs.getElementsByTagName("comma").item(0).getTextContent();
+		this.commaProperty.set(Comma.valueOf(comma));
+		
+		String indicateFractionalPrecision = prefs.getElementsByTagName("indicateFractionalPrecision").item(0).getTextContent();
+		this.indicateFractionalPrecisionProperty.set(Boolean.valueOf(indicateFractionalPrecision));
+		
+		String style = prefs.getElementsByTagName("style").item(0).getTextContent();
+		this.setStylesheet(Style.valueOf(style));
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -415,14 +469,14 @@ public class Preferences {
 	/** <!-- $LANGUAGE=DE -->
 	 * Speichert alle Einstellungen in der übergebenen Datei im XML-Format
 	 * 
-	 * @param file	Datei, in der die Einstellungen gespeichert werden. Der eventuelle Inhalt der Datei wird überschrieben!
+	 * @param file	Datei, in die die Einstellungen geschrieben werden.
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Stores all preferences into the given file as XML document
 	 * 
-	 * @param file	File in which the preferences are stored. Any content of the file will be overwritten!
+	 * @param file	File in which the preferences are written.
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */

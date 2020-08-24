@@ -6,3 +6,5 @@
 .DS_Store
 /installer/
 settings
+err.txt
+error.txt

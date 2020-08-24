@@ -50,7 +50,7 @@ import javafx.scene.layout.Priority;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  *
  * @see AlphaNumKeysController
  * @see UnfocusedButton
@@ -430,14 +430,14 @@ public class AlphaNumKeys implements Controllable {
 	// TODO JavaDoc EN
 	private void createControlButtons() {
 		keyboardBtn = new UnfocusedButton("ABC");
-		FXUtils.setIconOrText(keyboardBtn, IconFactory.styleBindIcon(Resources.KEYBORD_OPEN_ICON, Resources.KEYBORD_OPEN_FILLED_ICON));
+		FXUtils.setIconOrText(keyboardBtn, IconFactory.styleBindIcon(Resources.keybordOpenIconStream(), Resources.keybordOpenFilledIconStream()));
 		addButton(keyboardBtn, firstColumn, firstRow + 3, KEYBOARD_BTN_KEY);		
 		
 		previousBtn = new UnfocusedButton();
 		nextBtn = new UnfocusedButton();
 		
-		FXUtils.setIconOrText(previousBtn, IconFactory.ofSVGFile(Resources.ARROW_LEFT_ICON), "<");
-		FXUtils.setIconOrText(nextBtn, IconFactory.ofSVGFile(Resources.ARROW_RIGHT_ICON), ">");
+		FXUtils.setIconOrText(previousBtn, IconFactory.ofSVGFile(Resources.arrowLeftIconStream()), "<");
+		FXUtils.setIconOrText(nextBtn, IconFactory.ofSVGFile(Resources.arrowRightIconStream()), ">");
 		
 		buttonMap.put(PREVIOUS_BTN_KEY, previousBtn);
 		buttonMap.put(NEXT_BTN_KEY, nextBtn);

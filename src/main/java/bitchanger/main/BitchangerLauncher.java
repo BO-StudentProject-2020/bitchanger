@@ -8,6 +8,10 @@
 
 package bitchanger.main;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
 import bitchanger.preferences.Preferences;
 
 /** <!-- $LANGUAGE=DE -->
@@ -16,7 +20,7 @@ import bitchanger.preferences.Preferences;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  * 
  */
 /* <!-- $LANGUAGE=EN -->
@@ -25,7 +29,7 @@ import bitchanger.preferences.Preferences;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  * 
  */
 public class BitchangerLauncher {
@@ -55,6 +59,13 @@ public class BitchangerLauncher {
 		/* Dies ist notwendig, da ohne den Aufruf mit diesem Launcher der Classpath auf die javafx Runtime
 		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
 		 */
+		try {
+			System.setErr(new PrintStream(new File("error.txt")));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		PrimaryFXApp.launchFXApplication(args);
 		
 		Preferences.storeCustom();

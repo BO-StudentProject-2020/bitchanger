@@ -8,7 +8,7 @@
 
 package bitchanger.gui.views;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayDeque;
 
 import bitchanger.gui.controls.UnfocusedButton;
@@ -94,8 +94,8 @@ public class CalculatorView extends AlphaNumGridView {
 		center.getChildren().clear();
 		
 		ArrayDeque<Button> buttons = new ArrayDeque<>();
-		for(File file : Resources.ICON_LIST) {
-			Button b = new UnfocusedButton("", IconFactory.ofSVGFile(file));
+		for(InputStream in : Resources.ICON_LIST) {
+			Button b = new UnfocusedButton("", IconFactory.ofSVGFile(in));
 			b.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 			buttons.add(b);
 		}

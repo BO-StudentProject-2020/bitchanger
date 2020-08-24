@@ -40,7 +40,7 @@ import javafx.scene.control.TextField;
  * @author Tim Mühle
  *
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.5
  * 
  * @see BasicMenuController
  */
@@ -53,7 +53,7 @@ import javafx.scene.control.TextField;
  * @author Tim Mühle
  *
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.5
  * 
  * @see BasicMenuController
  */
@@ -278,12 +278,12 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 */
 	private void createMenuModus() {
 		Menu modus = new Menu("Modus");
-		FXUtils.setIconOrText(modus, IconFactory.ofSVGFile(Resources.MENU_ICON));
+		FXUtils.setIconOrText(modus, IconFactory.ofSVGFile(Resources.menuIconStream()));
 		addMenu(modus, MODUS_MENU_KEY);
 		
-		MenuItem viewConverter = new MenuItem("Umrechner", IconFactory.ofSVGFile(Resources.SYNC_2_ICON));
-		MenuItem viewIEEE = new MenuItem("IEEE", IconFactory.ofSVGFile(Resources.TEXTFIELD_ICON));
-		MenuItem viewCalculator = new MenuItem("Berechnungen", IconFactory.styleBindIcon(Resources.CALCULATOR_SYMBOLS_ICON, Resources.CALCULATOR_SYMBOLS_FILLED_ICON));
+		MenuItem viewConverter = new MenuItem("Umrechner", IconFactory.ofSVGFile(Resources.sync_2_IconStream()));
+		MenuItem viewIEEE = new MenuItem("IEEE", IconFactory.ofSVGFile(Resources.textfieldIconStream()));
+		MenuItem viewCalculator = new MenuItem("Berechnungen", IconFactory.styleBindIcon(Resources.calculatorSymbolsIconStream(), Resources.calculatorSymbolsFilledIconStream()));
 		
 		menuItemMap.put(MODUS_CONVERTER_ITEM_KEY, viewConverter);
 		menuItemMap.put(MODUS_IEEE_ITEM_KEY, viewIEEE);
@@ -304,7 +304,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * "deutsch" and "englisch"
 	 */
 	private void createMenuOptions() {
-		Menu options = new Menu("Optionen", IconFactory.ofSVGFile(Resources.PREFERENCES_GEAR_3_ICON));
+		Menu options = new Menu("Optionen", IconFactory.ofSVGFile(Resources.preferencesGear_3_IconStream()));
 		addMenu(options, OPTIONS_MENU_KEY);
 		
 		Menu chooseComma = new Menu("Komma w\u00E4hlen");
@@ -328,12 +328,12 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * Creates the Menu "Ansicht" with its Items "Stil", "Auf Monitor bewegen" and "Vollbild"
 	 */
 	private void createMenuView() {
-		Menu viewMenu = new Menu("Ansicht", IconFactory.ofSVGFile(Resources.WINDOW_THIN_2_ICON));
+		Menu viewMenu = new Menu("Ansicht", IconFactory.ofSVGFile(Resources.windowThin_2_IconStream()));
 		addMenu(viewMenu, MODUS_MENU_KEY);
 		
-		Menu styleMenu = new Menu("Stil", IconFactory.ofSVGFile(Resources.PAINT_BRUSH_WINDOW_ICON));
-		MenuItem styleLight = new MenuItem("Hell", IconFactory.ofSVGFile(Resources.SUN_ICON));
-		MenuItem styleDark = new MenuItem("Dunkel", IconFactory.ofSVGFile(Resources.SUN_FILLED_ICON));
+		Menu styleMenu = new Menu("Stil", IconFactory.ofSVGFile(Resources.paintBrushWindowIconStream()));
+		MenuItem styleLight = new MenuItem("Hell", IconFactory.ofSVGFile(Resources.sunIconStream()));
+		MenuItem styleDark = new MenuItem("Dunkel", IconFactory.ofSVGFile(Resources.sunFilledIconStream()));
 		
 		styleMenu.getItems().addAll(styleLight, styleDark);
 		
@@ -341,7 +341,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		menuItemMap.put(VIEW_STYLE_LIGHT_ITEM_KEY, styleLight);
 		menuItemMap.put(VIEW_STYLE_DARK_ITEM_KEY, styleDark);
 		
-		Menu moveToScreen = new Menu("Auf Monitor bewegen", IconFactory.styleBindIcon(Resources.MONITOR_ICON, Resources.MONITOR_FILLED_ICON));
+		Menu moveToScreen = new Menu("Auf Monitor bewegen", IconFactory.styleBindIcon(Resources.monitorIconStream(), Resources.monitorFilledIconStream()));
 		CheckMenuItem showFullscreen = new CheckMenuItem("Vollbild");
 		
 		menuItemMap.put(VIEW_MOVE_TO_SCREEN_ITEM_KEY, moveToScreen);
@@ -359,12 +359,12 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	 * Creates the Menu "Hilfe" with its Items "Über" and "Version"
 	 */
 	private void createMenuHelp() {
-		Menu help = new Menu("Hilfe", IconFactory.styleBindIcon(Resources.QUESTION_CIRCLE_ICON, Resources.QUESTION_CIRCLE_FILLED_ICON));
+		Menu help = new Menu("Hilfe", IconFactory.styleBindIcon(Resources.questionCircleIconStream(), Resources.questionCircleFilledIconStream()));
 		addMenu(help, HELP_MENU_KEY);
 		
-		MenuItem about = new MenuItem("\u00DCber", IconFactory.styleBindIcon(Resources.QUESTION_SPEECH_BUBBLE_ICON, Resources.QUESTION_SPEECH_BUBBLE_FILLED_ICON));
-		MenuItem version = new MenuItem("Version", IconFactory.styleBindIcon(Resources.INFO_CIRCLE_ICON, Resources.INFO_CIRCLE_FILLED_ICON));
-		MenuItem resetPreferences = new MenuItem("Einstellungen zur\u00FCcksetzen", IconFactory.ofSVGFile(Resources.PREFERENCES_WRENCH_RESET_ICON));
+		MenuItem about = new MenuItem("\u00DCber", IconFactory.styleBindIcon(Resources.questionSpeechBubbleIconStream(), Resources.questionSpeechBubbleFilledIconStream()));
+		MenuItem version = new MenuItem("Version", IconFactory.styleBindIcon(Resources.infoCircleIconStream(), Resources.infoCircleFilledIconStream()));
+		MenuItem resetPreferences = new MenuItem("Einstellungen zur\u00FCcksetzen", IconFactory.ofSVGFile(Resources.preferencesWrenchResetIconStream()));
 		
 		menuItemMap.put(HELP_ABOUT_ITEM_KEY, about);
 		menuItemMap.put(HELP_VERSION_ITEM_KEY, version);
