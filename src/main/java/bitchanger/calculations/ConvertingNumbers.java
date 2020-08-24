@@ -187,6 +187,64 @@ public class ConvertingNumbers {
 	 */
 	// &#160; = geschütztes Leerzeichen
 	public static double baseToDec(int base, String value) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		
+		//Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
+		boolean isNegative = value.startsWith("-");
+		
+		//Wenn eine Binäreingabe mit '1' beginnt, dann ist diese Zahl eine negative Binärzahl -> Zweierkomplement 
+		boolean isNegativeBin = (base == 2 && value.startsWith("1"));
+		
+		//Abfrage auf illegales Zeichen (Minus-Zeichen) im Binärfeld
+		boolean illegalCharMinus = (base == 2 && value.contains("-"));
+		
+		//TODO Kann nach Verbot von Minus Zeichen in JAVAFX hier entfernt werden!! Wenn nicht dann Exception hinzufügen -> Auch JavaDoc!
+		if(illegalCharMinus) {
+			
+			value = "";
+			
+		}
+		
+		if(isNegative) {
+			
+			StringBuffer sbNegative = new StringBuffer(value);
+			
+			sbNegative.deleteCharAt(0);
+			
+			value = sbNegative.toString();
+		}
+		
+		if(isNegativeBin) {
+			
+			//Abfrage auf illegales Zeichen (COMMA-Abfrage bei negativen Binärzahlen) im Binärfeld
+			//TODO Comma aus Preferences hinzufügen, wie - es wird eine CharSequence benötigt? Außerdem Exception hinzufügen!
+			boolean illegalCommaBin = value.contains(String.valueOf(Preferences.getPrefs().getComma()));
+			
+			if(illegalCommaBin) {
+				
+				value = "";
+				
+			}
+			
+			StringBuffer sbNegativeBin = new StringBuffer(value);
+			
+			//Schleife für die Umkehrung des Zweierkomplements
+			for (int i = 0; i < sbNegativeBin.length(); i++) {
+				
+				if(sbNegativeBin.charAt(i) == '1') {
+					
+					sbNegativeBin.setCharAt(i, '0');
+					
+				}else {
+					
+					sbNegativeBin.setCharAt(i, '1');
+					
+				}
+				
+			}
+			
+			value = sbNegativeBin.toString();
+			isNegative = true;
+		}
 		// Prüfen, ob value eine Zahl zur gegebenen Basis repräsentiert
 		checkValue(base, value);
 		
@@ -199,10 +257,21 @@ public class ConvertingNumbers {
 		double integerPart = baseToDecIntPart(base, separated[0]);
 		double fractionalPart = baseToDecFractionalPart(base, separated[1]);
 		
+		//Bei negativen Binärzahlen ist durch die Rückumwandlung des Zweierkomplements eine Subtraktion von -1 nötig
+		if(isNegativeBin) {
+			
+			integerPart = integerPart+1;
+		}
+		
 		// Vor- und Nachkommateil addieren und Ergebnis zurueckgeben
 		if((integerPart + fractionalPart) >= Double.MAX_VALUE) {
 			throw new UnsupportedOperationException("for value \"" + value + "\" - value must be within the double value range");
 		}
+		if(isNegative  ||  isNegativeBin) {
+			
+			return -integerPart-fractionalPart;
+			
+		}else
 		
 		return integerPart + fractionalPart;
 	}
@@ -264,6 +333,67 @@ public class ConvertingNumbers {
 	 * @throws IllegalArgumentException		if {@code value} is an empty string or {@code basis} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
 	 */
 	public static String baseToDecString(int base, String value, char comma) throws NullPointerException, NumberFormatException, IllegalArgumentException {	
+		
+		
+		//Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
+		boolean isNegative = value.startsWith("-");
+		
+		//Wenn eine Binäreingabe mit '1' beginnt, dann ist diese Zahl eine negative Binärzahl -> Zweierkomplement 
+		boolean isNegativeBin = (base == 2 && value.startsWith("1"));
+		
+		//Abfrage auf illegales Zeichen (Minus-Zeichen) im Binärfeld
+		boolean illegalCharMinus = (base == 2 && value.contains("-"));
+		
+		//TODO Kann nach Verbot von Minus Zeichen in JAVAFX hier entfernt werden!! Wenn nicht dann Exception hinzufügen -> Auch JavaDoc!
+		if(illegalCharMinus) {
+			
+			value = "";
+			
+		}
+		
+		if(isNegative) {
+		
+		StringBuffer sb = new StringBuffer(value);
+		
+		sb.deleteCharAt(0);
+		
+		value = sb.toString();
+		
+		}
+		
+		if(isNegativeBin) {
+			
+			//Abfrage auf illegales Zeichen (COMMA-Abfrage bei negativen Binärzahlen) im Binärfeld
+			//TODO Comma aus Preferences hinzufügen, wie - es wird eine CharSequence benötigt? Außerdem Exception hinzufügen!
+			boolean illegalCommaBin = value.contains(String.valueOf(Preferences.getPrefs().getComma()));
+			
+			if(illegalCommaBin) {
+				
+				value = "";
+				
+			}
+			
+			StringBuffer sbNegativeBin = new StringBuffer(value);
+			
+			//Schleife für die Umkehrung des Zweierkomplements
+			for (int i = 0; i < sbNegativeBin.length(); i++) {
+				
+				if(sbNegativeBin.charAt(i) == '1') {
+					
+					sbNegativeBin.setCharAt(i, '0');
+					
+				}else {
+					
+					sbNegativeBin.setCharAt(i, '1');
+					
+				}
+				
+			}
+			
+			value = sbNegativeBin.toString();
+			isNegative = true;
+		}
+		
 		// Prüfen, ob value eine Zahl zur gegebenen Basis repräsentiert
 		checkValue(base, value);
 		
@@ -276,16 +406,22 @@ public class ConvertingNumbers {
 		double integerPart = baseToDecIntPart(base, separated[0]);
 		double fractionalPart = baseToDecFractionalPart(base, separated[1]);
 		
-		// Ueberpruefen ob es Nachkommastellen gibt
-		if(fractionalPart != 0.0) {
-			// Ja -> Rueckgabe mit Nachkommateil
-			
-			return String.valueOf((long)integerPart) + comma + String.valueOf(fractionalPart).substring(2);
-		} else {
-			// Nein -> Rueckgabe des ganzen Anteils
-			return String.valueOf((long)integerPart);
+		//Bei negativen Binärzahlen ist durch die Rückumwandlung des Zweierkomplements eine Subtraktion von -1 nötig
+		if(isNegativeBin) {
+					
+			integerPart = integerPart+1;
 		}
 		
+		if(fractionalPart != 0.0) {
+			// Ja -> Rueckgabe mit Nachkommateil
+			//Abfrage ob es sich um eine negative oder positive Zahl handelt, danach richtet sich die Rückgabe
+			return isNegative ? (String.valueOf((long)(-integerPart)) + comma + String.valueOf(fractionalPart).substring(2))
+					: (String.valueOf((long)integerPart) + comma + String.valueOf(fractionalPart).substring(2));
+		} else {
+			// Nein -> Rueckgabe des ganzen Anteils
+			////Abfrage ob es sich um eine negative oder positive Zahl handelt, danach richtet sich die Rückgabe
+			return isNegative ? String.valueOf(-(long)integerPart) : String.valueOf((long)integerPart);
+		}
 	}
 
 	
@@ -390,9 +526,10 @@ public class ConvertingNumbers {
 	 * 
 	 * @return	umgewandelte Zahl zur übergebenen Basis in der String-Darstellung
 	 * 
-	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
-	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws NullPointerException				wenn der Parameter {@code decValue} {@code null} ist
+	 * @throws NumberFormatException			wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
+	 * @throws IllegalArgumentException			wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws UnsupportedOperationException 	wenn {@code decValue} negativ ist und Nachkommastellen enthält und gleichzeitig {@code newBase} zwei ist 
 	 * 
 	 * @see Preferences
 	 */
@@ -404,51 +541,121 @@ public class ConvertingNumbers {
 	 * </p>
 	 * 
 	 * @param newBase	Base of the new numeral system, which will the number {@code decValue} be converted in
-	 * @param decValue	Value of the number in decimal system as string representation
+	 * @param decValue	Value of the number in decimal system as String representation
 	 * @param comma		the char which is used as comma for floating point numbers
 	 * @param fractionalPrecision	maximum number of decimal places
 	 * 
 	 * @return Converted number of the submitted base as string representation with default set comma
 	 * 
-	 * @throws NullPointerException			If the parameter {@code decValue} is {@code null}
-	 * @throws NumberFormatException		If the parameter {@code decValue} is not a number of base 10
-	 * @throws IllegalArgumentException		If {@code decValue} is an empty string or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws NullPointerException				If the parameter {@code decValue} is {@code null}
+	 * @throws NumberFormatException			If the parameter {@code decValue} is not a number of base 10
+	 * @throws IllegalArgumentException			If {@code decValue} is an empty String or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws UnsupportedOperationException 	
 	 * 
 	 * @see Preferences
 	 */
-	public static String decToBase(int newBase, String decValue, char comma, int fractionalPrecision) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+	public static String decToBase(int newBase, String decValue, char comma, int fractionalPrecision) throws NullPointerException, NumberFormatException, IllegalArgumentException, UnsupportedOperationException {
 		// Prüfen, ob decValue eine Zahl zur Basis 10 repräsentiert
 		checkValue(10, decValue);
 		
 		if(newBase < MIN_BASE || newBase > MAX_BASE) {
 			throw new IllegalArgumentException("Out of Bounds for base = " + newBase + " (base must be within " + MIN_BASE + " and " + MAX_BASE + ")");
 		}
+	
+		//Implementierung von negativen Zahlen
 		
-		// TODO Negative Werte implementieren 	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
+		boolean isNegative = decValue.startsWith("-");
+//		boolean isNegativeBin = (newBase == 2 && decValue.startsWith("0"));
 		
+		if (isNegative) {
+			
+			StringBuffer sb = new StringBuffer (decValue);
+			
+			sb.deleteCharAt(0);
+		
+			decValue = sb.toString();
+			
+			decValue = trimToNumberString(decValue);
+		}
+
 		decValue = trimToNumberString(decValue);
-		
+			
 		// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
 		String[] separated = separateByComma(decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
-		
+			
 		long integerPart = Long.parseLong(separated[0]);
 		double fractionalPart = Double.parseDouble("0." + separated[1]);
-		
-		StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
-		
-		// Ganzen Anteil umrechnen
-		newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
-		
-		
-		// Wenn vorhanden Nachkommateil umwandeln
-		if(fractionalPart != 0){
-			String newBaseFractionalPart = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma);
 			
-			newBaseValue.append(newBaseFractionalPart);
+		StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
+			
+			
+		//Sonderfall für Zahlensystem der Basis 2
+			
+		if (newBase == 2 && isNegative) {
+
+			//Umwandlung ins Zweierkomplement
+			String posDecString = Long.toString(integerPart);
+				
+			long posDec = Integer.parseInt(posDecString);
+				
+			long negDec = (~posDec)+1;
+				
+			String negBinString = Long.toBinaryString(negDec);
+			
+			newBaseValue.append(negBinString);
+				
+			int index = newBaseValue.indexOf("0")-1;
+				
+			if (index < 0) {
+					
+				index = 0;
+					
+			}
+				
+			newBaseValue.delete(0, index);
+
+				
+			// Wenn Nachkommateil vorhanden, dann binär leeren String ausgeben
+			if(fractionalPart != 0) {
+					
+				throw new UnsupportedOperationException("Nachkommateil bei binärer negativer Zahl");
+				
+			}
+				
+			// umgewandelte Zahl in 2er Basis als String zurückgeben
+			return newBaseValue.toString();
+			
+			
+		}else{
+			
+			
+			// Ganzen Anteil umrechnen
+			newBaseValue.append(convertDecIntegerToBaseString(newBase, integerPart));
+				
+			// Wenn vorhanden Nachkommateil umwandeln
+			if(fractionalPart != 0){
+				String newBaseFractionalPart = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma);
+					
+				newBaseValue.append(newBaseFractionalPart);
+			}
+				
+//			if(isNegative || isNegativeBin) {
+			
+			if(isNegative) {	
+				newBaseValue.insert(0, '-');
+			}
+			
+			if(newBase == 2) {
+				
+				newBaseValue.insert(0, '0');
+				
+			}
+				
+			// umgewandelte Zahl in der neuen Basis als String zurückgeben
+			return newBaseValue.toString();
+				
 		}
-		
-		// umgewandelte Zahl in der neuen Basis als String zurückgeben
-		return newBaseValue.toString();
+	
 	}
 	
 	
