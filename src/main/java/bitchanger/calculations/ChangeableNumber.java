@@ -31,6 +31,30 @@ public interface ChangeableNumber {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
+// 	#	default Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
+	// TODO JavaDoc
+	public default double asDouble() {
+		try {
+			return Double.parseDouble(this.toDecString());
+		} catch(Exception e) {
+			return Double.NaN;
+		}
+	}
+	
+	
+	// TODO JavaDoc
+	public default void setDec(double decValue) {
+		this.setDec(String.valueOf(decValue));
+	}
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
 // 	#	abstract Methods   																											 #
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

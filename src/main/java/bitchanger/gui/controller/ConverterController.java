@@ -681,20 +681,24 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			public void handle(ActionEvent event) {
 				int caretPos = focusedTF.getCaretPosition();
 				
-// TODO Anpassung an Zweierkomplement im Binärsystem. IDEE: Nur dezimales Feld prüfen und setzen	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!	!!
 				
-				if (focusedTF.getText().startsWith("-")) {
-					focusedTF.setText(focusedTF.getText().substring(1));
-					caretPos--;
-				} 
-				else if (focusedTF.getText().startsWith("+")) {
-					focusedTF.setText("-" + focusedTF.getText().substring(1));
-				} 
-				else {
-					focusedTF.setText("-" + focusedTF.getText());
-					caretPos++;
+				if (focusedTF.getBase() == 2) {
+					ChangeableNumber num = new SimpleChangeableNumber();
+					num.setBin(focusedTF.getText());
+					num.setDec(- num.asDouble());
+					focusedTF.setText(num.toBinString());
 				}
-
+				else {
+					if (focusedTF.getText().startsWith("-")) {
+						focusedTF.setText(focusedTF.getText().substring(1));
+						caretPos--;
+					} else if (focusedTF.getText().startsWith("+")) {
+						focusedTF.setText("-" + focusedTF.getText().substring(1));
+					} else {
+						focusedTF.setText("-" + focusedTF.getText());
+						caretPos++;
+					} 
+				}
 				focusedTF.positionCaret(caretPos);
 			}
 		});
