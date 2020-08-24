@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -33,7 +31,6 @@ import javafx.scene.input.KeyEvent;
  * @version 0.1.4
  *
  */
-
 /*	<!-- $LANGUAGE=EN -->
  * Spinner for choosing the base of a numeral system.
  * 
@@ -50,12 +47,18 @@ import javafx.scene.input.KeyEvent;
  */
 public class BaseSpinner extends Spinner<Integer>{
 
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erzeugt einen BaseSpinner, bei dem die minimale und maximale einstellbare Basis durch die Konstanten 
 	 * {@link ConvertingNumbers#MIN_BASE} und {@link ConvertingNumbers#MAX_BASE} gegeben sind. Der Standardwert
 	 * wird mit 10 initialisiert.
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Produces a BaseSpinner whose maximum and minimum adjustable base is given through the constant 
 	 * {@link ConvertingNumbers#MIN_BASE} and {@link ConvertingNumbers#MAX_BASE}.
@@ -63,15 +66,26 @@ public class BaseSpinner extends Spinner<Integer>{
 	 */
 	public BaseSpinner() {
 		super(ConvertingNumbers.MIN_BASE, ConvertingNumbers.MAX_BASE, 10);
+		
+		getStyleClass().add("base-spinner");
+		
 		this.setEditable(true);
 		setActions();
 	}
 
+
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt einen EventHandler, der bei Eingabe im Editor automatisch den Wert überprüft
 	 * und, wenn möglich, mit der Methode {@link #commitValue()} aktualisiert.
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets an EventHandler that controls the input into the editor automatically and
 	 * updates it with the method {@link #commitValue()} if possible.
@@ -93,13 +107,14 @@ public class BaseSpinner extends Spinner<Integer>{
 		});
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Prüft, ob der Text im Editor ein gültiger Wert ist und mit Methode {@link #commitValue()}
 	 * aktualisiert werden kann.
 	 * 
 	 * @return	{@code true} wenn der Text im Editor ein gültiger Wert ist, sonst {@code false}
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Checks if the text inside the editor has a valid value an can be updated with the method {@link #commitValue()}.
 	 * 

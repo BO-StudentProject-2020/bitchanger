@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -11,7 +9,9 @@
 package bitchanger.gui.views;
 
 import bitchanger.gui.controller.Controllable;
+import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
+import bitchanger.gui.controls.BasicMenuBar;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 
@@ -62,6 +62,38 @@ import javafx.scene.control.MenuBar;
  */
 public interface Viewable extends Controllable {
 	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	// TODO JavaDoc
+	default BasicMenuBar generateMenuBar() {
+		return new BasicMenuBar();
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	default BasicMenuBar generateMenuBar(ControllableApplication controllableApp) {
+		try {
+			return new BasicMenuBar(controllableApp);
+		} catch (NullPointerException e) {
+			return generateMenuBar();
+		}
+	}
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die repräsentierte {@code Scene} zurück
 	 * 
@@ -76,7 +108,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract Scene getScene();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die maximale Höhe der View an
 	 * 
@@ -91,7 +124,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract double getMaxHeigth();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die maximale Breite der View an
 	 * 
@@ -106,7 +140,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract double getMaxWidth();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die minimale Höhe der View an
 	 * 
@@ -121,7 +156,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract double getMinHeigth();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die minimale Breite der View an
 	 * 
@@ -136,7 +172,8 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract double getMinWidth();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt die übergebene MenuBar in den Scenegraph der View. Eine eventuell vorhandene MenuBar
 	 * wird zuvor aus dem Scenegraph entfernt und ersetzt. Ist das Argument {@code null} wird nur

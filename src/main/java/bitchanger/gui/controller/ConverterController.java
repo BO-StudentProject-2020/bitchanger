@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -9,6 +7,8 @@
  */
 
 package bitchanger.gui.controller;
+
+import java.util.NoSuchElementException;
 
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.ConvertingNumbers;
@@ -68,7 +68,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/*	<!-- $LANGUAGE=EN -->	Property to adjust the base of the currently focused text field */
 	private IntegerProperty baseProperty;
 
+	
 // TextFields	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	/**	<!-- $LANGUAGE=DE -->	Textfeld für die hexadezimale Darstellung */
 	/*	<!-- $LANGUAGE=EN -->	Text field for the hexadecimal representation */
 	private ValueField tfHex;
@@ -93,7 +95,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/*	<!-- $LANGUAGE=EN -->	Auxiliary variable with reference to the current or last focused text field */
 	private ValueField focusedTF;
 
+	
 // Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Button zum Löschen und Zurücksetzen von {@link #value}
 	 * 
@@ -119,12 +123,14 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	private Button signBtn;
 
 	
+	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	Constructors	   																											 #
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
 	 * Referenzen auf die Bedienelemente aus der ConverterView.
@@ -147,7 +153,15 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		this.baseProperty = new SimpleIntegerProperty();
 	}
 	
+
 	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	initializing	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
 	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
@@ -160,12 +174,14 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	}
 
 	
+	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	Getter and Setter																											 #
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
 	/**	{@inheritDoc} */
 	@Override
 	public void setActions() {
@@ -176,6 +192,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	}
 
 	
+	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	private Methods   																											 #
@@ -183,7 +200,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-// Methods	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/**	<!-- $LANGUAGE=DE -->
 	 * Sucht die benötigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
 	 */
@@ -205,6 +221,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		}
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Sucht die benötigten Referenzen zu den Textfeldern aus der textFieldMap, speichert diese in den Attributen und setzt die Basis der einzelnen Textfelder.
@@ -226,7 +243,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		tfAny.getBaseProperty().bind(anyBase.valueProperty());
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Prüft, ob die übergebene Node einer der Pfeil-Buttons zum Scrollen in einem Spinner ist.
 	 * Dies ist der Fall, wenn die StyleClass den String "arrow-button" enthält.
@@ -251,6 +269,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		return false;
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt die Attribute auf den Ausgangszustand.
@@ -306,7 +325,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		setTFSelection();
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert die Texte der gewählten Textfelder mit dem aktuellen Wert von {@link #value} in der
 	 * zum Textfeld gehörenden Darstellung.
@@ -345,7 +365,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfHex}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
@@ -365,6 +386,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setHex(newValue);
 					} catch (Exception e) {
 						value.reset();
+						e.printStackTrace();
 					}
 					setTexts(false, true, true, true, true);
 				}
@@ -372,6 +394,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfDec}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
@@ -392,6 +415,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setDec(newValue);
 					} catch (Exception e) {
 						value.reset();
+						if (! (e instanceof NoSuchElementException)) { // NoSuchElementException tritt auf, wenn Nachkommateil fehlt (wegen Scanner)
+							e.printStackTrace();
+						}
 					}
 					setTexts(true, false, true, true, true);
 				}
@@ -399,7 +425,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfOct}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
@@ -419,6 +446,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setOct(newValue);
 					} catch (Exception e) {
 						value.reset();
+						e.printStackTrace();
 					}
 					setTexts(true, true, false, true, true);
 				}
@@ -446,6 +474,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setBin(newValue);
 					} catch (Exception e) {
 						value.reset();
+						e.printStackTrace();
 					}
 					setTexts(true, true, true, false, true);
 				}
@@ -453,6 +482,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfAny}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
@@ -473,6 +503,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						value.setValue(newValue, anyBase.getValue());
 					} catch (Exception e) {
 						value.reset();
+						e.printStackTrace();
 					}
 					setTexts(true, true, true, true, false);
 				}
@@ -480,7 +511,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes durch einen Mausklick und 
 	 * verbindet {@link #baseProperty} mit der baseProperty des Textfelds.
@@ -534,7 +566,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Fokussiert das Textfeld {@link #focusedTF}.
 	 * Diese Methode wird als Referenz für einen EventHandler verwendet.
@@ -576,6 +609,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		setSignAction();
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Bindet die baseProperty aller alphanumerischen Buttons an das Attribut {@link #baseProperty}, um die Buttons
@@ -591,7 +625,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		}
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt {@link #value} bei Klick auf den Clear-Button zurück und aktualisiert alle Textfelder.
 	 * 
@@ -614,7 +649,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Lässt den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
 	 */
@@ -631,7 +667,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		});
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Kehrt das Vorzeichen von {@link #value} beim Klick auf den Vorzeichen-Button um und aktualisiert alle Textfelder.
 	 */

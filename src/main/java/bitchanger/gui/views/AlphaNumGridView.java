@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -15,16 +13,18 @@ import java.util.HashMap;
 import java.util.function.BiConsumer;
 
 import bitchanger.gui.controls.AlphaNumKeys;
+import bitchanger.gui.controls.SVGIcon;
 import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
+import bitchanger.util.IconFactory;
+import bitchanger.util.Resources;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -74,6 +74,7 @@ import javafx.scene.layout.RowConstraints;
  * @version 0.1.4
  *
  */
+// TODO JavaDoc EN
 public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -86,39 +87,51 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 // public	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE --> Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden */
+	// TODO JavaDoc EN
 	public final String[] tfKeys;
 
 	/** <!-- $LANGUAGE=DE --> Schlüsselwort, mit dem der Löschen-Button (AC) in der Map {@code btnMap} gespeichert wird */
+	// TODO JavaDoc EN
 	public final String clearBtnKey;
 
 	/** <!-- $LANGUAGE=DE --> Schlüsselwort, mit dem der Backspace-Button in der Map {@code btnMap} gespeichert wird */
+	// TODO JavaDoc EN
 	public final String backspaceBtnKey;
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Vorzeichenwechsel */
+	// TODO JavaDoc EN
 	public final String signBtnKey = AlphaNumKeys.SIGN_BTN_KEY;
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button, der die Null repräsentiert */
+	// TODO JavaDoc EN
 	public final String zeroBtnKey = AlphaNumKeys.ZERO_BTN_KEY;
 
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Komma-Button */
+	// TODO JavaDoc EN
 	public final String commaBtnKey = AlphaNumKeys.COMMA_BTN_KEY;
 
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Umschalten des Tastaturlayouts */
+	// TODO JavaDoc EN
 	public final String keyboardBtnKey = AlphaNumKeys.KEYBOARD_BTN_KEY;
 
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Weiterscrollen durch die Tastatur */
+	// TODO JavaDoc EN
 	public final String nextBtnKey = AlphaNumKeys.NEXT_BTN_KEY;
 
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Rückwärtsscrollen durch die Tastatur */
+	// TODO JavaDoc EN
 	public final String previousBtnKey = AlphaNumKeys.PREVIOUS_BTN_KEY;
 
 	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Buchstaben-Buttons definiert */
+	// TODO JavaDoc EN
 	public final String[] alphaKeys = AlphaNumKeys.ALPHA_KEYS;
 
 	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Zahlen-Buttons definiert */
+	// TODO JavaDoc EN
 	public final String[] numKeys = AlphaNumKeys.NUM_KEYS;
 	
 	/** <!-- $LANGUAGE=DE -->	Array, das die Beschriftungen für die Labels vor den Textfeldern definiert */
+	// TODO JavaDoc EN
 	public final String[] labelTexts;
 	
 	
@@ -129,6 +142,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * Subklassen können dieses Attribut vor dem Aufruf der Methode {@link #createScenegraph()} auf {@code false}
 	 * setzen, um die Textfelder nur in eine einzige Spalte zu legen.
 	 */
+	// TODO JavaDoc EN
 	protected boolean setTFColumnSpan;
 	
 	/** <!-- $LANGUAGE=DE -->
@@ -141,81 +155,106 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * {@link #getButtonMap()} eingefügt!
 	 * </b></p>
 	 */
+	// TODO JavaDoc EN
 	protected boolean useClearAndBackBtn;
 	
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Textfelder in dieser View */
+	// TODO JavaDoc EN
 	protected final DoubleProperty tfMaxHeightProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Textfelder in dieser View */
+	// TODO JavaDoc EN
 	protected final DoubleProperty tfMinHeightProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Buttons in dieser View */
+	// TODO JavaDoc EN
 	protected final DoubleProperty btnMaxHeigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Buttons in dieser View */
+	// TODO JavaDoc EN
 	protected final DoubleProperty btnMinHeigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Breite der Buttons in dieser View */
+	// TODO JavaDoc EN
 	protected final DoubleProperty btnMaxWidthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
+	// TODO JavaDoc EN
 	protected final DoubleProperty btnMinWidthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die Höhe der Zeilen zwischen den Textfeldern und Buttons */
+	// TODO JavaDoc EN
 	protected final DoubleProperty whiteSpaceHeigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die Breite der ersten Spalte mit den Labels enthält. Wird benötigt, um symmetrisch Weißraum auf der rechten Seite hinzuzufügen. */
+	// TODO JavaDoc EN
 	protected final DoubleProperty firstColumnWidthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am oberen Rand der GridPane im Center */
+	// TODO JavaDoc EN
 	protected final DoubleProperty paddingTopProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am rechten Rand der GridPane im Center */
+	// TODO JavaDoc EN
 	protected final DoubleProperty paddingRigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am unteren Rand der GridPane im Center */
+	// TODO JavaDoc EN
 	protected final DoubleProperty paddingBottomProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am linken Rand der GridPane im Center */
+	// TODO JavaDoc EN
 	protected final DoubleProperty paddingLeftProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand der Buttons in der GridPane */
+	// TODO JavaDoc EN
 	protected final DoubleProperty btnSpacingProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den horizontalen Abstand der GridPane im Center */
+	// TODO JavaDoc EN
 	protected final DoubleProperty hgapProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den vertikalen Abstand der GridPane im Center */
+	// TODO JavaDoc EN
 	protected final DoubleProperty vgapProperty;
 
 	/** <!-- $LANGUAGE=DE --> Konstante, die die erste Zeile der GridPane definiert, in der die Textfelder positioniert werden */
+	// TODO JavaDoc EN
 	protected final int firstTFRow;
 	
 	/** <!-- $LANGUAGE=DE --> Konstante, die die Spalte der GridPane definiert, in der die Textfelder positioniert werden */
+	// TODO JavaDoc EN
 	protected final int tfColumn;
 	
 	/** <!-- $LANGUAGE=DE --> Konstante, die die erste Zeile der GridPane definiert, in der die Labels positioniert werden */
+	// TODO JavaDoc EN
 	protected final int firstLabelRow;
 	
 	/** <!-- $LANGUAGE=DE --> Konstante, die die Spalte der GridPane definiert, in der die Labels positioniert werden */
+	// TODO JavaDoc EN
 	protected final int labelColumn;
 	
 	/** <!-- $LANGUAGE=DE --> Konstante, die die erste Zeile der GridPane definiert, in der die Tastatur-Buttons positioniert werden */
+	// TODO JavaDoc EN
 	protected final int firstKeyBtnRow;
 
 	/** <!-- $LANGUAGE=DE --> Konstante, die die erste Spalte der GridPane definiert, in der die Tastatur-Buttons positioniert werden */
+	// TODO JavaDoc EN
 	protected final int firstKeyBtnColumn;
 
 	/** <!-- $LANGUAGE=DE --> Tabelle im Center von {@code root}, in der alle Controls positioniert werden */
+	// TODO JavaDoc EN
 	protected final GridPane center;
 
 	/** <!-- $LANGUAGE=DE --> Buttons, die als alpha-numerische Tastatur dienen, die für verschiedene Zahlensysteme ausgelegt ist. */
+	// TODO JavaDoc EN
 	protected final AlphaNumKeys alphaNum;
 	
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE --> Map, in der die angezeigten Texte oder Icons für die Buttons definiert werden. */
+	// TODO JavaDoc EN
 	private final HashMap<String, Object> btnTexts;
 	
 
@@ -232,10 +271,13 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param firstKeyBtnRow	erste Zeile in der GridPane, in der die Tastatur-Buttons positioniert werden
 	 * @param firstKeyBtnColumn	erste Spalte in der GridPane, in der die Tastatur-Buttons positioniert werden
 	 */
+	// TODO JavaDoc EN
 	public AlphaNumGridView(int firstKeyBtnRow, int firstKeyBtnColumn) {
 		this(-1, -1, -1, -1, firstKeyBtnRow, firstKeyBtnColumn, null);
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels in der Spalte 0 ab Zeile 0 und ihre Textfelder in der Spalte 1 
 	 * ab Zeile 0 positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -246,11 +288,13 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param labelTexts		Beschriftungen für die Labels vor den Textfeldern
 	 * @param tfKeys			Schlüsselwörter, mit denen die generierten Textfelder in der Map {@code tfMap} gespeichert werden
 	 */
+	// TODO JavaDoc EN
 	public AlphaNumGridView(String[] labelTexts, String... tfKeys) {
 		this(0, 0, 0, 1, Math.max(labelTexts.length, tfKeys.length) + 1, 1, labelTexts, tfKeys);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels, Textfelder und die Tastaturmatrix nach den übergebenen Parametern
 	 * positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -265,14 +309,16 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param labelTexts		Beschriftungen für die Labels vor den Textfeldern
 	 * @param tfKeys			Schlüsselwörter, mit denen die generierten Textfelder in der Map {@code tfMap} gespeichert werden
 	 */
+	// TODO JavaDoc EN
 	public AlphaNumGridView(int firstLabelRow, int labelColumn, int firstTFRow, int tfColumn, int firstKeyBtnRow, 
 			int firstKeyBtnColumn, String[] labelTexts, String... tfKeys) {
 		
 		this(firstLabelRow, labelColumn, firstTFRow, tfColumn, firstKeyBtnRow, firstKeyBtnColumn, labelTexts, 
-				tfKeys, 40, Double.MAX_VALUE, 50, 40, 80, 20, 6);
+				tfKeys, 40, Double.MAX_VALUE, 50, 40, 70, 20, 6);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels, Textfelder und die Tastaturmatrix nach den übergebenen Parametern
 	 * positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -294,6 +340,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param paddingTopRigthBottomLeft		Größe, die für die Properties {@link #paddingTopProperty}, {@link #paddingRigthProperty}, {@link #paddingBottomProperty} und {@link #paddingLeftProperty} eingestellt wird
 	 * @param spacing			Größe, die für die Properties {@link #btnSpacingProperty}, {@link #hgapProperty} und {@link #vgapProperty} eingestellt wird
 	 */
+	// TODO JavaDoc EN
 	public AlphaNumGridView(int firstLabelRow, int labelColumn, int firstTFRow, int tfColumn, int firstKeyBtnRow, 
 			int firstKeyBtnColumn, String[] labelTexts, String[] tfKeys, double tfHeight, double btnMaxSize, double btnMinSize,
 			double whiteSpaceHeigth, double firstColumnWidth, double paddingTopRigthBottomLeft, double spacing) {
@@ -303,7 +350,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 				paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, spacing, spacing, spacing);
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**<!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels, Textfelder und die Tastaturmatrix nach den übergebenen Parametern
 	 * positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -333,6 +381,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param hgap				Größe, die für die Property {@link #hgapProperty} eingestellt wird
 	 * @param vgap				Größe, die für die Property {@link #vgapProperty} eingestellt wird
 	 */
+	// TODO JavaDoc EN
 	public AlphaNumGridView(int firstLabelRow, int labelColumn, int firstTFRow, int tfColumn, int firstKeyBtnRow, int firstKeyBtnColumn,
 			String[] labelTexts, String[] tfKeys, double tfMaxHeight, double tfMinHeight, double btnMaxHeigth, double btnMinHeigth, 
 			double btnMaxWidth, double btnMinWidth, double whiteSpaceHeigth, double firstColumnWidth, double paddingTop,
@@ -355,7 +404,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.btnSpacingProperty = new SimpleDoubleProperty(btnSpacing);
 		this.hgapProperty = new SimpleDoubleProperty(hgap);
 		this.vgapProperty = new SimpleDoubleProperty(vgap);
-
+		
 		this.firstTFRow = (firstTFRow >= 0 && tfColumn >= 0) ? firstTFRow : -1;
 		this.tfColumn = (firstTFRow >= 0 && tfColumn >= 0) ? tfColumn : -1;
 		this.firstLabelRow = (firstLabelRow >= 0 && labelColumn >= 0) ? firstLabelRow : -1;
@@ -376,12 +425,15 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.backspaceBtnKey = "backspaceBtn";
 
 		this.btnTexts = new HashMap<String, Object>();
-		this.btnTexts.put(clearBtnKey, "AC");
-		this.btnTexts.put(backspaceBtnKey, "<--");
+		SVGIcon trashIcon = IconFactory.styleBindIcon(Resources.TRASH_X_ICON, Resources.TRASH_X_FILLED_ICON);
+		this.btnTexts.put(clearBtnKey, trashIcon == null ? "AC" : trashIcon);
+		SVGIcon backSpaceIcon = IconFactory.styleBindIcon(Resources.X_MARK_ARROW_LEFT_ICON, Resources.X_MARK_ARROW_LEFT_FILLED_ICON);
+		this.btnTexts.put(backspaceBtnKey, backSpaceIcon == null ? "<--" : backSpaceIcon);
 
 		this.center = new GridPane();
 		this.alphaNum = new AlphaNumKeys(firstKeyBtnRow + 1, firstKeyBtnColumn, btnSpacingProperty, this.scene);
 	}
+	
 	
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -398,6 +450,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 				+ (center.getRowCount() - firstKeyBtnRow) * btnMaxHeigthProperty.get() + whiteSpaceHeigthProperty.get();
 	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public double getMaxWidth() {
@@ -405,21 +459,42 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 				+ AlphaNumKeys.COLUMN_COUNT * btnMaxWidthProperty.get() + (center.getColumnCount() - 1) * hgapProperty.get();
 	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public double getMinHeigth() {
-		return paddingTopProperty.get() + paddingBottomProperty.get()
-				+ getTextFieldMap().size() * tfMinHeightProperty.get() + (center.getRowCount() - 1) * vgapProperty.get()
-				+ (center.getRowCount() - firstKeyBtnRow) * btnMinHeigthProperty.get() + whiteSpaceHeigthProperty.get();
+		double minHeight = root.getTop().minHeight(Double.NaN);
+		
+		for(RowConstraints rc : center.getRowConstraints()) {
+			minHeight += rc.getMinHeight();
+		}
+		
+		minHeight += center.getPadding().getTop() + center.getPadding().getBottom();
+		minHeight += (center.getRowCount() - 1) * center.getHgap();
+		
+		return minHeight;
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
 	@Override
 	public double getMinWidth() {
-		return paddingLeftProperty.get() + paddingRigthProperty.get() + firstColumnWidthProperty.get()
-				+ AlphaNumKeys.COLUMN_COUNT * btnMinWidthProperty.get() + (center.getColumnCount() - 1) * hgapProperty.get();
+		// TODO: Berechnung der Größe anpassen
+		double minWidth = center.getPadding().getLeft() * 2 + firstColumnWidthProperty.get() + vgapProperty.get();
+		
+		for(ColumnConstraints cc : center.getColumnConstraints()) {
+			minWidth += cc.getMinWidth();
+			System.out.println(cc);
+		}
+		
+		minWidth += (center.getColumnCount() - 1) * center.getVgap();
+		
+		return minWidth + 10;
 	}
 
+	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -432,6 +507,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * Subklassen können diese Methode überschreiben, um nach der Erstellung des Scenegraphen in dieser
 	 * Klasse weitere Bedienelemente hinzuzufügen.
 	 */
+	// TODO JavaDoc EN
 	@Override
 	protected void createScenegraph() {
 		// Label erstellen und in die GridPane einfügen
@@ -448,12 +524,9 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		setColumnConstraints();
 
 		// GridPane formatieren
-		center.hgapProperty().bindBidirectional(hgapProperty);
-		center.vgapProperty().bindBidirectional(vgapProperty);
-
 		updatePadding(null, null, null);
 
-		center.setAlignment(Pos.CENTER);
+		center.getStyleClass().add("grid-pane");
 
 		root.setCenter(center);
 
@@ -461,6 +534,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		bindProperties();
 	}
 
+	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -470,6 +544,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 	
 // GridPane Center	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt alle {@code RowConstraints} für center.
 	 * <p>
@@ -477,6 +552,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * und das Größenwachstum für die Zeilen der GridPane eingestellt.
 	 * </p>
 	 */
+	// TODO JavaDoc EN
 	private void setRowConstraints() {
 		// RowConstraints für Zeilen mit Textfeldern
 		for (int i = firstTFRow; i < firstTFRow + getTextFieldMap().size(); i++) {
@@ -500,6 +576,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		}
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue RowConstraints für die Zeile mit dem Index {@code rowIndex}, die an den ConstraintType angepasst sind.
 	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
@@ -509,6 +587,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
 	 * @param type		Typ der Zeile
 	 */
+	// TODO JavaDoc EN
 	protected void addRowConstraint(int rowIndex, ConstraintType type) {
 		if(rowIndex < 0) {
 			return;
@@ -552,7 +631,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		center.getRowConstraints().add(rowIndex, rowc);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt alle {@code ColumnConstraints} für center.
 	 * <p>
@@ -564,6 +644,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * und {@link #btnMinWidthProperty} für alle weitere Spalten.
 	 * </b></p>
 	 */
+	// TODO JavaDoc EN
 	private void setColumnConstraints() {
 		// ColumnConstraints für erste Spalte
 		addColumnConstraint(0, ConstraintType.FIRST_COLUMN);
@@ -574,6 +655,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		}
 	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue ColumnConstraints für die Spalte mit dem Index {@code columnIndex}, die an den ConstraintType angepasst sind.
 	 * Der ConstraintType bestimmt, ob es sich um die erste Spalte oder um eine Spalte mit Buttons handelt, um Hgrow
@@ -583,6 +666,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
 	 * @param type			Typ der Spalte
 	 */
+	// TODO JavaDoc EN
 	protected void addColumnConstraint(int columnIndex, ConstraintType type) {
 		if(columnIndex < 0) {
 			return;
@@ -632,6 +716,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * als Instanz von {@link ValueField} der GridPane hinzugefügt und die Constraints entsprechend gesetzt. 
 	 * Alle Textfelder werden mit den Schlüsselwörtern aus {@link #tfKeys} in der Textfeld-Map gespeichert.
 	 */
+	// TODO JavaDoc EN
 	private void createTextFields() {
 		for (int row = firstTFRow; row < firstTFRow + tfKeys.length; row++) {
 			TextField tf = new ValueField();
@@ -654,6 +739,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt alle Labels aus den Strings im Array {@link #labelTexts} und positioniert diese in der GridPane.
 	 */
+	// TODO JavaDoc EN
 	private void createLabels() {
 		ArrayDeque<Node> labels = new ArrayDeque<>();
 
@@ -674,9 +760,11 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @see #createButtons()
 	 * @see AlphaNumKeys
 	 */
+	// TODO JavaDoc EN
 	private void createButtonMatrix() {
 		// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
 		ArrayDeque<Button> buttonList = createButtons();
+		formatButtons();
 
 		if (useClearAndBackBtn) {
 			// Constraints für Position in der Tabelle setzen und in die Tabelle legen
@@ -692,6 +780,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		FXUtils.setMaxSizes(buttonList, Double.MAX_VALUE);
 		FXUtils.setMaxSizes(alphaNum.getButtonMatrix(), Double.MAX_VALUE);
 	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt die Buttons {@link #clearBtnKey} und {@link #backspaceBtnKey} und gibt diese in einer ArrayList zurück.
@@ -702,21 +792,19 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * 
 	 * @return Liste der erstellten Buttons
 	 */
+	// TODO JavaDoc EN
 	private ArrayDeque<Button> createButtons() {
 		// Liste mit allen Buttons in richtiger Reihenfolge (oben-links nach rechts-unten in der Tabelle!)
 		ArrayDeque<Button> buttons = new ArrayDeque<>(2);
 
 		for (String btnKey : ArrayUtils.arrayOf(clearBtnKey, backspaceBtnKey)) {
-			Button b = new UnfocusedButton();
+			UnfocusedButton b = new UnfocusedButton();
+			
 			if (this.btnTexts.get(btnKey) instanceof String) {
 				b.setText((String) this.btnTexts.get(btnKey));
-			} else if (this.btnTexts.get(btnKey) instanceof Node) {
+			} 
+			else if (this.btnTexts.get(btnKey) instanceof Node) {
 				b.setGraphic((Node) this.btnTexts.get(btnKey));
-			}
-
-			if (btnKey.equals(backspaceBtnKey)) {
-				// BackspaceButton muss auf zwei Spalten verteilt werden!
-				GridPane.setColumnSpan(b, 2);
 			}
 
 			// Buttons mit Schlüssel in Map speichern
@@ -725,8 +813,18 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			// angelegte Buttons im Array speichern und zurückgeben
 			buttons.add(b);
 		}
-
+		
 		return buttons;
+	}
+	
+	
+	// TODO JavaDoc
+	private void formatButtons() {
+		// BackspaceButton muss auf zwei Spalten verteilt werden!
+		GridPane.setColumnSpan(getButtonMap().get(backspaceBtnKey), 2);
+		
+		// Skalierungsfaktor für das Icon im Reset-Button anpassen
+		((UnfocusedButton)getButtonMap().get(clearBtnKey)).setGraphicScaleFactor(0.023);
 	}
 
 
@@ -738,6 +836,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * 
 	 * @see #updatePadding(ObservableValue, Number, Number)
 	 */
+	// TODO JavaDoc EN
 	private void bindProperties() {
 		getButtonMap().forEach(new BiConsumer<String, Button>() {
 			@Override
@@ -759,11 +858,18 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			}
 		});
 
+		center.hgapProperty().bindBidirectional(hgapProperty);
+		center.vgapProperty().bindBidirectional(vgapProperty);
+		btnSpacingProperty.bindBidirectional(hgapProperty);
+		btnSpacingProperty.bindBidirectional(vgapProperty);
+		
 		paddingTopProperty.addListener(this::updatePadding);
 		paddingRigthProperty.addListener(this::updatePadding);
 		paddingBottomProperty.addListener(this::updatePadding);
 		paddingLeftProperty.addListener(this::updatePadding);
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Methode, die als Referenz für einen ChangeListener eingesetzt werden kann, um die Paddings der GridPane zu aktualisieren.
@@ -772,6 +878,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param oldValue		alter Wert
 	 * @param newValue		neuer Wert
 	 */
+	// TODO JavaDoc EN
 	private void updatePadding(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 		center.setPadding(new Insets(paddingTopProperty.get(), paddingRigthProperty.get() + firstColumnWidthProperty.get(),
 						paddingBottomProperty.get(), paddingLeftProperty.get()));
@@ -793,20 +900,26 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @since Bitchanger 0.1.4
 	 * @version 0.1.4
 	 */
+	// TODO JavaDoc EN
 	protected enum ConstraintType{
 		/** <!-- $LANGUAGE=DE -->	Konstante für eine Zeile, die Textfelder enthält */
+		// TODO JavaDoc EN
 		TEXT_FIELD_ROW,
 		
 		/** <!-- $LANGUAGE=DE -->	Konstante für eine Zeile, die Buttons enthält */
+		// TODO JavaDoc EN
 		BUTTON_ROW,
 		
 		/** <!-- $LANGUAGE=DE -->	Konstante für eine Zeile, die Weißraum enthält */
+		// TODO JavaDoc EN
 		WHITESPACE_ROW,
 		
 		/** <!-- $LANGUAGE=DE -->	Konstante für die erste Spalte in einer GridPane */
+		// TODO JavaDoc EN
 		FIRST_COLUMN,
 		
 		/** <!-- $LANGUAGE=DE -->	Konstante für eine Spalte, die Buttons enthält */
+		// TODO JavaDoc EN
 		BUTTON_COLUMN;
 	}
 	

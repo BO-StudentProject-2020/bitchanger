@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -12,11 +10,18 @@ package bitchanger.gui.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import bitchanger.gui.controls.AlphaNumKeys;
+import bitchanger.gui.controls.SVGIcon;
+import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.FXUtils;
+import bitchanger.util.IconFactory;
+import bitchanger.util.Resources;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -50,7 +55,6 @@ import javafx.scene.layout.HBox;
  * @version 0.1.4
  *
  */
-
 /*	<!-- $LANGUAGE=EN -->
  * This controller gives the operating elements of an instance of {@link AlphaNumKeys} a function and links the simulation 
  * of the keyboard to the encapsulated scene.
@@ -73,14 +77,27 @@ import javafx.scene.layout.HBox;
  */
 public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	
-	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE -->	Scene, an die dieser Controller gebunden wird und die alle simulierten KeyEvents erhält */
-	/* <!-- $LANGUAGE=EN -->	Scene where this controller is linked to and that contains all simulated KeyEvents */
-	private Scene scene;
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	
 	/** <!-- $LANGUAGE=DE -->	Liste, die alle Buttons der Tastatur-Matrix enthält */
 	/* <!-- $LANGUAGE=EN -->	List that contains all buttons off the keyboard matrix */
-	private ArrayList<Node> buttonList;
+	private final ArrayList<Node> buttonList;
+	
+	/** <!-- $LANGUAGE=DE -->	Scene, an die dieser Controller gebunden wird und die alle simulierten KeyEvents erhält */
+	/* <!-- $LANGUAGE=EN -->	Scene where this controller is linked to and that contains all simulated KeyEvents */
+	private final Scene scene;
+	
+	// TODO JavaDoc
+	private final SVGIcon keyboardOpenGraphic;
+	
+	// TODO JavaDoc
+	private final SVGIcon keyboardCloseGraphic;
+	
 	
 	/** <!-- $LANGUAGE=DE -->	Button zum Umschalten zwischen Nummernfeld und Alphabet-Ansicht */
 	/* <!-- $LANGUAGE=EN -->	Button to switch between numbers and alphabet on the keyboard */
@@ -115,14 +132,20 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	private boolean isShowingKeyboard;
 
 	
-	// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt einen neuen Controller, der einer {@code AlphaNumKeys} eine Funktion gibt.
 	 * 
 	 * @param keys	{@code AlphaNumKeys}, die an diesen Controller gebunden wird
 	 * @param scene {@code Scene}, an die dieser Controller gebunden wird, um alle KeyEvents zum Simulieren einer Tastatur weiterzugeben
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Produces a new controller that gives function to an {@code AlphaNumKeys}.
 	 * 
@@ -134,7 +157,18 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		this.scene = scene;
 		this.buttonList = keys.getButtonMatrix();
 		this.isShowingKeyboard = false;
+		
+		this.keyboardOpenGraphic = IconFactory.styleBindIcon(Resources.KEYBORD_OPEN_ICON, Resources.KEYBORD_OPEN_FILLED_ICON);
+		this.keyboardCloseGraphic = IconFactory.styleBindIcon(Resources.KEYBORD_CLOSE_ICON, Resources.KEYBORD_CLOSE_FILLED_ICON);
 	}
+
+	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	initializing	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 
 	/** {@inheritDoc} */
@@ -150,7 +184,14 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	}
 
 	
-	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Actions zum Umschalten zwischen den Tastaturmodi, zum scrollen durch die Tastatur, zur Aktualisierung des Komma-Buttons
 	 * und simuliert die Tastatureingaben für die alphanumerischen Buttons.
@@ -159,7 +200,6 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	 * Buttons muss in einem anderen Controller implementiert werden.
 	 * </b></p>
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets actions to switch the keyboard mode, to scroll between the different keyboard layouts, to update the comma button
 	 * and simulates the keyboard inputs for the alphanumeric buttons
@@ -184,6 +224,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	}
 	
 	
+	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	private Methods   																											 #
@@ -191,29 +232,31 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	// Methoden		##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	/** <!-- $LANGUAGE=DE -->
 	 * Wechselt das Tastaturlayout in die Alphabet-Ansicht
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Changes the keyboard layout into the alphabetic view
 	 */
 	private void changeToKeyboard() {
 		setAllToKeyboard('A');
 		
-		keyboardBtn.setText("NUM");
+		FXUtils.setIconOrText(keyboardBtn, keyboardCloseGraphic, "123");
 		
 		GridPane.setColumnSpan(arrowButtons, 2);
+		setArrowScaleFactors(0.015);
 		
 		zeroBtn.setVisible(false);
 		GridPane.setColumnIndex(signBtn, GridPane.getColumnIndex(signBtn) + 1);
 	}
+	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Wechselt das Tastaturlayout in die Kombination aus sechs Buchstaben-Buttons und Nummernfeld
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Changes the keyboard layout into the combination consisting out of six letters and numbers between 0 and 10.
 	 */
@@ -221,46 +264,83 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		setAlphaButtonTexts('A');
 		setNumButtonTexts();
 		
-		keyboardBtn.setText("KEYB");
+		FXUtils.setIconOrText(keyboardBtn, keyboardOpenGraphic, "ABC");
 		
 		GridPane.setColumnSpan(arrowButtons, 1);
+		setArrowScaleFactors(UnfocusedButton.DEFAULT_GRAPHIC_SCALE_FACTOR);
 		
 		zeroBtn.setVisible(true);
 		GridPane.setColumnIndex(signBtn, GridPane.getColumnIndex(signBtn) - 1);
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	
+	// TODO JavaDoc
+	private void setArrowScaleFactors(double factor) {
+		arrowButtons.getChildren().stream()
+			.filter(new Predicate<Node>() {
+				@Override
+				public boolean test(Node t) {
+					return t instanceof UnfocusedButton;
+				}
+			})
+			.forEach(new Consumer<Node>() {
+				@Override
+				public void accept(Node button) {
+					((UnfocusedButton)button).setGraphicScaleFactor(factor);
+				}
+			});
+	}
+	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Texte der Alpha-Buttons in der Reihenfolge von {@linkplain AlphaNumKeys#ALPHA_KEYS}.
-	 * Mit jedem Button wird das Zeichen für den Text inkrementiert.
+	 * Mit jedem Button wird das Zeichen für den Text inkrementiert. Diese Methode setzt nur die Zeichen 'A' bis 'Z' als
+	 * Text der Buttons, wird dieser Bereich verlassen wird stattdessen ein leerer String gesetzt und der betroffene Button 
+	 * ausgeblendet.
 	 * 
 	 * @param startLetter	Zeichen, das der Erste Alpha-Button erhält
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the texts of the alpha buttons into the order of {@linkplain AlphaNumKeys#ALPHA_KEYS}.
-	 * The character for the text gets incremented with each button.
+	 * The character for the text gets incremented with each button. This method only sets the characters 'A' to 'Z' as Button
+	 * texts. If this range is leaved, an empty string is set and the Button is set to be invisible.
 	 * 
 	 * @param startLetter	Character that is contained in the first alpha button
 	 */
 	private void setAlphaButtonTexts(char startLetter) {
 		for(String alphaKey: AlphaNumKeys.ALPHA_KEYS) {
+			Button b = buttonMap.get(alphaKey);
+			
 			if(startLetter < 'A' || startLetter > 'Z') {
 				startLetter = ' ';
+				b.setVisible(false);
 			}
-			Button b = buttonMap.get(alphaKey);
+			else {
+				b.setVisible(true);
+			}
+			
 			b.setText(String.valueOf(startLetter));
 			startLetter++;
 		}
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Texte der nummerischen-Buttons in der Reihenfolge von {@linkplain AlphaNumKeys#NUM_KEYS}.
 	 * Jedem Button wird die Nummer aus dem Schlüssel in {@linkplain AlphaNumKeys#NUM_KEYS} zugewiesen.
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
-	 * sets the texts of the numeric buttons in order of {@linkplain AlphaNumKeys#NUM_KEYS}.
-	 * Each button is allocated to the number of the key of {@linkplain AlphaNumKeys#NUM_KEYS}.
+	 * Sets the texts of the numeric Buttons in order of {@linkplain AlphaNumKeys#NUM_KEYS}.
+	 * Each Button is allocated to the number of the key of {@linkplain AlphaNumKeys#NUM_KEYS}.
 	 */
 	private void setNumButtonTexts() {
 		for(String numKey: AlphaNumKeys.NUM_KEYS) {
@@ -270,18 +350,22 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		}
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt bei allen Buttons die Texte. Der erste Button erhält den übergebenen Buchstaben als Text, für jeden weiteren
 	 * Button in {@link #buttonList} wird der Buchstabe inkrementiert. Diese Methode setzt nur die Zeichen 'A' bis 'Z' als
-	 * Text der Buttons, wird dieser Bereich verlassen wird stattdessen ein leerer String gesetzt.
+	 * Text der Buttons, wird dieser Bereich verlassen wird stattdessen ein leerer String gesetzt und der betroffene Button 
+	 * ausgeblendet.
 	 * 
 	 * @param startLetter	Buchstabe des ersten Tastatur-Buttons
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
-	 * Sets the texts of all buttons. The first button receives the committed letter as text, for each following
-	 * button in {@link #buttonList} the letter is incremented. This method only sets the characters 'A' to 'Z' as text of the buttons,
-	 * if this range is leaved, an empty string gets set.
+	 * Sets the texts of all Buttons. The first button receives the committed letter as text, for each following
+	 * Button in {@link #buttonList} the letter is incremented. This method only sets the characters 'A' to 'Z' Button texts.
+	 * If this range is leaved, an empty string is set and the Button is set to be invisible.
 	 * 
 	 * @param startLetter	Letter of the first keyboard button
 	 */
@@ -289,7 +373,12 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		for(int i = 0; i < 15; i++) {
 			if(startLetter < 'A' || startLetter > 'Z') {
 				startLetter = ' ';
+				buttonList.get(i).setVisible(false);
 			}
+			else {
+				buttonList.get(i).setVisible(true);
+			}
+			
 			((Labeled) buttonList.get(i)).setText(String.valueOf(startLetter));
 			
 			startLetter++;
@@ -297,14 +386,21 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	}
 	
 	
-	// Bindings	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Bindings and Listeners																										 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Bindet den Text des Komma-Buttons an das CommaProperty.
 	 * 
 	 * @see Preferences#commaProperty
 	 * @see Preferences#getPrefs()
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Links the text of the comma buttons to the CommaProperty.
 	 * 
@@ -319,12 +415,15 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 			}
 		});
 	}
+	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt ChangeListener beim letzten Alpha-Button und beim letzten Nummer-Button, um zu überwachen, ob das Ende des Alphabets erreicht wurde.
 	 * Dadurch wird der Button zum weiter-scrollen der Alpha-Tastatur in beiden Tastaturmodi automatisch aktiviert und deaktiviert.
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets ChangeListener at the last alpha button and at the last number button to control, if the end of the alphabet is reached.
 	 * Thereby the button to scroll the alpha keyboard forwards (in both keyboard modes) is activated and disabled automatically.
@@ -353,12 +452,15 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 			}
 		});
 	}
+	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt einen ChangeListener beim ersten Alpha-Button, um zu überwachen, ob der Anfang des Alphabets erreicht wurde.
 	 * Dadurch wird der Button zum zurück-scrollen der Alpha-Tastatur in beiden Tastaturmodi automatisch aktiviert und deaktiviert.
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets a ChangeListener at the first alpha button, to control if the beginning of the alphabet is reached.
 	 * Thereby the button to scroll the alpha keyboard backwards (in both keyboard modes) is activated and disabled automatically.
@@ -378,11 +480,17 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	}
 
 	
-	// Actions	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Actions																														 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Funktion zum vorwärts scrollen durch die Alpha-Tastatur beim Klick auf den Button {@link #nextBtn}.
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the function to scroll the alpha keyboard forwards, by clicking on the button {@link #nextBtn}.
 	 */
@@ -404,10 +512,13 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		});
 	}
 
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Funktion zum rückwärts scrollen durch die Alpha-Tastatur beim Klick auf den Button {@link #previousBtn}.
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the function to scroll the alpha keyboard backwards, by clicking on the button {@link #previousBtn}.
 	 */
@@ -429,6 +540,10 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		});
 	}
 
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Funktion zum Wechseln des Tastatur-Modus beim Klick auf den Button {@link #keyboardBtn}.
 	 * Wechselt das Tastaturlayout zwischen einer Kombination aus sechs Buchstaben-Buttons mit Nummernfeld
@@ -437,7 +552,6 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	 * @see #changeToKeyboard()
 	 * @see #changeToNums()
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the function to switch the keyboard mode by clicking on the button {@link #keyboardBtn}.
 	 * Changes the keyboard layout between a combination of 6 letters and numbers and a keyboard only consisting out of letters.
@@ -461,6 +575,10 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		});
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Actions aller alphanumerischen Buttons und des Komma-Buttons, um mit diesen Buttons eine Tastatur zu simulieren.
 	 * 
@@ -468,7 +586,6 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets actions of all alphanumeric buttons and of the comma button, to simulate a keyboard with thse buttons.
 	 * 
@@ -498,6 +615,10 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		});
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Fügt einem Button die Funktion hinzu, dass dieser beim Klick einen Druck einer Taste auf der Tastatur simuliert.
 	 * Die simulierte Taste wird durch den Text des Buttons festgelegt.
@@ -508,7 +629,6 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Adds a function to a button, so that this button simulates a feedback by clicking it.
 	 * The simulated key is set by text of the button.
@@ -528,6 +648,10 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		});
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Simuliert den Druck der Taste auf einer Tastatur mit dem spezifischen {@code keycode} und feuert nacheinander die KeyEvents 
 	 * {@link KeyEvent#KEY_PRESSED}, {@link KeyEvent#KEY_TYPED} und {@link KeyEvent#KEY_RELEASED}. Die Events werden an die Scene
@@ -540,7 +664,6 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Simulates the click on a key of the keyboard with the specific {@code keycode} and fires the KeyEvents 
 	 * {@link KeyEvent#KEY_PRESSED}, {@link KeyEvent#KEY_TYPED} und {@link KeyEvent#KEY_RELEASED} successively.
@@ -557,8 +680,13 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		simulateKeyEvents(b, null, scene, b.getText(), "", keycode);
 	}
 
-	
-	
-	
-	
 }
+
+
+
+
+
+
+
+
+

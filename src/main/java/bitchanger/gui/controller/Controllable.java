@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -63,7 +61,8 @@ public interface Controllable {
 	 */
 	public static final Map<String, TextField> EMPTY_TEXTFIELD_MAP = Collections.emptyMap();
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
 	 * Buttons an seinen Controller übergeben muss
@@ -77,7 +76,8 @@ public interface Controllable {
 	 */
 	public static final Map<String, Button> EMPTY_BUTTON_MAP = Collections.emptyMap();
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
 	 * Nodes an seinen Controller übergeben muss
@@ -120,7 +120,8 @@ public interface Controllable {
 	 */
 	public abstract Map<String, TextField> getTextFieldMap();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt eine {@code Map} mit allen Buttons der View zurück. Jeder Button ist einem eindeutigen Schlüsselwort zugeordnet,
 	 * mit dem er aus der Map herausgesucht werden kann.
@@ -141,7 +142,8 @@ public interface Controllable {
 	 */
 	public abstract Map<String, Button> getButtonMap();
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt eine {@code Map} mit allen Elemente (Nodes) der View zurück, die keine Buttons oder Textfelder sind und im Controller benötigt werden.
 	 * Jedes Element ist einem eindeutigen Schlüsselwort zugeordnet, mit dem es aus der Map herausgesucht werden kann.

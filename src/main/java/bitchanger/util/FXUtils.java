@@ -1,11 +1,32 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.util;
 
+import java.io.File;
 import java.util.Queue;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import bitchanger.gui.controls.SVGIcon;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Control;
+import javafx.scene.control.Labeled;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.FillRule;
+import javafx.scene.shape.SVGPath;
 
 /** <!-- $LANGUAGE=DE -->
  * Utility-Klasse zur allgemeinen Verarbeitung von Objekten, die zur Oberfläche gehören.
@@ -16,7 +37,6 @@ import javafx.scene.layout.GridPane;
  * @version 0.1.4
  *
  */
-
 /* <!-- $LANGUAGE=EN -->
  * Utility class to handle objects whose belong to the user interface.
  * 
@@ -50,7 +70,6 @@ public class FXUtils {
 	 * 
 	 * @see #setGridConstraints(int, int, int, int, Queue, TriConsumer)
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the constrains of the nodes in a queue to position these in a GridPane.
 	 * <p>
@@ -77,6 +96,10 @@ public class FXUtils {
 		setGridConstraints(firstColumn, firstRow, columnCount, columnOffset, controls, GridPane::setConstraints);
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Arbeitet Nodes in einer Schlange als Tabelle ab.
 	 * <p>
@@ -97,7 +120,6 @@ public class FXUtils {
 	 * @param controls		Elemente in der Tabelle, mit der Reihenfolge von oben links nach unten rechts (Spalten werden vor den Zeilen inkrementiert)
 	 * @param consumer		TriConsumer, der die Daten verarbeitet
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Proceed nodes as a table in a queue.
 	 * <p>
@@ -143,13 +165,16 @@ public class FXUtils {
 		}
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die maximale Größe aller Controls in einem Iterable auf den Wert {@code maxSize}.
 	 * 
 	 * @param nodes		Sammlung aller anzupassenden Controls, die auch in Layout-Containern liegen dürfen
 	 * @param maxSize	Maximale Größe der Controls
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the maximum size of all controls inside an Iterable to the value of {@code maxSize}.
 	 * 
@@ -160,6 +185,10 @@ public class FXUtils {
 		setMaxSizes(nodes, maxSize, maxSize);
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die maximale Breite aller Controls in einem Iterable auf den Wert {@code maxWidth} und 
 	 * die maximale Höhe auf den Wert {@code maxHeight}.
@@ -168,7 +197,6 @@ public class FXUtils {
 	 * @param maxWidth	maximale Breite aller Controls
 	 * @param maxHeight	maximale Höhe aller Controls
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the maximum width of all controls inside an Iterable to the value of {@code maxWidth} and 
 	 * the maximum heights to the value of {@code maxHeight}.
@@ -189,7 +217,101 @@ public class FXUtils {
 			}
 		}
 	}
+	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 
+	/** <!-- $LANGUAGE=DE -->
+	 * Lädt ein Icon im svg-Format aus der übergebenen Datei und erstellt aus der Datei ein SVGPath Objekt,
+	 * das dem Scenegraph in javaFX hinzugefügt werden kann.
+	 * 
+	 * @param svgFile	Icon als svg-Datei
+	 * @return			Eingelesenes Icon als SVGPath oder {@code null}, wenn die Datei nicht eingelesen werden konnte
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Loads an icon in svg format from the given file and creates an SVGPath object from the file that can be added to 
+	 * the Scenegraph in javaFX.
+	 * 
+	 * @param svgFile	Icon as an svg file
+	 * @return			Loaded icon as SVGPath or {@code null} if the file could not be read correctly
+	 */
+	public static SVGPath loadSVG(File svgFile) {
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document doc = builder.parse(svgFile);
+			
+			NodeList nodes = doc.getElementsByTagName("svg");
+			
+			Element svg = (Element) nodes.item(0);
+			
+			String width = svg.getAttribute("width");
+			String height = svg.getAttribute("height");
+			String fillRule = svg.getAttribute("fill-rule");
+			
+			String path = ((Element)svg.getElementsByTagName("path").item(0)).getAttribute("d");
+			
+			SVGPath svgPath = new SVGPath();
+			
+			svgPath.setContent(path);
+			svgPath.setFillRule(fillRule.equalsIgnoreCase("evenodd") ? FillRule.EVEN_ODD : FillRule.NON_ZERO);
+			
+			svgPath.prefWidth(Double.parseDouble(width));
+			svgPath.prefHeight(Double.parseDouble(height));
+			svgPath.setScaleX(1.2);
+			svgPath.setScaleY(1.2);
+			
+			return svgPath;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	public static void setIconOrText(MenuItem menuItem, SVGIcon icon, String alternativeText) {
+		if(icon != null && icon.hasPath()) {
+			menuItem.setText("");
+			menuItem.setGraphic(icon);
+		}
+		else {
+			menuItem.setText(alternativeText);
+			menuItem.setGraphic(null);
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	public static void setIconOrText(MenuItem menuItem, SVGIcon icon) {
+		setIconOrText(menuItem, icon, menuItem.getText());
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	public static void setIconOrText(Labeled labeled, SVGIcon icon, String alternativeText) {
+		if(icon != null && icon.hasPath()) {
+			labeled.setText("");
+			labeled.setGraphic(icon);
+		}
+		else {
+			labeled.setText(alternativeText);
+			labeled.setGraphic(null);
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	public static void setIconOrText(Labeled labeled, SVGIcon icon) {
+		setIconOrText(labeled, icon, labeled.getText());
+	}
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -203,3 +325,7 @@ public class FXUtils {
 	private FXUtils() {}
 	
 }
+
+
+
+

@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -39,7 +37,6 @@ import javafx.scene.shape.Rectangle;
  * @version 0.1.4
  *
  */
-
 /*	<!-- $LANGUAGE=EN -->
  * Text field in which a number of a certain numeral system can be entered.
  * Only characters that are available in this selected numeral system can be entered.
@@ -59,21 +56,34 @@ import javafx.scene.shape.Rectangle;
  */
 public class ValueField extends TextField {
 
-	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
 	/** <!-- $LANGUAGE=DE -->	Property für die Basis des Zahlensystems */
 	/* <!-- $LANGUAGE=EN -->	Property for the base of the numeral system */
-	private IntegerProperty baseProperty;
+	private final IntegerProperty baseProperty;
 	
 	/** <!-- $LANGUAGE=DE -->	Hilfsvariable für die letzte bekannte Position im Textfeld */
 	/* <!-- $LANGUAGE=EN -->	Auxiliary variable for the last known position in the text field */
 	private int lastCaretPosition;
 	
 	
-	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit leerem Text und der Basis 10
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Creates a new ValueField with empty text and the base 10
 	 */
@@ -81,12 +91,13 @@ public class ValueField extends TextField {
 		this(10);
 	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit dem übergebenen Text als Inhalt und der Basis 10
 	 * 
 	 * @param text	Textinhalt für dieses Textfeld
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Creates a new ValueField that contains the committed text and the base 10
 	 * 
@@ -96,12 +107,13 @@ public class ValueField extends TextField {
 		this(text, 10);
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit leerem Text und der übergebenen Basis
 	 * 
 	 * @param base	Wert für die baseProperty
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Creates a new ValueFiled with an empty text and the committed base
 	 * 
@@ -111,13 +123,14 @@ public class ValueField extends TextField {
 		this("", base);
 	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues ValueField mit dem übergebenen Text als Inhalt und der übergebenen Basis
 	 * 
 	 * @param text	Textinhalt für dieses Textfeld
 	 * @param base	Wert für die baseProperty
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Creates a new ValueField that contains the committed text and the committed base
 	 * 
@@ -128,7 +141,6 @@ public class ValueField extends TextField {
 		super(text);
 		
 		this.baseProperty = new SimpleIntegerProperty(base);
-		this.baseProperty = new SimpleIntegerProperty();
 		this.lastCaretPosition = -1;
 		
 		this.textProperty().addListener(this::checkText);
@@ -145,16 +157,24 @@ public class ValueField extends TextField {
 		
 		this.setShape(shape);
 		this.setScaleShape(true);
+		
+		this.getStyleClass().add("value-field");
 	}
 	
 	
-	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt den Wert der {@link #baseProperty}
 	 * 
 	 * @param base	neue Basis
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the value of {@link #baseProperty}
 	 * 
@@ -164,12 +184,13 @@ public class ValueField extends TextField {
 		this.baseProperty.setValue(base);
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt den Wert der {@link #baseProperty} zurück
 	 * 
 	 * @return	Wert der {@link #baseProperty}
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the value of {@link #baseProperty}
 	 * 
@@ -179,12 +200,13 @@ public class ValueField extends TextField {
 		return this.baseProperty.get();
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt die {@link #baseProperty} dieses ValueFields zurück
 	 * 
 	 * @return	{@link #baseProperty} dieses ValueFields
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the {@link #baseProperty} of this ValueField
 	 * 
@@ -194,12 +216,13 @@ public class ValueField extends TextField {
 		return this.baseProperty;
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Überprüft, ob es eine Textauswahl in diesem ValueField gibt
 	 * 
 	 * @return {@code true}, wenn eine Textstelle ausgewählt wurde, sonst {@code false}
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Checks if there is a text selection in this ValueField
 	 * 
@@ -209,8 +232,15 @@ public class ValueField extends TextField {
 		return getSelection().getLength() > 0;
 	}
 	
+
 	
-	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	private Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Prüft, ob der eingegebene Text zur Basis passt und setzt die Eingabe zurück, wenn ein verbotenes 
 	 * Zeichen eingegeben wurde. Kann als Methoden-Referenz für einen ChangeListener eingesetzt werden.
@@ -219,7 +249,6 @@ public class ValueField extends TextField {
 	 * @param oldValue		alter Wert
 	 * @param newValue		neuer Wert
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Checks if the entered text agree to the base and resets the input if there was entered an illegal character.
 	 * Can be used as method reference for a ChangeListener.
@@ -237,6 +266,8 @@ public class ValueField extends TextField {
 		}
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Speichert die letzte bekannte CaretPosition, um diese zurücksetzen zu können. 
 	 * Kann als Methoden-Referenz für einen ChangeListener eingesetzt werden.
@@ -245,7 +276,6 @@ public class ValueField extends TextField {
 	 * @param oldValue		alter Wert
 	 * @param newValue		neuer Wert
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Stores the last known CaretPosition to reset it. 
 	 * Can be used as method reference for a ChangeListener.
@@ -261,7 +291,8 @@ public class ValueField extends TextField {
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Entfernt den Indikator für abgeschnittene Nachkommastellen und setzt die CaretPosition auf den 
 	 * letzten bekannten Wert zurück. 
@@ -271,7 +302,6 @@ public class ValueField extends TextField {
 	 * @param oldValue		alter Wert
 	 * @param isFocused		neuer Wert
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Removes the indicator for the cut decimal places and resets the CaretPosition to the last known value. 
 	 * Can be used as method reference for a ChangeListener.
@@ -280,7 +310,7 @@ public class ValueField extends TextField {
 	 * @param oldValue		old value
 	 * @param isFocused		new value ?!?!
 	 */
-	public void focuse(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean isFocused) {
+	private void focuse(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean isFocused) {
 		if (isFocused) {
 			// Indikator für abgeschnittene Nachkommastellen entfernen
 			setText(getText().replace(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR, ""));
@@ -302,11 +332,12 @@ public class ValueField extends TextField {
 		}
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Überwacht die CommaProperty aus {@link Preferences} und passt das Komma der Zahl in diesem Textfeld
 	 * bei Änderung an
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Monitors the CommaProperty from {@link Preferences} and adjusts the comma if the number is changing
 	 */
@@ -336,5 +367,20 @@ public class ValueField extends TextField {
 		});
 	}
 	
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

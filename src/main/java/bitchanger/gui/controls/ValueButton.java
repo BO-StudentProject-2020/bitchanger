@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -29,7 +27,6 @@ import javafx.scene.Node;
  * @version 0.1.4
  *
  */
-
 /*	<!-- $LANGUAGE=EN -->
  * UnfocusedButton with an extra Property to adjust the base.
  * If the value, that gets represented by this button, is not available for the chosen base,
@@ -44,24 +41,38 @@ import javafx.scene.Node;
  */
 public class ValueButton extends UnfocusedButton{
 
-	// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	 
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constants		   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->	Property, über das die Basis des aktuellen Zahlensystems eingestellt wird */
 	/* <!-- $LANGUAGE=EN -->	Property that is used to adjust the base of the current numeral system */
-	private IntegerProperty baseProperty;
+	private final IntegerProperty baseProperty;
 	
 	
-	// Konstruktoren	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem leeren String als Beschriftung
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Creates a ValueButton with an empty string as caption
 	 */
 	public ValueButton() {
-		super();
-		init();
+		this("");
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem spezifischen String und einem Icon als Beschriftung
@@ -69,7 +80,6 @@ public class ValueButton extends UnfocusedButton{
 	 * @param text		Text für die Beschriftung dieses Buttons
 	 * @param graphic	Icon für die Beschriftung dieses Buttons
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Creates a ValueButton with a specific string and an icon as caption
 	 *
@@ -78,33 +88,44 @@ public class ValueButton extends UnfocusedButton{
 	 */
 	public ValueButton(String text, Node graphic) {
 		super(text, graphic);
+		
+		this.baseProperty = new SimpleIntegerProperty();
+		
 		init();
+		
+		getStyleClass().add("value-button");
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem spezifischen String als Beschriftung
 	 *
 	 * @param text		Text für die Beschriftung dieses Buttons
 	  */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Creates a ValueButton with a specific string as caption
 	 *
 	 * @param text		Text for the caption of this button
 	  */
 	public ValueButton(String text) {
-		super(text);
-		init();
+		this(text, null);
 	}
 	
 	
-	// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert für die Basis
 	 * 
 	 * @param base neue Basis
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the value of the base
 	 * 
@@ -114,12 +135,13 @@ public class ValueButton extends UnfocusedButton{
 		this.baseProperty.set(base);
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt den Wert der {@link #baseProperty} zurück
 	 * 
 	 * @return baseProperty dieses ValueButtons
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Returns the value of the {@link #baseProperty}
 	 * 
@@ -130,34 +152,39 @@ public class ValueButton extends UnfocusedButton{
 	}
 	
 	
-	// Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Methods   																													 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Initialisiert die {@link #baseProperty} und setzt Listener zum Aktivieren und Deaktivieren dieses Buttons
+	 * Setzt Listener zum Aktivieren und Deaktivieren dieses Buttons
 	 * durch die eingestellte Basis
 	 * 
 	 * @see #setTextListener()
 	 * @see #setBaseListener()
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
-	 * Initializes the {@link #baseProperty} and sets listener to activate and disable this button
+	 * Sets listener to activate and disable this button
 	 * by the selected base
 	 * 
 	 * @see #setTextListener()
 	 * @see #setBaseListener()
 	 */
 	private void init() {
-		this.baseProperty = new SimpleIntegerProperty();
-		
 		setTextListener();
 		setBaseListener();
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Überprüft die textProperty und aktiviert bzw. deaktiviert diesen Button, wenn der neue Text
 	 * zur baseProperty passt bzw. nicht passt
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Checks the textProperty and activates or disables this button if the new text
 	 * agrees or disagrees to the baseProperty
@@ -166,7 +193,7 @@ public class ValueButton extends UnfocusedButton{
 		textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(newValue.equals(" ") || !ConvertingNumbers.isValueToBase(baseProperty.get(), getText())) {
+				if(newValue.equals("") || !ConvertingNumbers.isValueToBase(baseProperty.get(), getText())) {
 					setDisable(true);
 				}
 				else {
@@ -176,11 +203,12 @@ public class ValueButton extends UnfocusedButton{
 		});
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/**	<!-- $LANGUAGE=DE -->
 	 * Überprüft die baseProperty und aktiviert bzw. deaktiviert diesen Button, wenn der Text
 	 * zum neuen Wert der baseProperty passt bzw. nicht passt
 	 */
-	
 	/*	<!-- $LANGUAGE=EN -->
 	 * Checks the baseProperty and activates or disables this button if the text
 	 * agrees or disagrees to the new value of the baseProperty
@@ -197,7 +225,17 @@ public class ValueButton extends UnfocusedButton{
 			}
 		});
 	}
-	
-	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

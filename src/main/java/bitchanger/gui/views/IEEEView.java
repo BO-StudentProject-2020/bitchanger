@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -28,6 +26,7 @@ import bitchanger.util.ArrayUtils;
  * 
  * @see IEEEController
  */
+//TODO JavaDoc EN
 public class IEEEView extends AlphaNumGridView {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -37,13 +36,17 @@ public class IEEEView extends AlphaNumGridView {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE -->	Array, das die Beschriftungen für die Labels vor den Textfeldern definiert */
+	// TODO JavaDoc EN
 	private static final String[] LABEL_TEXTS = {"DEC", "IEEE"};
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
+	// TODO JavaDoc EN
 	private static final String TF_DEC_KEY = "dec-TF";
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
+	// TODO JavaDoc EN
 	private static final String TF_IEEE_KEY = "ieee-TF";
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -71,10 +74,13 @@ public class IEEEView extends AlphaNumGridView {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
+	// TODO JavaDoc EN
 	public final String tfDecKey = "dec-TF";
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
+	// TODO JavaDoc EN
 	public final String tfIEEEKey = "ieee-TF";
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -87,11 +93,17 @@ public class IEEEView extends AlphaNumGridView {
 	 * Erzeugt eine neue IEEEView mit vollständigem Scenegraphen und initialisiert die Funktionen
 	 * der Bedienelemente mit einem {@link IEEEController}.
 	 */
+	// TODO JavaDoc EN
 	public IEEEView() {
 		super(0, 0, 0, 1, 6, 1, LABEL_TEXTS, ArrayUtils.arrayOf(TF_DEC_KEY, TF_IEEE_KEY));
 		
 		buildScenegraph();
+		
 	}
+	
+	
+	// TODO MenuBar -> Elemente hinzufügen
+	
 }
 
 

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.gui.controller;
 
 import java.lang.reflect.Constructor;
@@ -43,7 +51,13 @@ import java.util.stream.Stream;
  */
 public interface Controller {
 	
-// Konstanten	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constants		   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Map, die die für ein Controllable registrierten Controller speichert und diese verknüpft
 	 */
@@ -53,7 +67,14 @@ public interface Controller {
 	public static final HashMap<Class<? extends Controllable>, Class<? extends Controller>> REGISTERED_CONTROLLERS = new HashMap<>();
 	
 	
-// statische Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	static Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Registriert eine Controller-Klasse für die Factory-Methode {@link #of(Controllable)} 
 	 * und ordnet diese einer Controllable-Klasse zu.
@@ -72,7 +93,8 @@ public interface Controller {
 		REGISTERED_CONTROLLERS.put(controllable, controller);
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Factory-Methode, die einen neuen Controller für das übergebene Controllable erzeugt und zurückgibt.
 	 * <p><b>
@@ -115,6 +137,8 @@ public interface Controller {
 		return ofArg(c);
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Factory-Methode, die einen neuen Controller für das übergebene Controllable erzeugt und zurückgibt.
 	 * <p><b>
@@ -165,26 +189,61 @@ public interface Controller {
 			return null;
 		}
 		
-		Class<?>[] classes = new Class<?>[args.length + 1];
-		classes[0] = c.getClass();
+		Class<?>[] argClasses = new Class<?>[args.length + 1];
+		argClasses[0] = c.getClass();
 		
 		for(int i = 0; i < args.length; i++) {
-			classes[i+1] = args[i].getClass();
+			argClasses[i+1] = args[i].getClass();
 		}
 		
 		Object[] constructorArgs = Stream.concat(Stream.of(c), Arrays.stream(args)).toArray();
 		
 		try {
-			Constructor<? extends Controller> constructor = controllerClass.getConstructor(classes);
+			Constructor<? extends Controller> constructor = controllerClass.getConstructor(argClasses);
 			return constructor.newInstance(constructorArgs);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		} 
+		catch (Exception e) {
+			return getConstructorForArgs(controllerClass, argClasses, constructorArgs);
 		}
 	}
 	
 	
-// abstrakte Methoden	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	// TODO JavaDoc
+	private static Controller getConstructorForArgs(Class<? extends Controller> controllerClass, Class<?>[] argClasses, Object[] constructorArgs) {
+		try {
+			Constructor<?>[] constructors = controllerClass.getConstructors();
+
+			_CONTRUCTOR_LOOP:
+			for (Constructor<?> constructor : constructors) {
+				if (constructor.getParameterTypes().length != argClasses.length) {
+					continue;
+				}
+
+				for (int i = 0; i < argClasses.length; i++) {
+					if (!constructor.getParameterTypes()[i].isAssignableFrom(argClasses[i])) {
+						continue _CONTRUCTOR_LOOP;
+					}
+				}
+
+				return (Controller) constructor.newInstance(constructorArgs);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	abstract Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt alle für die View benötigten Funktionen.
 	 */
@@ -194,3 +253,9 @@ public interface Controller {
 	public abstract void setActions();
 
 }
+
+
+
+
+
+

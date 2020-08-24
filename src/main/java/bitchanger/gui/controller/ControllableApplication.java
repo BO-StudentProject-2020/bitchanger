@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.gui.controller;
 
 import bitchanger.gui.views.Viewable;
@@ -46,8 +54,10 @@ public interface ControllableApplication {
 	 * @param newView	New View to be presented
 	 */
 	public default void changeView(Viewable newView) {
+		boolean wasFullScreen = getPrimaryStage().isFullScreen();
 		getCurrentViewProperty().set(newView);
 		getPrimaryStage().setScene(newView.getScene());
+		getPrimaryStage().setFullScreen(wasFullScreen);
 	}
 
 	
@@ -73,6 +83,8 @@ public interface ControllableApplication {
 	 */
 	public abstract Stage getPrimaryStage();
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt die mit dem String {@code key} verknüpfte View zurück
 	 * 
@@ -87,6 +99,8 @@ public interface ControllableApplication {
 	 */
 	public abstract Viewable getViewable(String key);
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt die CurrentViewProperty zurück
 	 * 

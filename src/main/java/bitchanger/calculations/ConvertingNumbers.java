@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -36,7 +34,6 @@ import bitchanger.preferences.Comma;
  * @since Bitchanger 0.1.0
  * @version 0.1.4
  */
-
 /* <!-- $LANGUAGE=EN -->
  * The {@code ConvertingNumbers} class contains methods for performing conversions of numbers with different numeral systems.
  * <p>
@@ -58,7 +55,6 @@ import bitchanger.preferences.Comma;
  * @since Bitchanger 0.1.0
  * @version 0.1.4
  */
-
 public class ConvertingNumbers {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -89,6 +85,7 @@ public class ConvertingNumbers {
 	
 	
 // 	Überprüfung von potentiellen Zahlen zu einer Basis	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Prüft, ob {@code value} eine Zahl zur geforderten Basis {@code base} repräsentiert.
 	 * Ist der Indikator für abgeschnittene Nachkommastellen aktiviert, wird dieser bei der Auswertung ignoriert.
@@ -102,7 +99,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws IllegalArgumentException	wenn {@code basis} den Wertebereich [2, 36] verlässt
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Checks if {@code value} represents a number to the required base {@code base}.
 	 * If the indicator for truncated fractional digits is activated, it will be ignored in the evaluation.
@@ -177,7 +173,6 @@ public class ConvertingNumbers {
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
 	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the base 10 in {@code double}.
 	 * 
@@ -290,7 +285,6 @@ public class ConvertingNumbers {
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
 	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
 	 * 
@@ -321,7 +315,6 @@ public class ConvertingNumbers {
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
 	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
 	 * 
@@ -442,7 +435,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @see Preferences
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code decValue} of base 10 into a number of any base {@code newBase} as string representation.
 	 * <p>
@@ -485,7 +477,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @see Preferences
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code decValue} of base 10 into a number of any base {@code newBase} as string representation.
 	 * <p>
@@ -531,7 +522,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @see Preferences
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code decValue} of base 10 into a number of any base {@code newBase} as string representation.
 	 * <p>
@@ -662,7 +652,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code decValue} of base 10 into a number of any base {@code newBase} as string representation
 	 * and splits the number into blockt with given length.
@@ -697,6 +686,7 @@ public class ConvertingNumbers {
 		
 		return splitInBlocks(value, blockSize);
 	}
+	
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Unterteilt den übergebenen String in Blöcke mit der gegebenen Länge, beispielsweise
@@ -758,7 +748,6 @@ public class ConvertingNumbers {
 	 * @throws NumberFormatException	wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
 	 * @throws IllegalArgumentException wenn {@code basis} den Wertebereich [2, 36] verlässt oder wenn {@code value} ein leerer String ist
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Checks if the submitted string {@code value} represents a number to the required base {@code base} and
 	 * throws an exception, if this is not given.
@@ -796,7 +785,6 @@ public class ConvertingNumbers {
 	 * @param integerPart	umzuwandelnde Zahl in der String-Darstellung
 	 * @return				Wert der übergebenen Zahl im Zehnersystem als {@code double}
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code integerPart} of any base  {@code base} into the decimal system.
 	 * For converting of any base into the decimal system, Horner-Schema will be used.
@@ -827,7 +815,6 @@ public class ConvertingNumbers {
 	 * @param fractionalPart	umzuwandelnder Nachkommateil einer Zahl <b>ohne Komma</b> und als ganze Zahl in der String-Darstellung 
 	 * @return					Wert des übergebenen Nachkommaanteils im Zehnersystem als {@code double}
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted decimal place of a number of any base into the decimal system.
 	 * For converting of any base into the decimal system, Horner-Schema will be used.
@@ -865,7 +852,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @return	umgewandelter Wert zur Basis {@code basis} in String-Darstellung
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts an integer value of decimal system into a value of any base as string representation.
 	 * 
@@ -916,7 +902,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @see Preferences#setIndicateFractionalPrecision(boolean)
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts decimal places of decimal system into a value of any base as string representation.
 	 * If the indicator of decimal places is activated in the class {@code Preferences}
@@ -980,7 +965,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @see #valueOfDigit(char)
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Calculates the char for a value.
 	 * The characters 0 to 9 correspond to the values 0 to 9 - The letters A to Z correspond to the values 10 to 35.
@@ -1007,7 +991,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @see #digitOfValue(int)
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Calculates the place value of represented character.
 	 * The characters 0 to 9 correspond to the values 0 to 9 - The letters A to Z correspond to the values 10 to 35.
@@ -1040,7 +1023,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NumberFormatException	Wenn es sich bei {@code value} nicht um eine Zahl in der String-Darstellung handelt, da zu viele Kommata vorhanden sind
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Separated the numbers before and after the comma / point of the submitted string {@code value}, 
 	 * which represents a number of the base {@code base} and returns these separated strings without
@@ -1095,7 +1077,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @return das Komma, welches zuerst in dem String auftaucht oder {@code null}, wenn kein Komma enthalten ist
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Checks if the submitted string firstly contains a German comma (,) or an English comma (.).
 	 * 
@@ -1118,6 +1099,7 @@ public class ConvertingNumbers {
 		return comma;
 	}	
 	
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Schneidet den übergebenen String so zu, dass dieser nicht mehr den Indikator für abgeschnittene Nachkommastellen
 	 * und keine Leerzeichen enthält und wandelt alle Buchstaben in Großbuchstaben um.
@@ -1137,6 +1119,7 @@ public class ConvertingNumbers {
 		 * der Indikator für abgeschnittene Nachkommastellen werden ignoriert */
 		return value.replace(FRACTIONAL_PRECISION_INDICATOR, "").replace(" ", "").toUpperCase();
 	}
+	
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Unterteilt den übergebenen StringBuffer in Blöcke mit bestimmter Länge

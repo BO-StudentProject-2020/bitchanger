@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -10,15 +8,15 @@
 
 package bitchanger.main;
 
-import bitchanger.gui.controller.BasicMenuController;
 import bitchanger.gui.controller.ControllableApplication;
-import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BasicMenuBar;
+import bitchanger.gui.views.CalculatorView;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.Resources;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -42,7 +40,6 @@ import javafx.stage.Stage;
  * @see ConverterView
  * @see ConverterController
  */
-
 /* <!-- $LANGUAGE=EN -->
  * Main window of the application with javaFX
  * <p>
@@ -60,31 +57,37 @@ import javafx.stage.Stage;
  */
 public class PrimaryFXApp extends Application implements ControllableApplication {
 	
-// Konstanten	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE -->
-	 * Schlüsselwort, mit dem über {@link #getViewable(String)} auf die ConverterView zugegriffen werden kann 
-	 */
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constants		   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die ConverterView zugegriffen werden kann */
+	// TODO JavaDoc EN
 	public static final String CONVERTER_VIEW_KEY = "converter-view";
 	
-	/** <!-- $LANGUAGE=DE -->
-	 * Schlüsselwort, mit dem über {@link #getViewable(String)} auf die IEEEView zugegriffen werden kann 
-	 */
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die IEEEView zugegriffen werden kann */
+	// TODO JavaDoc EN
 	public static final String IEEE_VIEW_KEY = "ieee-view";
 
-	/** <!-- $LANGUAGE=DE -->
-	 * Schlüsselwort, mit dem über {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann 
-	 */
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
+	// TODO JavaDoc EN
 	public static final String CALCULATOR_VIEW_KEY = "calculator-view";
 	
-	/** <!-- $LANGUAGE=DE -->
-	 * Aktuelle Version des Bitchangers
-	 */
+	/** <!-- $LANGUAGE=DE -->	Aktuelle Version des Bitchangers */
+	// TODO JavaDoc EN
 	public static final String VERSION = "0.1.4";
 
 	
 	
-// Launch-Methode	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	static Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Startet die Anwendung und öffnet das Applikationsfenster.
 	 * 
@@ -92,7 +95,6 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	 * 
 	 * @see Application#launch(String...)
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Starts the applications and opens the application window.
 	 * 
@@ -105,6 +107,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	}
 	
 	
+	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	Instances   																												 #
@@ -112,10 +115,21 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-// Attribute	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+// public	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	/** <!-- $LANGUAGE=DE --> Property für die aktuell im Fenster dargestellte View */
 	/* <!-- $LANGUAGE=EN --> Property of the currently displayed View */
 	public final ObjectProperty<Viewable> currentViewProperty;
+	
+	
+// private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE --> View für die Umwandlung von Zahlensystemen */
 	/* <!-- $LANGUAGE=EN --> View for converting of numeral systems */
@@ -134,27 +148,38 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	private Stage primaryStage;
 	
 	
-// Konstruktor	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue PrimaryFXApp für den Bitchanger
-	 */
-	/* <!-- $LANGUAGE=EN -->
-	 * Construct a new PrimaryFXApp for the Bitchanger
-	 */
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	/** <!-- $LANGUAGE=DE -->	Erzeugt eine neue PrimaryFXApp für den Bitchanger */
+	/* <!-- $LANGUAGE=EN -->	Construct a new PrimaryFXApp for the Bitchanger */
 	public PrimaryFXApp() {
 		super();
-		this.currentViewProperty = new SimpleObjectProperty<>();
+		this.currentViewProperty = new SimpleObjectProperty<Viewable>();
 	}
 
 	
-// Getter und Setter	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
 	/** {@inheritDoc} */
 	@Override
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
 
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public Viewable getViewable(String key) {
@@ -170,13 +195,22 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		}
 	}
 	
-	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	/** {@inheritDoc} */
 	@Override
 	public ObjectProperty<Viewable> getCurrentViewProperty() {
 		return this.currentViewProperty;
 	}
 
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Methods   																													 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	
 // Start	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
@@ -230,7 +264,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 		this.converterView = new ConverterView();
 		this.ieeeView = new IEEEView();
-		this.calculatorView = new IEEEView();
+		this.calculatorView = new CalculatorView();
 		
 		adjustViews(converterView, ieeeView, calculatorView);
 		
@@ -258,7 +292,6 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	 * @see Viewable#getMinWidth()
 	 * @see Viewable#getMaxWidth()
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Adjusts the minimum and maximum size of the window to the size of the current scene ({@code currentView}).
 	 * 
@@ -270,14 +303,47 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	private void setStageSize() {
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen
 		// (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
+		primaryStage.setMinHeight(currentViewProperty.get().getMinHeigth());
+		primaryStage.setMinWidth(currentViewProperty.get().getMinWidth());
+		
 		primaryStage.sizeToScene();
-		primaryStage.setMinHeight(primaryStage.getHeight());
-		primaryStage.setMinWidth(primaryStage.getWidth());
-//		primaryStage.setMaxHeight(currentView.getMaxHeigth() + primaryStage.getHeight() - currentView.getMinHeigth());
-//		primaryStage.setMaxWidth(currentView.getMaxWidth() + primaryStage.getWidth() - currentView.getMinWidth());
+		System.out.println(primaryStage.getWidth());
+		System.out.println(primaryStage.getMinWidth());
+		
+
+		// TODO Größe anpassen
+//		Scene sc = new Scene(new Label("Hallo1"));
+//		Scene sc2 = new Scene(new Label("Hallo2"));
+//		Stage st = new Stage(StageStyle.DECORATED);
+//		st.setScene(sc);
+//		st.setOnShowing(e->{
+//			
+//			Platform.runLater(()->{
+//				st.sizeToScene();
+//				System.out.println(st.getHeight());
+//				st.hide();
+//			});
+//		});
+//		
+//		Stage st2 = new Stage(StageStyle.UNDECORATED);
+//		st2.setScene(sc2);
+//		st2.setOnShowing(e->{
+//			Platform.runLater(()->{
+//				st2.sizeToScene();
+//				System.out.println(st2.getHeight());
+//				st2.hide();
+//			});
+//		});
+//		
+//		st.show();
+//		st2.show();
 	}
 	
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+
+	// TODO JavaDoc
 	private void observeStageOnShowing() {
 		primaryStage.showingProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
@@ -290,6 +356,10 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	}
 	
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+
+	// TODO JavaDoc
 	private void observeScene() {
 		primaryStage.sceneProperty().addListener(new ChangeListener<Scene>() {
 			@Override
@@ -303,12 +373,10 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 // Views	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	// TODO JavaDoc
 	private void adjustViews(Viewable... views) {
 		for(Viewable view : views) {
-			BasicMenuBar menubar = new BasicMenuBar();
-			Controller cntr = new BasicMenuController(menubar, this);
-			cntr.setActions();
-			
+			BasicMenuBar menubar = view.generateMenuBar(this);
 			view.setMenuBar(menubar);
 			
 			Preferences.getPrefs().readOnlyStylesheetProperty.addListener(new ChangeListener<String>() {
@@ -324,6 +392,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 				}
 			});
 			
+			view.getScene().getStylesheets().add(Resources.LAYOUT_CSS);
 			view.getScene().getStylesheets().add(Preferences.getPrefs().readOnlyStylesheetProperty.get());
 		}
 	}

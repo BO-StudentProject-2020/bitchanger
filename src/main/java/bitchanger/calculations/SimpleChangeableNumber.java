@@ -1,7 +1,5 @@
 /*
- * Copyright (c)
- * 
- * Ersteller: Tim Muehle und Moritz Wolter
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
  * Entwickelt für das AID-Labor der Hochschule Bochum
@@ -36,7 +34,6 @@ import bitchanger.preferences.Preferences;
  * @version 0.1.4
  *
  */
-
 /*	<!-- $LANGUAGE=EN -->
  * The class SimpleChangeableNumber offers a complete implementation of {@link ChangeableNumber}.
  * <p>
@@ -61,30 +58,41 @@ import bitchanger.preferences.Preferences;
  */
 public class SimpleChangeableNumber implements ChangeableNumber {
 	
-// Attribute	## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Fields			   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der binären String-Darstellung */
-	/* <!-- $LANGUAGE=EN --> wrapped value as binary string representation */
+	/* <!-- $LANGUAGE=EN --> wrapped value as binary String representation */
 	private String binValue;
 	
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der dezimalen String-Darstellung */
-	/* <!-- $LANGUAGE=EN --> wrapped value as decimal string representation */
+	/* <!-- $LANGUAGE=EN --> wrapped value as decimal String representation */
 	private String decValue;
 	
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der hexadezimalen String-Darstellung */
-	/* <!-- $LANGUAGE=EN --> wrapped value as hexadecimal string representation */
+	/* <!-- $LANGUAGE=EN --> wrapped value as hexadecimal String representation */
 	private String hexValue;
 	
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der oktalen String-Darstellung */
-	/* <!-- $LANGUAGE=EN --> wrapped value as octal string representation */
+	/* <!-- $LANGUAGE=EN --> wrapped value as octal String representation */
 	private String octalValue;
 	
 	
 	
-// Konstruktoren   ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constructors	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue Instanz mit dem eingeschlossenen Wert 0
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Generates a new instance with 0 as wrapped value
 	 */
@@ -92,7 +100,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		this("0");
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue Instanz, die den übergebenen dezimal-Wert repräsentiert
@@ -104,7 +112,6 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist
 	 * 
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Generates a new instance that represents the committed decimal value
 	 * 
@@ -121,7 +128,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 	
 	
-// Initialisierung	  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	initializing	   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt den eingeschlossenen Wert dieser {@code SimpleChangeableNumber} auf den übergebenen dezimal-Wert.
@@ -134,7 +146,6 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist
 	 * 
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the wrapped value of this {@code SimpleChangeableNumber} to the committed decimal value.
 	 * The string representations for the hexadecimal-, octal- an binary-system get calculated and stored in the attributes.
@@ -159,63 +170,56 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 	
 	
-// Getter und Setter  ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	/**
-	 * {@inheritDoc}
-	 */
+
+	/** {@inheritDoc} */
 	@Override
 	public void setHex(String hexValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
 		this.setValue(hexValue, 16);
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public void setDec(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
 		// Aufruf von basisToDezString noetig, damit die Exceptions bei falscher Eingabe geworfen werden
 		initDecimal(decValue);
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public void setOct(String octValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
 		this.setValue(octValue, 8);
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public void setBin(String binValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
 		this.setValue(binValue, 2);
 
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public void setValue(String value, int baseOfValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
 		this.initDecimal(ConvertingNumbers.baseToDecString(baseOfValue, value, Preferences.getPrefs().getComma()));
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public void reset() {
 		this.binValue = "";
@@ -226,51 +230,46 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 
 	
-// toString - Methoden	 ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	toString methods																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	
+	/** {@inheritDoc} */
 	@Override
 	public String toHexString() {
 		return this.hexValue;
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public String toDecString() {
 		return this.decValue;
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public String toOctString() {
 		return this.octalValue;
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public String toBinString() {
 		return this.binValue;
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public String toBaseString(int base) throws IllegalArgumentException {
 		if(base == 10) {
@@ -295,7 +294,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		}
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt einen {@code String} zurück, der die hexadezimale, dezimale, oktale und
@@ -304,7 +303,6 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 * @return	String bestehend aus der hexadezimalen, dezimalen, oktalen und binären String-Darstellung des eingeschlossenen
 	 * 			Wertes, hintereinander aufgelistet
 	 */
-	
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns a {@code String} that includes the hexadecimal, decimal, octal and binary
 	 * presentation of the wrapped value.
