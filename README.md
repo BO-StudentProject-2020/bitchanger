@@ -1,4 +1,4 @@
-Bitchanger ist ein Programm zum umwandeln von diversen Zahlensystemen. Das Hauptmerkmal liegt bei der Umwandlung
+Bitchanger ist ein Programm zum Umwandeln von diversen Zahlensystemen. Das Hauptmerkmal liegt bei der Umwandlung
 von verschiedenen Zahlensystemen mit Nachkommastellen. Zusätzlich ist es möglich in unterschiedlichen Zahlensystemen
 die Grundrechenarten und Bitoperationen durchzuführen. Auch die Umwandlung von Dezimalsystem zu IEEE-Norm (32-Bit oder
 16-Bit) ist möglich.

@@ -12,7 +12,7 @@ rem Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projek
 set NAME=Bitchanger
 set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
 if not defined VERSION set VERSION=0.1.4
-set VENDOR=Entwicklungsprojekt_EB2020
+set VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
 rem set COPYRIGHT = ""
 rem set LICENSE_FILE = ""
 

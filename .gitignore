@@ -4,6 +4,5 @@
 /target/
 /.settings/
 .DS_Store
-/doc/
 /installer/
 settings

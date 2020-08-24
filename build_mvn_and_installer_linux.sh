@@ -18,7 +18,7 @@ cd "$(dirname "$0")"	# zum Pfad dieses Skriptes wechseln
 NAME=Bitchanger
 DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
 VERSION=0.1.4
-VENDOR=Entwicklungsprojekt_EB2020
+VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
 # set COPYRIGHT = ""
 # set LICENSE_FILE = ""
 
