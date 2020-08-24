@@ -681,11 +681,10 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			public void handle(ActionEvent event) {
 				int caretPos = focusedTF.getCaretPosition();
 				
-				
 				if (focusedTF.getBase() == 2) {
 					ChangeableNumber num = new SimpleChangeableNumber();
 					num.setBin(focusedTF.getText());
-					num.setDec(- num.asDouble());
+					num.set(- num.asDouble());
 					focusedTF.setText(num.toBinString());
 				}
 				else {
@@ -699,6 +698,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						caretPos++;
 					} 
 				}
+				
 				focusedTF.positionCaret(caretPos);
 			}
 		});

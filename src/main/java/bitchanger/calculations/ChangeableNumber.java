@@ -47,7 +47,7 @@ public interface ChangeableNumber {
 	
 	
 	// TODO JavaDoc
-	public default void setDec(double decValue) {
+	public default void set(double decValue) {
 		this.setDec(String.valueOf(decValue));
 	}
 	
