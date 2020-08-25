@@ -221,6 +221,14 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	
 	/** {@inheritDoc} */
 	@Override
+	public void setIEEE(String ieee, IEEEStandard standard) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		// TODO IEEE Implementieren
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+	
+	/** {@inheritDoc} */
+	@Override
 	public void reset() {
 		this.binValue = "";
 		this.decValue = "";
@@ -315,6 +323,16 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		String s = String.format("Hex: %s\tDec: %s\tOct: %s\tBin: %s", this.toHexString(),
 				this.toDecString(), this.toOctString(), this.toBinString());
 		return s;
+	}
+
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+	
+	/** {@inheritDoc} */
+	@Override
+	public String toIEEEString(IEEEStandard standard) {
+		// TODO IEEE Implementieren
+		return null;
 	}
 	
 	
