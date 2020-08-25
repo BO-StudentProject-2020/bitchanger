@@ -80,6 +80,7 @@ public class ConverterMenuBar extends BasicMenuBar {
 	// TODO JavaDoc
 	private void addItems() {
 		CheckMenuItem indicateFractionalInaccuracy = new CheckMenuItem("abgeschnittene Nachkommastellen kennzeichnen");
+		indicateFractionalInaccuracy.setSelected(true);
 		
 		this.menuItemMap.put(OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY, indicateFractionalInaccuracy);
 		((Menu) this.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY)).getItems().add(indicateFractionalInaccuracy);

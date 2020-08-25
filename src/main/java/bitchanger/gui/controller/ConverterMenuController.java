@@ -91,7 +91,6 @@ public class ConverterMenuController extends BasicMenuController {
 		this.indicateFractionalInaccuracy.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				indicateFractionalInaccuracy.setSelected(! indicateFractionalInaccuracy.isSelected());
 				Preferences.getPrefs().indicateFractionalPrecisionProperty.set(indicateFractionalInaccuracy.isSelected());
 			}
 		});
