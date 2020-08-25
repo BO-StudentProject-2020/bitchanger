@@ -187,6 +187,11 @@ public interface ChangeableNumber {
 	public abstract void setValue(String value, int baseOfValue) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	public abstract void setIEEE(String ieee, IEEEStandard standard) throws NullPointerException, NumberFormatException, IllegalArgumentException;
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den eingeschlossenen Wert zurück. <b> Der vorherige Wert wird gelöscht! Wird nach dieser Methode
@@ -312,6 +317,11 @@ public interface ChangeableNumber {
 	 * @throws IllegalArgumentException		if {@code base} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link ConvertingNumbers#isValueToBase(int, String)}
 	 */
 	public abstract String toBaseString(int base) throws IllegalArgumentException;	// Darstellung dieser Zahl als String zu der uebergebenen Basis base
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	public abstract String toIEEEString(IEEEStandard standard);
 	
 	
 
