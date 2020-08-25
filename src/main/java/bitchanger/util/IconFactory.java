@@ -8,7 +8,7 @@
 
 package bitchanger.util;
 
-import java.io.InputStream;
+import java.io.File;
 
 import bitchanger.gui.controls.SVGIcon;
 import bitchanger.preferences.Preferences;
@@ -23,7 +23,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.5
+ * @version 0.1.4
  *
  */
 public class IconFactory {
@@ -39,15 +39,11 @@ public class IconFactory {
 	 * 
 	 * @return	neues SVGIcon, generiert aus den Files lightIconFile und darkIconFile oder {@code null}, wenn die Dateien nicht gelesen werden konnten
 	 */
-	public static SVGIcon styleBindIcon(InputStream lightIconIn, InputStream darkIconIn) {
+	public static SVGIcon styleBindIcon(File lightIconFile, File darkIconFile) {
 		try {
 			SVGIcon icon = new SVGIcon();
-			SVGIcon lightSVG = new SVGIcon(FXUtils.loadSVG(lightIconIn));
-			SVGIcon darkSVG = new SVGIcon(FXUtils.loadSVG(darkIconIn));
-			
-			if(!lightSVG.hasPath() || !darkSVG.hasPath()) {
-				return null;
-			}
+			SVGPath lightSVG = new SVGIcon(FXUtils.loadSVG(lightIconFile));
+			SVGPath darkSVG = new SVGIcon(FXUtils.loadSVG(darkIconFile));
 			
 			// Listener für den Style
 			Preferences.getPrefs().readOnlyStyleProperty.addListener(new ChangeListener<Style>() {
@@ -93,13 +89,8 @@ public class IconFactory {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	// TODO JavaDoc
-	public static SVGIcon ofSVGFile(InputStream svgIn) {
-		try {
-			SVGPath svg = FXUtils.loadSVG(svgIn);
-			return svg == null ? null : new SVGIcon(svg);
-		} catch (Exception e) {
-			return null;
-		}
+	public static SVGIcon ofSVGFile(File file) {
+		return file == null ? null : new SVGIcon(file);
 	}
 	
 	

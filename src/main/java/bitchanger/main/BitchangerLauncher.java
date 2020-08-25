@@ -10,7 +10,6 @@ package bitchanger.main;
 
 import java.io.File;
 import java.io.PrintStream;
-
 import bitchanger.preferences.Preferences;
 
 /** <!-- $LANGUAGE=DE -->
@@ -19,7 +18,7 @@ import bitchanger.preferences.Preferences;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.5
+ * @version 0.1.4
  * 
  */
 /* <!-- $LANGUAGE=EN -->
@@ -28,7 +27,7 @@ import bitchanger.preferences.Preferences;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.5
+ * @version 0.1.4
  * 
  */
 public class BitchangerLauncher {
@@ -64,7 +63,7 @@ public class BitchangerLauncher {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		PrimaryFXApp.launchFXApplication(args);
 		
 		Preferences.storeCustom();

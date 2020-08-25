@@ -52,7 +52,7 @@ import javafx.scene.layout.HBox;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.5
+ * @version 0.1.4
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -72,7 +72,7 @@ import javafx.scene.layout.HBox;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.5
+ * @version 0.1.4
  *
  */
 public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
@@ -158,8 +158,8 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 		this.buttonList = keys.getButtonMatrix();
 		this.isShowingKeyboard = false;
 		
-		this.keyboardOpenGraphic = IconFactory.styleBindIcon(Resources.keybordOpenIconStream(), Resources.keybordOpenFilledIconStream());
-		this.keyboardCloseGraphic = IconFactory.styleBindIcon(Resources.keybordCloseIconStream(), Resources.keybordCloseFilledIconStream());
+		this.keyboardOpenGraphic = IconFactory.styleBindIcon(Resources.KEYBORD_OPEN_ICON, Resources.KEYBORD_OPEN_FILLED_ICON);
+		this.keyboardCloseGraphic = IconFactory.styleBindIcon(Resources.KEYBORD_CLOSE_ICON, Resources.KEYBORD_CLOSE_FILLED_ICON);
 	}
 
 	

@@ -8,7 +8,7 @@
 
 package bitchanger.util;
 
-import java.io.InputStream;
+import java.io.File;
 import java.util.Queue;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -34,7 +34,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.5
+ * @version 0.1.4
  *
  */
 /* <!-- $LANGUAGE=EN -->
@@ -43,7 +43,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.5
+ * @version 0.1.4
  *
  */
 public class FXUtils {
@@ -226,20 +226,20 @@ public class FXUtils {
 	 * Lädt ein Icon im svg-Format aus der übergebenen Datei und erstellt aus der Datei ein SVGPath Objekt,
 	 * das dem Scenegraph in javaFX hinzugefügt werden kann.
 	 * 
-	 * @param svgIn	Stream des Icons im svg-Format
-	 * @return		Eingelesenes Icon als SVGPath oder {@code null}, wenn die Datei nicht eingelesen werden konnte
+	 * @param svgFile	Icon als svg-Datei
+	 * @return			Eingelesenes Icon als SVGPath oder {@code null}, wenn die Datei nicht eingelesen werden konnte
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Loads an icon in svg format from the given file and creates an SVGPath object from the file that can be added to 
 	 * the Scenegraph in javaFX.
 	 * 
-	 * @param svgIn	Stream of the Icon in svg format
-	 * @return		Loaded icon as SVGPath or {@code null} if the file could not be read correctly
+	 * @param svgFile	Icon as an svg file
+	 * @return			Loaded icon as SVGPath or {@code null} if the file could not be read correctly
 	 */
-	public static SVGPath loadSVG(InputStream svgIn) {
+	public static SVGPath loadSVG(File svgFile) {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			Document doc = builder.parse(svgIn);
+			Document doc = builder.parse(svgFile);
 			
 			NodeList nodes = doc.getElementsByTagName("svg");
 			

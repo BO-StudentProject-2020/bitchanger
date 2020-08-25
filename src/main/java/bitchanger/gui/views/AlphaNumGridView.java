@@ -71,7 +71,7 @@ import javafx.scene.layout.RowConstraints;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.5
+ * @version 0.1.4
  *
  */
 // TODO JavaDoc EN
@@ -425,10 +425,9 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.backspaceBtnKey = "backspaceBtn";
 
 		this.btnTexts = new HashMap<String, Object>();
-		SVGIcon trashIcon = IconFactory.styleBindIcon(Resources.trashIconStream(), Resources.trashXFilledIconStream());
+		SVGIcon trashIcon = IconFactory.styleBindIcon(Resources.TRASH_X_ICON, Resources.TRASH_X_FILLED_ICON);
 		this.btnTexts.put(clearBtnKey, trashIcon == null ? "AC" : trashIcon);
-		SVGIcon backSpaceIcon = IconFactory.styleBindIcon(Resources.xMarkArrowLeftIconStream(), Resources.xMarkArrowLeftFilledIconStream());
-		System.out.println(backSpaceIcon);
+		SVGIcon backSpaceIcon = IconFactory.styleBindIcon(Resources.X_MARK_ARROW_LEFT_ICON, Resources.X_MARK_ARROW_LEFT_FILLED_ICON);
 		this.btnTexts.put(backspaceBtnKey, backSpaceIcon == null ? "<--" : backSpaceIcon);
 
 		this.center = new GridPane();
