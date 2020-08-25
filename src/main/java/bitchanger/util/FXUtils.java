@@ -261,6 +261,8 @@ public class FXUtils {
 			svgPath.setScaleX(1.2);
 			svgPath.setScaleY(1.2);
 			
+			svgIn.close();
+			
 			return svgPath;
 			
 		} catch (Exception e) {

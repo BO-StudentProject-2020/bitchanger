@@ -9,7 +9,6 @@
 package bitchanger.main;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
 import bitchanger.preferences.Preferences;
@@ -60,8 +59,8 @@ public class BitchangerLauncher {
 		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
 		 */
 		try {
-			System.setErr(new PrintStream(new File("error.txt")));
-		} catch (FileNotFoundException e) {
+			System.setErr(new PrintStream(new File("bitchanger_error.txt")));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
