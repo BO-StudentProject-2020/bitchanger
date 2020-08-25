@@ -15,7 +15,7 @@ package bitchanger.calculations;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -24,7 +24,7 @@ package bitchanger.calculations;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 public interface ChangeableNumber {
@@ -39,7 +39,8 @@ public interface ChangeableNumber {
 	// TODO JavaDoc
 	public default double asDouble() {
 		try {
-			return Double.parseDouble(this.toDecString());
+			String value = this.toDecString().replace(" ", "").replace(",", ".").replace(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR, "");
+			return Double.parseDouble(value);
 		} catch(Exception e) {
 			return Double.NaN;
 		}

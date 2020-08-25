@@ -35,7 +35,7 @@ import javafx.stage.Stage;
  * @author Tim Mühle
  *
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  * 
  * @see ConverterView
  * @see ConverterController
@@ -50,7 +50,7 @@ import javafx.stage.Stage;
  * @author Tim Muehle
  *
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  * 
  * @see ConverterView
  * @see ConverterController
@@ -77,7 +77,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	
 	/** <!-- $LANGUAGE=DE -->	Aktuelle Version des Bitchangers */
 	// TODO JavaDoc EN
-	public static final String VERSION = "0.1.4";
+	public static final String VERSION = "0.1.6";
 
 	
 	
