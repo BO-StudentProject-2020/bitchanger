@@ -8,7 +8,13 @@
 package bitchanger.util;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.net.URI;
+import java.net.URL;
 import java.util.LinkedList;
 
 /** <!-- $LANGUAGE=DE -->
@@ -520,14 +526,40 @@ public class Resources {
 	 * @see Class#getResource(String)
 	 */
 	public static File getResourceAsFile(String name) {
-		File file;
+		File file = null;
 		
-		try {
-			String url = Resources.class.getResource(name).getFile();
-			file = new File(url);
-		} catch (Exception e) {
-			e.printStackTrace();
-			file = null;
+//		try {
+//			URL url = Resources.class.getResource(name);
+//			file = new File(new URI(url.toString().replace("!","")).getSchemeSpecificPart());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			file = null;
+//		}
+		
+		URL res = Resources.class.getResource(name);
+		if (res.getProtocol().equals("jar")) {
+		    try {
+		        InputStream input = Resources.class.getResourceAsStream(name);
+		        file = File.createTempFile("tempfile", ".tmp");
+		        OutputStream out = new FileOutputStream(file);
+		        int read;
+		        byte[] bytes = new byte[1024];
+
+		        while ((read = input.read(bytes)) != -1) {
+		            out.write(bytes, 0, read);
+		        }
+		        out.close();
+		        file.deleteOnExit();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		} else {
+		    //this will probably work in your IDE, but not from a JAR
+		    file = new File(res.getFile());
+		}
+
+		if (file != null && !file.exists()) {
+		    throw new RuntimeException("Error: File " + file + " not found!");
 		}
 		
 		return file;
