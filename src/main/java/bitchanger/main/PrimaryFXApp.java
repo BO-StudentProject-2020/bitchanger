@@ -307,8 +307,6 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		primaryStage.setMinWidth(currentViewProperty.get().getMinWidth());
 		
 		primaryStage.sizeToScene();
-		System.out.println(primaryStage.getWidth());
-		System.out.println(primaryStage.getMinWidth());
 		
 
 		// TODO Größe anpassen

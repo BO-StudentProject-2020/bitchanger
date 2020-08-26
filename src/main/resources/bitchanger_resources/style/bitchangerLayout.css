@@ -1,0 +1,108 @@
+.root {
+	-fx-font-size: 18px;
+}
+
+.label {
+	-fx-font-size: 25px;
+}
+
+.unfocused-button {
+	
+}
+
+.value-button {
+	
+}
+
+.menu-item .label, .menu .label {
+	-fx-font-size: 16px;
+}
+
+.dialog-pane:header > .header-panel > .label {
+	-fx-font-weight: bold;
+}
+
+.dialog-pane > .content {
+	-fx-text-alignment: justify;
+	-fx-text-fill: black;
+	-fx-font-size: 16px;
+}
+
+.text-field {
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+}
+
+.text-input {
+	-fx-font-weight: bold;
+}
+
+.value-field {
+	-fx-font-weight: bold;
+}
+
+.combo-box {
+	-fx-font-size: 18px;
+}
+
+.button {
+	-fx-font-size: 18;
+	-fx-font-weight: bold;
+}
+
+
+.button:disabled {
+}
+
+.text-field:focused {
+}
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Spinner                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+
+.spinner {
+    -fx-background-insets: 0, 0 0 1 0, 1 1 2 1;
+    -fx-background-radius: 3, 3, 2;
+}
+.spinner:focused,
+.spinner:contains-focus {
+    -fx-background-insets: -1.4 -1.4 -0.4 -1.4, 0 0 1 0, 1 1 2 1;
+    -fx-background-radius: 4, 3, 2;
+}
+.spinner:disabled {
+    -fx-opacity: -fx-disabled-opacity;
+}
+.spinner > .text-field {
+    -fx-background-insets: 0 0 1 0, 1 0 2 1;
+    -fx-background-radius: 3 0 0 3, 2 0 0 2;
+ /* -fx-padding: 0.333333em 0.583em 0.333333em 0.583em; /* 4 7 4 7 */
+ 	-fx-padding: 7;
+}
+
+.spinner .increment-arrow-button {
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 3 0 0, 0 2 0 0, 0 1 0 0;
+  	-fx-padding: 0.333em 0.4em 0.333em 0.4em; /* 4 8 4 8 */
+}
+.spinner .decrement-arrow-button {
+    -fx-background-insets: -1 0 1 0, 0 1 2 1, 0 2 3 2;
+    -fx-background-radius: 0 0 3 0, 0 0 2 0, 0 0 1 0;
+    -fx-padding: 0.250em 0.4em 0.5em 0.4em; /* 3 8 6 8 */
+}
+
+.spinner .increment-arrow-button .increment-arrow {
+    -fx-background-insets: -0.6 0 1 0, 0;
+    -fx-padding: 0.167em 0.333em 0.167em 0.333em; /* 2 4 2 4 */
+    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
+    -fx-rotate: 180;
+}
+.spinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.167em 0.333em 0.167em 0.333em; /* 2 4 2 4 */
+    -fx-shape: "M 0 0 h 7 l -3.5 4 z";
+}
+

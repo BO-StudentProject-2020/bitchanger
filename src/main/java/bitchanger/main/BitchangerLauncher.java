@@ -58,7 +58,7 @@ public class BitchangerLauncher {
 		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
 		 */
 		try {
-			System.setErr(new PrintStream(new File("bitchanger_error.txt")));
+//			System.setErr(new PrintStream(new File("bitchanger_error.txt")));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

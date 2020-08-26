@@ -486,7 +486,6 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		
 		for(ColumnConstraints cc : center.getColumnConstraints()) {
 			minWidth += cc.getMinWidth();
-			System.out.println(cc);
 		}
 		
 		minWidth += (center.getColumnCount() - 1) * center.getVgap();

@@ -8,13 +8,20 @@
 package bitchanger.util;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 
 /** <!-- $LANGUAGE=DE -->
@@ -29,6 +36,23 @@ import java.util.LinkedList;
 public class Resources {
 	
 	// TODO JavaDoc EN
+	
+	/** <!-- $LANGUAGE=DE -->	Speicherort der Benutzereinstellungen beim letzten Schließen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
+	public static final File RESOURCES_ROOT;
+	
+	static {
+		File file;
+		
+		try {
+			URL codeLocation = Resources.class.getProtectionDomain().getCodeSource().getLocation();
+			file = new File(codeLocation.toURI().resolve("../BITCHANGER_RESOURCES_1").normalize());
+		} catch (Exception e) {
+			e.printStackTrace();
+			file = null;
+		}
+		
+		RESOURCES_ROOT = file;
+	}
 
 // CSS	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
@@ -477,14 +501,20 @@ public class Resources {
 		// Speicherorte der Icons in Liste speichern
 		for(Field field : Resources.class.getFields()) {
 			try {
-				if(field.get(new File("")) instanceof File && field.get(new File("")) != CUSTOM_PREFERENCES && field.get(new File("")) != DEFAULT_PREFERENCES) {
-					ICON_LIST.add((File) field.get(new File("")));
+				if(field.get(new File("")) instanceof File) {
+					File file = (File) field.get(new File(""));
+					
+					if(file.getName().contains(".svg")) {
+						ICON_LIST.add(file);
+					}
 				}
 				
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
+		
+		copyResources();
 	}
 	
 	
@@ -526,45 +556,142 @@ public class Resources {
 	 * @see Class#getResource(String)
 	 */
 	public static File getResourceAsFile(String name) {
-		File file = null;
+		File file;
 		
-//		try {
-//			URL url = Resources.class.getResource(name);
-//			file = new File(new URI(url.toString().replace("!","")).getSchemeSpecificPart());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			file = null;
-//		}
-		
-		URL res = Resources.class.getResource(name);
-		if (res.getProtocol().equals("jar")) {
-		    try {
-		        InputStream input = Resources.class.getResourceAsStream(name);
-		        file = File.createTempFile("tempfile", ".tmp");
-		        OutputStream out = new FileOutputStream(file);
-		        int read;
-		        byte[] bytes = new byte[1024];
-
-		        while ((read = input.read(bytes)) != -1) {
-		            out.write(bytes, 0, read);
-		        }
-		        out.close();
-		        file.deleteOnExit();
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		} else {
-		    //this will probably work in your IDE, but not from a JAR
-		    file = new File(res.getFile());
-		}
-
-		if (file != null && !file.exists()) {
-		    throw new RuntimeException("Error: File " + file + " not found!");
-		}
+		try{
+			file = new File(RESOURCES_ROOT, name);
+            
+        } catch (Exception e){
+            e.printStackTrace();
+            file = null;
+        }
 		
 		return file;
 	}
 	
+	
+	private static void copyResources() {
+		try {
+			URL codeLocation = Resources.class.getProtectionDomain().getCodeSource().getLocation();
+			Path target = Paths.get(codeLocation.toURI().resolve("../BITCHANGER_RESOURCES_1").normalize());
+			
+			try {
+				Files.createDirectories(target.getParent());
+			} catch (Exception e) { }
+			
+			if(codeLocation.toString().endsWith(".jar")) {
+				exportFromJar(codeLocation.toURI(), target);
+			}
+			else {
+				File source = Paths.get(Resources.class.getResource("/bitchanger_resources").toURI().normalize()).toFile();
+				copyRecursive(source, target.toFile(), "/bitchanger_resources");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	private static void exportFromJar(URI codeLocation, Path target) throws IOException {
+		URI jarUri = URI.create("jar:file:" + codeLocation.getPath());
+		System.out.println(jarUri);
+		FileSystem fs = FileSystems.getFileSystem(jarUri);
+		
+		Path rootPath = fs.getPath("bitchanger_resources");
+		
+		copyRecursive(rootPath, target);
+	}
+
+	
+	private static void copyRecursive(Path source, Path target) throws NullPointerException, IOException {
+		if(source == null) {
+			throw new NullPointerException("source must not be null!");
+		}
+		
+		if(target == null) {
+			throw new NullPointerException("target must not be null!");
+		}
+		
+		if(Files.notExists(target)) {
+			try {
+				Files.createDirectories(target);
+			} catch (IOException e) { }
+		}
+		
+		
+		Files.walkFileTree(source, new FileVisitor<Path>() {
+			@Override
+			public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+				Path targetdir = target.resolve(source.relativize(dir));
+				try {
+					Files.copy(dir, targetdir);
+				} catch (FileAlreadyExistsException e) {
+					if (!Files.isDirectory(targetdir))
+						throw e;
+				}
+				return null;
+			}
+
+			@Override
+			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+				Files.copy(file, target.resolve(source.relativize(file)));
+				return null;
+			}
+
+			@Override
+			public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+				return null;
+			}
+
+			@Override
+			public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+				return null;
+			}
+		});
+	}
+	
+	
+	private static void copyRecursive(File source, File target, String resourceName) throws NullPointerException {
+		if(source == null) {
+			throw new NullPointerException("source must not be null!");
+		}
+		
+		if(target == null) {
+			throw new NullPointerException("target must not be null!");
+		}
+		
+		if(source.listFiles() == null) {
+			return;
+		}
+		
+		if(!target.exists()) {
+			target.mkdirs();
+		}
+		
+		
+		for(File file : source.listFiles()) {
+			File newTarget = new File(target, file.getName());
+			
+			if(file.isDirectory()) {
+				newTarget.mkdir();
+				copyRecursive(file, newTarget, resourceName + "/" + file.getName());
+			}
+			else {
+				if (newTarget.exists()) {
+					continue;
+				}
+				
+				try {
+					InputStream in = Resources.class.getResourceAsStream(resourceName + "/" + file.getName());
+					Files.copy(in, newTarget.toPath());
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

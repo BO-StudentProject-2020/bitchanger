@@ -1,0 +1,55 @@
+.root {
+	-fx-background: #fefefe;
+	-fx-border: lightgrey;
+	-fx-text: black;
+	
+	-fx-background-color: -fx-background;
+}
+
+.label {
+	-fx-text-fill: -fx-text;
+}
+
+
+
+.text-input {
+	-fx-text-fill: mediumblue;
+	-fx-font-weight: bold;
+}
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Spinner                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+
+.spinner {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-text-box-border, -fx-control-inner-background;
+}
+
+.spinner:focused,
+.spinner:contains-focus {
+    -fx-background-color: -fx-focus-color, -fx-text-box-border, -fx-control-inner-background;
+}
+
+.spinner > .text-field {
+    -fx-background-color: -fx-text-box-border, -fx-control-inner-background;
+}
+
+.spinner .increment-arrow-button {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+}
+
+.spinner .decrement-arrow-button {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+}
+
+.spinner .increment-arrow-button .increment-arrow {
+    -fx-background-color: black, black;
+}
+
+.spinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+}
+
