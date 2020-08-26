@@ -13,6 +13,7 @@ import java.util.Objects;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.ConverterMenuController;
+import bitchanger.preferences.Preferences;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 
@@ -80,7 +81,7 @@ public class ConverterMenuBar extends BasicMenuBar {
 	// TODO JavaDoc
 	private void addItems() {
 		CheckMenuItem indicateFractionalInaccuracy = new CheckMenuItem("abgeschnittene Nachkommastellen kennzeichnen");
-		indicateFractionalInaccuracy.setSelected(true);
+		indicateFractionalInaccuracy.setSelected(Preferences.getPrefs().indicateFractionalPrecision());
 		
 		this.menuItemMap.put(OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY, indicateFractionalInaccuracy);
 		((Menu) this.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY)).getItems().add(indicateFractionalInaccuracy);

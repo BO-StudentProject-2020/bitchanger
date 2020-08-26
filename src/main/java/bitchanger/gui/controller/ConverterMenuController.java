@@ -11,8 +11,6 @@ package bitchanger.gui.controller;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.controls.ConverterMenuBar;
 import bitchanger.preferences.Preferences;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.CheckMenuItem;
 
 //TODO JavaDoc
@@ -74,29 +72,11 @@ public class ConverterMenuController extends BasicMenuController {
 		super.setActions();
 		
 		//  Menu Options
-		switchIndicateFractionalInaccuracyAction();
+		Preferences.getPrefs().indicateFractionalPrecisionProperty.bindBidirectional(indicateFractionalInaccuracy.selectedProperty());
 	}
 
 
-	
-//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-//  #																																 #
-// 	#	Actions																														 #
-//  #																																 #
-//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-
-
-	// TODO JavaDoc
-	private void switchIndicateFractionalInaccuracyAction() {
-		this.indicateFractionalInaccuracy.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Preferences.getPrefs().indicateFractionalPrecisionProperty.set(indicateFractionalInaccuracy.isSelected());
-			}
-		});
-	}
-	
-}
+}	
 
 
 
