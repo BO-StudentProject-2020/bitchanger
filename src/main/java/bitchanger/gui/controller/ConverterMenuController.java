@@ -14,6 +14,14 @@ import bitchanger.preferences.Preferences;
 import javafx.scene.control.CheckMenuItem;
 
 //TODO JavaDoc
+/** <!-- $LANGUAGE=DE -->
+ * 
+ * @author Tim Mühle
+ *
+ * @since Bitchanger 0.1.4
+ * @version 0.1.6
+ * 
+ */
 public class ConverterMenuController extends BasicMenuController {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -72,7 +80,7 @@ public class ConverterMenuController extends BasicMenuController {
 		super.setActions();
 		
 		//  Menu Options
-		Preferences.getPrefs().indicateFractionalPrecisionProperty.bindBidirectional(indicateFractionalInaccuracy.selectedProperty());
+		Preferences.getPrefs().indicateFractionalPrecisionProperty().bindBidirectional(indicateFractionalInaccuracy.selectedProperty());
 	}
 
 

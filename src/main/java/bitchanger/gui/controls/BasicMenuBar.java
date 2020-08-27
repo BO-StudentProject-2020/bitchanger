@@ -40,7 +40,7 @@ import javafx.scene.control.TextField;
  * @author Tim Mühle
  *
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.6
  * 
  * @see BasicMenuController
  */
@@ -53,7 +53,7 @@ import javafx.scene.control.TextField;
  * @author Tim Mühle
  *
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.6
  * 
  * @see BasicMenuController
  */
@@ -263,7 +263,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		chooseComma.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Preferences.getPrefs().commaProperty.setValue(comma);
+				Preferences.getPrefs().commaProperty().setValue(comma);
 			}
 		});
 	}

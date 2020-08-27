@@ -52,7 +52,7 @@ import javafx.scene.layout.HBox;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -72,7 +72,7 @@ import javafx.scene.layout.HBox;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
@@ -408,7 +408,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	 * @see Preferences#getPrefs()
 	 */
 	private void setCommaBinding() {
-		Preferences.getPrefs().commaProperty.addListener(new ChangeListener<Comma>() {
+		Preferences.getPrefs().commaProperty().addListener(new ChangeListener<Comma>() {
 			@Override
 			public void changed(ObservableValue<? extends Comma> observable, Comma oldComma, Comma newComma) {
 				commaBtn.setText(String.valueOf(newComma.get()));
@@ -606,7 +606,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 			@Override
 			public void handle(ActionEvent event) {
 				KeyCode commaKeyCode = KeyCode.COMMA;
-				if(Preferences.getPrefs().commaProperty.get().equals(Comma.COMMA_EN)) {
+				if(Preferences.getPrefs().commaProperty().get().equals(Comma.COMMA_EN)) {
 					commaKeyCode = KeyCode.PERIOD;
 				}
 				

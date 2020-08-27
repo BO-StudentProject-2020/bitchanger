@@ -16,6 +16,7 @@ import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.ArrayUtils;
 import bitchanger.util.Resources;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
@@ -122,14 +123,11 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-// public	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE --> Property für die aktuell im Fenster dargestellte View */
 	/* <!-- $LANGUAGE=EN --> Property of the currently displayed View */
-	public final ObjectProperty<Viewable> currentViewProperty;
-	
-	
-// private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	private final ObjectProperty<Viewable> currentViewProperty;
 	
 	/** <!-- $LANGUAGE=DE --> View für die Umwandlung von Zahlensystemen */
 	/* <!-- $LANGUAGE=EN --> View for converting of numeral systems */
@@ -162,7 +160,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		super();
 		this.currentViewProperty = new SimpleObjectProperty<Viewable>();
 	}
-
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -267,10 +265,18 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		this.calculatorView = new CalculatorView();
 		
 		adjustViews(converterView, ieeeView, calculatorView);
-		
-		currentViewProperty.set(converterView);
-		
+
 		changeView(converterView);
+		
+		for(Viewable view : ArrayUtils.arrayOf(converterView, ieeeView, calculatorView)) {
+			if(Preferences.getPrefs().viewClassProperty().get().equals(view.getClass())) {
+				changeView(view);
+			}
+		}
+		
+		updateViewClassProperty();
+		
+		
 		primaryStage.setTitle("Bitchanger " + VERSION);
 		
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
@@ -280,6 +286,16 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		primaryStage.show();
 	}
 
+
+	// TODO JavaDoc
+	private void updateViewClassProperty() {
+		this.currentViewProperty.addListener(new ChangeListener<Viewable>() {
+			@Override
+			public void changed(ObservableValue<? extends Viewable> observable, Viewable oldValue, Viewable newView) {
+				Preferences.getPrefs().viewClassProperty().set(newView.getClass());
+			}
+		});
+	}
 	
 	
 // Layout	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -377,7 +393,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 			BasicMenuBar menubar = view.generateMenuBar(this);
 			view.setMenuBar(menubar);
 			
-			Preferences.getPrefs().readOnlyStylesheetProperty.addListener(new ChangeListener<String>() {
+			Preferences.getPrefs().stylesheetProperty().addListener(new ChangeListener<String>() {
 				@Override
 				public void changed(ObservableValue<? extends String> observable, String oldStylesheet, String newStylesheet) {
 					try {
@@ -391,7 +407,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 			});
 			
 			view.getScene().getStylesheets().add(Resources.LAYOUT_CSS);
-			view.getScene().getStylesheets().add(Preferences.getPrefs().readOnlyStylesheetProperty.get());
+			view.getScene().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
 		}
 	}
 

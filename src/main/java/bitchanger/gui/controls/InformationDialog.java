@@ -13,6 +13,14 @@ import bitchanger.preferences.Preferences;
 import javafx.scene.control.Alert;
 
 //TODO JavaDoc erstellen
+/** <!-- $LANGUAGE=DE -->
+ * 
+ * @author Tim Mühle
+ *
+ * @since Bitchanger 0.1.4
+ * @version 0.1.6
+ * 
+ */
 public class InformationDialog extends Alert {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -33,7 +41,7 @@ public class InformationDialog extends Alert {
 	public InformationDialog(InformationType informationType) {
 		super(AlertType.INFORMATION);
 		
-		this.getDialogPane().getStylesheets().add(Preferences.getPrefs().readOnlyStylesheetProperty.get());
+		this.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
 		
 		switch(informationType) {
 		case ABOUT:

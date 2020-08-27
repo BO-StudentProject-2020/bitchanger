@@ -34,7 +34,7 @@ import javafx.scene.shape.Rectangle;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -51,7 +51,7 @@ import javafx.scene.shape.Rectangle;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 public class ValueField extends TextField {
@@ -342,7 +342,7 @@ public class ValueField extends TextField {
 	 * Monitors the CommaProperty from {@link Preferences} and adjusts the comma if the number is changing
 	 */
 	private void observeCommaProperty() {
-		Preferences.getPrefs().commaProperty.addListener(new ChangeListener<Comma>() {
+		Preferences.getPrefs().commaProperty().addListener(new ChangeListener<Comma>() {
 			@Override
 			public void changed(ObservableValue<? extends Comma> observable, Comma oldValue, Comma newValue) {
 				if(oldValue.equals(newValue))

@@ -37,7 +37,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -46,7 +46,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 public class ConverterController extends ControllerBase<ConverterView> {
@@ -540,7 +540,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 
 	// TODO JavaDoc
 	private void updateIndicateFractionalPrecision() {
-		Preferences.getPrefs().indicateFractionalPrecisionProperty.addListener(new ChangeListener<Boolean>() {
+		Preferences.getPrefs().indicateFractionalPrecisionProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				try {

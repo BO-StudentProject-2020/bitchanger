@@ -23,7 +23,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 public class IconFactory {
@@ -46,14 +46,14 @@ public class IconFactory {
 			SVGPath darkSVG = new SVGIcon(FXUtils.loadSVG(darkIconFile));
 			
 			// Listener für den Style
-			Preferences.getPrefs().readOnlyStyleProperty.addListener(new ChangeListener<Style>() {
+			Preferences.getPrefs().styleProperty().addListener(new ChangeListener<Style>() {
 				@Override
 				public void changed(ObservableValue<? extends Style> observable, Style oldValue, Style newStyle) {
 					setSVGStyle(icon, lightSVG, darkSVG, newStyle);
 				}
 			});
 			
-			setSVGStyle(icon, lightSVG, darkSVG, Preferences.getPrefs().readOnlyStyleProperty.get());
+			setSVGStyle(icon, lightSVG, darkSVG, Preferences.getPrefs().styleProperty().get());
 
 			return icon;
 		} 

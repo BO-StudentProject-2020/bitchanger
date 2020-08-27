@@ -3,6 +3,7 @@
     <preferences>
         <comma>COMMA_DE</comma>
         <indicateFractionalPrecision>true</indicateFractionalPrecision>
-        <style>LIGHT</style>
+        <style>DARK</style>
+        <viewClass>bitchanger.gui.views.ConverterView</viewClass>
     </preferences>
 </bitchanger>

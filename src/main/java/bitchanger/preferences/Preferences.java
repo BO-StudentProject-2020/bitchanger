@@ -22,6 +22,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import bitchanger.gui.views.ConverterView;
+import bitchanger.gui.views.Viewable;
 import bitchanger.util.Resources;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -31,7 +33,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.StringPropertyBase;
 
 /** <!-- $LANGUAGE=DE -->
  * Preferences ist die globale Sammlung für alle möglichen Einstellungen, die am Bitchanger vorgenommen 
@@ -45,7 +46,7 @@ import javafx.beans.property.StringPropertyBase;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  */
 /* <!-- $LANGUAGE=EN -->
  * Preferences is the global collection for all possible settings that can be selected for the bitchanger.
@@ -58,7 +59,7 @@ import javafx.beans.property.StringPropertyBase;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  */
 public class Preferences {
 	
@@ -139,26 +140,15 @@ public class Preferences {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-// public	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+// private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE -->	Property für das Kommazeichen */
 	/* <!-- $LANGUAGE=EN -->	Property for comma character */
-	public final ObjectProperty<Comma> commaProperty;
+	private final ObjectProperty<Comma> commaProperty;
 	
 	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige von abgebrochenen Nachkommastellen */
 	/* <!-- $LANGUAGE=EN -->	Property for displaying aborted decimal places */
-	public final BooleanProperty indicateFractionalPrecisionProperty;
-	
-	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
-	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
-	public final ReadOnlyStringProperty readOnlyStylesheetProperty;
-	
-	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
-	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
-	public final ReadOnlyObjectProperty<Style> readOnlyStyleProperty;
-	
-	
-// private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	private final BooleanProperty indicateFractionalPrecisionProperty;
 	
 	/** <!-- $LANGUAGE=DE -->	Property für das gewählte Stylesheet */
 	/* <!-- $LANGUAGE=EN -->	Property for the selected Stylesheet */
@@ -167,6 +157,10 @@ public class Preferences {
 	/** <!-- $LANGUAGE=DE -->	Property für den gewählten Style des Stylesheets */
 	/* <!-- $LANGUAGE=EN -->	Property for the selected Style of the Stylesheet */
 	private final ObjectProperty<Style> styleProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für die zuletzt angezeigte View */
+	/* <!-- $LANGUAGE=EN -->	Property for the last shown View */
+	private final ObjectProperty<Class<? extends Viewable>> viewClassProperty;
 	
 	
 	
@@ -207,14 +201,9 @@ public class Preferences {
 	private Preferences(File file) {
 		this.commaProperty = new SimpleObjectProperty<>();
 		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty();
-		
 		this.stylesheetProperty = new SimpleStringProperty();
-		this.readOnlyStylesheetProperty = new SimpleStringProperty();
-		((StringPropertyBase) this.readOnlyStylesheetProperty).bind(stylesheetProperty);
-		
 		this.styleProperty = new SimpleObjectProperty<>();
-		this.readOnlyStyleProperty = new SimpleObjectProperty<>();
-		((ObjectProperty<Style>) this.readOnlyStyleProperty).bind(styleProperty);
+		this.viewClassProperty = new SimpleObjectProperty<>();
 		
 		
 		try {
@@ -225,6 +214,7 @@ public class Preferences {
 			this.indicateFractionalPrecisionProperty.set(true);
 			this.stylesheetProperty.set("");
 			this.styleProperty.set(Style.UNKNOWN);
+			this.viewClassProperty.set(ConverterView.class);
 		}
 	}
 	
@@ -237,6 +227,48 @@ public class Preferences {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
+	/** <!-- $LANGUAGE=DE -->	Property für das Kommazeichen */
+	/* <!-- $LANGUAGE=EN -->	Property for comma character */
+	public ObjectProperty<Comma> commaProperty(){
+		return this.commaProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige von abgebrochenen Nachkommastellen */
+	/* <!-- $LANGUAGE=EN -->	Property for displaying aborted decimal places */
+	public BooleanProperty indicateFractionalPrecisionProperty() {
+		return this.indicateFractionalPrecisionProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
+	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
+	public ReadOnlyStringProperty stylesheetProperty() {
+		return this.stylesheetProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
+	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
+	public ReadOnlyObjectProperty<Style> styleProperty(){
+		return this.styleProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->	Property für die zuletzt angezeigte View */
+	/* <!-- $LANGUAGE=EN -->	Property for the last shown View */
+	public ObjectProperty<Class<? extends Viewable>> viewClassProperty(){
+		return this.viewClassProperty;
+	}
+
+	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+		
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt das eingestellte Kommazeichen zurück
 	 * 
@@ -405,6 +437,11 @@ public class Preferences {
 			String style = prefs.getElementsByTagName("style").item(0).getTextContent();
 			this.setStylesheet(Style.valueOf(style));
 			
+			String viewClassName = prefs.getElementsByTagName("viewClass").item(0).getTextContent();
+			@SuppressWarnings("unchecked")
+			Class<? extends Viewable> viewClass = (Class<? extends Viewable>) Class.forName(viewClassName);
+			this.viewClassProperty.set(viewClass);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -479,14 +516,18 @@ public class Preferences {
 
 		// indicateFractionalPrecisionProperty
 		Element indicateFractionalPrecisionPropertyTag = doc.createElement("indicateFractionalPrecision");
-		indicateFractionalPrecisionPropertyTag
-				.appendChild(doc.createTextNode(String.valueOf(this.indicateFractionalPrecisionProperty.get())));
+		indicateFractionalPrecisionPropertyTag.appendChild(doc.createTextNode(String.valueOf(this.indicateFractionalPrecisionProperty.get())));
 		prefs.appendChild(indicateFractionalPrecisionPropertyTag);
 
 		// styleProperty
 		Element stylePropertyTag = doc.createElement("style");
 		stylePropertyTag.appendChild(doc.createTextNode(this.styleProperty.get().name()));
 		prefs.appendChild(stylePropertyTag);
+
+		// viewClassProperty
+		Element viewClassPropertyTag = doc.createElement("viewClass");
+		viewClassPropertyTag.appendChild(doc.createTextNode(this.viewClassProperty.get().getName()));
+		prefs.appendChild(viewClassPropertyTag);
 	}
 
 	
