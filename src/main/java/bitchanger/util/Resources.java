@@ -590,9 +590,7 @@ public class Resources {
 			
 			if(codeLocation.toString().endsWith(".jar")) {
 				// Programm wird in jar-Datei ausgeführt
-				System.out.println(1);
 				exportFromJar(codeLocation.toURI(), target);
-				System.out.println(2);
 			}
 			else {
 				// Programm wird nicht in einer jar-Datei ausgeführt
@@ -622,7 +620,6 @@ public class Resources {
 				}
 				else if(Files.notExists(entryTarget)) {
 					Files.copy(jarfile.getInputStream(entry), entryTarget);
-					System.out.println(entry.getName() + " kopiert nach: " + entryTarget);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -668,7 +665,6 @@ public class Resources {
 				try {
 					InputStream in = Resources.class.getResourceAsStream(resourceName + "/" + file.getName());
 					Files.copy(in, newTarget.toPath());
-					System.out.println(resourceName + "/" + file.getName() + " kopiert nach: " + newTarget);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
