@@ -18,6 +18,14 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 
 //TODO JavaDoc
+/**	<!-- $LANGUAGE=DE -->
+ * 
+ * @author Tim Mühle
+ * 
+ * @since Bitchanger 0.1.4
+ * @version 0.1.6
+ * 
+ */
 public class ConverterMenuBar extends BasicMenuBar {
 
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das CheckMenuItem "abgeschnittene Nachkommastellen kennzeichnen" in der Map {@link #menuItemMap} abgelegt ist */

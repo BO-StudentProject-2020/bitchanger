@@ -14,10 +14,10 @@ import bitchanger.preferences.Preferences;
 import javafx.scene.control.CheckMenuItem;
 
 //TODO JavaDoc
-/** <!-- $LANGUAGE=DE -->
+/**	<!-- $LANGUAGE=DE -->
  * 
  * @author Tim Mühle
- *
+ * 
  * @since Bitchanger 0.1.4
  * @version 0.1.6
  * 
