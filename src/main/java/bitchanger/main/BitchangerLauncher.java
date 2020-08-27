@@ -8,9 +8,17 @@
 
 package bitchanger.main;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import bitchanger.preferences.Preferences;
+import bitchanger.util.Resources;
 
 /** <!-- $LANGUAGE=DE -->
  * Diese Klasse enthält die Main-Methode, die der Einstiegspunkt für die Applikation ist.
@@ -27,10 +35,12 @@ import bitchanger.preferences.Preferences;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  * 
  */
 public class BitchangerLauncher {
+	
+	// TODO Update JavaDoc
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Die Main Methode startet die PrimaryFXApp der Anwendung und wartet, bis das Anwendungsfenster geschlossen wurde.
@@ -57,16 +67,63 @@ public class BitchangerLauncher {
 		/* Dies ist notwendig, da ohne den Aufruf mit diesem Launcher der Classpath auf die javafx Runtime
 		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
 		 */
-		try {
-//			System.setErr(new PrintStream(new File("bitchanger_error.txt")));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+		File errorFile = new File(Resources.RESOURCES_ROOT, "/log/error_" + time + ".txt");
+		PrintStream errStream = openErrorStream(errorFile);
+		
+		if(errStream != null) {
+			System.setErr(errStream);
 		}
 
 		PrimaryFXApp.launchFXApplication(args);
 		
 		Preferences.storeCustom();
+		
+		closeErrorStream(errStream);
+		deleteEmptyErrorFile(errorFile);
+	}
+
+	
+	private static void deleteEmptyErrorFile(File errorFile) {
+		try {
+			BufferedReader errIn = new BufferedReader(new FileReader(errorFile));
+			
+			String line;
+			while((line = errIn.readLine()) != null) {
+				if(!line.equals("")) {
+					// Datei ist nicht leer und soll nicht gelöscht werden!
+					errIn.close();
+					return;
+				}
+			}
+			
+			errIn.close();
+			
+			errorFile.delete();
+		} catch (Exception e) { /* ignore */ }
+	}
+	
+
+	private static void closeErrorStream(PrintStream errStream) {
+		try {
+			errStream.flush();
+			errStream.close();
+		} catch (Exception e) { /* ignore */ }
+	}
+
+	private static PrintStream openErrorStream(File errorFile) {
+		PrintStream errStream;
+		
+		try {
+			if(!errorFile.getParentFile().exists()) {
+				errorFile.getParentFile().mkdirs();
+			}
+			errStream = new PrintStream(new BufferedOutputStream(new FileOutputStream(errorFile)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			errStream = null;
+		}
+		return errStream;
 	}
 
 }
