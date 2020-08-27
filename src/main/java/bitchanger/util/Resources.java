@@ -44,13 +44,12 @@ public class Resources {
 		String appdata;
 		
 		if(os.contains("WIN")) {
+			// Windows: %USER%/AppData/Local/Bitchanger
 			appdata = System.getenv("LocalAppData")+ File.separator + "Bitchanger";
 		}
-		else if(os.contains("MAC") || os.contains("OSX")) {
-			appdata = System.getProperty("user.home") + "Local/Application Support/Bitchanger";
-		}
 		else {
-			appdata = System.getProperty("user.home") + ".Bitchanger";
+			// macOS & Linux: ~/.Bitchanger
+			appdata = System.getProperty("user.home") + "/.Bitchanger";
 		}
 		
 		File file = new File(appdata);
@@ -540,13 +539,11 @@ public class Resources {
 	public static String getResourceAsExternalForm(String name) {
 		String url;
 		try {
-			 url = Resources.class.getResource(name).toExternalForm();
+			 url = Resources.class.getResource("/bitchanger_resources" + name).toExternalForm();
 		} catch (Exception e) {
-			e.printStackTrace();
 			try {
 				url = getResourceAsFile(name).toURI().toURL().toExternalForm();
 			} catch (MalformedURLException e1) {
-				e1.printStackTrace();
 				url = null;
 			}
 		}
