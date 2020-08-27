@@ -17,6 +17,7 @@ import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.ConverterView;
+import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -189,6 +190,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		setSpinnerActions();
 		setButtonActions();
 		setInitialState();
+		updateIndicateFractionalPrecision();
 	}
 
 	
@@ -533,6 +535,26 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		}
 
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void updateIndicateFractionalPrecision() {
+		Preferences.getPrefs().indicateFractionalPrecisionProperty.addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				try {
+					value.setDec(value.toDecString());
+				} catch (Exception e) {
+					value.reset();
+					e.printStackTrace();
+				}
+				
+				setTexts(tfHex != focusedTF, tfDec != focusedTF, tfOct != focusedTF, tfBin != focusedTF, tfAny != focusedTF);
+			}
+		});
+	}
+	
 
 	
 // Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
