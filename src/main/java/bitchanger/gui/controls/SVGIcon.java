@@ -9,9 +9,6 @@
 package bitchanger.gui.controls;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import bitchanger.util.FXUtils;
 import javafx.beans.value.ChangeListener;
@@ -48,15 +45,8 @@ public class SVGIcon extends SVGPath {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	public SVGIcon(File svgFile) throws FileNotFoundException {
-		this(new FileInputStream(svgFile));
-	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
-	// TODO JavaDoc
-	public SVGIcon(InputStream svgIn) {
-		this(FXUtils.loadSVG(svgIn));
+	public SVGIcon(File svgFile) {
+		this(FXUtils.loadSVG(svgFile));
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
