@@ -188,7 +188,28 @@ public interface ChangeableNumber {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt den Wert dieser {@code ChangeableNumber} auf einen Wert in einem der beiden IEEE-Normen (16 Bit oder 32 Bit)
+	 * 
+	 * @param ieee			Neuer Wert, den diese Klasse repräsentiert, in der String-Darstellung
+	 * @param standard		Standart der verwendeten IEEE-Norm von {@code ieee}
+	 * 
+	 * @throws NullPointerException			wenn der Parameter {@code ieee} {@code null} ist
+	 * @throws NumberFormatException		wenn der Parameter {@code ieee} keine Zahl zur Basis 2 ist und mehr als 16 bzw. 32 Zeichen hat
+	 * @throws IllegalArgumentException		wenn {@code ieee} ein leerer String ist oder wenn {@code standard} anderer Wert als 16 oder 32 ist
+	 *
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Sets the value of this {@code ChangeableNumber} to a value of one of both IEEE standards (16 Bit or 32 Bit)
+	 * 
+	 * @param ieee			New Value that is represented as a String, by this class
+	 * @param standard		Standard of the used IEEE standard of {@code ieee}
+	 * 
+	 * @throws NullPointerException			if the parameter {@code ieee} is {@code null}
+	 * @throws NumberFormatException		if the parameter {@code ieee} is not a number of the binary system or has more characters than 16 respectively 32
+	 * @throws IllegalArgumentException		if {@code ieee} is an empty String or {@code standard} is something else than 16 or 32
+	 *
+	 */
 	public abstract void setIEEE(String ieee, IEEEStandard standard) throws NullPointerException, NumberFormatException, IllegalArgumentException;
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -320,7 +341,16 @@ public interface ChangeableNumber {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	/**	<!-- $LANGUAGE=DE -->
+	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als IEEE String zurück.
+	 * 
+	 * @return IEEE als String-Darstellung dieser {@code ChangeableNumber}
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Returns the String representation of this {@code ChangeableNumber} as IEEE standard String.
+	 * 
+	 * @return IEEE as String representation of this {@code ChangeableNumber}
+	 */
 	public abstract String toIEEEString(IEEEStandard standard);
 	
 	
