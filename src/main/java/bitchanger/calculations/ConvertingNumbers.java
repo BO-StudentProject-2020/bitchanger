@@ -191,6 +191,7 @@ public class ConvertingNumbers {
 		checkValue(base, value);
 		value = trimToNumberString(value);	// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
 		
+		// TODO Programmcode in Methoden auslagern
 		
 		// Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
 		boolean isNegative = value.startsWith("-");
@@ -333,6 +334,7 @@ public class ConvertingNumbers {
 		checkValue(base, value);
 		value = trimToNumberString(value); // Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
 		
+		// TODO Programmcode in Methoden auslagern
 		
 		// Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
 		boolean isNegative = value.startsWith("-");
@@ -551,6 +553,8 @@ public class ConvertingNumbers {
 		if(newBase < MIN_BASE || newBase > MAX_BASE) {
 			throw new IllegalArgumentException("Out of Bounds for base = " + newBase + " (base must be within " + MIN_BASE + " and " + MAX_BASE + ")");
 		}
+		
+		// TODO Programmcode in Methoden auslagern
 	
 		// Implementierung von negativen Zahlen
 		boolean isNegative = decValue.startsWith("-");
@@ -570,7 +574,7 @@ public class ConvertingNumbers {
 		double fractionalPart = Double.parseDouble("0." + separated[1]);
 			
 		StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
-			
+		
 			
 		// Sonderfall für Zahlensystem der Basis 2
 			

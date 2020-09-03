@@ -91,6 +91,8 @@ public class ConverterView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+	// TODO Attribute mit private schützen und Getter hinzufügen
+	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird */
 	// TODO JavaDoc EN
 	public final String tfHexKey = TF_HEX_KEY;

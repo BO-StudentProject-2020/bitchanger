@@ -73,13 +73,6 @@ public class IEEEView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfDecKey = "dec-TF";
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfIEEEKey = "ieee-TF";
 	
 	
 	
@@ -103,6 +96,30 @@ public class IEEEView extends AlphaNumGridView {
 	
 	
 	// TODO MenuBar -> Elemente hinzufügen
+	
+	
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String tfDecKey() {
+		return IEEEView.TF_DEC_KEY;
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String tfIEEEKey() {
+		return IEEEView.TF_IEEE_KEY;
+	}
+	
+	
 	
 }
 

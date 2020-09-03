@@ -67,11 +67,11 @@ public class CalculatorView extends AlphaNumGridView {
 	
 //	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
 //	// TODO JavaDoc EN
-//	public final String tfDecKey = "dec-TF";
+//	private final String tfDecKey = "dec-TF";
 //	
 //	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
 //	// TODO JavaDoc EN
-//	public final String tfIEEEKey = "ieee-TF";
+//	private final String tfIEEEKey = "ieee-TF";
 	
 	
 	

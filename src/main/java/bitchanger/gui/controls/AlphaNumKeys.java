@@ -136,6 +136,8 @@ public class AlphaNumKeys implements Controllable {
 	
 // public	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	// TODO Attribute mit private schützen und Getter hinzufügen
+	
 	/** <!-- $LANGUAGE=DE -->	Property für den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons */
 	// TODO JavaDoc EN
 	public final DoubleProperty spacingProperty;

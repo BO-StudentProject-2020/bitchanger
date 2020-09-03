@@ -86,6 +86,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 // public	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+	// TODO Attribute mit private schützen und Getter hinzufügen
+	
 	/** <!-- $LANGUAGE=DE --> Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden */
 	// TODO JavaDoc EN
 	public final String[] tfKeys;
@@ -891,6 +893,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Aufzählung von möglichen Typen für Constraints einer GridPane
 	 * 
@@ -900,7 +903,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @version 0.1.4
 	 */
 	// TODO JavaDoc EN
-	protected enum ConstraintType{
+	protected static enum ConstraintType{
 		/** <!-- $LANGUAGE=DE -->	Konstante für eine Zeile, die Textfelder enthält */
 		// TODO JavaDoc EN
 		TEXT_FIELD_ROW,

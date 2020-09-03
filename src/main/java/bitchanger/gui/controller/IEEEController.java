@@ -8,6 +8,7 @@
 
 package bitchanger.gui.controller;
 
+import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.IEEEView;
 
 
@@ -20,6 +21,13 @@ public class IEEEController extends ControllerBase<IEEEView> {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+	/** <!-- $LANGUAGE=DE -->	Textfeld für die dezimale Darstellung */
+	// TODO JavaDoc EN
+	private ValueField tfDec;
+
+	/** <!-- $LANGUAGE=DE -->	Textfeld für die IEEE Darstellung */
+	// TODO JavaDoc EN
+	private ValueField tfIEEE;
 
 
 	
@@ -48,8 +56,11 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
-		// TODO Auto-generated method stub
+		this.tfDec = (ValueField) textFieldMap.get(controllable.tfDecKey());
+		this.tfIEEE = (ValueField) textFieldMap.get(controllable.tfIEEEKey());
 		
+		this.tfDec.setBase(10);
+		this.tfIEEE.setBase(2);
 	}
 
 	
