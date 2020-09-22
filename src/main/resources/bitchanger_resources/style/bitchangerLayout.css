@@ -6,6 +6,14 @@
 	-fx-font-size: 25px;
 }
 
+#result-label {
+	
+}
+
+#base-label {
+	-fx-font-size: 15px;
+}
+
 .unfocused-button {
 	
 }

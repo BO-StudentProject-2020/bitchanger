@@ -484,13 +484,6 @@ public class Resources {
 	public static final File ZOOM_OUT_THIN_ICON = getResourceAsFile("/graphic/svg/iconmonstr-zoom-out-thin.svg");
 	
 	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
-	/** <!-- $LANGUAGE=DE -->	Liste, die Speicherorte aller in dieser Klasse definierten Icons enthält */
-	public static final LinkedList<File> ICON_LIST = new LinkedList<>();
-	
-	
-	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	initializing	   																											 #
@@ -501,24 +494,10 @@ public class Resources {
 		// Aus den Standardeinstellungen darf nur gelesen werden!
 		DEFAULT_PREFERENCES.setReadOnly();
 		
-		// Speicherorte der Icons in Liste speichern
-		for(Field field : Resources.class.getFields()) {
-			try {
-				if(field.get(new File("")) instanceof File) {
-					File file = (File) field.get(new File(""));
-					
-					if(file.getName().contains(".svg")) {
-						ICON_LIST.add(file);
-					}
-				}
-				
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
+		// Ressourcen aus Jar-Datei entpacken
 		copyResources();
 	}
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -527,6 +506,30 @@ public class Resources {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+	
+	/** <!-- $LANGUAGE=DE -->	Liste, die Speicherorte aller in dieser Klasse definierten Icons enthält */
+	public static final LinkedList<File> iconList() {
+		LinkedList<File> iconList = new LinkedList<>();
+		
+		for(Field field : Resources.class.getFields()) {
+			try {
+				if(field.get(new File("")) instanceof File) {
+					File file = (File) field.get(new File(""));
+					
+					if(file.getName().contains(".svg")) {
+						iconList.add(file);
+					}
+				}
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return iconList;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Sucht die Ressource mit gegebenem Namen und gibt die URL als String zurück.

@@ -86,7 +86,6 @@ public class IEEEView extends AlphaNumGridView {
 		super(0, 0, 0, 1, 6, 1, LABEL_TEXTS, ArrayUtils.arrayOf(TF_DEC_KEY, TF_IEEE_KEY));
 		
 		buildScenegraph();
-		
 	}
 	
 	

@@ -67,20 +67,28 @@ public class BitchangerLauncher {
 		/* Dies ist notwendig, da ohne den Aufruf mit diesem Launcher der Classpath auf die javafx Runtime
 		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
 		 */
-		String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
-		File errorFile = new File(Resources.RESOURCES_ROOT, "/log/error_" + time + ".txt");
-		PrintStream errStream = openErrorStream(errorFile);
+		boolean relocateErr = false;
 		
-		if(errStream != null) {
-			System.setErr(errStream);
+		File errorFile = null;
+		PrintStream errStream = null;
+		
+		if (relocateErr) {
+			String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+			errorFile = new File(Resources.RESOURCES_ROOT, "/log/error_" + time + ".txt");
+			errStream = openErrorStream(errorFile);
+			if (errStream != null) {
+				System.setErr(errStream);
+			} 
 		}
-
+		
 		PrimaryFXApp.launchFXApplication(args);
 		
 		Preferences.storeCustom();
 		
-		closeErrorStream(errStream);
-		deleteEmptyErrorFile(errorFile);
+		if (relocateErr) {
+			closeErrorStream(errStream);
+			deleteEmptyErrorFile(errorFile);
+		}
 	}
 
 	

@@ -167,6 +167,14 @@ public class Preferences {
 	/* <!-- $LANGUAGE=EN -->	Property for the selected IEEE standard */
 	private final ObjectProperty<IEEEStandard> ieeeStandardProperty;
 	
+	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige der Bitoperationen in der CalculatorView */
+	/* <!-- $LANGUAGE=EN -->	Property for showing logical bit operations in CalculatorView */
+	private final BooleanProperty showBitOperationsProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView */
+	/* <!-- $LANGUAGE=EN -->	Property for showing symbols of the logical bit operations in CalculatorView */
+	private final BooleanProperty showBitOperationSymbolsProperty;
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -210,6 +218,8 @@ public class Preferences {
 		this.styleProperty = new SimpleObjectProperty<>(Style.UNKNOWN);
 		this.viewClassProperty = new SimpleObjectProperty<>(ConverterView.class);
 		this.ieeeStandardProperty = new SimpleObjectProperty<>(IEEEStandard.IEEE_754_2008_b32);
+		this.showBitOperationsProperty = new SimpleBooleanProperty(false);
+		this.showBitOperationSymbolsProperty = new SimpleBooleanProperty(false);
 		
 		try {
 			this.load(file);
@@ -227,52 +237,123 @@ public class Preferences {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	/** <!-- $LANGUAGE=DE -->	Property für das Kommazeichen */
-	/* <!-- $LANGUAGE=EN -->	Property for comma character */
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für das Kommazeichen zurück
+	 * 
+	 * @return	Property für das Kommazeichen
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the Property for comma character
+	 * 
+	 * @return Property for comma character
+	 */
 	public ObjectProperty<Comma> commaProperty(){
 		return this.commaProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige von abgebrochenen Nachkommastellen */
-	/* <!-- $LANGUAGE=EN -->	Property for displaying aborted decimal places */
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die Anzeige von abgebrochenen Nachkommastellen zurück
+	 * 
+	 * @return	Property für die Anzeige von abgebrochenen Nachkommastellen
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the Property for displaying aborted decimal places
+	 * 
+	 * @return Property for displaying aborted decimal places
+	 */
 	public BooleanProperty indicateFractionalPrecisionProperty() {
 		return this.indicateFractionalPrecisionProperty;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
-	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die ReadOnlyProperty für das gewählte Stylesheet zurück
+	 * 
+	 * @return	ReadOnlyProperty für das gewählte Stylesheet
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the ReadOnlyProperty for the selected Stylesheet
+	 * 
+	 * @return ReadOnlyProperty for the selected Stylesheet
+	 */
 	public ReadOnlyStringProperty stylesheetProperty() {
 		return this.stylesheetProperty;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
-	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
-	public ReadOnlyObjectProperty<Style> styleProperty(){
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die ReadOnlyProperty für das gewählte Stylesheet zurück
+	 * 
+	 * @return	ReadOnlyProperty für das gewählte Stylesheet
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the ReadOnlyProperty for the selected Stylesheet
+	 * 
+	 * @return ReadOnlyProperty for the selected Stylesheet
+	 */
+	public ReadOnlyObjectProperty<Style> styleProperty() {
 		return this.styleProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die zuletzt angezeigte View */
-	/* <!-- $LANGUAGE=EN -->	Property for the last shown View */
-	public ObjectProperty<Class<? extends Viewable>> viewClassProperty(){
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die zuletzt angezeigte View zurück
+	 * 
+	 * @return	Property für die zuletzt angezeigte View
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the Property for the last shown View
+	 * 
+	 * @return Property for the last shown View
+	 */
+	public ObjectProperty<Class<? extends Viewable>> viewClassProperty() {
 		return this.viewClassProperty;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die gewählte IEEE-Norm */
-	/* <!-- $LANGUAGE=EN -->	Property for the selected IEEE standard */
-	public ObjectProperty<IEEEStandard> ieeeStandardProperty(){
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die gewählte IEEE-Norm zurück
+	 * 
+	 * @return	Property für die gewählte IEEE-Norm
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the Property for the selected IEEE standard
+	 * 
+	 * @return Property for the selected IEEE standard
+	 */
+	public ObjectProperty<IEEEStandard> ieeeStandardProperty() {
 		return this.ieeeStandardProperty;
 	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die Anzeige der Bitoperationen in der CalculatorView zurück
+	 * 
+	 * @return	Property für die Anzeige der Bitoperationen in der CalculatorView
+	 */
+	// TODO JavaDoc EN
+	public BooleanProperty showBitOperationsProperty() {
+		return this.showBitOperationsProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView zurück
+	 * 
+	 * @return	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView
+	 */
+	// TODO JavaDoc EN
+	public BooleanProperty showBitOperationSymbolsProperty() {
+		return this.showBitOperationSymbolsProperty;
+	}
 	
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -453,6 +534,12 @@ public class Preferences {
 			String ieeeStandard = prefs.getElementsByTagName("IEEE_Standard").item(0).getTextContent();
 			this.ieeeStandardProperty.set(IEEEStandard.valueOf(ieeeStandard));
 			
+			String showBitoperations = prefs.getElementsByTagName("Show_Bitoperations").item(0).getTextContent();
+			this.showBitOperationsProperty.set(Boolean.valueOf(showBitoperations));
+			
+			String bitoperationSymbols = prefs.getElementsByTagName("Bitoperation-Symbols").item(0).getTextContent();
+			this.showBitOperationSymbolsProperty.set(Boolean.valueOf(bitoperationSymbols));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -544,6 +631,16 @@ public class Preferences {
 		Element ieeeStandardPropertyTag = doc.createElement("IEEE_Standard");
 		ieeeStandardPropertyTag.appendChild(doc.createTextNode(this.ieeeStandardProperty.get().name()));
 		prefs.appendChild(ieeeStandardPropertyTag);
+		
+		// showBitOperationsProperty
+		Element showBitOperationsPropertyTag = doc.createElement("Show_Bitoperations");
+		showBitOperationsPropertyTag.appendChild(doc.createTextNode(String.valueOf(this.showBitOperationsProperty.get())));
+		prefs.appendChild(showBitOperationsPropertyTag);
+		
+		// showBitOperationSymbolsProperty
+		Element showBitOperationSymbolsPropertyTag = doc.createElement("Bitoperation-Symbols");
+		showBitOperationSymbolsPropertyTag.appendChild(doc.createTextNode(String.valueOf(this.showBitOperationSymbolsProperty.get())));
+		prefs.appendChild(showBitOperationSymbolsPropertyTag);
 	}
 
 	
