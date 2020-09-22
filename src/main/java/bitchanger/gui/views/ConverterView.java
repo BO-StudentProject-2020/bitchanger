@@ -25,7 +25,7 @@ import javafx.scene.control.Spinner;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.6
  * 
  * @see ConverterController
  */
@@ -85,39 +85,6 @@ public class ConverterView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-//  #																																 #
-// 	#	Fields			   																											 #
-//  #																																 #
-//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	
-	// TODO Attribute mit private schützen und Getter hinzufügen
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfHexKey = TF_HEX_KEY;
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfDecKey = TF_DEC_KEY;
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die oktale Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfOctKey = TF_OCT_KEY;
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die binäre Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfBinKey = TF_BIN_KEY;
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die Darstellung zu einer wählbaren Basis in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfAnyKey = TF_ANY_KEY;
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem der Spinner für die beliebige Basis in der Map {@code nodeMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String baseSpinnerKey;
-	
-	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -133,12 +100,89 @@ public class ConverterView extends AlphaNumGridView {
 	public ConverterView() {
 		super(0, 0, 0, 1, 6, 1, LABEL_TEXTS, TF_KEYS);
 		
-		this.baseSpinnerKey = "baseSpinner";
-		
 		buildScenegraph();
 	}
 	
 
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem das Textfeld für die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem das Textfeld für die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String tfHexKey() {
+		return TF_HEX_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String tfDecKey() {
+		return TF_DEC_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem das Textfeld für die oktale Darstellung in der Map {@code tfMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem das Textfeld für die oktale Darstellung in der Map {@code tfMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String tfOctKey() {
+		return TF_OCT_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem das Textfeld für die binäre Darstellung in der Map {@code tfMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem das Textfeld für die binäre Darstellung in der Map {@code tfMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String tfBinKey() {
+		return TF_BIN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem das Textfeld für die Darstellung zu einer wählbaren Basis in der Map {@code tfMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem das Textfeld für die Darstellung zu einer wählbaren Basis in der Map {@code tfMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String tfAnyKey() {
+		return TF_ANY_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Spinner für die beliebige Basis in der Map {@code tfMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Spinner für die beliebige Basis in der Map {@code nodeMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String baseSpinnerKey() {
+		return "baseSpinner";
+	}
+	
+	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -184,7 +228,7 @@ public class ConverterView extends AlphaNumGridView {
 	private void createAnyBase() {
 		// Spinner für die beliebige Basis
 		Spinner<Integer> baseSpinner = new BaseSpinner();
-		getNodeMap().put(baseSpinnerKey, baseSpinner);
+		getNodeMap().put(baseSpinnerKey(), baseSpinner);
 		center.add(baseSpinner, 0, LABEL_TEXTS.length);
 	}
 	

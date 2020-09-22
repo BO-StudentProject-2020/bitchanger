@@ -22,6 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import bitchanger.calculations.IEEEStandard;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.Viewable;
 import bitchanger.util.Resources;
@@ -162,6 +163,10 @@ public class Preferences {
 	/* <!-- $LANGUAGE=EN -->	Property for the last shown View */
 	private final ObjectProperty<Class<? extends Viewable>> viewClassProperty;
 	
+	/** <!-- $LANGUAGE=DE -->	Property für die gewählte IEEE-Norm */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected IEEE standard */
+	private final ObjectProperty<IEEEStandard> ieeeStandardProperty;
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -199,22 +204,17 @@ public class Preferences {
 	 * @param file	File with the settings to be loaded in XML format
 	 */
 	private Preferences(File file) {
-		this.commaProperty = new SimpleObjectProperty<>();
-		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty();
-		this.stylesheetProperty = new SimpleStringProperty();
-		this.styleProperty = new SimpleObjectProperty<>();
-		this.viewClassProperty = new SimpleObjectProperty<>();
-		
+		this.commaProperty = new SimpleObjectProperty<>(Comma.COMMA_DE);
+		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty(true);
+		this.stylesheetProperty = new SimpleStringProperty("");
+		this.styleProperty = new SimpleObjectProperty<>(Style.UNKNOWN);
+		this.viewClassProperty = new SimpleObjectProperty<>(ConverterView.class);
+		this.ieeeStandardProperty = new SimpleObjectProperty<>(IEEEStandard.IEEE_754_2008_b32);
 		
 		try {
 			this.load(file);
 		} catch (Exception e) {
 			e.printStackTrace();
-			this.commaProperty.set(Comma.COMMA_DE);
-			this.indicateFractionalPrecisionProperty.set(true);
-			this.stylesheetProperty.set("");
-			this.styleProperty.set(Style.UNKNOWN);
-			this.viewClassProperty.set(ConverterView.class);
 		}
 	}
 	
@@ -263,6 +263,14 @@ public class Preferences {
 	/* <!-- $LANGUAGE=EN -->	Property for the last shown View */
 	public ObjectProperty<Class<? extends Viewable>> viewClassProperty(){
 		return this.viewClassProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->	Property für die gewählte IEEE-Norm */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected IEEE standard */
+	public ObjectProperty<IEEEStandard> ieeeStandardProperty(){
+		return this.ieeeStandardProperty;
 	}
 
 	
@@ -442,6 +450,9 @@ public class Preferences {
 			Class<? extends Viewable> viewClass = (Class<? extends Viewable>) Class.forName(viewClassName);
 			this.viewClassProperty.set(viewClass);
 			
+			String ieeeStandard = prefs.getElementsByTagName("IEEE_Standard").item(0).getTextContent();
+			this.ieeeStandardProperty.set(IEEEStandard.valueOf(ieeeStandard));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -528,6 +539,11 @@ public class Preferences {
 		Element viewClassPropertyTag = doc.createElement("viewClass");
 		viewClassPropertyTag.appendChild(doc.createTextNode(this.viewClassProperty.get().getName()));
 		prefs.appendChild(viewClassPropertyTag);
+		
+		// ieeeStandardProperty
+		Element ieeeStandardPropertyTag = doc.createElement("IEEE_Standard");
+		ieeeStandardPropertyTag.appendChild(doc.createTextNode(this.ieeeStandardProperty.get().name()));
+		prefs.appendChild(ieeeStandardPropertyTag);
 	}
 
 	

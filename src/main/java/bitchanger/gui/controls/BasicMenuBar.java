@@ -152,11 +152,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	// TODO Attribute mit private schützen und Getter hinzufügen
-	
+
 	/** <!-- $LANGUAGE=DE -->	{@code Map}, in der alle vom Controller benötigten MenuItems mit einem eindeutigen Schlüssel abgelegt werden */
 	/* <!-- $LANGUAGE=EN -->	{@code Map} in which all MenuItems required by the controller are stored with a unique key */
-	public final HashMap<String, MenuItem> menuItemMap;
+	protected final HashMap<String, MenuItem> menuItemMap;
 
 	
 
@@ -223,6 +222,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	public Map<String, TextField> getTextFieldMap() {
 		return Controllable.EMPTY_TEXTFIELD_MAP;
 	}
+	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
@@ -230,6 +230,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	public Map<String, Button> getButtonMap() {
 		return Controllable.EMPTY_BUTTON_MAP;
 	}
+	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
@@ -237,7 +238,23 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	public Map<String, Node> getNodeMap() {
 		return Controllable.EMPTY_NODE_MAP;
 	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die {@code Map} zurück, in der alle vom Controller benötigten MenuItems mit einem eindeutigen Schlüssel abgelegt werden
+	 * 
+	 * @return	{@code Map}, in der alle vom Controller benötigten MenuItems mit einem eindeutigen Schlüssel abgelegt werden
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the {@code Map} in which all MenuItems required by the controller are stored with a unique key
+	 * 
+	 * @return	{@code Map} in which all MenuItems required by the controller are stored with a unique key
+	 */
+	public final HashMap<String, MenuItem> getMenuItemMap(){
+		return this.menuItemMap;
+	}
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

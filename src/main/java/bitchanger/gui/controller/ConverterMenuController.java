@@ -62,7 +62,7 @@ public class ConverterMenuController extends BasicMenuController {
 	protected void initControls() {
 		super.initControls();
 		
-		this.indicateFractionalInaccuracy = (CheckMenuItem) this.controllable.menuItemMap.get(ConverterMenuBar.OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY);
+		this.indicateFractionalInaccuracy = (CheckMenuItem) this.controllable.getMenuItemMap().get(ConverterMenuBar.OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY);
 	}
 	
 	

@@ -28,6 +28,14 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 //TODO JavaDoc
+/**	<!-- $LANGUAGE=DE -->
+ * 
+ * @author Tim Mühle
+ * 
+ * @since Bitchanger 0.1.4
+ * @version 0.1.6
+ * 
+ */
 public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -104,18 +112,18 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
-		this.modusConverter = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_CONVERTER_ITEM_KEY);
-		this.modusIEEE = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_IEEE_ITEM_KEY);
-		this.modusCalculator = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_CALCULATOR_ITEM_KEY);
-		this.options = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY);
-		this.styleMenu = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
-		this.styleLight = this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
-		this.styleDark = this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_DARK_ITEM_KEY);
-		this.moveToScreen = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_MOVE_TO_SCREEN_ITEM_KEY);
-		this.showFullscreen = (CheckMenuItem) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_SHOW_FULLSCREEN_ITEM_KEY);
-		this.about = this.controllable.menuItemMap.get(BasicMenuBar.HELP_ABOUT_ITEM_KEY);
-		this.version = this.controllable.menuItemMap.get(BasicMenuBar.HELP_VERSION_ITEM_KEY);
-		this.resetPreferences = this.controllable.menuItemMap.get(BasicMenuBar.HELP_RESET_PREFS_ITEM_KEY);
+		this.modusConverter = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_CONVERTER_ITEM_KEY);
+		this.modusIEEE = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_IEEE_ITEM_KEY);
+		this.modusCalculator = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_CALCULATOR_ITEM_KEY);
+		this.options = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.OPTIONS_MENU_KEY);
+		this.styleMenu = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
+		this.styleLight = this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
+		this.styleDark = this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_DARK_ITEM_KEY);
+		this.moveToScreen = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_MOVE_TO_SCREEN_ITEM_KEY);
+		this.showFullscreen = (CheckMenuItem) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_SHOW_FULLSCREEN_ITEM_KEY);
+		this.about = this.controllable.getMenuItemMap().get(BasicMenuBar.HELP_ABOUT_ITEM_KEY);
+		this.version = this.controllable.getMenuItemMap().get(BasicMenuBar.HELP_VERSION_ITEM_KEY);
+		this.resetPreferences = this.controllable.getMenuItemMap().get(BasicMenuBar.HELP_RESET_PREFS_ITEM_KEY);
 	}
 	
 	

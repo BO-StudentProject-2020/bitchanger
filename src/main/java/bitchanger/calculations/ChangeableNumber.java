@@ -189,10 +189,10 @@ public interface ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Wert dieser {@code ChangeableNumber} auf einen Wert in einem der beiden IEEE-Normen (16 Bit oder 32 Bit)
+	 * Setzt den Wert dieser {@code ChangeableNumber} auf den übergebenen Wert in der spezifischen IEEE-Norm (16 Bit oder 32 Bit)
 	 * 
 	 * @param ieee			Neuer Wert, den diese Klasse repräsentiert, in der String-Darstellung
-	 * @param standard		Standart der verwendeten IEEE-Norm von {@code ieee}
+	 * @param standard		Standard der verwendeten IEEE-Norm von {@code ieee}
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code ieee} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code ieee} keine Zahl zur Basis 2 ist und mehr als 16 bzw. 32 Zeichen hat
@@ -344,10 +344,14 @@ public interface ChangeableNumber {
 	/**	<!-- $LANGUAGE=DE -->
 	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als IEEE String zurück.
 	 * 
+	 * @param standard	IEEE-Norm, die zur Umwandlung verwendet werden soll
+	 * 
 	 * @return IEEE als String-Darstellung dieser {@code ChangeableNumber}
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Returns the String representation of this {@code ChangeableNumber} as IEEE standard String.
+	 * 
+	 * @param standard	IEEE standard that is used for converting
 	 * 
 	 * @return IEEE as String representation of this {@code ChangeableNumber}
 	 */

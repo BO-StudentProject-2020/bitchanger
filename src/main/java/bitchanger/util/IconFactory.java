@@ -9,7 +9,6 @@
 package bitchanger.util;
 
 import java.io.File;
-
 import bitchanger.gui.controls.SVGIcon;
 import bitchanger.preferences.Preferences;
 import bitchanger.preferences.Style;

@@ -166,8 +166,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
-		if(nodeMap.get(controllable.baseSpinnerKey) instanceof BaseSpinner) {
-			this.anyBase = (BaseSpinner) nodeMap.get(controllable.baseSpinnerKey);
+		if(nodeMap.get(controllable.baseSpinnerKey()) instanceof BaseSpinner) {
+			this.anyBase = (BaseSpinner) nodeMap.get(controllable.baseSpinnerKey());
 		}
 		
 		initTextFields();
@@ -209,9 +209,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * Searches the necessary references to the buttons of the buttonMap and stores these in the attributes
 	 */
 	private void initButtons() {
-		this.clearBtn = this.buttonMap.get(controllable.clearBtnKey);
-		this.backspcBtn = this.buttonMap.get(controllable.backspaceBtnKey);
-		this.signBtn = this.buttonMap.get(controllable.signBtnKey);
+		this.clearBtn = this.buttonMap.get(controllable.clearBtnKey());
+		this.backspcBtn = this.buttonMap.get(controllable.backspaceBtnKey());
+		this.signBtn = this.buttonMap.get(controllable.signBtnKey());
 
 		alphaNumButtons = new Button[16];
 		for (int i = 0; i < 6; i++) {
@@ -232,11 +232,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * Searches the necessary references to the text fields of the buttonMap, stores these in the attributes and sets the base of each text field.
 	 */
 	private void initTextFields() {
-		tfHex = (ValueField) this.textFieldMap.get(controllable.tfHexKey);
-		tfDec = (ValueField) this.textFieldMap.get(controllable.tfDecKey);
-		tfOct = (ValueField) this.textFieldMap.get(controllable.tfOctKey);
-		tfBin = (ValueField) this.textFieldMap.get(controllable.tfBinKey);
-		tfAny = (ValueField) this.textFieldMap.get(controllable.tfAnyKey);
+		tfHex = (ValueField) this.textFieldMap.get(controllable.tfHexKey());
+		tfDec = (ValueField) this.textFieldMap.get(controllable.tfDecKey());
+		tfOct = (ValueField) this.textFieldMap.get(controllable.tfOctKey());
+		tfBin = (ValueField) this.textFieldMap.get(controllable.tfBinKey());
+		tfAny = (ValueField) this.textFieldMap.get(controllable.tfAnyKey());
 		
 		tfHex.setBase(16);
 		tfDec.setBase(10);

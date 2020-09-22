@@ -71,7 +71,7 @@ import javafx.scene.layout.RowConstraints;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 // TODO JavaDoc EN
@@ -86,55 +86,17 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 // public	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	// TODO Attribute mit private schützen und Getter hinzufügen
-	
 	/** <!-- $LANGUAGE=DE --> Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden */
-	// TODO JavaDoc EN
-	public final String[] tfKeys;
-
+	private String[] tfKeys;
+	
 	/** <!-- $LANGUAGE=DE --> Schlüsselwort, mit dem der Löschen-Button (AC) in der Map {@code btnMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String clearBtnKey;
-
+	private String clearBtnKey;
+	
 	/** <!-- $LANGUAGE=DE --> Schlüsselwort, mit dem der Backspace-Button in der Map {@code btnMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String backspaceBtnKey;
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Vorzeichenwechsel */
-	// TODO JavaDoc EN
-	public final String signBtnKey = AlphaNumKeys.SIGN_BTN_KEY;
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button, der die Null repräsentiert */
-	// TODO JavaDoc EN
-	public final String zeroBtnKey = AlphaNumKeys.ZERO_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Komma-Button */
-	// TODO JavaDoc EN
-	public final String commaBtnKey = AlphaNumKeys.COMMA_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Umschalten des Tastaturlayouts */
-	// TODO JavaDoc EN
-	public final String keyboardBtnKey = AlphaNumKeys.KEYBOARD_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Weiterscrollen durch die Tastatur */
-	// TODO JavaDoc EN
-	public final String nextBtnKey = AlphaNumKeys.NEXT_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Rückwärtsscrollen durch die Tastatur */
-	// TODO JavaDoc EN
-	public final String previousBtnKey = AlphaNumKeys.PREVIOUS_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Buchstaben-Buttons definiert */
-	// TODO JavaDoc EN
-	public final String[] alphaKeys = AlphaNumKeys.ALPHA_KEYS;
-
-	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Zahlen-Buttons definiert */
-	// TODO JavaDoc EN
-	public final String[] numKeys = AlphaNumKeys.NUM_KEYS;
+	private String backspaceBtnKey;
 	
 	/** <!-- $LANGUAGE=DE -->	Array, das die Beschriftungen für die Labels vor den Textfeldern definiert */
-	// TODO JavaDoc EN
-	public final String[] labelTexts;
+	private String[] labelTexts;
 	
 	
 // protected	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -493,6 +455,150 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		minWidth += (center.getColumnCount() - 1) * center.getVgap();
 		
 		return minWidth + 10;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden zurück.
+	 * 
+	 * @return	Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden
+	 */
+	// TODO JavaDoc EN
+	public final String[] tfKeys() {
+		return tfKeys;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Löschen-Button (AC) in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Löschen-Button (AC) in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String clearBtnKey() {
+		return clearBtnKey;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Backspace-Button in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Backspace-Button in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String backspaceBtnKey() {
+		return backspaceBtnKey;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button zum Vorzeichenwechsel in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Vorzeichenwechsel in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String signBtnKey() {
+		return AlphaNumKeys.SIGN_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button, der die Null repräsentiert in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button, der die Null repräsentiert in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String zeroBtnKey() {
+		return AlphaNumKeys.ZERO_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Komma-Button in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Komma-Button in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String commaBtnKey() {
+		return AlphaNumKeys.COMMA_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button zum Umschalten des Tastaturlayouts in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Umschalten des Tastaturlayouts in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String keyboardBtnKey() {
+		return AlphaNumKeys.KEYBOARD_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button zum Weiterscrollen durch die Tastatur in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Weiterscrollen durch die Tastatur in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String nextBtnKey() {
+		return AlphaNumKeys.NEXT_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button zum Rückwärtsscrollen durch die Tastatur in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Rückwärtsscrollen durch die Tastatur in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String previousBtnKey() {
+		return AlphaNumKeys.PREVIOUS_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Array, das die Schlüsselwörter für die Buchstaben-Buttons definiert zurück.
+	 * 
+	 * @return	Array, das die Schlüsselwörter für die Buchstaben-Buttons definiert
+	 */
+	// TODO JavaDoc EN
+	public final String[] alphaKeys() {
+		return AlphaNumKeys.ALPHA_KEYS;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Array, das die Schlüsselwörter für die Zahlen-Buttons definiert zurück.
+	 * 
+	 * @return	Array, das die Schlüsselwörter für die Zahlen-Buttons definiert
+	 */
+	// TODO JavaDoc EN
+	public final String[] numKeys() {
+		return AlphaNumKeys.NUM_KEYS;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Array, das die Beschriftungen für die Labels vor den Textfeldern definiert zurück.
+	 * 
+	 * @return	Array, das die Beschriftungen für die Labels vor den Textfeldern definiert
+	 */
+	// TODO JavaDoc EN
+	public final String[] labelTexts() {
+		return labelTexts;
 	}
 
 	
