@@ -28,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**	<!-- $LANGUAGE=DE -->
@@ -50,7 +51,19 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	
 	/**	<!-- $LANGUAGE=DE -->	Ergebnis der letzten Berechnung */
 	/*	<!-- $LANGUAGE=EN -->	Last result */
-	private ChangeableNumber result;
+	private final ChangeableNumber value1;
+	
+	/**	<!-- $LANGUAGE=DE -->	Ergebnis der letzten Berechnung */
+	/*	<!-- $LANGUAGE=EN -->	Last result */
+	private final ChangeableNumber value2;
+	
+	/**	<!-- $LANGUAGE=DE -->	Ergebnis der letzten Berechnung */
+	/*	<!-- $LANGUAGE=EN -->	Last result */
+	private final ChangeableNumber result;
+	
+	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die ausgeführt werden soll */
+	// TODO: JavaDoc EN
+	private Operation operation;
 	
 	/**	<!-- $LANGUAGE=DE -->	Spinner für die auswählbare, beliebige Basis */
 	/*	<!-- $LANGUAGE=EN -->	Spinner for the eligible base */
@@ -58,7 +71,7 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	
 	/**	<!-- $LANGUAGE=DE -->	Property zum Einstellen der Basis des aktuell fokussierten Textfelds */
 	/*	<!-- $LANGUAGE=EN -->	Property to adjust the base of the currently focused text field */
-	private IntegerProperty baseProperty;
+	private final IntegerProperty baseProperty;
 
 	/**	<!-- $LANGUAGE=DE -->	Textfeld für die Eingabe */
 	/*	<!-- $LANGUAGE=EN -->	Textfield for input */
@@ -202,7 +215,10 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	 */
 	public CalculatorController(CalculatorView view) {
 		super(view);
+		this.value1 = new SimpleChangeableNumber();
+		this.value2 = new SimpleChangeableNumber();
 		this.result = new SimpleChangeableNumber();
+		this.operation = Operation.UNDEFINED;
 		this.baseProperty = new SimpleIntegerProperty();
 	}
 	
@@ -448,10 +464,14 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		setBackspaceAction();
 		setSignAction();
 		
+		setArithmeticActions();
+		setEqualsAction();
+		consumeKeyEvents();
+		
 		updateBitoperationSymbols();
 		showBitoperationsListener();
 	}
-	
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
@@ -475,7 +495,11 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		clearBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO anpassen!
+				value1.set(0);
+				value2.set(0);
+				result.reset();
+				resultLabel.setText("");
+				textField.clear();
 			}
 		});
 	}
@@ -501,17 +525,197 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void setSignAction() {
-		signBtn.setOnAction(new EventHandler<ActionEvent>() {
+	private void setArithmeticActions() {
+		setOperationAction(addBtn, Operation.ADD);
+		setOperationAction(subBtn, Operation.SUBSTRACT);
+		setOperationAction(multiplyBtn, Operation.MULTIPLY);
+		setOperationAction(divideBtn, Operation.DIVIDE);
+		setOperationAction(moduloBtn, Operation.MODULO);
+		setOperationAction(andBtn, Operation.AND);
+		setOperationAction(orBtn, Operation.OR);
+		setOperationAction(notBtn, Operation.NOT);
+		setOperationAction(nandBtn, Operation.NAND);
+		setOperationAction(norBtn, Operation.NOR);
+		setOperationAction(xorBtn, Operation.XOR);
+		setOperationAction(shiftLeftBtn, Operation.SHIFT_LEFT);
+		setOperationAction(shiftRightBtn, Operation.SHIFT_RIGHT);
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	public void setOperationAction(Button b, Operation o) {
+		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO anpassen!
+				if (operation.isUndefined()) {
+					parseValue(value1);
+					textField.clear();
+					resultLabel.setText(value1.toBaseString(baseProperty.get()) + " " + o.getSymbol() + " ");
+					operation = o;
+				}
 			}
 		});
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
+	// TODO JavaDoc
+	private void parseValue(ChangeableNumber value) {
+		try {
+			value.setValue(textField.getText(), baseProperty.get());
+		} catch (NumberFormatException | NullPointerException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			value.set(0);
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void setEqualsAction() {
+		equalsBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if(operation.isUndefined()) {
+					return;
+				}
+				
+				parseValue(value2);
+				
+				if(operation.isLogic()) {	// logische Verkn�pfung nur mit ganzen Zahlen m�glich
+					value1.set((long)value1.asDouble());
+					value2.set((long)value2.asDouble());
+				}
+				
+				calculate();
+				
+				StringBuffer resultText = new StringBuffer();
+				resultText.append(value1.toBaseString(baseProperty.get()))
+					.append(" ")
+					.append(operation.getSymbol())
+					.append(" ")
+					.append(value2.toBaseString(baseProperty.get()))
+					.append(" =");
+				
+				resultLabel.setText(resultText.toString());
+				textField.setText(result.toBaseString(baseProperty.get()));
+				textField.positionCaret(textField.getLength());
+				
+				operation = Operation.UNDEFINED;
+			}
+
+			
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void calculate() {
+		switch(operation) {
+			case ADD:		result.set(value1.asDouble() + value2.asDouble());
+				break;
+			case SUBSTRACT:	result.set(value1.asDouble() - value2.asDouble());
+				break;
+			case MULTIPLY:	result.set(value1.asDouble() * value2.asDouble());
+				break;
+			case DIVIDE:	result.set(value1.asDouble() / value2.asDouble());
+				break;
+			case MODULO:	result.set(value1.asDouble() % value2.asDouble());
+				break;
+			case AND:		result.set((long)value1.asDouble() & (long)value2.asDouble());
+				break;
+			case OR:		result.set((long)value1.asDouble() | (long)value2.asDouble());
+				break;
+			case NOT:		result.set(~(long)value1.asDouble());
+				break;
+			case NAND:		result.set(~((long)value1.asDouble() & (long)value2.asDouble()));
+				break;
+			case NOR:		result.set(~((long)value1.asDouble() | (long)value2.asDouble()));
+				break;
+			case XOR:		result.set((long)value1.asDouble() ^ (long)value2.asDouble());
+				break;
+			case SHIFT_LEFT:	result.set((long)value1.asDouble() << (long)value2.asDouble());
+				break;
+			case SHIFT_RIGHT:	result.set((long)value1.asDouble() >> (long)value2.asDouble());
+				break;
+			case UNDEFINED:		// Fall through
+			default:			result.reset();
+				break;
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void consumeKeyEvents() {
+		controllable.getScene().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				switch(event.getCode()) {
+				case DIVIDE:
+				case SLASH:
+					divideBtn.fire();
+					break;
+				case MULTIPLY:
+				case STAR:
+					multiplyBtn.fire();
+					break;
+				case ADD:
+				case PLUS:
+					addBtn.fire();
+					break;
+				case SUBTRACT:
+				case MINUS:
+					subBtn.fire();
+					break;
+				case ENTER:
+					equalsBtn.fire();
+					break;
+				default:
+					System.out.println(event.getCode());
+				}
+			}
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void setSignAction() {
+		signBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				int caretPos = textField.getCaretPosition();
+				
+				if (textField.getBase() == 2) {
+					ChangeableNumber num = new SimpleChangeableNumber();
+					num.setBin(textField.getText());
+					num.set(- num.asDouble());
+					textField.setText(num.toBinString());
+				}
+				else {
+					if (textField.getText().startsWith("-")) {
+						textField.setText(textField.getText().substring(1));
+						caretPos--;
+					} else if (textField.getText().startsWith("+")) {
+						textField.setText("-" + textField.getText().substring(1));
+					} else {
+						textField.setText("-" + textField.getText());
+						caretPos++;
+					} 
+				}
+				
+				textField.positionCaret(caretPos);
+			}
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
 	private void showBitoperationsListener() {
 		for(Node n : controllable.getLogicNodes()) {
 			n.visibleProperty().bind(Preferences.getPrefs().showBitOperationsProperty());
@@ -520,6 +724,7 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
+	// TODO JavaDoc
 	private void updateBitoperationSymbols() {
 		Preferences.getPrefs().showBitOperationSymbolsProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
@@ -542,6 +747,62 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 			}
 		});
 		
+	}
+	
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	nested Classes   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+
+	private enum Operation {
+		// TODO JavaDoc
+		ADD("+", OperationType.ARITHMETIC),
+		SUBSTRACT("-", OperationType.ARITHMETIC),
+		DIVIDE("/", OperationType.ARITHMETIC),
+		MULTIPLY("*", OperationType.ARITHMETIC),
+		MODULO("%", OperationType.ARITHMETIC),
+		AND("&", OperationType.LOGIC),
+		OR("|", OperationType.LOGIC),
+		NOT("~", OperationType.LOGIC),
+		NAND("~&", OperationType.LOGIC),
+		NOR("~|", OperationType.LOGIC),
+		XOR("^", OperationType.LOGIC),
+		SHIFT_LEFT("<<", OperationType.LOGIC),
+		SHIFT_RIGHT(">>", OperationType.LOGIC),
+		UNDEFINED(" ", OperationType.OTHER);
+		
+		private String symbol;
+		private OperationType type;
+		
+		private Operation(String symbol, OperationType type) {
+			this.symbol = symbol;
+			this.type = type;
+		}
+		
+		public String getSymbol() {
+			return symbol;
+		}
+		
+		public boolean isUndefined() {
+			return this.equals(UNDEFINED);
+		}
+		
+		public boolean isLogic() {
+			return this.type.equals(OperationType.LOGIC);
+		}
+	}
+	
+	
+	private enum OperationType {
+		// TODO JavaDoc
+		ARITHMETIC,
+		LOGIC,
+		OTHER;
 	}
 	
 	

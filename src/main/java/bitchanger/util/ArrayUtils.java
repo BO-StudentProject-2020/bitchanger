@@ -8,13 +8,16 @@
 
 package bitchanger.util;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /** <!-- $LANGUAGE=DE -->
  * Klasse, die Werkzeug-Methoden für Arrays enthält.
  * 
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.6
  *
  */
 public class ArrayUtils {
@@ -36,6 +39,20 @@ public class ArrayUtils {
 	@SafeVarargs
 	public static <T> T[] arrayOf(T... values) {
 		return values;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	@SafeVarargs
+	public static <T> Queue<T> queueOf(T... values) {
+		ArrayDeque<T> queue = new ArrayDeque<>();
+		
+		for(T t : values) {
+			queue.add(t);
+		}
+		
+		return queue;
 	}
 	
 	

@@ -836,7 +836,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			center.getChildren().add(tf);
 
 			// Textfeld mit Schlüssel in Map speichern
-			getTextFieldMap().put(tfKeys[row], tf);
+			getTextFieldMap().put(tfKeys[row - firstTFRow], tf);
 		}
 	}
 
@@ -851,7 +851,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		ArrayDeque<Node> labels = new ArrayDeque<>();
 
 		for (int i = firstLabelRow; i < firstLabelRow + labelTexts.length; i++) {
-			labels.add(new Label(labelTexts[i]));
+			labels.add(new Label(labelTexts[i - firstLabelRow]));
 		}
 
 		FXUtils.setGridConstraints(labelColumn, firstLabelRow, 1, 0, labels);

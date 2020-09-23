@@ -18,8 +18,10 @@ import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.controls.CalculatorMenuBar;
 import bitchanger.gui.controls.UnfocusedButton;
+import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
 import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -93,8 +95,7 @@ public class CalculatorView extends AlphaNumGridView {
 //	 */
 	// TODO JavaDoc
 	public CalculatorView() {
-		super(0, 0, 0, 1, 6, 1, null, TF_KEY);
-		
+		super(0, 0, 1, 1, 6, 1, null, TF_KEY);
 		buildScenegraph();
 	}
 	
@@ -554,7 +555,7 @@ public class CalculatorView extends AlphaNumGridView {
 
 	private void createLabels() {
 		Label result = new Label();
-		Label baseLabel = new Label();
+		Label baseLabel = new Label("dec");
 		
 		this.getNodeMap().put(resultLabelKey(), result);
 		this.getNodeMap().put(baseLabelKey(), baseLabel);
@@ -562,18 +563,18 @@ public class CalculatorView extends AlphaNumGridView {
 		GridPane.setColumnSpan(result, GridPane.getColumnSpan(this.getTextFieldMap().get(TF_KEY)));
 		GridPane.setFillWidth(result, false);
 		GridPane.setHalignment(result, HPos.RIGHT);
+		GridPane.setConstraints(result, tfColumn, firstTFRow - 1);
+		
+		GridPane.setConstraints(baseLabel, GridPane.getColumnIndex(this.getTextFieldMap().get(TF_KEY)) + GridPane.getColumnSpan(this.getTextFieldMap().get(TF_KEY)), firstTFRow);
+		GridPane.setFillHeight(baseLabel, false);
+		GridPane.setValignment(baseLabel, VPos.BOTTOM);
 		
 		result.setId("result-label");
 		baseLabel.setId("base-label");
 		
-		ArrayDeque<Label> labels = new ArrayDeque<>();
-		labels.add(result);
-		labels.add(baseLabel);
+		FXUtils.setMaxSizes(ArrayUtils.queueOf(result, baseLabel), Double.MAX_VALUE);
 		
-		FXUtils.setGridConstraints(tfColumn, firstTFRow + 1, GridPane.getColumnSpan(result) + 1, 0, labels);
-		FXUtils.setMaxSizes(labels, Double.MAX_VALUE);
-		
-		center.getChildren().addAll(labels);
+		center.getChildren().addAll(result, baseLabel);
 	}
 	
 }
