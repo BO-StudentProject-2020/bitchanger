@@ -22,6 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import bitchanger.calculations.BitLength;
 import bitchanger.calculations.IEEEStandard;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.Viewable;
@@ -174,6 +175,15 @@ public class Preferences {
 	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView */
 	/* <!-- $LANGUAGE=EN -->	Property for showing symbols of the logical bit operations in CalculatorView */
 	private final BooleanProperty showBitOperationSymbolsProperty;
+
+	/** <!-- $LANGUAGE=DE -->	Property für die gewählte Bitlänge */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected number of Bits */
+	private final ObjectProperty<BitLength> bitLengthProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für vorzeichenlose Bitoperationen in der CalculatorView */
+	/* <!-- $LANGUAGE=EN -->	Property for unsigned logical bit operations in CalculatorView */
+	private final BooleanProperty useUnsignedBitOperationProperty;
+	
 	
 	
 	
@@ -220,6 +230,8 @@ public class Preferences {
 		this.ieeeStandardProperty = new SimpleObjectProperty<>(IEEEStandard.IEEE_754_2008_b32);
 		this.showBitOperationsProperty = new SimpleBooleanProperty(false);
 		this.showBitOperationSymbolsProperty = new SimpleBooleanProperty(false);
+		this.bitLengthProperty = new SimpleObjectProperty<>(BitLength._8_BIT);
+		this.useUnsignedBitOperationProperty = new SimpleBooleanProperty(true);
 		
 		try {
 			this.load(file);
@@ -355,6 +367,29 @@ public class Preferences {
 		return this.showBitOperationSymbolsProperty;
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView zurück
+	 * 
+	 * @return	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView
+	 */
+	// TODO JavaDoc EN
+	public ObjectProperty<BitLength> bitLengthProperty() {
+		return this.bitLengthProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für vorzeichenlose Bitoperationen in der CalculatorView zurück
+	 * 
+	 * @return	Property für vorzeichenlose Bitoperationen in der CalculatorView
+	 */
+	// TODO JavaDoc EN
+	public BooleanProperty useUnsignedBitOperationProperty() {
+		return this.useUnsignedBitOperationProperty;
+	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 		
@@ -540,6 +575,12 @@ public class Preferences {
 			String bitoperationSymbols = prefs.getElementsByTagName("Bitoperation-Symbols").item(0).getTextContent();
 			this.showBitOperationSymbolsProperty.set(Boolean.valueOf(bitoperationSymbols));
 			
+			String bitLength = prefs.getElementsByTagName("BitLength").item(0).getTextContent();
+			this.bitLengthProperty.set(BitLength.valueOf(bitLength));
+			
+			String unsignedBitoperations = prefs.getElementsByTagName("Unsigned-Bitoperations").item(0).getTextContent();
+			this.useUnsignedBitOperationProperty.set(Boolean.valueOf(unsignedBitoperations));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -641,6 +682,16 @@ public class Preferences {
 		Element showBitOperationSymbolsPropertyTag = doc.createElement("Bitoperation-Symbols");
 		showBitOperationSymbolsPropertyTag.appendChild(doc.createTextNode(String.valueOf(this.showBitOperationSymbolsProperty.get())));
 		prefs.appendChild(showBitOperationSymbolsPropertyTag);
+		
+		// bitLengthProperty
+		Element bitLengthPropertyTag = doc.createElement("BitLength");
+		bitLengthPropertyTag.appendChild(doc.createTextNode(String.valueOf(this.bitLengthProperty.get())));
+		prefs.appendChild(bitLengthPropertyTag);
+		
+		// useUnsignedBitOperationProperty
+		Element useUnsignedBitOperationPropertyTag = doc.createElement("Unsigned-Bitoperations");
+		bitLengthPropertyTag.appendChild(doc.createTextNode(String.valueOf(this.useUnsignedBitOperationProperty.get())));
+		prefs.appendChild(useUnsignedBitOperationPropertyTag);
 	}
 
 	

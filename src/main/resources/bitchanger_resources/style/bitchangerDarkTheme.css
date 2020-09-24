@@ -10,6 +10,22 @@
 	-fx-text: cornsilk;
 }
 
+#UNSELECTED_BASE_BUTTON {
+	-fx-background-color: -fx-background;
+}
+
+#UNSELECTED_BASE_BUTTON:hover {
+	-fx-background-color: -fx-hover-base;
+}
+
+#SELECTED_BASE_BUTTON {
+	-fx-background-color: gray;
+}
+
+#SELECTED_BASE_BUTTON:hover {
+	-fx-background-color: gray;
+}
+
 .svg-icon {
 	-fx-fill: -fx-text;
 }

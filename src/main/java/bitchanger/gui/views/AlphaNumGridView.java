@@ -724,6 +724,23 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			return;
 		}
 		
+		addRowConstraint(rowIndex, rowc);
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Legt die übergebenen RowConstraints für die Zeile mit dem Index {@code rowIndex} fest.
+	 * 
+	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
+	 * @param rowc		neue RowConstrains, die hinzugefügt werden
+	 */
+	// TODO JavaDoc EN
+	protected void addRowConstraint(int rowIndex, RowConstraints rowc) {
+		if(rowIndex < 0) {
+			return;
+		}
+		
 		// Constraints auffüllen, wenn vorherige Constraints fehlen
 		while(rowIndex > center.getRowConstraints().size()) {
 			center.getRowConstraints().add(new RowConstraints());

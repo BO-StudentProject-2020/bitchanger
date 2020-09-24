@@ -10,6 +10,7 @@ package bitchanger.gui.views;
 
 import java.util.ArrayDeque;
 
+import bitchanger.calculations.BitLength;
 import bitchanger.gui.controller.CalculatorController;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
@@ -18,15 +19,22 @@ import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.controls.CalculatorMenuBar;
 import bitchanger.gui.controls.UnfocusedButton;
-import bitchanger.util.ArrayUtils;
+import bitchanger.preferences.Preferences;
 import bitchanger.util.FXUtils;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /**	<!-- $LANGUAGE=DE -->
  * View, die die Scene für die Berechnungen von verschiedenen Zahlensystemen enthält.
@@ -81,6 +89,13 @@ public class CalculatorView extends AlphaNumGridView {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
+	// TODO JavaDoc
+	private Label equals2Label;
+	private HBox firstValBox;
+	private HBox secondValBox;
+	private StackPane resultLabels;
+	private final int LABEL_SPACING = 10;
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -108,6 +123,7 @@ public class CalculatorView extends AlphaNumGridView {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
+	// TODO JavaDoc
 	public ArrayDeque<Node> getLogicNodes(){
 		ArrayDeque<Node> list = new ArrayDeque<>();
 		
@@ -123,7 +139,8 @@ public class CalculatorView extends AlphaNumGridView {
 		
 		return list;
 	}
-	
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt das Schlüsselwort zurück, mit dem das Textfeld in der Map {@code tfMap} gespeichert wird
@@ -378,13 +395,49 @@ public class CalculatorView extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem das Ergebnis-Label in der Map {@code nodeMap} gespeichert wird
+	 * Gibt das Schlüsselwort zurück, mit dem das Label für den ersten Wert in der Map {@code nodeMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem das Ergebnis-Label in der Map {@code nodeMap} gespeichert wird
+	 * @return	Schlüsselwort, mit dem das Label für den ersten Wert in der Map {@code nodeMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
-	public final String resultLabelKey() {
-		return "result-label";
+	public final String firstValueLabelKey() {
+		return "1st-val-label";
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem das Label für den Operator in der Map {@code nodeMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem das Label für den Operator in der Map {@code nodeMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String operationLabelKey() {
+		return "operation-label";
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem das Label für den zweiten Wert in der Map {@code nodeMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem das Label für den zweiten Wert in der Map {@code nodeMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String secondValueLabelKey() {
+		return "2nd-val-label";
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem das Label für das Gleichheitszeichen in der Map {@code nodeMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem das Label für das Gleichheitszeichen in der Map {@code nodeMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String equalsLabelKey() {
+		return "equals-label";
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -442,6 +495,7 @@ public class CalculatorView extends AlphaNumGridView {
 		
 		addColumnConstraint(6, ConstraintType.BUTTON_COLUMN);
 		addColumnConstraint(7, ConstraintType.BUTTON_COLUMN);
+		addRowConstraint(firstTFRow - 1, ConstraintType.BUTTON_ROW);
 		addRowConstraint(firstTFRow + 1, ConstraintType.TEXT_FIELD_ROW);
 		addRowConstraint(firstKeyBtnRow - 1, ConstraintType.BUTTON_ROW);
 	}
@@ -456,6 +510,7 @@ public class CalculatorView extends AlphaNumGridView {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
+	// TODO JavaDoc
 	private void createArithmeticOperators() {
 		createArithmeticButtons();
 		formatArithmeticButtons();
@@ -481,6 +536,7 @@ public class CalculatorView extends AlphaNumGridView {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
+	// TODO JavaDoc
 	private void createArithmeticButtons() {
 		UnfocusedButton divBtn = new UnfocusedButton("/");
 		UnfocusedButton multBtn = new UnfocusedButton("*");
@@ -499,12 +555,14 @@ public class CalculatorView extends AlphaNumGridView {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
+	// TODO JavaDoc
 	private void formatArithmeticButtons() {
 		GridPane.setRowSpan(this.getButtonMap().get(equalsBtnKey()), 2);
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
+	// TODO JavaDoc
 	private void createBaseButtons() {
 		ArrayDeque<Node> baseNodes = new ArrayDeque<>();
 		
@@ -529,10 +587,11 @@ public class CalculatorView extends AlphaNumGridView {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
+	// TODO JavaDoc
 	private void createBitOperators() {
-		ComboBox<String> bitLength = new ComboBox<>();
-		bitLength.getItems().addAll("8-Bit", "16-Bit", "32-Bit", "64-Bit");
-		bitLength.getSelectionModel().select(0);
+		ComboBox<BitLength> bitLength = new ComboBox<>();
+		bitLength.getItems().addAll(BitLength._8_BIT, BitLength._16_BIT, BitLength._32_BIT, BitLength._64_BIT);
+		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
 		GridPane.setColumnSpan(bitLength, 2);
 		this.getNodeMap().put(bitLengthKey(), bitLength);
 		
@@ -553,29 +612,98 @@ public class CalculatorView extends AlphaNumGridView {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
+	// TODO JavaDoc
 	private void createLabels() {
-		Label result = new Label();
-		Label baseLabel = new Label("dec");
+		Label firstValueLabel = new Label();
+		Label operationLabel = new Label();
+		Label secondValueLabel = new Label();
+		Label equalsLabel = new Label();
+		equals2Label = new Label();
 		
-		this.getNodeMap().put(resultLabelKey(), result);
+		equals2Label.textProperty().bind(equalsLabel.textProperty());
+		equals2Label.setVisible(false);
+		
+		Label baseLabel = new Label();
+		
+		this.getNodeMap().put(firstValueLabelKey(), firstValueLabel);
+		this.getNodeMap().put(operationLabelKey(), operationLabel);
+		this.getNodeMap().put(secondValueLabelKey(), secondValueLabel);
+		this.getNodeMap().put(equalsLabelKey(), equalsLabel);
 		this.getNodeMap().put(baseLabelKey(), baseLabel);
 		
-		GridPane.setColumnSpan(result, GridPane.getColumnSpan(this.getTextFieldMap().get(TF_KEY)));
-		GridPane.setFillWidth(result, false);
-		GridPane.setHalignment(result, HPos.RIGHT);
-		GridPane.setConstraints(result, tfColumn, firstTFRow - 1);
+		firstValBox = new HBox(firstValueLabel);
+		secondValBox = new HBox(operationLabel, secondValueLabel, equalsLabel);
+		resultLabels = new StackPane();
+		
+		formatHBox(firstValBox);
+		formatHBox(secondValBox);
+		
+		GridPane.setConstraints(resultLabels, tfColumn, firstTFRow - 1, GridPane.getColumnSpan(this.getTextFieldMap().get(TF_KEY)), 1, HPos.RIGHT, VPos.CENTER, Priority.NEVER, Priority.NEVER, null);
 		
 		GridPane.setConstraints(baseLabel, GridPane.getColumnIndex(this.getTextFieldMap().get(TF_KEY)) + GridPane.getColumnSpan(this.getTextFieldMap().get(TF_KEY)), firstTFRow);
 		GridPane.setFillHeight(baseLabel, false);
 		GridPane.setValignment(baseLabel, VPos.BOTTOM);
 		
-		result.setId("result-label");
 		baseLabel.setId("base-label");
 		
-		FXUtils.setMaxSizes(ArrayUtils.queueOf(result, baseLabel), Double.MAX_VALUE);
-		
-		center.getChildren().addAll(result, baseLabel);
+		center.getChildren().addAll(resultLabels, baseLabel);
+		positionValuesVertical();
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void formatHBox(HBox box) {
+		box.setAlignment(Pos.CENTER_RIGHT);
+		box.setSpacing(LABEL_SPACING);
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	public void positionValuesVertical() {
+		resultLabels.getChildren().clear();
+		try {
+			firstValBox.getChildren().add(equals2Label);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		VBox box = new VBox(firstValBox, secondValBox);
+		box.setSpacing(this.vgapProperty.get());
+		
+		resultLabels.getChildren().add(box);
+		addRowConstraint(firstTFRow - 1, createRowConstraintsFromNode(resultLabels));
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	public void positionValuesHorizontal() {
+		resultLabels.getChildren().clear();
+		try {
+			firstValBox.getChildren().remove(equals2Label);
+		} catch (Exception e) { /* Ignore */ }
+		
+		HBox box = new HBox(firstValBox, secondValBox);
+		formatHBox(box);
+		
+		resultLabels.getChildren().add(box);
+		addRowConstraint(GridPane.getRowIndex(resultLabels), createRowConstraintsFromNode(resultLabels));
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private RowConstraints createRowConstraintsFromNode(Region n) {
+		RowConstraints rowc = new RowConstraints();
+		rowc.minHeightProperty().bind(n.minHeightProperty());
+		rowc.maxHeightProperty().bind(n.maxHeightProperty());
+		rowc.prefHeightProperty().bind(n.prefHeightProperty());
+
+		return rowc;
+	}
+	
 	
 }
 
