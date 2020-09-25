@@ -20,8 +20,6 @@ import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -81,9 +79,6 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	/*	<!-- $LANGUAGE=EN -->	Property to adjust the base of the currently focused text field */
 	private final IntegerProperty baseProperty;
 	
-	/**	<!-- $LANGUAGE=DE -->	Property zum Separieren der Zahlen im Rechenweg  */
-	private final StringProperty calcLabelSeparatorProperty;
-
 	/**	<!-- $LANGUAGE=DE -->	Textfeld für die Eingabe */
 	/*	<!-- $LANGUAGE=EN -->	Textfield for input */
 	private ValueField textField;
@@ -115,6 +110,10 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	/** <!-- $LANGUAGE=DE -->	 Merker für die Anzeige eines Rechenergebnisses im Textfeld */
 	// TODO JavaDoc EN
 	private boolean isShowingResult;
+	
+	/** <!-- $LANGUAGE=DE -->	 Merker für das löschen von {@link #lastOperation} beim zweiten Klick auf den Button {@link #clearBtn} */
+	// TODO JavaDoc EN
+	private boolean cleared;
 	
 	
 // Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -243,8 +242,8 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		this.result = new SimpleChangeableNumber();
 		this.operation = Operation.UNDEFINED;
 		this.baseProperty = new SimpleIntegerProperty(10);
-		this.calcLabelSeparatorProperty = new SimpleStringProperty(" ");
 		this.isShowingResult = false;
+		this.cleared = false;
 		
 		this.value1.baseProperty().bind(baseProperty);
 		this.value2.baseProperty().bind(baseProperty);
@@ -407,6 +406,7 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		// TODO letzten Stand merken
 		octBtn.fire();
 		decBtn.fire();
+		setBitoperationsText(Preferences.getPrefs().showBitOperationSymbolsProperty().get());
 	}
 	
 	
@@ -555,6 +555,12 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 			public void handle(ActionEvent event) {
 				clearCalcLabels();
 				textField.clear();
+				
+				if(cleared) {
+					lastOperation = Operation.UNDEFINED;
+				}
+				
+				cleared = true;
 			}
 		});
 	}
@@ -603,6 +609,7 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				cleared = false;
 				setFirstValue(o);
 			}
 		});
@@ -719,6 +726,11 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	
 	// TODO JavaDoc
 	private void calculate() {
+		if(operation.isLogic()) {
+			value1.set((long)value1.asDouble());
+			value2.set((long)value2.asDouble());
+		}
+		
 		switch(operation) {
 			case ADD:		result.set(value1.asDouble() + value2.asDouble());
 				break;
@@ -921,24 +933,30 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		Preferences.getPrefs().showBitOperationSymbolsProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean showSymbols) {
-				if (showSymbols) {
-					andBtn.setText("&");
-					orBtn.setText("|");
-					notBtn.setText("~");
-					nandBtn.setText("~&");
-					norBtn.setText("~|");
-					xorBtn.setText("^");
-				} else {
-					andBtn.setText("AND");
-					orBtn.setText("OR");
-					notBtn.setText("NOT");
-					nandBtn.setText("NAND");
-					norBtn.setText("NOR");
-					xorBtn.setText("XOR");
-				}
+				setBitoperationsText(showSymbols);
 			}
 		});
-		
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void setBitoperationsText(boolean showSymbols){
+		if (showSymbols) {
+			andBtn.setText("&");
+			orBtn.setText("|");
+			notBtn.setText("~");
+			nandBtn.setText("~&");
+			norBtn.setText("~|");
+			xorBtn.setText("^");
+		} else {
+			andBtn.setText("AND");
+			orBtn.setText("OR");
+			notBtn.setText("NOT");
+			nandBtn.setText("NAND");
+			norBtn.setText("NOR");
+			xorBtn.setText("XOR");
+		}
 	}
 	
 	

@@ -590,7 +590,7 @@ public class CalculatorView extends AlphaNumGridView {
 	// TODO JavaDoc
 	private void createBitOperators() {
 		ComboBox<BitLength> bitLength = new ComboBox<>();
-		bitLength.getItems().addAll(BitLength._8_BIT, BitLength._16_BIT, BitLength._32_BIT, BitLength._64_BIT);
+		bitLength.getItems().addAll(BitLength._8_BIT, BitLength._16_BIT, BitLength._32_BIT);
 		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
 		GridPane.setColumnSpan(bitLength, 2);
 		this.getNodeMap().put(bitLengthKey(), bitLength);

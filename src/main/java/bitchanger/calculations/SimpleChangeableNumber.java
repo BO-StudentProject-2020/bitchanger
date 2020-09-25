@@ -219,38 +219,32 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	
 	// TODO JavaDoc
 	private void updateLogicStringProperty() {
-		long l = (long) this.asDouble();
+		if(Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
+			long val = (long) this.asDouble() & Preferences.getPrefs().bitLengthProperty().get().getBitmask();
+			
+			if (baseProperty.get() == 10) {
+				this.logicStringProperty.set(ConvertingNumbers.decToBaseBlocks(10, String.valueOf(val), Preferences.getPrefs().getComma(), 3));
+			} 
+			else if (baseProperty.get() == 2) {
+				StringBuffer binText = new StringBuffer();
+				binText.append(ConvertingNumbers.decToBase(baseProperty.get(), String.valueOf(val)));
+				
+				while(binText.length() < Preferences.getPrefs().bitLengthProperty().get().getNumberOfBits()) {
+					binText.insert(0, "0");
+				}
+				
+				this.logicStringProperty.set(ConvertingNumbers.splitInBlocks(binText.toString(), 4));
+			}
+			else {
+				this.logicStringProperty.set(ConvertingNumbers.decToBaseBlocks(baseProperty.get(), String.valueOf(val), Preferences.getPrefs().getComma(), 4));
+			}
+			
+			// TODO logigStringProperty in Controller einbinden !
+			
+		} else {
+			// TODO signed
+		}
 		
-//		switch(Preferences.getPrefs().bitLengthProperty().get()) {
-//			case _8_BIT:	l & 0x00000000000000ffL;
-//				break;
-//			case _16_BIT:	logicVal.set((long)this.asDouble() & 0x000000000000ffffL);
-//				break;
-//			case _32_BIT:	logicVal.set((long)this.asDouble() & 0x00000000ffffffffL);
-//				break;
-//			case _64_BIT:	logicVal.set((long)this.asDouble() & 0xffffffffffffffffL);
-//				break;
-//			case UNKNOWN: // fall through
-//			default:
-//				break;
-//		}
-		
-//		try {
-//			if(baseProperty.get() == 10) {
-//				logicStringProperty.set(logicVal.toDecString());
-//			}
-//			else if (baseProperty.get() == 2) {
-//				String binStr = logicVal.toBinString();
-//				if(binStr.length() < Preferences.getPrefs().bitLengthProperty().get().getNumberOfBits()) {
-//					// TODO Länge für binärzahl anpassen
-//				}
-//			}
-//			else {
-//				logicStringProperty.set(logicVal.toBaseString(baseProperty.get()));
-//			}
-//		} catch (Exception e) {
-//			logicStringProperty.set("");
-//		}
 	}
 
 	

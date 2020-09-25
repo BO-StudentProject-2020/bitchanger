@@ -19,14 +19,16 @@ package bitchanger.calculations;
 // TODO JavaDoc
 public enum BitLength {
 	// TODO JavaDoc
-	_8_BIT("8-Bit", 8), _16_BIT("16-Bit", 16), _32_BIT("32-Bit", 32), _64_BIT("64-Bit", 64), UNKNOWN("Unbekannt", -1);
+	_8_BIT("8-Bit", 8, 0xFF), _16_BIT("16-Bit", 16, 0xFFFF), _32_BIT("32-Bit", 32, 0xFFFFFFFF), UNKNOWN("Unbekannt", -1, 0x0);
 
 	private String description;
 	private int numberOfBits;
+	private long bitmask;
 
-	private BitLength(String description, int numberOfBits) {
+	private BitLength(String description, int numberOfBits, long bitmask) {
 		this.description = description;
 		this.numberOfBits = numberOfBits;
+		this.bitmask = bitmask;
 	}
 
 	@Override
@@ -37,4 +39,13 @@ public enum BitLength {
 	public int getNumberOfBits() {
 		return this.numberOfBits;
 	}
+	
+	public long getBitmask() {
+		return this.bitmask;
+	}
+	
 }
+
+
+
+
