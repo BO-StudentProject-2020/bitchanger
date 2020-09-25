@@ -197,24 +197,20 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	 * Zudem wird das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes aktualisiert und {@link #baseProperty}
 	 * mit der Basis des Textfelds verbunden.
 	 * 
-	 * @see #setHexValListener()
 	 * @see #setDecValListener()
-	 * @see #setOctValListener()
-	 * @see #setBinValListener()
-	 * @see #setAnyValListener()
+	 * @see #setIEEEValListener()
 	 * @see #setTFSelection()
+	 * @see #updateIEEEStandard()
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets listener for the text fields, to convert the input in any numeral system immediately.
 	 * Furthermore the attribute {@link #focusedTF} gets updates by selecting another text field
 	 * and {@link #baseProperty} gets connected to the base of this text field.
 	 * 
-	 * @see #setHexValListener()
 	 * @see #setDecValListener()
-	 * @see #setOctValListener()
-	 * @see #setBinValListener()
-	 * @see #setAnyValListener()
+	 * @see #setIEEEValListener()
 	 * @see #setTFSelection()
+	 * @see #updateIEEEStandard()
 	 */
 	private void setTextFieldActions() {
 		setDecValListener();
@@ -362,13 +358,11 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	 * Setzt {@link #value} bei Klick auf den Clear-Button zurück und aktualisiert alle Textfelder.
 	 * 
 	 * @see ChangeableNumber#reset()
-	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Resets {@link #value} by clicking on clear button and updates all text fields.
 	 * 
 	 * @see ChangeableNumber#reset()
-	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
 	private void setClearAction() {
 		clearBtn.setOnAction(new EventHandler<ActionEvent>() {

@@ -541,7 +541,7 @@ public class ConvertingNumbers {
 	 * @throws NullPointerException				If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException			If the parameter {@code decValue} is not a number of base 10
 	 * @throws IllegalArgumentException			If {@code decValue} is an empty String or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws UnsupportedOperationException 	
+	 * @throws UnsupportedOperationException 	If {@code decValue} is a negative value with decimal places and {@code newBase} has the value two
 	 * 
 	 * @see Preferences
 	 */

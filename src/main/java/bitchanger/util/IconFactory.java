@@ -30,7 +30,7 @@ public class IconFactory {
 	// TODO JavaDoc EN
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt ein neues SVGIcon, das je nach eingestelltem Style in {@link Preferences#readOnlyStyleProperty} der svg-Datei
+	 * Erzeugt ein neues SVGIcon, das je nach eingestelltem Style in {@link Preferences#styleProperty()} der svg-Datei
 	 * lightIconFile oder darkIconFile entspricht und sich automatisch bei Änderung des Styles anpasst.
 	 * 
 	 * @param lightIconFile	svg-Datei für den Style {@link Style#LIGHT}

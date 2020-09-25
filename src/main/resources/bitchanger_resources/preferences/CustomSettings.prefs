@@ -4,7 +4,11 @@
         <comma>COMMA_DE</comma>
         <indicateFractionalPrecision>true</indicateFractionalPrecision>
         <style>DARK</style>
-        <viewClass>bitchanger.gui.views.ConverterView</viewClass>
-		<IEEE_Standard>IEEE_754_2008_b32</IEEE_Standard>
+        <viewClass>bitchanger.gui.views.CalculatorView</viewClass>
+        <IEEE_Standard>IEEE_754_2008_b32</IEEE_Standard>
+        <showBitOperations>true</showBitOperations>
+        <showBitOperationSymbols>true</showBitOperationSymbols>
+        <bitLength>_8_BIT</bitLength>
+        <unsignedBitoperations>true</unsignedBitoperations>
     </preferences>
 </bitchanger>

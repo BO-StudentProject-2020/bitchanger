@@ -48,8 +48,9 @@ public interface ChangeableNumber {
 			return Double.NaN;
 		}
 	}
-	
-	
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
 	// TODO JavaDoc
 	public default void set(double decValue) {
 		this.setDec(String.valueOf(decValue));

@@ -145,7 +145,11 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
 	// TODO JavaDoc EN
 	protected final DoubleProperty btnMinWidthProperty;
-
+	
+	/** <!-- $LANGUAGE=DE --> Property für die bevorzugte Breite der Buttons in dieser View */
+	// TODO JavaDoc EN
+	protected final DoubleProperty btnColumnPrefWitdhProperty = new SimpleDoubleProperty();
+	
 	/** <!-- $LANGUAGE=DE --> Property für die Höhe der Zeilen zwischen den Textfeldern und Buttons */
 	// TODO JavaDoc EN
 	protected final DoubleProperty whiteSpaceHeigthProperty;
@@ -810,6 +814,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			column.setHgrow(Priority.ALWAYS);
 			column.maxWidthProperty().bindBidirectional(btnMaxWidthProperty);
 			column.minWidthProperty().bindBidirectional(btnMinWidthProperty);
+			column.prefWidthProperty().bindBidirectional(btnColumnPrefWitdhProperty);
 			break;
 		case TEXT_FIELD_ROW:	/* fall through	*/
 		case BUTTON_ROW:		/* fall through	*/

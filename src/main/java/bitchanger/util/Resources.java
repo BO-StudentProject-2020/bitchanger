@@ -507,14 +507,19 @@ public class Resources {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-	/** <!-- $LANGUAGE=DE -->	Liste, die Speicherorte aller in dieser Klasse definierten Icons enthält */
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt eine Liste zurück, die Speicherorte aller in dieser Klasse definierten Icons enthält 
+	 * 
+	 * @return Liste, die Speicherorte aller in dieser Klasse definierten Icons enthält
+	 * 
+	 */
 	public static final LinkedList<File> iconList() {
 		LinkedList<File> iconList = new LinkedList<>();
 		
 		for(Field field : Resources.class.getFields()) {
 			try {
-				if(field.get(new File("")) instanceof File) {
-					File file = (File) field.get(new File(""));
+				if(field.get(Resources.class) instanceof File) {
+					File file = (File) field.get(Resources.class);
 					
 					if(file.getName().contains(".svg")) {
 						iconList.add(file);

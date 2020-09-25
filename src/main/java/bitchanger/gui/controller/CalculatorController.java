@@ -8,6 +8,7 @@
 
 package bitchanger.gui.controller;
 
+import bitchanger.calculations.BitLength;
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.ConvertingNumbers;
 import bitchanger.calculations.SimpleChangeableNumber;
@@ -17,7 +18,6 @@ import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.CalculatorView;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
-import javafx.beans.binding.StringExpression;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,7 +34,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
  * Controller, der die Funktion für eine {@linkplain CalculatorView} bereitstellt.
@@ -111,7 +110,7 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	
 	/** <!-- $LANGUAGE=DE -->	 ComboBox für die Anzahl der Bits */
 	// TODO JavaDoc EN
-	private ComboBox<String> bitLength;
+	private ComboBox<BitLength> bitLength;
 	
 	/** <!-- $LANGUAGE=DE -->	 Merker für die Anzeige eines Rechenergebnisses im Textfeld */
 	// TODO JavaDoc EN
@@ -121,14 +120,10 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 // Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Button zum Löschen und Zurücksetzen von {@link #value}
-	 * 
-	 * @see ChangeableNumber#reset()
+	 * Button zum Löschen und Zurücksetzen
 	 */
 	/*	<!-- $LANGUAGE=EN -->
-	 * Button to delete or remove {@link #value}
-	 * 
-	 * @see ChangeableNumber#reset()
+	 * Button to clear the values
 	 */
 	private Button clearBtn;
 	
@@ -296,6 +291,10 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		setTextFieldActions();
 		setSpinnerActions();
 		setButtonActions();
+		
+		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
+		Preferences.getPrefs().bitLengthProperty().bind(bitLength.getSelectionModel().selectedItemProperty());
+		
 		setInitialState();
 	}
 
@@ -589,14 +588,14 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		setOperationAction(moduloBtn, Operation.MODULO);
 		setOperationAction(andBtn, Operation.AND);
 		setOperationAction(orBtn, Operation.OR);
-		setOperationAction(notBtn, Operation.NOT);
 		setOperationAction(nandBtn, Operation.NAND);
 		setOperationAction(norBtn, Operation.NOR);
 		setOperationAction(xorBtn, Operation.XOR);
 		setOperationAction(shiftLeftBtn, Operation.SHIFT_LEFT);
 		setOperationAction(shiftRightBtn, Operation.SHIFT_RIGHT);
+		setNotOperationAction();
 	}
-	
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
@@ -604,22 +603,42 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (!operation.isUndefined()) {
-					equalsBtn.fire();
-				}
-				
-				parseValue(value1);
-				
-				textField.clear();
-				clearCalcLabels();
-				firstValueLabel.textProperty().bind(value1.stringProperty());
-				operationLabel.setText(o.getSymbol());
-				
-				operation = o;
+				setFirstValue(o);
 			}
 		});
 	}
-	
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void setFirstValue(Operation o) {
+		if (!operation.isUndefined()) {
+			equalsBtn.fire();
+		}
+		
+		parseValue(value1);
+		
+		textField.clear();
+		clearCalcLabels();
+		firstValueLabel.textProperty().bind(value1.stringProperty());
+		operationLabel.setText(o.getSymbol());
+		
+		operation = o;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void setNotOperationAction() {
+		notBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				setFirstValue(Operation.NOT);
+				equalsBtn.fire();
+			}
+		});
+	}
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
@@ -656,30 +675,44 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 					parseValue(value2);
 				}
 				
-				if(operation.isLogic()) {	// logische Verkn�pfung nur mit ganzen Zahlen m�glich
+				if(operation.isLogic()) {	// logische Verknüpfung nur mit ganzen Zahlen möglich
 					value1.set((long)value1.asDouble());
 					value2.set((long)value2.asDouble());
 				}
 				
 				calculate();
 				
-				clearCalcLabels();
-				firstValueLabel.textProperty().bind(value1.stringProperty());
-				operationLabel.setText(operation.getSymbol());
-				secondValueLabel.textProperty().bind(value2.stringProperty());
-				equalsLabel.setText("=");
-				
-				textField.setText(result.toBaseString(baseProperty.get()));
-				textField.positionCaret(textField.getLength());
-				isShowingResult = true;
-				
+				updateCalcLabels();
+
 				lastOperation = operation;
 				operation = Operation.UNDEFINED;
-				updateCalcLabel(baseProperty.get());
+				
+				updateCalcLabelPos(baseProperty.get());
 			}
-
-			
 		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void updateCalcLabels() {
+		clearCalcLabels();
+		
+		operationLabel.setText(operation.getSymbol());
+		
+		if(operation.equals(Operation.NOT)) {
+			secondValueLabel.textProperty().bind(value1.stringProperty());;
+		}
+		else {
+			firstValueLabel.textProperty().bind(value1.stringProperty());
+			secondValueLabel.textProperty().bind(value2.stringProperty());
+		}
+		
+		equalsLabel.setText("=");
+		
+		textField.setText(result.toBaseString(baseProperty.get()));
+		textField.positionCaret(textField.getLength());
+		isShowingResult = true;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -766,7 +799,7 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldBase, Number newBase) {
 				updateBase(newBase);
-				updateCalcLabel(newBase.intValue());
+				updateCalcLabelPos(newBase.intValue());
 				updateTextField(oldBase, newBase);
 			}
 		});
@@ -818,8 +851,8 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void updateCalcLabel(int base) {
-		if(base == 2 && lastOperation.isLogic()) {
+	private void updateCalcLabelPos(int base) {
+		if(base == 2 && lastOperation.isLogic() && !lastOperation.equals(Operation.NOT)) {
 			controllable.positionValuesVertical();
 		} else {
 			controllable.positionValuesHorizontal();

@@ -219,40 +219,38 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	
 	// TODO JavaDoc
 	private void updateLogicStringProperty() {
-		SimpleChangeableNumber logicVal = new SimpleChangeableNumber();
-		logicVal.set(this.asDouble());
 		long l = (long) this.asDouble();
 		
-		switch(Preferences.getPrefs().bitLengthProperty().get()) {
-			case _8_BIT:	logicVal.set((byte)this.asDouble());
-				break;
-			case _16_BIT:	logicVal.set((short)this.asDouble());
-				break;
-			case _32_BIT:	logicVal.set((int)this.asDouble());
-				break;
-			case _64_BIT:	logicVal.set((long)this.asDouble());
-				break;
-			case UNKNOWN: // fall through
-			default:
-				break;
-		}
+//		switch(Preferences.getPrefs().bitLengthProperty().get()) {
+//			case _8_BIT:	l & 0x00000000000000ffL;
+//				break;
+//			case _16_BIT:	logicVal.set((long)this.asDouble() & 0x000000000000ffffL);
+//				break;
+//			case _32_BIT:	logicVal.set((long)this.asDouble() & 0x00000000ffffffffL);
+//				break;
+//			case _64_BIT:	logicVal.set((long)this.asDouble() & 0xffffffffffffffffL);
+//				break;
+//			case UNKNOWN: // fall through
+//			default:
+//				break;
+//		}
 		
-		try {
-			if(baseProperty.get() == 10) {
-				logicStringProperty.set(logicVal.toDecString());
-			}
-			else if (baseProperty.get() == 2) {
-				String binStr = logicVal.toBinString();
-				if(binStr.length() < Preferences.getPrefs().bitLengthProperty().get().getNumberOfBits()) {
-					// TODO Länge für binärzahl anpassen
-				}
-			}
-			else {
-				logicStringProperty.set(logicVal.toBaseString(baseProperty.get()));
-			}
-		} catch (Exception e) {
-			logicStringProperty.set("");
-		}
+//		try {
+//			if(baseProperty.get() == 10) {
+//				logicStringProperty.set(logicVal.toDecString());
+//			}
+//			else if (baseProperty.get() == 2) {
+//				String binStr = logicVal.toBinString();
+//				if(binStr.length() < Preferences.getPrefs().bitLengthProperty().get().getNumberOfBits()) {
+//					// TODO Länge für binärzahl anpassen
+//				}
+//			}
+//			else {
+//				logicStringProperty.set(logicVal.toBaseString(baseProperty.get()));
+//			}
+//		} catch (Exception e) {
+//			logicStringProperty.set("");
+//		}
 	}
 
 	
@@ -293,7 +291,6 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	@Override
 	public void setBin(String binValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
 		this.setValue(binValue, 2);
-
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
