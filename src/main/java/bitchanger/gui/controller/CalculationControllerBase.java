@@ -8,16 +8,13 @@
 
 package bitchanger.gui.controller;
 
-import bitchanger.calculations.BitLength;
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.ConvertingNumbers;
 import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
-import bitchanger.gui.views.BitoperationView;
-import bitchanger.gui.views.CalculatorView;
-import bitchanger.preferences.Preferences;
+import bitchanger.gui.views.CalculationViewBase;
 import bitchanger.util.ArrayUtils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -28,15 +25,13 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
- * Controller, der die Funktion für eine {@linkplain CalculatorView} bereitstellt.
+ * Controller, der einige Grundfunktionen für eine {@linkplain CalculationViewBase} bereitstellt.
  * 
  * @author Tim Mühle
  * 
@@ -45,7 +40,7 @@ import javafx.scene.layout.GridPane;
  *
  */
 // TODO JavaDoc EN
-public class CalculationControllerBase extends ControllerBase<BitoperationView> {
+public abstract class CalculationControllerBase<T extends CalculationViewBase> extends ControllerBase<T> {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -53,79 +48,82 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+// protected	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
 	/**	<!-- $LANGUAGE=DE -->	Ergebnis der letzten Berechnung */
 	/*	<!-- $LANGUAGE=EN -->	Last result */
-	private final ChangeableNumber value1;
+	protected final ChangeableNumber value1;
 	
 	/**	<!-- $LANGUAGE=DE -->	Ergebnis der letzten Berechnung */
 	/*	<!-- $LANGUAGE=EN -->	Last result */
-	private final ChangeableNumber value2;
+	protected final ChangeableNumber value2;
 	
 	/**	<!-- $LANGUAGE=DE -->	Ergebnis der letzten Berechnung */
 	/*	<!-- $LANGUAGE=EN -->	Last result */
-	private final ChangeableNumber result;
+	protected final ChangeableNumber result;
 	
 	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die ausgeführt werden soll */
 	// TODO: JavaDoc EN
-	private Operation operation;
+	protected Operation operation;
 	
 	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die zuletzt ausgeführt wurde */
 	// TODO: JavaDoc EN
-	private Operation lastOperation = Operation.UNDEFINED;
-	
-	/**	<!-- $LANGUAGE=DE -->	Spinner für die auswählbare, beliebige Basis */
-	/*	<!-- $LANGUAGE=EN -->	Spinner for the eligible base */
-	private BaseSpinner anyBase;
+	protected Operation lastOperation;
 	
 	/**	<!-- $LANGUAGE=DE -->	Property zum Einstellen der Basis des aktuell fokussierten Textfelds */
 	/*	<!-- $LANGUAGE=EN -->	Property to adjust the base of the currently focused text field */
-	private final IntegerProperty baseProperty;
+	protected final IntegerProperty baseProperty;
 	
 	/**	<!-- $LANGUAGE=DE -->	Textfeld für die Eingabe */
 	/*	<!-- $LANGUAGE=EN -->	Textfield for input */
-	private ValueField textField;
+	protected final ValueField textField;
 	
-	/** <!-- $LANGUAGE=DE -->	 Label für den ersten Wert */
+	/** <!-- $LANGUAGE=DE -->	Label für den ersten Wert */
 	// TODO JavaDoc EN
-	private Label firstValueLabel;
+	protected final Label firstValueLabel;
 
-	/** <!-- $LANGUAGE=DE -->	 Label für die Rechenoperation */
+	/** <!-- $LANGUAGE=DE -->	Label für die Rechenoperation */
 	// TODO JavaDoc EN
-	private Label operationLabel;
+	protected final Label operationLabel;
 
-	/** <!-- $LANGUAGE=DE -->	 Label für den zweiten Wert */
+	/** <!-- $LANGUAGE=DE -->	Label für den zweiten Wert */
 	// TODO JavaDoc EN
-	private Label secondValueLabel;
+	protected final Label secondValueLabel;
 
-	/** <!-- $LANGUAGE=DE -->	 Label für das Gleichheitszeichen */
+	/** <!-- $LANGUAGE=DE -->	Label für das Gleichheitszeichen */
 	// TODO JavaDoc EN
-	private Label equalsLabel;
+	protected final Label equalsLabel;
+
+	/**	<!-- $LANGUAGE=DE -->	Button zum Berechnen */
+	// TODO JavaDoc EN
+	protected final Button equalsBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button zum Berechnen */
+	// TODO JavaDoc EN
+	protected final Button signBtn;
+	
+	/** <!-- $LANGUAGE=DE -->	Merker für die Anzeige eines Rechenergebnisses im Textfeld */
+	// TODO JavaDoc EN
+	protected boolean isShowingResult;
+	
+	
+	
+// private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	/**	<!-- $LANGUAGE=DE -->	Spinner für die auswählbare, beliebige Basis */
+	/*	<!-- $LANGUAGE=EN -->	Spinner for the eligible base */
+	private BaseSpinner anyBase;
 	
 	/** <!-- $LANGUAGE=DE -->	Label für die Basis des Ergebnisses */
 	// TODO JavaDoc EN
 	private Label baseLabel;
 	
-	/** <!-- $LANGUAGE=DE -->	 ComboBox für die Anzahl der Bits */
-	// TODO JavaDoc EN
-	private ComboBox<BitLength> bitLength;
-	
-	/** <!-- $LANGUAGE=DE -->	 Merker für die Anzeige eines Rechenergebnisses im Textfeld */
-	// TODO JavaDoc EN
-	private boolean isShowingResult;
-	
-	/** <!-- $LANGUAGE=DE -->	 Merker für das löschen von {@link #lastOperation} beim zweiten Klick auf den Button {@link #clearBtn} */
+	/** <!-- $LANGUAGE=DE --> 	Merker für das löschen von {@link #lastOperation} beim zweiten Klick auf den Button {@link #clearBtn} */
 	// TODO JavaDoc EN
 	private boolean cleared;
 	
-	
-// Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	
-	/**	<!-- $LANGUAGE=DE -->
-	 * Button zum Löschen und Zurücksetzen
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Button to clear the values
-	 */
+	/**	<!-- $LANGUAGE=DE --> 	Button zum Löschen und Zurücksetzen */
+	/*	<!-- $LANGUAGE=EN --> 	Button to clear the values */
 	private Button clearBtn;
 	
 	/**	<!-- $LANGUAGE=DE -->	Button, der die Backspace-Taste auf der Tastatur simuliert */
@@ -152,42 +150,6 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 	// TODO JavaDoc EN
 	private Button binBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button zum Berechnen */
-	// TODO JavaDoc EN
-	private Button equalsBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische UND */
-	// TODO JavaDoc EN
-	private Button andBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische ODER */
-	// TODO JavaDoc EN
-	private Button orBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische NICHT */
-	// TODO JavaDoc EN
-	private Button notBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische NAND */
-	// TODO JavaDoc EN
-	private Button nandBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische NOR */
-	// TODO JavaDoc EN
-	private Button norBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische Exklusiv-ODER */
-	// TODO JavaDoc EN
-	private Button xorBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button für Linksshift */
-	// TODO JavaDoc EN
-	private Button shiftLeftBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button für Rechtsshift */
-	// TODO JavaDoc EN
-	private Button shiftRightBtn;
-
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -213,12 +175,22 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 	 * 
 	 * @see #initControls()
 	 */
-	public CalculationControllerBase(BitoperationView view) {
+	public CalculationControllerBase(T view) {
 		super(view);
+		
+		this.equalsBtn = this.buttonMap.get(controllable.equalsBtnKey());
+		this.signBtn = this.buttonMap.get(controllable.signBtnKey());
+		this.textField = (ValueField) this.textFieldMap.get(controllable.tfKey());
+		this.firstValueLabel = (Label) this.nodeMap.get(controllable.firstValueLabelKey());
+		this.operationLabel = (Label) this.nodeMap.get(controllable.operationLabelKey());
+		this.secondValueLabel = (Label) this.nodeMap.get(controllable.secondValueLabelKey());
+		this.equalsLabel = (Label) this.nodeMap.get(controllable.equalsLabelKey());
+		
 		this.value1 = new SimpleChangeableNumber();
 		this.value2 = new SimpleChangeableNumber();
 		this.result = new SimpleChangeableNumber();
 		this.operation = Operation.UNDEFINED;
+		this.lastOperation = Operation.UNDEFINED;
 		this.baseProperty = new SimpleIntegerProperty(10);
 		this.isShowingResult = false;
 		this.cleared = false;
@@ -226,6 +198,8 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 		this.value1.baseProperty().bind(baseProperty);
 		this.value2.baseProperty().bind(baseProperty);
 		this.result.baseProperty().bind(baseProperty);
+		
+		textField.getBaseProperty().bind(anyBase.valueProperty());
 	}
 	
 
@@ -238,18 +212,14 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 
 
 	/** {@inheritDoc} */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	protected void initControls() {
 		if(nodeMap.get(controllable.baseSpinnerKey()) instanceof BaseSpinner) {
 			this.anyBase = (BaseSpinner) nodeMap.get(controllable.baseSpinnerKey());
 		}
 		
-		if(nodeMap.get(controllable.bitLengthKey()) instanceof ComboBox) {
-			bitLength = (ComboBox) nodeMap.get(controllable.bitLengthKey());
-		}
+		baseLabel = (Label) this.nodeMap.get(controllable.baseLabelKey());
 		
-		initTextFieldsAndLabels();
 		initButtons();
 	}
 
@@ -269,9 +239,7 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 		setSpinnerActions();
 		setButtonActions();
 		
-		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
-		Preferences.getPrefs().bitLengthProperty().bind(bitLength.getSelectionModel().selectedItemProperty());
-		
+		consumeEnterKeyEvent();
 		setInitialState();
 	}
 
@@ -307,38 +275,8 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 		decBtn = this.buttonMap.get(controllable.decBtnKey());
 		octBtn = this.buttonMap.get(controllable.octBtnKey());
 		binBtn = this.buttonMap.get(controllable.binBtnKey());
-		
-		equalsBtn = this.buttonMap.get(controllable.equalsBtnKey());
-		
-		andBtn = this.buttonMap.get(controllable.andBtnKey());
-		orBtn = this.buttonMap.get(controllable.orBtnKey());
-		notBtn = this.buttonMap.get(controllable.notBtnKey());
-		nandBtn = this.buttonMap.get(controllable.nandBtnKey());
-		norBtn = this.buttonMap.get(controllable.norBtnKey());
-		xorBtn = this.buttonMap.get(controllable.xorBtnKey());
-		shiftLeftBtn = this.buttonMap.get(controllable.shiftLeftBtnKey());
-		shiftRightBtn = this.buttonMap.get(controllable.shiftRightBtnKey());
 	}
 	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/**	<!-- $LANGUAGE=DE -->
-	 * Sucht die benötigten Referenzen zu den Textfeldern aus der textFieldMap, speichert diese in den Attributen und setzt die Basis der einzelnen Textfelder.
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Searches the necessary references to the text fields of the buttonMap, stores these in the attributes and sets the base of each text field.
-	 */
-	private void initTextFieldsAndLabels() {
-		textField = (ValueField) this.textFieldMap.get(controllable.tfKey());
-		textField.getBaseProperty().bind(anyBase.valueProperty());
-		
-		firstValueLabel = (Label) this.nodeMap.get(controllable.firstValueLabelKey());;
-		operationLabel = (Label) this.nodeMap.get(controllable.operationLabelKey());;
-		secondValueLabel = (Label) this.nodeMap.get(controllable.secondValueLabelKey());;
-		equalsLabel = (Label) this.nodeMap.get(controllable.equalsLabelKey());;
-		baseLabel = (Label) this.nodeMap.get(controllable.baseLabelKey());
-	}
-
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
@@ -378,7 +316,6 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 		// TODO letzten Stand merken
 		octBtn.fire();
 		decBtn.fire();
-		setBitoperationsText(Preferences.getPrefs().showBitOperationSymbolsProperty().get());
 	}
 	
 	
@@ -492,13 +429,8 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 		setClearAction();
 		setBackspaceAction();
 		
-		setArithmeticActions();
 		setEqualsAction();
 		setBaseActions();
-		
-		setKeyboardBtnAction();
-		updateBitoperationSymbols();
-		showBitoperationsListener();
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -557,26 +489,12 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void setArithmeticActions() {
-		setOperationAction(andBtn, Operation.AND);
-		setOperationAction(orBtn, Operation.OR);
-		setOperationAction(nandBtn, Operation.NAND);
-		setOperationAction(norBtn, Operation.NOR);
-		setOperationAction(xorBtn, Operation.XOR);
-		setOperationAction(shiftLeftBtn, Operation.SHIFT_LEFT);
-		setOperationAction(shiftRightBtn, Operation.SHIFT_RIGHT);
-		setNotOperationAction();
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	public void setOperationAction(Button b, Operation o) {
+	protected void setOperationAction(Button b, Operation o, ObservableValue<String> firstValueText) {
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				cleared = false;
-				setFirstValue(o);
+				setFirstValue(o, firstValueText);
 			}
 		});
 	}
@@ -584,7 +502,7 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void setFirstValue(Operation o) {
+	private void setFirstValue(Operation o, ObservableValue<String> firstValueText) {
 		if (!operation.isUndefined()) {
 			equalsBtn.fire();
 		}
@@ -593,7 +511,7 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 		
 		textField.clear();
 		clearCalcLabels();
-		firstValueLabel.textProperty().bind(value1.stringProperty());
+		firstValueLabel.textProperty().bind(firstValueText);
 		operationLabel.setText(o.getSymbol());
 		
 		operation = o;
@@ -602,31 +520,7 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void setNotOperationAction() {
-		notBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				setFirstValue(Operation.NOT);
-				equalsBtn.fire();
-			}
-		});
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	private void parseValue(ChangeableNumber value) {
-		try {
-			StringBuffer input = new StringBuffer(textField.getText());
-			input.insert(0, "0");
-			
-			value.setValue(input.toString(), baseProperty.get());
-		} catch (NumberFormatException | NullPointerException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			value.set(0);
-		}
-	}
+	protected abstract void parseValue(ChangeableNumber value);
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -651,17 +545,6 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 					parseValue(value2);
 				}
 				
-				// logische Verknüpfung nur mit ganzen Zahlen möglich
-				try {
-					value1.set((long)value1.asDouble());
-					value2.set((long)value2.asDouble());
-				} catch (Exception e) {
-					value1.reset();
-					value2.reset();
-					e.printStackTrace();
-					return;
-				}
-				
 				calculate();
 				
 				updateCalcLabels();
@@ -677,56 +560,12 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	// TODO JavaDoc
-	private void updateCalcLabels() {
-		clearCalcLabels();
-		
-		operationLabel.setText(operation.getSymbol());
-		
-		if(operation.equals(Operation.NOT)) {
-			secondValueLabel.textProperty().bind(value1.stringProperty());
-			textField.setText(result.logicStringProperty().get());
-		}
-		else {
-			firstValueLabel.textProperty().bind(value1.logicStringProperty());
-			secondValueLabel.textProperty().bind(value2.logicStringProperty());
-			textField.setText(result.logicStringProperty().get());
-		}
-		
-		equalsLabel.setText("=");
-		
-		textField.positionCaret(textField.getLength());
-		isShowingResult = true;
-	}
+	protected abstract void updateCalcLabels();
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	// TODO JavaDoc
-	private void calculate() {
-		value1.set((long)value1.asDouble());
-		value2.set((long)value2.asDouble());
-		
-		switch(operation) {
-			case AND:		result.set((long)value1.asDouble() & (long)value2.asDouble());
-				break;
-			case OR:		result.set((long)value1.asDouble() | (long)value2.asDouble());
-				break;
-			case NOT:		result.set(~(long)value1.asDouble());
-				break;
-			case NAND:		result.set(~((long)value1.asDouble() & (long)value2.asDouble()));
-				break;
-			case NOR:		result.set(~((long)value1.asDouble() | (long)value2.asDouble()));
-				break;
-			case XOR:		result.set((long)value1.asDouble() ^ (long)value2.asDouble());
-				break;
-			case SHIFT_LEFT:	result.set((long)value1.asDouble() << (long)value2.asDouble());
-				break;
-			case SHIFT_RIGHT:	result.set((long)value1.asDouble() >> (long)value2.asDouble());
-				break;
-			case UNDEFINED:		// Fall through
-			default:			result.reset();
-				break;
-		}
-	}
+	protected abstract void calculate();
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -793,13 +632,7 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void updateCalcLabelPos(int base) {
-		if(base == 2 && !lastOperation.equals(Operation.NOT)) {
-			controllable.positionValuesVertical();
-		} else {
-			controllable.positionValuesHorizontal();
-		}
-	}
+	protected abstract void updateCalcLabelPos(int base);
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -818,69 +651,21 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void showBitoperationsListener() {
-		for(Node n : controllable.getLogicNodes()) {
-			n.visibleProperty().bind(Preferences.getPrefs().showBitOperationsProperty());
-		}
-	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	private void setKeyboardBtnAction() {
-		if (GridPane.getColumnSpan(buttonMap.get(controllable.commaBtnKey())) == null) {
-			GridPane.setColumnSpan(buttonMap.get(controllable.commaBtnKey()), 1);
-		}
-		
-		buttonMap.get(controllable.keyboardBtnKey()).addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+	private void consumeEnterKeyEvent() {
+		controllable.getScene().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(ActionEvent event) {
-				Button commaBtn = buttonMap.get(controllable.commaBtnKey());
-				if (GridPane.getColumnSpan(commaBtn) == 1) {
-					GridPane.setColumnSpan(commaBtn, 2);
-					GridPane.setColumnIndex(commaBtn, GridPane.getColumnIndex(commaBtn) - 1);
-				} else {
-					GridPane.setColumnSpan(commaBtn, 1);
-					GridPane.setColumnIndex(commaBtn, GridPane.getColumnIndex(commaBtn) + 1);
+			public void handle(KeyEvent event) {
+				switch(event.getCode()) {
+				case ENTER:
+					equalsBtn.fire();
+					break;
+				default:
+					break;
 				}
 			}
 		});
 	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
-	private void updateBitoperationSymbols() {
-		Preferences.getPrefs().showBitOperationSymbolsProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean showSymbols) {
-				setBitoperationsText(showSymbols);
-			}
-		});
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	private void setBitoperationsText(boolean showSymbols){
-		if (showSymbols) {
-			andBtn.setText("&");
-			orBtn.setText("|");
-			notBtn.setText("~");
-			nandBtn.setText("~&");
-			norBtn.setText("~|");
-			xorBtn.setText("^");
-		} else {
-			andBtn.setText("AND");
-			orBtn.setText("OR");
-			notBtn.setText("NOT");
-			nandBtn.setText("NAND");
-			norBtn.setText("NOR");
-			xorBtn.setText("XOR");
-		}
-	}
-	
-	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -890,8 +675,13 @@ public class CalculationControllerBase extends ControllerBase<BitoperationView> 
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 
-	private enum Operation {
+	protected enum Operation {
 		// TODO JavaDoc
+		ADD("+"),
+		SUBSTRACT("-"),
+		DIVIDE("/"),
+		MULTIPLY("*"),
+		MODULO("%"),
 		AND("&"),
 		OR("|"),
 		NOT("~"),

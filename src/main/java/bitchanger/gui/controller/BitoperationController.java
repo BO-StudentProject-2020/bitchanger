@@ -492,13 +492,12 @@ public class BitoperationController extends ControllerBase<BitoperationView> {
 		setClearAction();
 		setBackspaceAction();
 		
-		setArithmeticActions();
+		setLogicActions();
 		setEqualsAction();
 		setBaseActions();
 		
 		setKeyboardBtnAction();
 		updateBitoperationSymbols();
-		showBitoperationsListener();
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -557,7 +556,7 @@ public class BitoperationController extends ControllerBase<BitoperationView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void setArithmeticActions() {
+	private void setLogicActions() {
 		setOperationAction(andBtn, Operation.AND);
 		setOperationAction(orBtn, Operation.OR);
 		setOperationAction(nandBtn, Operation.NAND);
@@ -815,15 +814,6 @@ public class BitoperationController extends ControllerBase<BitoperationView> {
 		textField.setText(num.toBaseString(newBase.intValue()));
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	private void showBitoperationsListener() {
-		for(Node n : controllable.getLogicNodes()) {
-			n.visibleProperty().bind(Preferences.getPrefs().showBitOperationsProperty());
-		}
-	}
-	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc

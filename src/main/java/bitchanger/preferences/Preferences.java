@@ -169,10 +169,6 @@ public class Preferences {
 	/* <!-- $LANGUAGE=EN -->	Property for the selected IEEE standard */
 	private final WritableEnumProperty<IEEEStandard> ieeeStandardProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige der Bitoperationen in der CalculatorView */
-	/* <!-- $LANGUAGE=EN -->	Property for showing logical bit operations in CalculatorView */
-	private final WritableBooleanProperty showBitOperationsProperty;
-	
 	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView */
 	/* <!-- $LANGUAGE=EN -->	Property for showing symbols of the logical bit operations in CalculatorView */
 	private final WritableBooleanProperty showBitOperationSymbolsProperty;
@@ -229,7 +225,6 @@ public class Preferences {
 		this.styleProperty = new WritableEnumProperty<>(Style.UNKNOWN, "style");
 		this.viewClassProperty = new WritableClassProperty<>(ConverterView.class, "viewClass");
 		this.ieeeStandardProperty = new WritableEnumProperty<>(IEEEStandard.IEEE_754_2008_b32, "IEEE_Standard");
-		this.showBitOperationsProperty = new WritableBooleanProperty(false, "showBitOperations");
 		this.showBitOperationSymbolsProperty = new WritableBooleanProperty(false, "showBitOperationSymbols");
 		this.bitLengthProperty = new WritableEnumProperty<>(BitLength._8_BIT, "bitLength");
 		this.useUnsignedBitOperationProperty = new WritableBooleanProperty(true, "unsignedBitoperations");
@@ -344,18 +339,6 @@ public class Preferences {
 		return this.ieeeStandardProperty;
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
-	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property für die Anzeige der Bitoperationen in der CalculatorView zurück
-	 * 
-	 * @return	Property für die Anzeige der Bitoperationen in der CalculatorView
-	 */
-	// TODO JavaDoc EN
-	public BooleanProperty showBitOperationsProperty() {
-		return this.showBitOperationsProperty;
-	}
-	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->

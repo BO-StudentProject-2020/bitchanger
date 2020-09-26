@@ -141,8 +141,6 @@ public class CalculationViewBase extends AlphaNumGridView {
 		this.clearBtnRow = clearBtnRow;
 		this.clearBtnColumnSpan = clearBtnColumnSpan;
 		this.clearBtnRowSpan = clearBtnRowSpan;
-		
-		buildScenegraph();
 	}
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -309,7 +307,7 @@ public class CalculationViewBase extends AlphaNumGridView {
 	protected void createScenegraph() {
 		super.createScenegraph();
 		
-		GridPane.setColumnSpan(this.getTextFieldMap().get(TF_KEY), equalBtnColumn + equalBtnColumnSpan - 1 - GridPane.getColumnIndex(this.getTextFieldMap().get(TF_KEY)));
+		GridPane.setColumnSpan(this.getTextFieldMap().get(TF_KEY), equalBtnColumn + equalBtnColumnSpan - GridPane.getColumnIndex(this.getTextFieldMap().get(TF_KEY)));
 		
 		createButtons();
 		createBaseButtons();
@@ -342,6 +340,7 @@ public class CalculationViewBase extends AlphaNumGridView {
 		GridPane.setColumnSpan(equalsBtn, equalBtnColumnSpan);
 		GridPane.setRowSpan(equalsBtn, equalBtnRowSpan);
 		
+		this.getButtonMap().put(equalsBtnKey(), equalsBtn);
 		center.getChildren().add(equalsBtn);
 		
 		// Backspace Button
