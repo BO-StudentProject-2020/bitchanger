@@ -165,6 +165,12 @@ public class Resources {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
+	/** <!-- $LANGUAGE=DE -->	Speicherort des Code-Icons oder {@code null}, wenn das Icon nicht gefunden wurde */
+	public static final File CODE_ICON = getResourceAsFile("/graphic/svg/iconmonstr-code-2.svg");
+
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons mit dem Copyright-Symbol, gefüllt oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File COPYRIGHT_FILLED_ICON = getResourceAsFile("/graphic/svg/iconmonstr-copyright-1.svg");
 	

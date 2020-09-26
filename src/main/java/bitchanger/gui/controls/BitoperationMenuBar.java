@@ -10,9 +10,10 @@ package bitchanger.gui.controls;
 
 import java.util.Objects;
 
-import bitchanger.gui.controller.CalculatorMenuController;
+import bitchanger.gui.controller.BitoperationMenuController;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
@@ -25,15 +26,15 @@ import javafx.scene.control.MenuItem;
  * @version 0.1.6
  * 
  */
-public class CalculatorMenuBar extends BasicMenuBar {
+public class BitoperationMenuBar extends BasicMenuBar {
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Bitoperationen ein-/ausblenden" in der Map {@link #menuItemMap} abgelegt ist */
-	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Bitoperationen ein-/ausblenden" is associated in the Map {@link #menuItemMap} */
-	public static final String OPTIONS_SHOW_BIT_OPERATIONS_KEY = "options-show-bit-operations-item";
-	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Bitoperationen Symbole" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Bitoperationen Symbole" is associated in the Map {@link #menuItemMap} */
 	public static final String OPTIONS_BIT_OPERATION_SYMBOLS_KEY = "options-bit-operation-symbols-item";
+	
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Bitoperationen Symbole" in der Map {@link #menuItemMap} abgelegt ist */
+	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Bitoperationen Symbole" is associated in the Map {@link #menuItemMap} */
+	public static final String OPTIONS_UNSIGNED_BIT_OPERATIONS_KEY = "options-unsigned-bit-operations-item";
 	
 	
 	
@@ -45,7 +46,7 @@ public class CalculatorMenuBar extends BasicMenuBar {
 
 	static {
 		// Controller Klasse zuordnen
-		Controller.register(CalculatorMenuBar.class, CalculatorMenuController.class);
+		Controller.register(BitoperationMenuBar.class, BitoperationMenuController.class);
 	}
 	
 	
@@ -64,7 +65,7 @@ public class CalculatorMenuBar extends BasicMenuBar {
 	
 	
 	// TODO JavaDoc
-	public CalculatorMenuBar() {
+	public BitoperationMenuBar() {
 		super();
 
 		addItems();
@@ -72,11 +73,11 @@ public class CalculatorMenuBar extends BasicMenuBar {
 	
 	
 	// TODO JavaDoc
-	public CalculatorMenuBar(ControllableApplication controllableApp) throws NullPointerException {
+	public BitoperationMenuBar(ControllableApplication controllableApp) throws NullPointerException {
 		this();
 		Objects.requireNonNull(controllableApp);
 		
-		Controller controller = new CalculatorMenuController(this, controllableApp);
+		Controller controller = new BitoperationMenuController(this, controllableApp);
 		controller.setActions();
 	}
 
@@ -91,14 +92,14 @@ public class CalculatorMenuBar extends BasicMenuBar {
 	
 	// TODO JavaDoc
 	private void addItems() {
-		MenuItem showBitOps = new MenuItem("Bitoperationen ein-/ausblenden");
 		MenuItem bitOpsSymbols = new MenuItem("Bitoperationen Symbole");
+		CheckMenuItem unsignesBitOps = new CheckMenuItem("vorzeichenlose Bitoperationen");
 		
-		this.menuItemMap.put(OPTIONS_SHOW_BIT_OPERATIONS_KEY, showBitOps);
 		this.menuItemMap.put(OPTIONS_BIT_OPERATION_SYMBOLS_KEY, bitOpsSymbols);
+		this.menuItemMap.put(OPTIONS_UNSIGNED_BIT_OPERATIONS_KEY, unsignesBitOps);
 		
-		((Menu) this.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY)).getItems().add(showBitOps);
 		((Menu) this.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY)).getItems().add(bitOpsSymbols);
+		((Menu) this.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY)).getItems().add(unsignesBitOps);
 	}
 
 }

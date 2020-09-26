@@ -93,6 +93,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Berechnungen" is associated in the Map {@link #menuItemMap} */
 	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
 	
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Bitoperationen" in der Map {@link #menuItemMap} abgelegt ist */
+	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Bitoperationen" is associated in the Map {@link #menuItemMap} */
+	public static final String MODUS_BITOPERATIONS_ITEM_KEY = "modus-bitoperations-item";
+	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das Menu "Stil" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the Menu "Stil" is associated in the Map {@link #menuItemMap} */
 	public static final String VIEW_STYLE_MENU_KEY = "view-style-menu";
@@ -302,12 +306,14 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		MenuItem viewConverter = new MenuItem("Umrechner", IconFactory.ofSVGFile(Resources.SYNC_2_ICON));
 		MenuItem viewIEEE = new MenuItem("IEEE", IconFactory.ofSVGFile(Resources.TEXTFIELD_ICON));
 		MenuItem viewCalculator = new MenuItem("Berechnungen", IconFactory.styleBindIcon(Resources.CALCULATOR_SYMBOLS_ICON, Resources.CALCULATOR_SYMBOLS_FILLED_ICON));
+		MenuItem viewBitoperations = new MenuItem("Bitoperationen", IconFactory.ofSVGFile(Resources.CODE_ICON));
 		
 		menuItemMap.put(MODUS_CONVERTER_ITEM_KEY, viewConverter);
 		menuItemMap.put(MODUS_IEEE_ITEM_KEY, viewIEEE);
 		menuItemMap.put(MODUS_CALCULATOR_ITEM_KEY, viewCalculator);
+		menuItemMap.put(MODUS_BITOPERATIONS_ITEM_KEY, viewBitoperations);
 		
-		modus.getItems().addAll(viewConverter, viewIEEE, viewCalculator);
+		modus.getItems().addAll(viewConverter, viewIEEE, viewCalculator, viewBitoperations);
 	}
 	
 	

@@ -219,32 +219,53 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	
 	// TODO JavaDoc
 	private void updateLogicStringProperty() {
+		long val;
+		
 		if(Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
-			long val = (long) this.asDouble() & Preferences.getPrefs().bitLengthProperty().get().getBitmask();
-			
-			if (baseProperty.get() == 10) {
-				this.logicStringProperty.set(ConvertingNumbers.decToBaseBlocks(10, String.valueOf(val), Preferences.getPrefs().getComma(), 3));
-			} 
-			else if (baseProperty.get() == 2) {
-				StringBuffer binText = new StringBuffer();
-				binText.append(ConvertingNumbers.decToBase(baseProperty.get(), String.valueOf(val)));
-				
-				while(binText.length() < Preferences.getPrefs().bitLengthProperty().get().getNumberOfBits()) {
-					binText.insert(0, "0");
-				}
-				
-				this.logicStringProperty.set(ConvertingNumbers.splitInBlocks(binText.toString(), 4));
+			if (Preferences.getPrefs().bitLengthProperty().get().equals(BitLength._64_BIT) && Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
+				// bei unsigned maximal 63 Bit möglich!
+				val = (long) this.asDouble() & 0xEFFFFFFFFFFFFFFFl;
+			} else {
+				val = (long) this.asDouble() & Preferences.getPrefs().bitLengthProperty().get().getBitmask();
 			}
-			else {
-				this.logicStringProperty.set(ConvertingNumbers.decToBaseBlocks(baseProperty.get(), String.valueOf(val), Preferences.getPrefs().getComma(), 4));
-			}
-			
-			// TODO logigStringProperty in Controller einbinden !
+			// TODO logicStringProperty in Controller einbinden !
 			
 		} else {
-			// TODO signed
+			switch(Preferences.getPrefs().bitLengthProperty().get()) {
+				case _8_BIT:	val = (byte)this.asDouble();
+					break;
+				case _16_BIT:	val = (short)this.asDouble();
+					break;
+				case _32_BIT:	val = (int)this.asDouble();
+					break;
+				case _64_BIT:	// fall through
+				case UNKNOWN:	// fall through
+				default:		val = (long)this.asDouble();
+					break;
+			}
 		}
 		
+		if (baseProperty.get() == 10) {
+			this.logicStringProperty.set(ConvertingNumbers.decToBaseBlocks(10, String.valueOf(val), Preferences.getPrefs().getComma(), 3));
+		} 
+		else if (baseProperty.get() == 2) {
+			StringBuffer binText = new StringBuffer();
+			binText.append(ConvertingNumbers.decToBase(baseProperty.get(), String.valueOf(val)));
+			
+			while(binText.length() < Preferences.getPrefs().bitLengthProperty().get().getNumberOfBits()) {
+				binText.insert(0, binText.charAt(0));
+			}
+			
+			// zu lange Strings kürzen (können wegen dem Vorzeichen zu lang sein)
+			binText.reverse();
+			binText.setLength(Preferences.getPrefs().bitLengthProperty().get().getNumberOfBits());
+			binText.reverse();
+			
+			this.logicStringProperty.set(ConvertingNumbers.splitInBlocks(binText.toString(), 4));
+		}
+		else {
+			this.logicStringProperty.set(ConvertingNumbers.decToBaseBlocks(baseProperty.get(), String.valueOf(val), Preferences.getPrefs().getComma(), 4));
+		}
 	}
 
 	

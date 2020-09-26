@@ -9,10 +9,11 @@
 package bitchanger.gui.controller;
 
 import bitchanger.gui.controls.BasicMenuBar;
-import bitchanger.gui.controls.CalculatorMenuBar;
+import bitchanger.gui.controls.BitoperationMenuBar;
 import bitchanger.preferences.Preferences;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.MenuItem;
 
 //TODO JavaDoc
@@ -24,7 +25,7 @@ import javafx.scene.control.MenuItem;
  * @version 0.1.6
  * 
  */
-public class CalculatorMenuController extends BasicMenuController {
+public class BitoperationMenuController extends BasicMenuController {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -34,8 +35,10 @@ public class CalculatorMenuController extends BasicMenuController {
 	
 
 	// TODO JavaDoc
-	protected MenuItem showBitOperations;
 	protected MenuItem bitOperationSymbols;
+	
+	// TODO JavaDoc
+	protected CheckMenuItem unsignedBitOperations;
 	
 	
 	
@@ -47,7 +50,7 @@ public class CalculatorMenuController extends BasicMenuController {
 	
 	
 	// TODO JavaDoc
-	public CalculatorMenuController(BasicMenuBar controllable, ControllableApplication app) {
+	public BitoperationMenuController(BasicMenuBar controllable, ControllableApplication app) {
 		super(controllable, app);
 	}
 
@@ -65,8 +68,11 @@ public class CalculatorMenuController extends BasicMenuController {
 	protected void initControls() {
 		super.initControls();
 		
-		this.showBitOperations = this.controllable.getMenuItemMap().get(CalculatorMenuBar.OPTIONS_SHOW_BIT_OPERATIONS_KEY);
-		this.bitOperationSymbols = this.controllable.getMenuItemMap().get(CalculatorMenuBar.OPTIONS_BIT_OPERATION_SYMBOLS_KEY);
+		this.bitOperationSymbols = this.controllable.getMenuItemMap().get(BitoperationMenuBar.OPTIONS_BIT_OPERATION_SYMBOLS_KEY);
+		
+		if (this.controllable.getMenuItemMap().get(BitoperationMenuBar.OPTIONS_UNSIGNED_BIT_OPERATIONS_KEY) instanceof CheckMenuItem) {
+			this.unsignedBitOperations = (CheckMenuItem) this.controllable.getMenuItemMap().get(BitoperationMenuBar.OPTIONS_UNSIGNED_BIT_OPERATIONS_KEY);
+		}
 	}
 	
 	
@@ -84,8 +90,10 @@ public class CalculatorMenuController extends BasicMenuController {
 		super.setActions();
 		
 		//  Menu Options
-		setShowBitOperationsAction();
 		setBitOperationSymbolsAction();
+		
+		this.unsignedBitOperations.setSelected(Preferences.getPrefs().useUnsignedBitOperationProperty().get());
+		Preferences.getPrefs().useUnsignedBitOperationProperty().bindBidirectional(unsignedBitOperations.selectedProperty());
 	}
 
 
@@ -96,18 +104,6 @@ public class CalculatorMenuController extends BasicMenuController {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	
-	// TODO JavaDoc
-	private void setShowBitOperationsAction() {
-		showBitOperations.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Preferences.getPrefs().showBitOperationsProperty().set(!Preferences.getPrefs().showBitOperationsProperty().get());
-			}
-		});
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	// TODO JavaDoc
 	private void setBitOperationSymbolsAction() {

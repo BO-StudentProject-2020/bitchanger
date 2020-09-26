@@ -13,6 +13,7 @@ import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
+import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
 import bitchanger.gui.views.Viewable;
 import bitchanger.preferences.Preferences;
@@ -75,6 +76,10 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
 	// TODO JavaDoc EN
 	public static final String CALCULATOR_VIEW_KEY = "calculator-view";
+	
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
+	// TODO JavaDoc EN
+	public static final String BITOPERATIONS_VIEW_KEY = "bitoperations-view";
 	
 	/** <!-- $LANGUAGE=DE -->	Aktuelle Version des Bitchangers */
 	// TODO JavaDoc EN
@@ -141,6 +146,10 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	/* <!-- $LANGUAGE=EN --> View for calculating with number systems */
 	private Viewable calculatorView;
 	
+	/** <!-- $LANGUAGE=DE --> View für Bitoperationen mit Zahlensystemen */
+	/* <!-- $LANGUAGE=EN --> View for bitwise operations with number systems */
+	private Viewable bitoperationsView;
+	
 	/** <!-- $LANGUAGE=DE --> Hauptfenster der Anwendung */
 	/* <!-- $LANGUAGE=EN --> Main application window */
 	private Stage primaryStage;
@@ -188,6 +197,8 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 			return ieeeView;
 		case CALCULATOR_VIEW_KEY:
 			return calculatorView;
+		case BITOPERATIONS_VIEW_KEY:
+			return bitoperationsView;
 		default:
 			return null;
 		}
@@ -263,12 +274,13 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		this.converterView = new ConverterView();
 		this.ieeeView = new IEEEView();
 		this.calculatorView = new CalculatorView();
+		this.bitoperationsView = new BitoperationView();
 		
-		adjustViews(converterView, ieeeView, calculatorView);
+		adjustViews(converterView, ieeeView, calculatorView, bitoperationsView);
 
 		changeView(converterView);
 		
-		for(Viewable view : ArrayUtils.arrayOf(converterView, ieeeView, calculatorView)) {
+		for(Viewable view : ArrayUtils.arrayOf(converterView, ieeeView, calculatorView, bitoperationsView)) {
 			if(Preferences.getPrefs().viewClassProperty().get().equals(view.getClass())) {
 				changeView(view);
 			}

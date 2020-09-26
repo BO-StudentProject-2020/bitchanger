@@ -8,13 +8,16 @@
 
 package bitchanger.gui.controller;
 
+import bitchanger.calculations.BitLength;
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.ConvertingNumbers;
 import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
+import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
+import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -25,10 +28,12 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
  * Controller, der die Funktion für eine {@linkplain CalculatorView} bereitstellt.
@@ -40,7 +45,7 @@ import javafx.scene.input.MouseEvent;
  *
  */
 // TODO JavaDoc EN
-public class CalculatorController extends ControllerBase<CalculatorView> {
+public class CalculationControllerBase extends ControllerBase<BitoperationView> {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -100,6 +105,10 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	// TODO JavaDoc EN
 	private Label baseLabel;
 	
+	/** <!-- $LANGUAGE=DE -->	 ComboBox für die Anzahl der Bits */
+	// TODO JavaDoc EN
+	private ComboBox<BitLength> bitLength;
+	
 	/** <!-- $LANGUAGE=DE -->	 Merker für die Anzeige eines Rechenergebnisses im Textfeld */
 	// TODO JavaDoc EN
 	private boolean isShowingResult;
@@ -127,10 +136,6 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	/*	<!-- $LANGUAGE=EN -->	alphanumeric keys to simulate a keyboard */
 	private Button[] alphaNumButtons;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button, mit dem das Vorzeichen der Zahl gewechselt werden kann */
-	/*	<!-- $LANGUAGE=EN -->	Button that action is to change the sign of the number */
-	private Button signBtn;
-	
 	/**	<!-- $LANGUAGE=DE -->	Button für das Hexadezimalsystem */
 	// TODO JavaDoc EN
 	private Button hexBtn;
@@ -147,30 +152,42 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	// TODO JavaDoc EN
 	private Button binBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button zum Dividieren */
-	// TODO JavaDoc EN
-	private Button divideBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button zum Multiplizieren */
-	// TODO JavaDoc EN
-	private Button multiplyBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button zum Subtrahieren */
-	// TODO JavaDoc EN
-	private Button subBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button zum Addieren */
-	// TODO JavaDoc EN
-	private Button addBtn;
-	
-	/**	<!-- $LANGUAGE=DE -->	Button für die Modulo-Operation */
-	// TODO JavaDoc EN
-	private Button moduloBtn;
-	
 	/**	<!-- $LANGUAGE=DE -->	Button zum Berechnen */
 	// TODO JavaDoc EN
 	private Button equalsBtn;
 	
+	/**	<!-- $LANGUAGE=DE -->	Button für das logische UND */
+	// TODO JavaDoc EN
+	private Button andBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button für das logische ODER */
+	// TODO JavaDoc EN
+	private Button orBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button für das logische NICHT */
+	// TODO JavaDoc EN
+	private Button notBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button für das logische NAND */
+	// TODO JavaDoc EN
+	private Button nandBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button für das logische NOR */
+	// TODO JavaDoc EN
+	private Button norBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button für das logische Exklusiv-ODER */
+	// TODO JavaDoc EN
+	private Button xorBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button für Linksshift */
+	// TODO JavaDoc EN
+	private Button shiftLeftBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button für Rechtsshift */
+	// TODO JavaDoc EN
+	private Button shiftRightBtn;
+
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -196,7 +213,7 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	 * 
 	 * @see #initControls()
 	 */
-	public CalculatorController(CalculatorView view) {
+	public CalculationControllerBase(BitoperationView view) {
 		super(view);
 		this.value1 = new SimpleChangeableNumber();
 		this.value2 = new SimpleChangeableNumber();
@@ -221,10 +238,15 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 
 
 	/** {@inheritDoc} */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	protected void initControls() {
 		if(nodeMap.get(controllable.baseSpinnerKey()) instanceof BaseSpinner) {
 			this.anyBase = (BaseSpinner) nodeMap.get(controllable.baseSpinnerKey());
+		}
+		
+		if(nodeMap.get(controllable.bitLengthKey()) instanceof ComboBox) {
+			bitLength = (ComboBox) nodeMap.get(controllable.bitLengthKey());
 		}
 		
 		initTextFieldsAndLabels();
@@ -247,6 +269,9 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		setSpinnerActions();
 		setButtonActions();
 		
+		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
+		Preferences.getPrefs().bitLengthProperty().bind(bitLength.getSelectionModel().selectedItemProperty());
+		
 		setInitialState();
 	}
 
@@ -268,7 +293,6 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	private void initButtons() {
 		this.clearBtn = this.buttonMap.get(controllable.clearBtnKey());
 		this.backspcBtn = this.buttonMap.get(controllable.backspaceBtnKey());
-		this.signBtn = this.buttonMap.get(controllable.signBtnKey());
 
 		alphaNumButtons = new Button[16];
 		for (int i = 0; i < 6; i++) {
@@ -284,12 +308,16 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		octBtn = this.buttonMap.get(controllable.octBtnKey());
 		binBtn = this.buttonMap.get(controllable.binBtnKey());
 		
-		divideBtn = this.buttonMap.get(controllable.divideBtnKey());
-		multiplyBtn = this.buttonMap.get(controllable.multiplyBtnKey());
-		subBtn = this.buttonMap.get(controllable.subtractBtnKey());
-		addBtn = this.buttonMap.get(controllable.addBtnKey());
-		moduloBtn = this.buttonMap.get(controllable.moduloBtnKey());
 		equalsBtn = this.buttonMap.get(controllable.equalsBtnKey());
+		
+		andBtn = this.buttonMap.get(controllable.andBtnKey());
+		orBtn = this.buttonMap.get(controllable.orBtnKey());
+		notBtn = this.buttonMap.get(controllable.notBtnKey());
+		nandBtn = this.buttonMap.get(controllable.nandBtnKey());
+		norBtn = this.buttonMap.get(controllable.norBtnKey());
+		xorBtn = this.buttonMap.get(controllable.xorBtnKey());
+		shiftLeftBtn = this.buttonMap.get(controllable.shiftLeftBtnKey());
+		shiftRightBtn = this.buttonMap.get(controllable.shiftRightBtnKey());
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -350,6 +378,7 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		// TODO letzten Stand merken
 		octBtn.fire();
 		decBtn.fire();
+		setBitoperationsText(Preferences.getPrefs().showBitOperationSymbolsProperty().get());
 	}
 	
 	
@@ -462,12 +491,14 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		setAlphaNumBindings();
 		setClearAction();
 		setBackspaceAction();
-		setSignAction();
 		
 		setArithmeticActions();
 		setEqualsAction();
-		consumeKeyEvents();
 		setBaseActions();
+		
+		setKeyboardBtnAction();
+		updateBitoperationSymbols();
+		showBitoperationsListener();
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -527,11 +558,14 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 
 	// TODO JavaDoc
 	private void setArithmeticActions() {
-		setOperationAction(addBtn, Operation.ADD);
-		setOperationAction(subBtn, Operation.SUBSTRACT);
-		setOperationAction(multiplyBtn, Operation.MULTIPLY);
-		setOperationAction(divideBtn, Operation.DIVIDE);
-		setOperationAction(moduloBtn, Operation.MODULO);
+		setOperationAction(andBtn, Operation.AND);
+		setOperationAction(orBtn, Operation.OR);
+		setOperationAction(nandBtn, Operation.NAND);
+		setOperationAction(norBtn, Operation.NOR);
+		setOperationAction(xorBtn, Operation.XOR);
+		setOperationAction(shiftLeftBtn, Operation.SHIFT_LEFT);
+		setOperationAction(shiftRightBtn, Operation.SHIFT_RIGHT);
+		setNotOperationAction();
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -568,9 +602,25 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
+	private void setNotOperationAction() {
+		notBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				setFirstValue(Operation.NOT);
+				equalsBtn.fire();
+			}
+		});
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
 	private void parseValue(ChangeableNumber value) {
 		try {
-			value.setValue(textField.getText(), baseProperty.get());
+			StringBuffer input = new StringBuffer(textField.getText());
+			input.insert(0, "0");
+			
+			value.setValue(input.toString(), baseProperty.get());
 		} catch (NumberFormatException | NullPointerException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
@@ -601,6 +651,17 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 					parseValue(value2);
 				}
 				
+				// logische Verknüpfung nur mit ganzen Zahlen möglich
+				try {
+					value1.set((long)value1.asDouble());
+					value2.set((long)value2.asDouble());
+				} catch (Exception e) {
+					value1.reset();
+					value2.reset();
+					e.printStackTrace();
+					return;
+				}
+				
 				calculate();
 				
 				updateCalcLabels();
@@ -621,9 +682,15 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		
 		operationLabel.setText(operation.getSymbol());
 		
-		firstValueLabel.textProperty().bind(value1.stringProperty());
-		secondValueLabel.textProperty().bind(value2.stringProperty());
-		textField.setText(result.toBaseString(baseProperty.get()));
+		if(operation.equals(Operation.NOT)) {
+			secondValueLabel.textProperty().bind(value1.stringProperty());
+			textField.setText(result.logicStringProperty().get());
+		}
+		else {
+			firstValueLabel.textProperty().bind(value1.logicStringProperty());
+			secondValueLabel.textProperty().bind(value2.logicStringProperty());
+			textField.setText(result.logicStringProperty().get());
+		}
 		
 		equalsLabel.setText("=");
 		
@@ -635,16 +702,25 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 	
 	// TODO JavaDoc
 	private void calculate() {
+		value1.set((long)value1.asDouble());
+		value2.set((long)value2.asDouble());
+		
 		switch(operation) {
-			case ADD:		result.set(value1.asDouble() + value2.asDouble());
+			case AND:		result.set((long)value1.asDouble() & (long)value2.asDouble());
 				break;
-			case SUBSTRACT:	result.set(value1.asDouble() - value2.asDouble());
+			case OR:		result.set((long)value1.asDouble() | (long)value2.asDouble());
 				break;
-			case MULTIPLY:	result.set(value1.asDouble() * value2.asDouble());
+			case NOT:		result.set(~(long)value1.asDouble());
 				break;
-			case DIVIDE:	result.set(value1.asDouble() / value2.asDouble());
+			case NAND:		result.set(~((long)value1.asDouble() & (long)value2.asDouble()));
 				break;
-			case MODULO:	result.set(value1.asDouble() % value2.asDouble());
+			case NOR:		result.set(~((long)value1.asDouble() | (long)value2.asDouble()));
+				break;
+			case XOR:		result.set((long)value1.asDouble() ^ (long)value2.asDouble());
+				break;
+			case SHIFT_LEFT:	result.set((long)value1.asDouble() << (long)value2.asDouble());
+				break;
+			case SHIFT_RIGHT:	result.set((long)value1.asDouble() >> (long)value2.asDouble());
 				break;
 			case UNDEFINED:		// Fall through
 			default:			result.reset();
@@ -652,40 +728,6 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 		}
 	}
 	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
-	// TODO JavaDoc
-	private void consumeKeyEvents() {
-		controllable.getScene().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				switch(event.getCode()) {
-				case DIVIDE:
-				case SLASH:
-					divideBtn.fire();
-					break;
-				case MULTIPLY:
-				case STAR:
-					multiplyBtn.fire();
-					break;
-				case ADD:
-				case PLUS:
-					addBtn.fire();
-					break;
-				case SUBTRACT:
-				case MINUS:
-					subBtn.fire();
-					break;
-				case ENTER:
-					equalsBtn.fire();
-					break;
-				default:
-					System.out.println(event.getCode());
-				}
-			}
-		});
-	}
-
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
@@ -752,7 +794,7 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 
 	// TODO JavaDoc
 	private void updateCalcLabelPos(int base) {
-		if(base == 2) {
+		if(base == 2 && !lastOperation.equals(Operation.NOT)) {
 			controllable.positionValuesVertical();
 		} else {
 			controllable.positionValuesHorizontal();
@@ -776,33 +818,66 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void setSignAction() {
-		signBtn.setOnAction(new EventHandler<ActionEvent>() {
+	private void showBitoperationsListener() {
+		for(Node n : controllable.getLogicNodes()) {
+			n.visibleProperty().bind(Preferences.getPrefs().showBitOperationsProperty());
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void setKeyboardBtnAction() {
+		if (GridPane.getColumnSpan(buttonMap.get(controllable.commaBtnKey())) == null) {
+			GridPane.setColumnSpan(buttonMap.get(controllable.commaBtnKey()), 1);
+		}
+		
+		buttonMap.get(controllable.keyboardBtnKey()).addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				int caretPos = textField.getCaretPosition();
-				
-				if (textField.getBase() == 2) {
-					ChangeableNumber num = new SimpleChangeableNumber();
-					num.setBin(textField.getText());
-					num.set(- num.asDouble());
-					textField.setText(num.toBinString());
+				Button commaBtn = buttonMap.get(controllable.commaBtnKey());
+				if (GridPane.getColumnSpan(commaBtn) == 1) {
+					GridPane.setColumnSpan(commaBtn, 2);
+					GridPane.setColumnIndex(commaBtn, GridPane.getColumnIndex(commaBtn) - 1);
+				} else {
+					GridPane.setColumnSpan(commaBtn, 1);
+					GridPane.setColumnIndex(commaBtn, GridPane.getColumnIndex(commaBtn) + 1);
 				}
-				else {
-					if (textField.getText().startsWith("-")) {
-						textField.setText(textField.getText().substring(1));
-						caretPos--;
-					} else if (textField.getText().startsWith("+")) {
-						textField.setText("-" + textField.getText().substring(1));
-					} else {
-						textField.setText("-" + textField.getText());
-						caretPos++;
-					} 
-				}
-				
-				textField.positionCaret(caretPos);
 			}
 		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void updateBitoperationSymbols() {
+		Preferences.getPrefs().showBitOperationSymbolsProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean showSymbols) {
+				setBitoperationsText(showSymbols);
+			}
+		});
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void setBitoperationsText(boolean showSymbols){
+		if (showSymbols) {
+			andBtn.setText("&");
+			orBtn.setText("|");
+			notBtn.setText("~");
+			nandBtn.setText("~&");
+			norBtn.setText("~|");
+			xorBtn.setText("^");
+		} else {
+			andBtn.setText("AND");
+			orBtn.setText("OR");
+			notBtn.setText("NOT");
+			nandBtn.setText("NAND");
+			norBtn.setText("NOR");
+			xorBtn.setText("XOR");
+		}
 	}
 	
 	
@@ -817,11 +892,14 @@ public class CalculatorController extends ControllerBase<CalculatorView> {
 
 	private enum Operation {
 		// TODO JavaDoc
-		ADD("+"),
-		SUBSTRACT("-"),
-		DIVIDE("/"),
-		MULTIPLY("*"),
-		MODULO("%"),
+		AND("&"),
+		OR("|"),
+		NOT("~"),
+		NAND("~&"),
+		NOR("~|"),
+		XOR("^"),
+		SHIFT_LEFT("<<"),
+		SHIFT_RIGHT(">>"),
 		UNDEFINED(" ");
 		
 		private String symbol;

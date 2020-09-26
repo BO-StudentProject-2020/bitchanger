@@ -53,6 +53,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 
 	// TODO JavaDoc
 	protected MenuItem modusCalculator;
+	
+	// TODO JavaDoc
+	protected MenuItem modusBitoperations;
 
 	// TODO JavaDoc
 	protected Menu options;
@@ -115,6 +118,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		this.modusConverter = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_CONVERTER_ITEM_KEY);
 		this.modusIEEE = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_IEEE_ITEM_KEY);
 		this.modusCalculator = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_CALCULATOR_ITEM_KEY);
+		this.modusBitoperations = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_BITOPERATIONS_ITEM_KEY);
 		this.options = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.OPTIONS_MENU_KEY);
 		this.styleMenu = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
 		this.styleLight = this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
@@ -142,6 +146,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		changeToViewAction(modusConverter, application.getViewable(PrimaryFXApp.CONVERTER_VIEW_KEY));
 		changeToViewAction(modusIEEE, application.getViewable(PrimaryFXApp.IEEE_VIEW_KEY));
 		changeToViewAction(modusCalculator, application.getViewable(PrimaryFXApp.CALCULATOR_VIEW_KEY));
+		changeToViewAction(modusBitoperations, application.getViewable(PrimaryFXApp.BITOPERATIONS_VIEW_KEY));
 		
 		// Menu View
 		changeStyleAction();
