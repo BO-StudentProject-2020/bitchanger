@@ -10,6 +10,7 @@ package bitchanger.gui.controller;
 
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.ConvertingNumbers;
+import bitchanger.calculations.NumberOverflowException;
 import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
@@ -556,7 +557,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	protected abstract void parseValue(ChangeableNumber value);
+	protected abstract void parseValue(ChangeableNumber value) throws NumberOverflowException;
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 

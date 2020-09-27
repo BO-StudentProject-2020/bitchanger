@@ -9,6 +9,7 @@
 package bitchanger.gui.controller;
 
 import bitchanger.calculations.ChangeableNumber;
+import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.views.CalculatorView;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -133,7 +134,7 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 
 	// TODO JavaDoc
 	@Override
-	protected void parseValue(ChangeableNumber value) {
+	protected void parseValue(ChangeableNumber value) throws NumberOverflowException {
 		try {
 			value.setValue(textField.getText(), baseProperty.get());
 		} catch (NumberFormatException | NullPointerException e) {

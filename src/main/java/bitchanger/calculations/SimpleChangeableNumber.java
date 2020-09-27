@@ -143,17 +143,11 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		this.logicStringProperty = new SimpleStringProperty();
 		this.baseProperty = new SimpleIntegerProperty(10);
 		
-		this.baseProperty.addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldBase, Number newBase) {
-				updateStringProperty();
-				updateLogicStringProperty();
-			}
-		});
+		setListeners();
 		
 		this.initDecimal(decValue);
 	}
-
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -162,6 +156,33 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+	
+	// TODO JavaDoc
+	private void setListeners() {
+		this.baseProperty.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldBase, Number newBase) {
+				updateStringProperty();
+				updateLogicStringProperty();
+			}
+		});
+		
+		Preferences.getPrefs().bitLengthProperty().addListener(new ChangeListener<BitLength>() {
+			@Override
+			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+				updateLogicStringProperty();
+			}
+		});
+		
+		Preferences.getPrefs().useUnsignedBitOperationProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				updateLogicStringProperty();
+			}
+		});
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt den eingeschlossenen Wert dieser {@code SimpleChangeableNumber} auf den übergebenen dezimal-Wert.
@@ -228,8 +249,6 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			} else {
 				val = (long) this.asDouble() & Preferences.getPrefs().bitLengthProperty().get().getBitmask();
 			}
-			// TODO logicStringProperty in Controller einbinden !
-			
 		} else {
 			switch(Preferences.getPrefs().bitLengthProperty().get()) {
 				case _8_BIT:	val = (byte)this.asDouble();

@@ -397,10 +397,16 @@ public class ConvertingNumbers {
 		double integerPart = baseToDecIntPart(base, separated[0]);
 		double fractionalPart = baseToDecFractionalPart(base, separated[1]);
 		
+		if(integerPart > (double)Long.MAX_VALUE) {
+			// TODO JavaDoc NumberOverflowException
+			throw new NumberOverflowException("for Number " + (integerPart + fractionalPart));
+		}
+		
+		
 		// Bei negativen Binärzahlen ist durch die Rückumwandlung des Zweierkomplements eine Subtraktion von -1 nötig
 		if(isNegativeBin) {
 					
-			integerPart = integerPart+1;
+			integerPart = integerPart + 1;
 		}
 		
 		if(fractionalPart != 0.0) {
@@ -570,7 +576,15 @@ public class ConvertingNumbers {
 		// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
 		String[] separated = separateByComma(decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
 			
-		long integerPart = Long.parseLong(separated[0]);
+		long integerPart;
+		
+		try {
+			integerPart = Long.parseLong(separated[0]);
+		} catch (NumberFormatException e) {
+			// TODO JavaDoc NumberOverflowException
+			throw new NumberOverflowException("for Number " + decValue, e);
+		}
+		
 		double fractionalPart = Double.parseDouble("0." + separated[1]);
 			
 		StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
@@ -620,7 +634,8 @@ public class ConvertingNumbers {
 				newBaseValue.insert(0, '-');
 			}
 			
-			if(newBase == 2) {
+			
+			if(newBase == 2 && !(newBaseValue.charAt(0) == '0')) {
 				newBaseValue.insert(0, '0');
 			}
 				

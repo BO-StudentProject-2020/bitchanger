@@ -10,6 +10,7 @@ package bitchanger.gui.controller;
 
 import bitchanger.calculations.BitLength;
 import bitchanger.calculations.ChangeableNumber;
+import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
@@ -186,7 +187,7 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 
 	// TODO JavaDoc
 	@Override
-	protected void parseValue(ChangeableNumber value) {
+	protected void parseValue(ChangeableNumber value) throws NumberOverflowException {
 		try {
 			StringBuffer input = new StringBuffer(textField.getText());
 			
@@ -195,12 +196,27 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 			}
 			
 			value.setValue(input.toString(), baseProperty.get());
+			
 		} catch (NumberFormatException | NullPointerException e) {
 			e.printStackTrace();
 			clearBtn.fire();
 			clearBtn.fire();
 		} catch (IllegalArgumentException e) {
 			value.set(0);
+		}
+		
+		// Prüfen, ob minmale oder maximale Grenze verlassen werden
+		BitLength bitLength = Preferences.getPrefs().bitLengthProperty().get();
+		long maxValue = Preferences.getPrefs().useUnsignedBitOperationProperty().get() ? bitLength.maxUnsignedValue() : bitLength.maxValue();
+		
+		if(value.asDouble() > maxValue) {
+			throw new NumberOverflowException("Number " + value.asDouble() + " is too large. Maximum is " + maxValue);
+		}
+		
+		long minValue = Preferences.getPrefs().useUnsignedBitOperationProperty().get() ? bitLength.minUnsignedValue() : bitLength.minValue();
+		
+		if(value.asDouble() < minValue) {
+			throw new NumberOverflowException("Number " + value.asDouble() + " is too small. Minimum is " + minValue);
 		}
 	}
 	
