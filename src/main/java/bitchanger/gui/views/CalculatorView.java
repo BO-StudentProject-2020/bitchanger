@@ -11,7 +11,6 @@ package bitchanger.gui.views;
 import java.util.ArrayDeque;
 
 import bitchanger.gui.controller.CalculatorController;
-import bitchanger.gui.controller.CalculatorController;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controls.AlphaNumKeys;

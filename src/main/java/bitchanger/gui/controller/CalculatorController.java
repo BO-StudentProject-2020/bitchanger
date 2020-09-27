@@ -9,9 +9,7 @@
 package bitchanger.gui.controller;
 
 import bitchanger.calculations.ChangeableNumber;
-import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.views.CalculatorView;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
@@ -119,8 +117,6 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 	@Override
 	public void setActions() {
 		super.setActions();
-		
-		setSignAction();
 		
 		setArithmeticActions();
 		consumeKeyEvents();
@@ -258,37 +254,6 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 		});
 	}
 	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	private void setSignAction() {
-		signBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				int caretPos = textField.getCaretPosition();
-				
-				if (textField.getBase() == 2) {
-					ChangeableNumber num = new SimpleChangeableNumber();
-					num.setBin(textField.getText());
-					num.set(- num.asDouble());
-					textField.setText(num.toBinString());
-				}
-				else {
-					if (textField.getText().startsWith("-")) {
-						textField.setText(textField.getText().substring(1));
-						caretPos--;
-					} else if (textField.getText().startsWith("+")) {
-						textField.setText("-" + textField.getText().substring(1));
-					} else {
-						textField.setText("-" + textField.getText());
-						caretPos++;
-					} 
-				}
-				
-				textField.positionCaret(caretPos);
-			}
-		});
-	}
 	
 
 }

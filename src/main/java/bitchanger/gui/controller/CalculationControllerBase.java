@@ -62,6 +62,10 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/*	<!-- $LANGUAGE=EN -->	Last result */
 	protected final ChangeableNumber result;
 	
+	/** <!-- $LANGUAGE=DE -->	Merker für die Anzeige eines Rechenergebnisses im Textfeld */
+	// TODO JavaDoc EN
+	protected boolean isShowingResult;
+	
 	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die ausgeführt werden soll */
 	// TODO: JavaDoc EN
 	protected Operation operation;
@@ -102,9 +106,9 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	// TODO JavaDoc EN
 	protected final Button signBtn;
 	
-	/** <!-- $LANGUAGE=DE -->	Merker für die Anzeige eines Rechenergebnisses im Textfeld */
-	// TODO JavaDoc EN
-	protected boolean isShowingResult;
+	/**	<!-- $LANGUAGE=DE --> 	Button zum Löschen und Zurücksetzen */
+	/*	<!-- $LANGUAGE=EN --> 	Button to clear the values */
+	protected Button clearBtn;
 	
 	
 	
@@ -121,10 +125,6 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/** <!-- $LANGUAGE=DE --> 	Merker für das löschen von {@link #lastOperation} beim zweiten Klick auf den Button {@link #clearBtn} */
 	// TODO JavaDoc EN
 	private boolean cleared;
-	
-	/**	<!-- $LANGUAGE=DE --> 	Button zum Löschen und Zurücksetzen */
-	/*	<!-- $LANGUAGE=EN --> 	Button to clear the values */
-	private Button clearBtn;
 	
 	/**	<!-- $LANGUAGE=DE -->	Button, der die Backspace-Taste auf der Tastatur simuliert */
 	/*	<!-- $LANGUAGE=DE -->	Button that simulate the backspace key */
@@ -198,8 +198,6 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		this.value1.baseProperty().bind(baseProperty);
 		this.value2.baseProperty().bind(baseProperty);
 		this.result.baseProperty().bind(baseProperty);
-		
-		textField.getBaseProperty().bind(anyBase.valueProperty());
 	}
 	
 
@@ -241,6 +239,8 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		
 		consumeEnterKeyEvent();
 		setInitialState();
+		
+		textField.getBaseProperty().bind(anyBase.valueProperty());
 	}
 
 	
@@ -335,7 +335,10 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 				if(isShowingResult && (event.getCode().isDigitKey() || event.getCode().isLetterKey() || event.getCode().equals(KeyCode.BACK_SPACE))) {
 					isShowingResult = false;
 					textField.clear();
-					clearCalcLabels();
+					
+					if (operation.isUndefined()) {
+						clearCalcLabels();
+					}
 				}
 			}
 		});
@@ -428,6 +431,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		setAlphaNumBindings();
 		setClearAction();
 		setBackspaceAction();
+		setSignAction();
 		
 		setEqualsAction();
 		setBaseActions();
@@ -489,6 +493,38 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
+	private void setSignAction() {
+		signBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				int caretPos = textField.getCaretPosition();
+				
+				if (textField.getBase() == 2) {
+					ChangeableNumber num = new SimpleChangeableNumber();
+					num.setBin(textField.getText());
+					num.set(- num.asDouble());
+					textField.setText(num.toBinString());
+				}
+				else {
+					if (textField.getText().startsWith("-")) {
+						textField.setText(textField.getText().substring(1));
+						caretPos--;
+					} else if (textField.getText().startsWith("+")) {
+						textField.setText("-" + textField.getText().substring(1));
+					} else {
+						textField.setText("-" + textField.getText());
+						caretPos++;
+					} 
+				}
+				
+				textField.positionCaret(caretPos);
+			}
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
 	protected void setOperationAction(Button b, Operation o, ObservableValue<String> firstValueText) {
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -502,7 +538,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void setFirstValue(Operation o, ObservableValue<String> firstValueText) {
+	protected void setFirstValue(Operation o, ObservableValue<String> firstValueText) {
 		if (!operation.isUndefined()) {
 			equalsBtn.fire();
 		}
@@ -639,13 +675,20 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	// TODO JavaDoc
 	private void updateTextField(Number oldBase, Number newBase) {
 		ChangeableNumber num = new SimpleChangeableNumber();
+		num.baseProperty().set(newBase.intValue());
+		
 		try {
 			num.setValue(textField.getText(), oldBase.intValue());
 		} catch (Exception e) {
 			num.reset();
 		}
 		
-		textField.setText(num.toBaseString(newBase.intValue()));
+		if (isShowingResult && lastOperation.isLogic()) {
+			textField.setText(num.logicStringProperty().get());
+		}
+		else {
+			textField.setText(num.stringProperty().get());
+		}
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -698,6 +741,10 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 			this.symbol = symbol;
 		}
 		
+		public boolean isLogic() {
+			return this.equals(AND) || this.equals(OR) || this.equals(NOT) || this.equals(NAND) || this.equals(NOR) || this.equals(XOR) || this.equals(SHIFT_LEFT) || this.equals(SHIFT_RIGHT);
+		}
+
 		public String getSymbol() {
 			return symbol;
 		}

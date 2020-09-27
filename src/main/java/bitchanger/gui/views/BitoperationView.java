@@ -320,13 +320,13 @@ public class BitoperationView extends CalculationViewBase {
 
 	// TODO JavaDoc
 	private void moveButtons() {
-		// +/- Button ausblenden und entfernen
-		this.getButtonMap().get(signBtnKey()).setVisible(false);
-		try { center.getChildren().remove(this.getButtonMap().get(signBtnKey())); } catch (Exception e) { /* ignore */ }
-		
-		// 0 Button vergrößern
-		GridPane.setColumnSpan(this.getButtonMap().get(zeroBtnKey()), 2);
-		GridPane.setColumnIndex(this.getButtonMap().get(zeroBtnKey()), GridPane.getColumnIndex(this.getButtonMap().get(zeroBtnKey())) - 1);
+//		// +/- Button ausblenden und entfernen
+//		this.getButtonMap().get(signBtnKey()).setVisible(false);
+//		try { center.getChildren().remove(this.getButtonMap().get(signBtnKey())); } catch (Exception e) { /* ignore */ }
+//		
+//		// 0 Button vergrößern
+//		GridPane.setColumnSpan(this.getButtonMap().get(zeroBtnKey()), 2);
+//		GridPane.setColumnIndex(this.getButtonMap().get(zeroBtnKey()), GridPane.getColumnIndex(this.getButtonMap().get(zeroBtnKey())) - 1);
 	}
 	
 }
