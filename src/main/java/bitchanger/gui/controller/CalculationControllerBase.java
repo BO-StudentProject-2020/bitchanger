@@ -605,6 +605,8 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 				}
 				
 				updateCalcLabels();
+				textField.positionCaret(textField.getLength());
+				isShowingResult = true;
 
 				lastOperation = operation;
 				operation = Operation.UNDEFINED;

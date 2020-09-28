@@ -15,10 +15,13 @@ import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.FXUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
@@ -170,14 +173,15 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		
 		setButtonActions();
 		
-		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
-		Preferences.getPrefs().bitLengthProperty().bind(bitLength.getSelectionModel().selectedItemProperty());
+		setUnfocusComboBoxBitLength();
 		
+		setBindingsAndListeners();
 		setInitialState();
 	}
 
 
-	
+
+
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
 // 	#	Methods   																													 #
@@ -192,6 +196,12 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 			StringBuffer input = new StringBuffer(textField.getText());
 			
 			if (Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
+				if (textField.getText().contains("-")) {
+					throw new NumberOverflowException("for String " + input + " - negative numbers are not allowed", 
+							"Bei vorzeichenlosen Bitoperationen sind nur positive, ganze Zahlen erlaubt!",
+							bitLength.getSelectionModel().getSelectedItem().maxUnsignedValue(), bitLength.getSelectionModel().getSelectedItem().minUnsignedValue());
+				}
+				
 				input.insert(0, "0");
 			}
 			
@@ -237,9 +247,6 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		
 		textField.setText(result.logicStringProperty().get());
 		equalsLabel.setText("=");
-		
-		textField.positionCaret(textField.getLength());
-		isShowingResult = true;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -441,6 +448,10 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 
 	// TODO JavaDoc
 	private void updateSignBtnVisible(boolean unsignedBitOperations) {
+		if (GridPane.getColumnSpan(zeroBtn) == null) {
+			GridPane.setColumnSpan(zeroBtn, 1);
+		}
+		
 		if(unsignedBitOperations) {
 			// commaBtn vergrößern, wenn Tastaturmatrix angezeigt wird
 			if (GridPane.getColumnSpan(commaBtn) == 1 && isShowingKeyboard) {
@@ -451,9 +462,11 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 			// +/- Button ausblenden
 			signBtn.setVisible(false);
 			
-			// 0 Button vergrößern
-			GridPane.setColumnSpan(zeroBtn, 2);
-			GridPane.setColumnIndex(zeroBtn, GridPane.getColumnIndex(zeroBtn) - 1);
+			if (GridPane.getColumnSpan(zeroBtn) == 1) {
+				// 0 Button vergrößern
+				GridPane.setColumnSpan(zeroBtn, 2);
+				GridPane.setColumnIndex(zeroBtn, GridPane.getColumnIndex(zeroBtn) - 1);
+			}
 		}
 		else {
 			// commaBtn verkleinern, wenn Tastaturmatrix angezeigt wird
@@ -465,10 +478,85 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 			// +/- Button einblenden
 			signBtn.setVisible(true);
 			
-			// 0 Button verkleinern
-			GridPane.setColumnSpan(zeroBtn, 1);
-			GridPane.setColumnIndex(zeroBtn, GridPane.getColumnIndex(zeroBtn) + 1);
+			if (GridPane.getColumnSpan(zeroBtn) == 2) {
+				// 0 Button verkleinern
+				GridPane.setColumnSpan(zeroBtn, 1);
+				GridPane.setColumnIndex(zeroBtn, GridPane.getColumnIndex(zeroBtn) + 1);
+			}
 		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void setUnfocusComboBoxBitLength() {
+		bitLength.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				textField.requestFocus();
+			}
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void setBindingsAndListeners() {
+		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
+		Preferences.getPrefs().bitLengthProperty().bind(bitLength.getSelectionModel().selectedItemProperty());
+		
+		
+		Preferences.getPrefs().bitLengthProperty().addListener(new ChangeListener<BitLength>() {
+			@Override
+			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+				checkUnsignedBitLength();
+			}
+		});
+		
+		Preferences.getPrefs().useUnsignedBitOperationProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				checkUnsignedBitLength();
+				
+				if(isShowingResult) {
+					updateResult();
+				}
+			}
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void checkUnsignedBitLength() {
+		if(Preferences.getPrefs().bitLengthProperty().get().equals(BitLength._64_BIT) && Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
+			Alert dialog = new Alert(AlertType.INFORMATION);
+			dialog.setTitle("Hinweis");
+			dialog.setHeaderText("Achtung");
+			dialog.setContentText("Bei vorzeichenlosen Bitoperationen ist die Bitlänge auf maximal 63 Bit begrenzt.");
+			dialog.showAndWait();
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc
+	private void updateResult() {
+		operation = lastOperation;
+		
+		try {
+			calculate();
+		} catch (NumberOverflowException noe) {
+			noe.setDescription("Das Ergebnis der Berechnung verlässt den zugelassenen Zahlenbereich.");
+			FXUtils.showNumberOverflowWarning(noe);
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		
+		updateCalcLabels();
+		textField.positionCaret(textField.getLength());
 	}
 	
 	

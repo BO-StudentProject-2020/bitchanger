@@ -172,9 +172,6 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 		textField.setText(result.toBaseString(baseProperty.get()));
 		
 		equalsLabel.setText("=");
-		
-		textField.positionCaret(textField.getLength());
-		isShowingResult = true;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
