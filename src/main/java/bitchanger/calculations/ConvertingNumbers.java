@@ -399,7 +399,8 @@ public class ConvertingNumbers {
 		
 		if(integerPart > (double)Long.MAX_VALUE) {
 			// TODO JavaDoc NumberOverflowException
-			throw new NumberOverflowException("for Number " + (integerPart + fractionalPart));
+			throw new NumberOverflowException("for Number " + (integerPart + fractionalPart),
+					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
 		}
 		
 		
@@ -581,8 +582,13 @@ public class ConvertingNumbers {
 		try {
 			integerPart = Long.parseLong(separated[0]);
 		} catch (NumberFormatException e) {
-			// TODO JavaDoc NumberOverflowException
-			throw new NumberOverflowException("for Number " + decValue, e);
+			if (!separated[0].equals("")) {
+				// TODO JavaDoc NumberOverflowException
+				throw new NumberOverflowException("for Number " + decValue,
+						"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE, e);
+			} else {
+				throw e;
+			}
 		}
 		
 		double fractionalPart = Double.parseDouble("0." + separated[1]);

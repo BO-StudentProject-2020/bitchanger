@@ -8,10 +8,11 @@
 
 package bitchanger.gui.controller;
 
-import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.ConvertingNumbers;
+import bitchanger.calculations.NumberOverflowException;
 import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
@@ -19,6 +20,7 @@ import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
+import bitchanger.util.FXUtils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -318,10 +320,10 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * @see #setTFSelection()
 	 */
 	private void setTextFieldActions() {
-		setHexValListener();
-		setDecValListener();
-		setOctValListener();
-		setBinValListener();
+		setValueListener(tfHex, value::setHex, false, true, true, true, true);
+		setValueListener(tfDec, value::setDec, true, false, true, true, true);
+		setValueListener(tfOct, value::setOct, true, true, false, true, true);
+		setValueListener(tfBin, value::setBin, true, true, true, false, true);
 		setAnyValListener();
 
 		setTFSelection();
@@ -343,11 +345,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * Refreshes the texts of the chosen text fields to the new value of {@link #value}.
 	 * This new value is always shown in the base which refers to the text field.
 	 * 
-	 * @param setHex	true, wenn der Text von {@link #tfHex} gesetzt werden soll
-	 * @param setDec	true, wenn der Text von {@link #tfDec} gesetzt werden soll
-	 * @param setOct	true, wenn der Text von {@link #tfOct} gesetzt werden soll
-	 * @param setBin	true, wenn der Text von {@link #tfBin} gesetzt werden soll
-	 * @param setAny	true, wenn der Text von {@link #tfAny} gesetzt werden soll
+	 * @param setHex	true, if the text of {@link #tfHex} should be set
+	 * @param setDec	true, if the text of {@link #tfDec} should be set
+	 * @param setOct	true, if the text of {@link #tfOct} should be set
+	 * @param setBin	true, if the text of {@link #tfBin} should be set
+	 * @param setAny	true, if the text of {@link #tfAny} should be set
 	 */
 	private void setTexts(boolean setHex, boolean setDec, boolean setOct, boolean setBin, boolean setAny) {
 		if (setBin)
@@ -370,115 +372,46 @@ public class ConverterController extends ControllerBase<ConverterView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Listener für {@link #tfHex}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * Setzt den Listener für das Textfeld {@code #tf}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * 
+	 * @param tf		Textfeld, das einen Listener für das {@code textProperty} erhält
+	 * @param valueConsumer	Methode, die die Eingabe verarbeitet
+	 * @param setHex	true, wenn der Text von {@link #tfHex} gesetzt werden soll
+	 * @param setDec	true, wenn der Text von {@link #tfDec} gesetzt werden soll
+	 * @param setOct	true, wenn der Text von {@link #tfOct} gesetzt werden soll
+	 * @param setBin	true, wenn der Text von {@link #tfBin} gesetzt werden soll
+	 * @param setAny	true, wenn der Text von {@link #tfAny} gesetzt werden soll
 	 * 
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the listener for {@link #tfHex}, to convert the input and update the other text fields immediately.
 	 * 
+	 * @param tf		text field to that a new Listener for the {@code textProperty} is added
+	 * @param valueConsumer	method to consume the input
+	 * @param setHex	true, if the text of {@link #tfHex} should be set
+	 * @param setDec	true, if the text of {@link #tfDec} should be set
+	 * @param setOct	true, if the text of {@link #tfOct} should be set
+	 * @param setBin	true, if the text of {@link #tfBin} should be set
+	 * @param setAny	true, if the text of {@link #tfAny} should be set
+	 * 
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
-	private void setHexValListener() {
-		tfHex.textProperty().addListener(new ChangeListener<String>() {
+	private void setValueListener(ValueField tf, Consumer<String> valueConsumer, boolean setHex, boolean setDec, boolean setOct, boolean setBin, boolean setAny) {
+		tf.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (tfHex.isFocused()) {
+				if (tf.isFocused()) {
 					try {
-						value.setHex(newValue);
+						valueConsumer.accept(newValue);;
+					} catch (NumberOverflowException noe) {
+						value.reset();
+						FXUtils.showNumberOverflowWarning(noe);
 					} catch (Exception e) {
 						value.reset();
 						e.printStackTrace();
 					}
-					setTexts(false, true, true, true, true);
-				}
-			}
-		});
-	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Listener für {@link #tfDec}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
-	 * 
-	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Sets the listener for {@link #tfDec}, to convert the input and update the other text fields immediately.
-	 * 
-	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
-	 */
-	private void setDecValListener() {
-		tfDec.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (tfDec.isFocused()) {
-					try {
-						value.setDec(newValue);
-					} catch (Exception e) {
-						value.reset();
-						if (! (e instanceof NoSuchElementException)) { // NoSuchElementException tritt auf, wenn Nachkommateil fehlt (wegen Scanner)
-							e.printStackTrace();
-						}
-					}
-					setTexts(true, false, true, true, true);
-				}
-			}
-		});
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Listener für {@link #tfOct}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
-	 * 
-	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Sets the listener for {@link #tfOct}, to convert the input and update the other text fields immediately.
-	 * 
-	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
-	 */
-	private void setOctValListener() {
-		tfOct.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (tfOct.isFocused()) {
-					try {
-						value.setOct(newValue);
-					} catch (Exception e) {
-						value.reset();
-						e.printStackTrace();
-					}
-					setTexts(true, true, false, true, true);
-				}
-			}
-		});
-	}
-	
-
-	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Listener für {@link #tfBin}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
-	 * 
-	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Sets the listener for {@link #tfBin}, to convert the input and update the other text fields immediately.
-	 * 
-	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
-	 */
-	private void setBinValListener() {
-		tfBin.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (tfBin.isFocused()) {
-					try {
-						value.setBin(newValue);
-					} catch (Exception e) {
-						value.reset();
-						e.printStackTrace();
-					}
-					setTexts(true, true, true, false, true);
+					setTexts(setHex, setDec, setOct, setBin, setAny);
 				}
 			}
 		});

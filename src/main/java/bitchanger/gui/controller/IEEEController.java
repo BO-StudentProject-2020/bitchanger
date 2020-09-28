@@ -12,12 +12,14 @@ import java.util.NoSuchElementException;
 
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.IEEEStandard;
+import bitchanger.calculations.NumberOverflowException;
 import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.IEEEView;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
+import bitchanger.util.FXUtils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -235,6 +237,9 @@ public class IEEEController extends ControllerBase<IEEEView> {
 				if (tfDec.isFocused()) {
 					try {
 						value.setDec(newValue);
+					} catch (NumberOverflowException noe) {
+						FXUtils.showNumberOverflowWarning(noe);
+						value.reset();
 					} catch (Exception e) {
 						value.reset();
 						if (! (e instanceof NoSuchElementException)) { // NoSuchElementException tritt auf, wenn Nachkommateil fehlt (wegen Scanner)
@@ -263,6 +268,9 @@ public class IEEEController extends ControllerBase<IEEEView> {
 				if (tfIEEE.isFocused()) {
 					try {
 						value.setIEEE(newValue, Preferences.getPrefs().ieeeStandardProperty().get());
+					} catch (NumberOverflowException noe) {
+						FXUtils.showNumberOverflowWarning(noe);
+						value.reset();
 					} catch (Exception e) {
 						value.reset();
 						if (! (e instanceof NoSuchElementException)) { // NoSuchElementException tritt auf, wenn Nachkommateil fehlt (wegen Scanner)

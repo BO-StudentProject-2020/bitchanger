@@ -208,15 +208,13 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		// Prüfen, ob minmale oder maximale Grenze verlassen werden
 		BitLength bitLength = Preferences.getPrefs().bitLengthProperty().get();
 		long maxValue = Preferences.getPrefs().useUnsignedBitOperationProperty().get() ? bitLength.maxUnsignedValue() : bitLength.maxValue();
-		
-		if(value.asDouble() > maxValue) {
-			throw new NumberOverflowException("Number " + value.asDouble() + " is too large. Maximum is " + maxValue);
-		}
-		
 		long minValue = Preferences.getPrefs().useUnsignedBitOperationProperty().get() ? bitLength.minUnsignedValue() : bitLength.minValue();
 		
-		if(value.asDouble() < minValue) {
-			throw new NumberOverflowException("Number " + value.asDouble() + " is too small. Minimum is " + minValue);
+		if(value.asDouble() > maxValue) {
+			throw new NumberOverflowException("Number " + value.asDouble() + " is too large. Maximum is " + maxValue, "Die eingegebene Zahl ist zu groß!", maxValue, minValue);
+		}
+		else if(value.asDouble() < minValue) {
+			throw new NumberOverflowException("Number " + value.asDouble() + " is too small. Minimum is " + minValue, "Die eingegebene Zahl ist zu klein!", maxValue, minValue);
 		}
 	}
 	
@@ -248,30 +246,36 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 	
 	// TODO JavaDoc
 	@Override
-	protected void calculate() {
+	protected void calculate() throws NumberOverflowException, Exception {
 		value1.set((long)value1.asDouble());
 		value2.set((long)value2.asDouble());
 		
-		switch(operation) {
-			case AND:		result.set((long)value1.asDouble() & (long)value2.asDouble());
-				break;
-			case OR:		result.set((long)value1.asDouble() | (long)value2.asDouble());
-				break;
-			case NOT:		result.set(~(long)value1.asDouble());
-				break;
-			case NAND:		result.set(~((long)value1.asDouble() & (long)value2.asDouble()));
-				break;
-			case NOR:		result.set(~((long)value1.asDouble() | (long)value2.asDouble()));
-				break;
-			case XOR:		result.set((long)value1.asDouble() ^ (long)value2.asDouble());
-				break;
-			case SHIFT_LEFT:	result.set((long)value1.asDouble() << (long)value2.asDouble());
-				break;
-			case SHIFT_RIGHT:	result.set((long)value1.asDouble() >> (long)value2.asDouble());
-				break;
-			case UNDEFINED:		// Fall through
-			default:			result.reset();
-				break;
+		try {
+			switch(operation) {
+				case AND:		result.set((long)value1.asDouble() & (long)value2.asDouble());
+					break;
+				case OR:		result.set((long)value1.asDouble() | (long)value2.asDouble());
+					break;
+				case NOT:		result.set(~(long)value1.asDouble());
+					break;
+				case NAND:		result.set(~((long)value1.asDouble() & (long)value2.asDouble()));
+					break;
+				case NOR:		result.set(~((long)value1.asDouble() | (long)value2.asDouble()));
+					break;
+				case XOR:		result.set((long)value1.asDouble() ^ (long)value2.asDouble());
+					break;
+				case SHIFT_LEFT:	result.set((long)value1.asDouble() << (long)value2.asDouble());
+					break;
+				case SHIFT_RIGHT:	result.set((long)value1.asDouble() >> (long)value2.asDouble());
+					break;
+				case UNDEFINED:		// Fall through
+				default:			result.reset();
+					break;
+			}
+		} catch (NumberOverflowException noe) {
+			throw noe;
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 	

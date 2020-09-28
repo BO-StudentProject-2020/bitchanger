@@ -137,10 +137,12 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 	protected void parseValue(ChangeableNumber value) throws NumberOverflowException {
 		try {
 			value.setValue(textField.getText(), baseProperty.get());
-		} catch (NumberFormatException | NullPointerException e) {
-			e.printStackTrace();
+		} catch (NumberOverflowException noe) {
+			throw noe;
 		} catch (IllegalArgumentException e) {
 			value.set(0);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -179,21 +181,27 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 	
 	// TODO JavaDoc
 	@Override
-	protected void calculate() {
-		switch(operation) {
-			case ADD:		result.set(value1.asDouble() + value2.asDouble());
-				break;
-			case SUBSTRACT:	result.set(value1.asDouble() - value2.asDouble());
-				break;
-			case MULTIPLY:	result.set(value1.asDouble() * value2.asDouble());
-				break;
-			case DIVIDE:	result.set(value1.asDouble() / value2.asDouble());
-				break;
-			case MODULO:	result.set(value1.asDouble() % value2.asDouble());
-				break;
-			case UNDEFINED:		// Fall through
-			default:			result.reset();
-				break;
+	protected void calculate() throws NumberOverflowException, Exception {
+		try {
+			switch(operation) {
+				case ADD:		result.set(value1.asDouble() + value2.asDouble());
+					break;
+				case SUBSTRACT:	result.set(value1.asDouble() - value2.asDouble());
+					break;
+				case MULTIPLY:	result.set(value1.asDouble() * value2.asDouble());
+					break;
+				case DIVIDE:	result.set(value1.asDouble() / value2.asDouble());
+					break;
+				case MODULO:	result.set(value1.asDouble() % value2.asDouble());
+					break;
+				case UNDEFINED:		// Fall through
+				default:			result.reset();
+					break;
+			}
+		} catch (NumberOverflowException noe) {
+			throw noe;
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 	

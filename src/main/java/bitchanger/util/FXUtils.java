@@ -9,6 +9,7 @@
 package bitchanger.util;
 
 import java.io.File;
+import java.util.Optional;
 import java.util.Queue;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -18,9 +19,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.controls.SVGIcon;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.MenuItem;
@@ -310,6 +314,25 @@ public class FXUtils {
 	// TODO JavaDoc
 	public static void setIconOrText(Labeled labeled, SVGIcon icon) {
 		setIconOrText(labeled, icon, labeled.getText());
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	public static Optional<ButtonType> showNumberOverflowWarning(NumberOverflowException noe) {
+		StringBuffer warningText = new StringBuffer();
+		warningText.append(noe.getDescription());
+		warningText.append("\n");
+		warningText.append("Die größte erlaubte Zahl ist ");
+		warningText.append(String.valueOf((long) noe.getMaxSupportetNumber()));
+		warningText.append(" und die kleinste erlaubte Zahl ist ");
+		warningText.append(String.valueOf((long) noe.getMinSupportetNumber()));
+		
+		Alert dialog = new Alert(Alert.AlertType.WARNING);
+		dialog.setHeaderText("Überlauf");
+		dialog.setContentText(warningText.toString());
+		
+		return dialog.showAndWait();
 	}
 	
 	

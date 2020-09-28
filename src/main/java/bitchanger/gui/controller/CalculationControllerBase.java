@@ -17,6 +17,7 @@ import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.CalculationViewBase;
 import bitchanger.util.ArrayUtils;
+import bitchanger.util.FXUtils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -544,7 +545,12 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 			equalsBtn.fire();
 		}
 		
-		parseValue(value1);
+		try {
+			parseValue(value1);
+		} catch (NumberOverflowException noe) {
+			FXUtils.showNumberOverflowWarning(noe);
+			return;
+		}
 		
 		textField.clear();
 		clearCalcLabels();
@@ -579,10 +585,24 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 						return;
 					}
 				} else {
-					parseValue(value2);
+					try {
+						parseValue(value2);
+					} catch (NumberOverflowException noe) {
+						FXUtils.showNumberOverflowWarning(noe);
+						return;
+					}
 				}
 				
-				calculate();
+				try {
+					calculate();
+				} catch (NumberOverflowException noe) {
+					noe.setDescription("Das Ergebnis der Berechnung verlässt den zugelassenen Zahlenbereich.");
+					FXUtils.showNumberOverflowWarning(noe);
+					return;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return;
+				}
 				
 				updateCalcLabels();
 
@@ -602,7 +622,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	// TODO JavaDoc
-	protected abstract void calculate();
+	protected abstract void calculate() throws NumberOverflowException, Exception;
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -680,6 +700,10 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		
 		try {
 			num.setValue(textField.getText(), oldBase.intValue());
+		} catch (NumberOverflowException noe) {
+			num.reset();
+			noe.setDescription("Die eingegebene Zahl lag außerhalb des erlaubten Wertebereiches und wurde zurückgesetzt.");
+			FXUtils.showNumberOverflowWarning(noe);
 		} catch (Exception e) {
 			num.reset();
 		}

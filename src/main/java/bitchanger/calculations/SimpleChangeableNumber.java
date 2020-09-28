@@ -295,7 +295,20 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
+	/** {@inheritDoc} */
+	@Override
+	public void set(double decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException {
+		if(decValue > Long.MAX_VALUE || decValue < -Long.MAX_VALUE) {
+			throw new NumberOverflowException("for Number " + decValue, 
+					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
+		}
+		
+		this.setDec(String.valueOf(decValue));
+	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+	
 	/** {@inheritDoc} */
 	@Override
 	public void setHex(String hexValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
