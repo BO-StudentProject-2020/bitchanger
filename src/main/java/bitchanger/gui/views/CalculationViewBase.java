@@ -20,6 +20,7 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -66,7 +67,6 @@ public class CalculationViewBase extends AlphaNumGridView {
 	
 	
 	// TODO JavaDoc
-	private Label equals2Label;
 	private HBox firstValBox;
 	private HBox secondValBox;
 	private StackPane resultLabels;
@@ -307,7 +307,9 @@ public class CalculationViewBase extends AlphaNumGridView {
 	protected void createScenegraph() {
 		super.createScenegraph();
 		
-		GridPane.setColumnSpan(this.getTextFieldMap().get(TF_KEY), equalBtnColumn + equalBtnColumnSpan - GridPane.getColumnIndex(this.getTextFieldMap().get(TF_KEY)));
+		TextField tf = this.getTextFieldMap().get(TF_KEY);
+		GridPane.setColumnSpan(tf, equalBtnColumn + equalBtnColumnSpan - GridPane.getColumnIndex(this.getTextFieldMap().get(TF_KEY)));
+		tf.setAlignment(Pos.CENTER_RIGHT);
 		
 		createButtons();
 		createBaseButtons();
@@ -389,10 +391,6 @@ public class CalculationViewBase extends AlphaNumGridView {
 		Label operationLabel = new Label();
 		Label secondValueLabel = new Label();
 		Label equalsLabel = new Label();
-		equals2Label = new Label();
-		
-		equals2Label.textProperty().bind(equalsLabel.textProperty());
-		equals2Label.setVisible(false);
 		
 		Label baseLabel = new Label();
 		
@@ -405,11 +403,12 @@ public class CalculationViewBase extends AlphaNumGridView {
 		firstValBox = new HBox(firstValueLabel);
 		secondValBox = new HBox(operationLabel, secondValueLabel, equalsLabel);
 		resultLabels = new StackPane();
+		resultLabels.getStyleClass().add("result-text");
 		
 		formatHBox(firstValBox);
 		formatHBox(secondValBox);
 		
-		GridPane.setConstraints(resultLabels, tfColumn, firstTFRow - 1, GridPane.getColumnSpan(this.getTextFieldMap().get(TF_KEY)), 1, HPos.RIGHT, VPos.CENTER, Priority.NEVER, Priority.NEVER, null);
+		GridPane.setConstraints(resultLabels, tfColumn, firstTFRow - 1, GridPane.getColumnSpan(this.getTextFieldMap().get(TF_KEY)), 1, HPos.RIGHT, VPos.CENTER, Priority.SOMETIMES, Priority.SOMETIMES, null);
 		
 		GridPane.setConstraints(baseLabel, GridPane.getColumnIndex(this.getTextFieldMap().get(TF_KEY)) + GridPane.getColumnSpan(this.getTextFieldMap().get(TF_KEY)), firstTFRow);
 		GridPane.setFillHeight(baseLabel, false);
@@ -435,11 +434,17 @@ public class CalculationViewBase extends AlphaNumGridView {
 	public void positionValuesVertical() {
 		resultLabels.getChildren().clear();
 		try {
-			firstValBox.getChildren().add(equals2Label);
+			Label equalsLabel = (Label) this.getNodeMap().get(equalsLabelKey());
+			secondValBox.getChildren().remove(equalsLabel);
+			GridPane.setConstraints(equalsLabel, GridPane.getColumnIndex(this.getNodeMap().get(this.baseLabelKey())), GridPane.getRowIndex(this.getNodeMap().get(this.baseLabelKey())) - 1);
+			GridPane.setValignment(equalsLabel, VPos.BOTTOM);
+			center.getChildren().add(equalsLabel);
 		} catch (Exception e) { /* ignore */ }
 		
 		VBox box = new VBox(firstValBox, secondValBox);
 		box.setSpacing(this.vgapProperty.get());
+		
+		getTextFieldMap().get(this.tfKey()).setId("BIN-RESULT");
 		
 		resultLabels.getChildren().add(box);
 		addRowConstraint(firstTFRow - 1, createRowConstraintsFromNode(resultLabels));
@@ -451,11 +456,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 	public void positionValuesHorizontal() {
 		resultLabels.getChildren().clear();
 		try {
-			firstValBox.getChildren().remove(equals2Label);
+			Label equalsLabel = (Label) this.getNodeMap().get(equalsLabelKey());
+			center.getChildren().remove(equalsLabel);
+			secondValBox.getChildren().add(equalsLabel);
 		} catch (Exception e) { /* Ignore */ }
 		
 		HBox box = new HBox(firstValBox, secondValBox);
 		formatHBox(box);
+		
+		getTextFieldMap().get(this.tfKey()).setId(null);
 		
 		resultLabels.getChildren().add(box);
 		addRowConstraint(GridPane.getRowIndex(resultLabels), createRowConstraintsFromNode(resultLabels));

@@ -262,7 +262,6 @@ public class BitoperationView extends CalculationViewBase {
 		
 		createBitOperators();
 		createBitLength();
-		moveButtons();
 		
 		addColumnConstraint(6, ConstraintType.BUTTON_COLUMN);
 		addColumnConstraint(7, ConstraintType.BUTTON_COLUMN);
@@ -316,19 +315,6 @@ public class BitoperationView extends CalculationViewBase {
 		center.getChildren().add(bitLength);
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	private void moveButtons() {
-//		// +/- Button ausblenden und entfernen
-//		this.getButtonMap().get(signBtnKey()).setVisible(false);
-//		try { center.getChildren().remove(this.getButtonMap().get(signBtnKey())); } catch (Exception e) { /* ignore */ }
-//		
-//		// 0 Button vergrößern
-//		GridPane.setColumnSpan(this.getButtonMap().get(zeroBtnKey()), 2);
-//		GridPane.setColumnIndex(this.getButtonMap().get(zeroBtnKey()), GridPane.getColumnIndex(this.getButtonMap().get(zeroBtnKey())) - 1);
-	}
-	
 }
 
 

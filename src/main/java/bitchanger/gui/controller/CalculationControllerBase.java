@@ -18,8 +18,10 @@ import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.CalculationViewBase;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
+import javafx.beans.binding.StringExpression;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -29,6 +31,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -67,6 +70,10 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/** <!-- $LANGUAGE=DE -->	Merker für die Anzeige eines Rechenergebnisses im Textfeld */
 	// TODO JavaDoc EN
 	protected boolean isShowingResult;
+	
+	/** <!-- $LANGUAGE=DE --> 	Merker für das löschen von {@link #lastOperation} beim zweiten Klick auf den Button {@link #clearBtn} */
+	// TODO JavaDoc EN
+	protected boolean isCleared;
 	
 	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die ausgeführt werden soll */
 	// TODO: JavaDoc EN
@@ -123,10 +130,6 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/** <!-- $LANGUAGE=DE -->	Label für die Basis des Ergebnisses */
 	// TODO JavaDoc EN
 	private Label baseLabel;
-	
-	/** <!-- $LANGUAGE=DE --> 	Merker für das löschen von {@link #lastOperation} beim zweiten Klick auf den Button {@link #clearBtn} */
-	// TODO JavaDoc EN
-	private boolean cleared;
 	
 	/**	<!-- $LANGUAGE=DE -->	Button, der die Backspace-Taste auf der Tastatur simuliert */
 	/*	<!-- $LANGUAGE=DE -->	Button that simulate the backspace key */
@@ -195,7 +198,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		this.lastOperation = Operation.UNDEFINED;
 		this.baseProperty = new SimpleIntegerProperty(10);
 		this.isShowingResult = false;
-		this.cleared = false;
+		this.isCleared = false;
 		
 		this.value1.baseProperty().bind(baseProperty);
 		this.value2.baseProperty().bind(baseProperty);
@@ -227,6 +230,43 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
+// 	#	abstract Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
+	// TODO JavaDoc
+	protected abstract StringExpression getResultString();
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	protected abstract StringExpression getValue1String();
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	protected abstract StringExpression getValue2String();
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	protected abstract void parseValue(ChangeableNumber value) throws NumberOverflowException;
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	protected abstract void updateCalcLabels();
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	protected abstract void calculate() throws NumberOverflowException, Exception;
+	
+
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
 // 	#	Getter and Setter																											 #
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -235,11 +275,10 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/**	{@inheritDoc} */
 	@Override
 	public void setActions() {
-		setTextFieldActions();
 		setSpinnerActions();
 		setButtonActions();
 		
-		consumeEnterKeyEvent();
+		consumeKeyEvents();
 		setInitialState();
 		
 		textField.getBaseProperty().bind(anyBase.valueProperty());
@@ -327,28 +366,8 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-// TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
-	
 	// TODO JavaDoc
-	private void setTextFieldActions() {
-		textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if(isShowingResult && (event.getCode().isDigitKey() || event.getCode().isLetterKey() || event.getCode().equals(KeyCode.BACK_SPACE))) {
-					isShowingResult = false;
-					textField.clear();
-					
-					if (operation.isUndefined()) {
-						clearCalcLabels();
-					}
-				}
-			}
-		});
-	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
-	public void clearCalcLabels() {
+	protected void clearCalcLabels() {
 		firstValueLabel.textProperty().unbind();
 		operationLabel.textProperty().unbind();
 		secondValueLabel.textProperty().unbind();
@@ -462,14 +481,31 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		clearBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				clearCalcLabels();
 				textField.clear();
 				
-				if(cleared) {
+				if(isShowingResult && operation.isUndefined()) {
+					StringExpression firstValText;
+					if(lastOperation.equals(Operation.NOT)) {
+						firstValText = new SimpleStringProperty(lastOperation.getSymbol() + " ");
+						firstValText = firstValText.concat(getValue1String());
+					} else {
+						firstValText = getValue1String().concat(" " + lastOperation.getSymbol() + " ");
+						firstValText = firstValText.concat(getValue2String());
+					}
+
+					firstValueLabel.textProperty().bind(firstValText);
+					operationLabel.setText("=");
+					secondValueLabel.textProperty().bind(getResultString());
+					equalsLabel.setText("");
+				} 
+				else {
+					equalsLabel.setText("");
+					clearCalcLabels();
 					lastOperation = Operation.UNDEFINED;
+					isCleared = true;
 				}
 				
-				cleared = true;
+				isShowingResult = false;
 			}
 		});
 	}
@@ -531,7 +567,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				cleared = false;
+				isCleared = false;
 				setFirstValue(o, firstValueText);
 			}
 		});
@@ -559,11 +595,6 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		
 		operation = o;
 	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	protected abstract void parseValue(ChangeableNumber value) throws NumberOverflowException;
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -615,16 +646,6 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 			}
 		});
 	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
-	// TODO JavaDoc
-	protected abstract void updateCalcLabels();
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
-	// TODO JavaDoc
-	protected abstract void calculate() throws NumberOverflowException, Exception;
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -691,7 +712,13 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	protected abstract void updateCalcLabelPos(int base);
+	private void updateCalcLabelPos(int base) {
+		if(base == 2) {
+			controllable.positionValuesVertical();
+		} else {
+			controllable.positionValuesHorizontal();
+		}
+	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -721,19 +748,10 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
-	private void consumeEnterKeyEvent() {
-		controllable.getScene().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				switch(event.getCode()) {
-				case ENTER:
-					equalsBtn.fire();
-					break;
-				default:
-					break;
-				}
-			}
-		});
+	private void consumeKeyEvents() {
+		addAccelerator(equalsBtn, KeyEvent.KEY_TYPED, new KeyCodeCombination(KeyCode.ENTER));
+		addAccelerator(clearBtn, KeyEvent.KEY_TYPED, new KeyCodeCombination(KeyCode.F12));
+		addAccelerator(clearBtn, KeyEvent.KEY_TYPED, new KeyCodeCombination(KeyCode.ESCAPE));
 	}
 
 	
@@ -745,7 +763,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 
-	protected enum Operation {
+	static protected enum Operation {
 		// TODO JavaDoc
 		ADD("+"),
 		SUBSTRACT("-"),

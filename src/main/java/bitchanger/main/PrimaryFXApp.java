@@ -11,10 +11,10 @@ package bitchanger.main;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BasicMenuBar;
-import bitchanger.gui.views.ConverterView;
-import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
+import bitchanger.gui.views.ConverterView;
+import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
@@ -270,6 +270,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
+		primaryStage.setFullScreenExitHint("Drücken Sie F11, um den Vollbildmodus zu beenden.");
 
 		this.converterView = new ConverterView();
 		this.ieeeView = new IEEEView();

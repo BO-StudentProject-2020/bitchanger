@@ -11,9 +11,12 @@ package bitchanger.gui.controller;
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.views.CalculatorView;
-import javafx.event.EventHandler;
+import javafx.beans.binding.StringExpression;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCharacterCombination;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 
 /**	<!-- $LANGUAGE=DE -->
  * Controller, der die Funktion für eine {@linkplain CalculatorView} bereitstellt.
@@ -131,6 +134,31 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+	
+	
+	// TODO JavaDoc
+	@Override
+	protected StringExpression getResultString() {
+		return this.result.stringProperty();
+	}
+
+//	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	@Override
+	protected StringExpression getValue1String() {
+		return this.value1.stringProperty();
+	}
+
+//	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	@Override
+	protected StringExpression getValue2String() {
+		return this.value2.stringProperty();
+	}
+
+//	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
 	@Override
@@ -146,18 +174,6 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 		}
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	@Override
-	protected void updateCalcLabelPos(int base) {
-		if(base == 2) {
-			controllable.positionValuesVertical();
-		} else {
-			controllable.positionValuesHorizontal();
-		}
-	}
-	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	// TODO JavaDoc
@@ -233,34 +249,12 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 	
 	// TODO JavaDoc
 	private void consumeKeyEvents() {
-		controllable.getScene().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				switch(event.getCode()) {
-				case DIVIDE:
-				case SLASH:
-					divideBtn.fire();
-					break;
-				case MULTIPLY:
-				case STAR:
-					multiplyBtn.fire();
-					break;
-				case ADD:
-				case PLUS:
-					addBtn.fire();
-					break;
-				case SUBTRACT:
-				case MINUS:
-					subBtn.fire();
-					break;
-				default:
-					break;
-				}
-			}
-		});
+		addAccelerator(addBtn, new KeyCodeCombination(KeyCode.ADD), new KeyCodeCombination(KeyCode.PLUS));
+		addAccelerator(subBtn, new KeyCodeCombination(KeyCode.SUBTRACT), new KeyCodeCombination(KeyCode.MINUS));
+		addAccelerator(multiplyBtn, new KeyCodeCombination(KeyCode.MULTIPLY), new KeyCodeCombination(KeyCode.STAR));
+		addAccelerator(divideBtn, new KeyCodeCombination(KeyCode.DIVIDE), new KeyCodeCombination(KeyCode.SLASH));
+		addAccelerator(moduloBtn, new KeyCharacterCombination("%", KeyCombination.SHIFT_DOWN));
 	}
-	
-	
 
 }
 

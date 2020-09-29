@@ -44,7 +44,7 @@ public class CalculatorView extends CalculationViewBase {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	//TODO JavaDoc
-	private static final int FIRST_KEY_BTN_ROW = 6;
+	private static final int FIRST_KEY_BTN_ROW = 3;
 	
 	private static final int EQUAL_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 2;
 	private static final int EQUAL_BTN_ROW = FIRST_KEY_BTN_ROW + 3;

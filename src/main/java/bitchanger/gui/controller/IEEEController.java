@@ -28,6 +28,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 
@@ -162,6 +164,9 @@ public class IEEEController extends ControllerBase<IEEEView> {
 		setTextFieldActions();
 		setButtonActions();
 		setInitialState();
+		
+		addAccelerator(clearBtn, KeyEvent.KEY_TYPED, new KeyCodeCombination(KeyCode.F12));
+		addAccelerator(clearBtn, KeyEvent.KEY_TYPED, new KeyCodeCombination(KeyCode.ESCAPE));
 	}
 
 	
@@ -436,8 +441,6 @@ public class IEEEController extends ControllerBase<IEEEView> {
 			}
 		});
 	}
-
-	
 	
 }
 

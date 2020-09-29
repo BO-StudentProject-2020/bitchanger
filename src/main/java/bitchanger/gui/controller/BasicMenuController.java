@@ -24,6 +24,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -158,6 +160,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		showAboutAction();
 		showVersionAction();
 		resetPreferencesAction();
+		
+		// Tastaturabfragen
+		consumeKeyEvents();
 	}
 
 
@@ -213,12 +218,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		application.getPrimaryStage().fullScreenProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean isFullscreen) {
-				if(isFullscreen) {
-					showFullscreen.setSelected(true);
-				}
-				else {
-					showFullscreen.setSelected(false);
-				}
+				showFullscreen.setSelected(isFullscreen);
 			}
 		});
 	}
@@ -315,6 +315,18 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 			screenNum++;
 		}
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void consumeKeyEvents() {
+		modusConverter.setAccelerator(new KeyCodeCombination(KeyCode.F2));
+		modusIEEE.setAccelerator(new KeyCodeCombination(KeyCode.F3));
+		modusCalculator.setAccelerator(new KeyCodeCombination(KeyCode.F4));
+		modusBitoperations.setAccelerator(new KeyCodeCombination(KeyCode.F5));
+		showFullscreen.setAccelerator(new KeyCodeCombination(KeyCode.F11));
+	}
+	
 }
 
 

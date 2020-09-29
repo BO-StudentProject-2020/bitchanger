@@ -38,7 +38,7 @@
 
 .text-field {
 	-fx-font-size: 18px;
-	-fx-font-weight: bold;
+ 	-fx-font-weight: bold;
 }
 
 .text-input {
@@ -46,11 +46,25 @@
 }
 
 .value-field {
+	-fx-font-size: 25px;
 	-fx-font-weight: bold;
+}
+
+.result-text {
+	-fx-padding: 0 5 0 0;
+	-fx-font-weight: bold;
+}
+
+#BIN-RESULT {
+	-fx-padding: 3 5 4 5;
 }
 
 .combo-box {
 	-fx-font-size: 18px;
+}
+
+.combo-box > .list-cell {
+	-fx-padding: 8;
 }
 
 .button {

@@ -31,6 +31,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**	<!-- $LANGUAGE=DE -->
@@ -193,6 +195,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		setButtonActions();
 		setInitialState();
 		updateIndicateFractionalPrecision();
+		
+		addAccelerator(clearBtn, KeyEvent.KEY_TYPED, new KeyCodeCombination(KeyCode.F12));
+		addAccelerator(clearBtn, KeyEvent.KEY_PRESSED, new KeyCodeCombination(KeyCode.ESCAPE));
 	}
 
 	

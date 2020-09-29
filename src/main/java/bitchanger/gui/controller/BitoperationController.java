@@ -8,6 +8,8 @@
 
 package bitchanger.gui.controller;
 
+import java.util.Optional;
+
 import bitchanger.calculations.BitLength;
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.NumberOverflowException;
@@ -16,14 +18,19 @@ import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.FXUtils;
+import javafx.beans.binding.StringExpression;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCharacterCombination;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
@@ -175,6 +182,7 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		
 		setUnfocusComboBoxBitLength();
 		
+		consumeKeyEvents();
 		setBindingsAndListeners();
 		setInitialState();
 	}
@@ -187,7 +195,31 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 // 	#	Methods   																													 #
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	// TODO JavaDoc
+	@Override
+	protected StringExpression getResultString() {
+		return this.result.logicStringProperty();
+	}
 
+//	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	@Override
+	protected StringExpression getValue1String() {
+		return this.value1.logicStringProperty();
+	}
+
+//	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	@Override
+	protected StringExpression getValue2String() {
+		return this.value2.logicStringProperty();
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
 	@Override
@@ -283,18 +315,6 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 			throw noe;
 		} catch (Exception e) {
 			throw e;
-		}
-	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	@Override
-	protected void updateCalcLabelPos(int base) {
-		if(base == 2 && !lastOperation.equals(Operation.NOT)) {
-			controllable.positionValuesVertical();
-		} else {
-			controllable.positionValuesHorizontal();
 		}
 	}
 	
@@ -505,11 +525,26 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
 		Preferences.getPrefs().bitLengthProperty().bind(bitLength.getSelectionModel().selectedItemProperty());
 		
-		
 		Preferences.getPrefs().bitLengthProperty().addListener(new ChangeListener<BitLength>() {
 			@Override
 			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
 				checkUnsignedBitLength();
+
+				// Warnung und Löschen aller Eingaben beim verkleinern der Bitlänge
+				if (!isCleared && newValue.getNumberOfBits() < oldValue.getNumberOfBits()) {
+					boolean warningDeactivated = Preferences.getPrefs().bitLengthDeleteWarningDeactivatedProperty().get();
+					Optional<ButtonType> warningResult = FXUtils.showDeactivatableDialog(AlertType.WARNING, "Warnung", "Achtung", "Beim Verkleinern der Bitlänge gehen alle bisherigen Eingaben verloren!", Preferences.getPrefs().bitLengthDeleteWarningDeactivatedProperty(), ButtonType.CANCEL, ButtonType.OK);
+					
+					if(warningDeactivated || (warningResult.isPresent() && warningResult.get().equals(ButtonType.OK))) {
+						value1.set(0);
+						value2.set(0);
+						result.set(0);
+						clearBtn.fire();
+						clearBtn.fire();
+					} else {
+						bitLength.getSelectionModel().select(oldValue);
+					}
+				}
 			}
 		});
 		
@@ -529,12 +564,12 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 
 	// TODO JavaDoc
 	private void checkUnsignedBitLength() {
-		if(Preferences.getPrefs().bitLengthProperty().get().equals(BitLength._64_BIT) && Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
-			Alert dialog = new Alert(AlertType.INFORMATION);
-			dialog.setTitle("Hinweis");
-			dialog.setHeaderText("Achtung");
-			dialog.setContentText("Bei vorzeichenlosen Bitoperationen ist die Bitlänge auf maximal 63 Bit begrenzt.");
-			dialog.showAndWait();
+		boolean is64Bit = Preferences.getPrefs().bitLengthProperty().get().equals(BitLength._64_BIT);
+		boolean isUnsigned = Preferences.getPrefs().useUnsignedBitOperationProperty().get();
+		
+		if(is64Bit && isUnsigned) {
+			String message = "Bei vorzeichenlosen Bitoperationen ist die Bitlänge auf maximal 63 Bit begrenzt.";
+			FXUtils.showDeactivatableDialog(AlertType.INFORMATION, "Hinweis", "Achtung", message, Preferences.getPrefs().unsignedBitLengthWarningDeactivatedProperty());
 		}
 	}
 	
@@ -559,6 +594,19 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		textField.positionCaret(textField.getLength());
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void consumeKeyEvents() {
+		addAccelerator(andBtn, new KeyCharacterCombination("&", KeyCombination.SHIFT_DOWN));
+		addAccelerator(orBtn, new KeyCharacterCombination("|", KeyCombination.ALT_DOWN, KeyCombination.CONTROL_DOWN));
+		addAccelerator(notBtn, new KeyCharacterCombination("!", KeyCombination.SHIFT_DOWN));
+		addAccelerator(nandBtn, new KeyCharacterCombination("&", KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN));
+		addAccelerator(norBtn, new KeyCharacterCombination("|", KeyCombination.SHIFT_DOWN));
+		addAccelerator(xorBtn, new KeyCodeCombination(KeyCode.CIRCUMFLEX));	// TODO "^"-Taste reagiert nicht
+		addAccelerator(shiftLeftBtn, new KeyCharacterCombination("<"));
+		addAccelerator(shiftRightBtn, new KeyCharacterCombination(">", KeyCombination.SHIFT_DOWN));
+	}
 	
 }
 
