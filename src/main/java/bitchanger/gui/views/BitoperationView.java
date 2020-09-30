@@ -48,14 +48,14 @@ public class BitoperationView extends CalculationViewBase {
 	//TODO JavaDoc
 	private static final int FIRST_KEY_BTN_ROW = 3;
 	
-	private static final int EQUAL_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 3;
-	private static final int EQUAL_BTN_ROW = FIRST_KEY_BTN_ROW + 3;
+	private static final int EQUAL_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 2;
+	private static final int EQUAL_BTN_ROW = 3;
 	
-	private static final int BACKSPACE_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 2;
-	private static final int BACKSPACE_BTN_ROW = FIRST_KEY_BTN_ROW;
+	private static final int BACKSPACE_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 1;
+	private static final int BACKSPACE_BTN_ROW = 0;
 	
-	private static final int CLEAR_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 3;
-	private static final int CLEAR_BTN_ROW = FIRST_KEY_BTN_ROW + 1;
+	private static final int CLEAR_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 2;
+	private static final int CLEAR_BTN_ROW = 1;
 	
 	
 	
@@ -262,13 +262,6 @@ public class BitoperationView extends CalculationViewBase {
 		
 		createBitOperators();
 		createBitLength();
-		
-		addColumnConstraint(6, ConstraintType.BUTTON_COLUMN);
-		addColumnConstraint(7, ConstraintType.BUTTON_COLUMN);
-		addColumnConstraint(8, ConstraintType.BUTTON_COLUMN);
-		addRowConstraint(firstTFRow - 1, ConstraintType.BUTTON_ROW);
-		addRowConstraint(firstTFRow + 1, ConstraintType.TEXT_FIELD_ROW);
-		addRowConstraint(firstKeyBtnRow - 1, ConstraintType.BUTTON_ROW);
 	}
 
 
@@ -293,9 +286,9 @@ public class BitoperationView extends CalculationViewBase {
 		
 		ArrayDeque<Node> logicNodes = getLogicNodes();
 		
-		FXUtils.setGridConstraints(firstKeyBtnColumn + AlphaNumKeys.COLUMN_COUNT, firstKeyBtnRow + 1, 2, 0, logicNodes);
+		FXUtils.setGridConstraints(AlphaNumKeys.COLUMN_COUNT, 1, 2, 0, logicNodes);
 		FXUtils.setMaxSizes(logicNodes, Double.MAX_VALUE);
-		center.getChildren().addAll(logicNodes);
+		buttonGrid.getChildren().addAll(logicNodes);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -307,12 +300,12 @@ public class BitoperationView extends CalculationViewBase {
 		
 		bitLength.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		
-		GridPane.setColumnSpan(bitLength, 2);
-		GridPane.setConstraints(bitLength, firstKeyBtnColumn + AlphaNumKeys.COLUMN_COUNT - 1, firstKeyBtnRow);
+		GridPane.setColumnSpan(bitLength, 3);
+		GridPane.setConstraints(bitLength, AlphaNumKeys.COLUMN_COUNT - 2, 0);
 		
 		this.getNodeMap().put(bitLengthKey(), bitLength);
 		
-		center.getChildren().add(bitLength);
+		buttonGrid.getChildren().add(bitLength);
 	}
 
 }

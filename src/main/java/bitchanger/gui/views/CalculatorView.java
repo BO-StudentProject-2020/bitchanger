@@ -46,18 +46,18 @@ public class CalculatorView extends CalculationViewBase {
 	//TODO JavaDoc
 	private static final int FIRST_KEY_BTN_ROW = 3;
 	
-	private static final int EQUAL_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 2;
-	private static final int EQUAL_BTN_ROW = FIRST_KEY_BTN_ROW + 3;
+	private static final int EQUAL_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 1;
+	private static final int EQUAL_BTN_ROW = 3;
 	private static final int EQUAL_BTN_COLUMN_SPAN = 1;
 	private static final int EQUAL_BTN_ROW_SPAN = 2;
 	
-	private static final int BACKSPACE_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 1;
-	private static final int BACKSPACE_BTN_ROW = FIRST_KEY_BTN_ROW;
+	private static final int BACKSPACE_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT;
+	private static final int BACKSPACE_BTN_ROW = 0;
 	private static final int BACKSPACE_BTN_COLUMN_SPAN = 2;
 	private static final int BACKSPACE_BTN_ROW_SPAN = 1;
 	
-	private static final int CLEAR_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 2;
-	private static final int CLEAR_BTN_ROW = FIRST_KEY_BTN_ROW + 1;
+	private static final int CLEAR_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 1;
+	private static final int CLEAR_BTN_ROW = 1;
 	private static final int CLEAR_BTN_COLUMN_SPAN = 1;
 	private static final int CLEAR_BTN_ROW_SPAN = 1;
 	
@@ -204,12 +204,6 @@ public class CalculatorView extends CalculationViewBase {
 		super.createScenegraph();
 		
 		createArithmeticOperators();
-		
-		addColumnConstraint(6, ConstraintType.BUTTON_COLUMN);
-		addColumnConstraint(7, ConstraintType.BUTTON_COLUMN);
-		addRowConstraint(firstTFRow - 1, ConstraintType.BUTTON_ROW);
-		addRowConstraint(firstTFRow + 1, ConstraintType.TEXT_FIELD_ROW);
-		addRowConstraint(firstKeyBtnRow - 1, ConstraintType.BUTTON_ROW);
 	}
 
 
@@ -234,15 +228,15 @@ public class CalculatorView extends CalculationViewBase {
 			arithmeticButtons.add(this.getButtonMap().get(key));
 		}
 		
-		FXUtils.setGridConstraints(firstKeyBtnColumn + AlphaNumKeys.COLUMN_COUNT, this.firstKeyBtnRow + 1, 1, 0, arithmeticButtons);
+		FXUtils.setGridConstraints(AlphaNumKeys.COLUMN_COUNT, 1, 1, 0, arithmeticButtons);
 		FXUtils.setMaxSizes(arithmeticButtons, Double.MAX_VALUE);
 		
-		center.getChildren().addAll(arithmeticButtons);
+		buttonGrid.getChildren().addAll(arithmeticButtons);
 
 		Button modBtn = getButtonMap().get(moduloBtnKey());
-		GridPane.setConstraints(modBtn, EQUAL_BTN_COLUMN, firstKeyBtnRow + 2);
+		GridPane.setConstraints(modBtn, EQUAL_BTN_COLUMN, 2);
 		modBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		center.getChildren().add(modBtn);
+		buttonGrid.getChildren().add(modBtn);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*

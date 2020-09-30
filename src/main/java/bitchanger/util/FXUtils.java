@@ -402,7 +402,7 @@ public class FXUtils {
 	public static Optional<ButtonType> showDeactivatableDialog(AlertType dialogType, String headerText, String message, BooleanProperty deactivateDialogProperty, ButtonType... buttonTypes) {
 		return showDeactivatableDialog(dialogType, null, headerText, message, deactivateDialogProperty, buttonTypes);
 	}
-	
+
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

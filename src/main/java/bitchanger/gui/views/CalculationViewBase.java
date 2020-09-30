@@ -308,18 +308,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 		super.createScenegraph();
 		
 		TextField tf = this.getTextFieldMap().get(TF_KEY);
-		GridPane.setColumnSpan(tf, equalBtnColumn + equalBtnColumnSpan - GridPane.getColumnIndex(this.getTextFieldMap().get(TF_KEY)));
 		tf.setAlignment(Pos.CENTER_RIGHT);
 		
 		createButtons();
 		createBaseButtons();
 		createLabels();
 		
-		addColumnConstraint(6, ConstraintType.BUTTON_COLUMN);
-		addColumnConstraint(7, ConstraintType.BUTTON_COLUMN);
-		addRowConstraint(firstTFRow - 1, ConstraintType.BUTTON_ROW);
-		addRowConstraint(firstTFRow + 1, ConstraintType.TEXT_FIELD_ROW);
-		addRowConstraint(firstKeyBtnRow - 1, ConstraintType.BUTTON_ROW);
+		addRowConstraint(center, firstTFRow - 1, ConstraintType.BUTTON_ROW);
+		addRowConstraint(center, firstTFRow + 1, ConstraintType.TEXT_FIELD_ROW);
+		addRowConstraint(center, firstKeyBtnRow - 1, ConstraintType.BUTTON_ROW);
 	}
 
 
@@ -343,7 +340,7 @@ public class CalculationViewBase extends AlphaNumGridView {
 		GridPane.setRowSpan(equalsBtn, equalBtnRowSpan);
 		
 		this.getButtonMap().put(equalsBtnKey(), equalsBtn);
-		center.getChildren().add(equalsBtn);
+		buttonGrid.getChildren().add(equalsBtn);
 		
 		// Backspace Button
 		Button backspaceBtn = getButtonMap().get(backspaceBtnKey());
@@ -447,7 +444,7 @@ public class CalculationViewBase extends AlphaNumGridView {
 		getTextFieldMap().get(this.tfKey()).setId("BIN-RESULT");
 		
 		resultLabels.getChildren().add(box);
-		addRowConstraint(firstTFRow - 1, createRowConstraintsFromNode(resultLabels));
+		addRowConstraint(center, firstTFRow - 1, createRowConstraintsFromNode(resultLabels));
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -467,7 +464,7 @@ public class CalculationViewBase extends AlphaNumGridView {
 		getTextFieldMap().get(this.tfKey()).setId(null);
 		
 		resultLabels.getChildren().add(box);
-		addRowConstraint(GridPane.getRowIndex(resultLabels), createRowConstraintsFromNode(resultLabels));
+		addRowConstraint(center, GridPane.getRowIndex(resultLabels), createRowConstraintsFromNode(resultLabels));
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*

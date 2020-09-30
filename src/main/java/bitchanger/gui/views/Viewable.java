@@ -12,6 +12,7 @@ import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controls.BasicMenuBar;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 
@@ -172,6 +173,70 @@ public interface Viewable extends Controllable {
 	 */
 	public abstract double getMinWidth();
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Gibt die Property für maximale Höhe der View zurück
+	 * 
+	 * @return Property für die maximale Höhe der View
+	 * 
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Property for the maximum height of the view
+	 * 
+	 * @return Property for maximum height of the view
+	 * 
+	 */
+	public abstract DoubleProperty maxHeigthProperty();
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/**	<!-- $LANGUAGE=DE -->
+	 * Gibt die Property für maximale Breite der View zurück
+	 * 
+	 * @return Property für die maximale Breite der View
+	 * 
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Property for the maximum width of the view
+	 * 
+	 * @return Property for maximum width of the view
+	 * 
+	 */
+	public abstract DoubleProperty maxWidthProperty();
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/**	<!-- $LANGUAGE=DE -->
+	 * Gibt die Property für minimale Höhe der View zurück
+	 * 
+	 * @return Property für die minimale Höhe der View
+	 * 
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Property for the minimum height of the view
+	 * 
+	 * @return Property for minimum height of the view
+	 * 
+	 */
+	public abstract DoubleProperty minHeigthProperty();
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/**	<!-- $LANGUAGE=DE -->
+	 * Gibt die Property für minimale Breite der View zurück
+	 * 
+	 * @return Property für die minimale Breite der View
+	 * 
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Property for the minimum width of the view
+	 * 
+	 * @return Property for minimum width of the view
+	 * 
+	 */
+	public abstract DoubleProperty minWidthProperty();
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->

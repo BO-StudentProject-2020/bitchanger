@@ -23,6 +23,7 @@ import bitchanger.util.Resources;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -209,6 +210,10 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE --> Tabelle im Center von {@code root}, in der alle Controls positioniert werden */
 	// TODO JavaDoc EN
 	protected final GridPane center;
+	
+	/** <!-- $LANGUAGE=DE --> Tabelle, in der alle Buttons positioniert werden */
+	// TODO JavaDoc EN
+	protected final GridPane buttonGrid;
 
 	/** <!-- $LANGUAGE=DE --> Buttons, die als alpha-numerische Tastatur dienen, die für verschiedene Zahlensysteme ausgelegt ist. */
 	// TODO JavaDoc EN
@@ -220,6 +225,23 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE --> Map, in der die angezeigten Texte oder Icons für die Buttons definiert werden. */
 	// TODO JavaDoc EN
 	private final HashMap<String, Object> btnTexts;
+	
+	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Buttons in dieser View */
+	// TODO JavaDoc EN
+	private final DoubleProperty maxHeigthProperty;
+
+	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Buttons in dieser View */
+	// TODO JavaDoc EN
+	private final DoubleProperty minHeigthProperty;
+
+	/** <!-- $LANGUAGE=DE --> Property für die maximale Breite der Buttons in dieser View */
+	// TODO JavaDoc EN
+	private final DoubleProperty maxWidthProperty;
+
+	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
+	// TODO JavaDoc EN
+	private final DoubleProperty minWidthProperty;
+	
 	
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -278,7 +300,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			int firstKeyBtnColumn, String[] labelTexts, String... tfKeys) {
 		
 		this(firstLabelRow, labelColumn, firstTFRow, tfColumn, firstKeyBtnRow, firstKeyBtnColumn, labelTexts, 
-				tfKeys, 40, Double.MAX_VALUE, 50, 40, 70, 20, 6);
+				tfKeys, 40, Double.MAX_VALUE, 45, 40, 70, 20, 6);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -369,6 +391,11 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.hgapProperty = new SimpleDoubleProperty(hgap);
 		this.vgapProperty = new SimpleDoubleProperty(vgap);
 		
+		this.minHeigthProperty = new SimpleDoubleProperty();
+		this.maxHeigthProperty = new SimpleDoubleProperty();
+		this.minWidthProperty = new SimpleDoubleProperty();
+		this.maxWidthProperty = new SimpleDoubleProperty();
+		
 		this.firstTFRow = (firstTFRow >= 0 && tfColumn >= 0) ? firstTFRow : -1;
 		this.tfColumn = (firstTFRow >= 0 && tfColumn >= 0) ? tfColumn : -1;
 		this.firstLabelRow = (firstLabelRow >= 0 && labelColumn >= 0) ? firstLabelRow : -1;
@@ -395,7 +422,11 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.btnTexts.put(backspaceBtnKey, backSpaceIcon == null ? "<--" : backSpaceIcon);
 
 		this.center = new GridPane();
-		this.alphaNum = new AlphaNumKeys(firstKeyBtnRow + 1, firstKeyBtnColumn, btnSpacingProperty, this.scene);
+		this.buttonGrid = new GridPane();
+		
+		this.alphaNum = new AlphaNumKeys(1, 0, btnSpacingProperty, this.scene);
+		
+		observeSize();
 	}
 	
 	
@@ -406,6 +437,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
 	/** {@inheritDoc} */
 	@Override
 	public double getMaxHeigth() {
@@ -455,6 +487,38 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		minWidth += (center.getColumnCount() - 1) * center.getVgap();
 		
 		return minWidth + 10;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** {@inheritDoc} */
+	@Override
+	public DoubleProperty maxHeigthProperty() {
+		return this.maxHeigthProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** {@inheritDoc} */
+	@Override
+	public DoubleProperty maxWidthProperty() {
+		return this.maxWidthProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** {@inheritDoc} */
+	@Override
+	public DoubleProperty minHeigthProperty() {
+		return this.minHeigthProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** {@inheritDoc} */
+	@Override
+	public DoubleProperty minWidthProperty() {
+		return this.minWidthProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -622,13 +686,16 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 		// Textfelder erstellen und in die GridPane einfügen
 		createTextFields();
-
+		
+		// buttonGrid formatieren
+		formatButtonGrid();
+		
 		// Buttons erstellen und in die GridPane einfügen
 		createButtonMatrix();
 
 		// Constraints für Größe und Wachstum setzen
 		setRowConstraints();
-		setColumnConstraints();
+		addColumnConstraint(center, 0, ConstraintType.FIRST_COLUMN);
 
 		// GridPane formatieren
 		updatePadding(null, null, null);
@@ -650,6 +717,19 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
+	// TODO JavaDoc
+	private void observeSize() {
+		// TODO Größen berechnen
+		center.getRowConstraints().addListener(new ListChangeListener<RowConstraints>(){
+			@Override
+			public void onChanged(Change<? extends RowConstraints> c) {
+				
+			}
+		});
+	}
+
+	
+	
 // GridPane Center	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	
 	/** <!-- $LANGUAGE=DE -->
@@ -663,7 +743,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	private void setRowConstraints() {
 		// RowConstraints für Zeilen mit Textfeldern
 		for (int i = firstTFRow; i < firstTFRow + getTextFieldMap().size(); i++) {
-			addRowConstraint(i, ConstraintType.TEXT_FIELD_ROW);
+			addRowConstraint(center, i, ConstraintType.TEXT_FIELD_ROW);
 		}
 
 		// Zeilen zwischen Textfeldern und Buttons
@@ -671,31 +751,47 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		int whitespaceEnd = Math.max(firstTFRow, firstKeyBtnRow);
 		
 		for (int i = firstWhitespaceRow; i < whitespaceEnd; i++) {
-			addRowConstraint(i, ConstraintType.WHITESPACE_ROW);
-		}
-
-		// RowConstraints für die Buttons
-		int btnStartRow = useClearAndBackBtn ? firstKeyBtnRow : firstKeyBtnRow + 1;
-		int btnEndRow = useClearAndBackBtn ? btnStartRow + AlphaNumKeys.ROW_COUNT + 1 : btnStartRow + AlphaNumKeys.ROW_COUNT;
-		
-		for (int i = btnStartRow; i < btnEndRow; i++) {
-			addRowConstraint(i, ConstraintType.BUTTON_ROW);
+			addRowConstraint(center, i, ConstraintType.WHITESPACE_ROW);
 		}
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt neue RowConstraints für die Zeile mit dem Index {@code rowIndex}, die an den ConstraintType angepasst sind.
+	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
+	 * anzupassen und die Properties maxHeightProperty und minHeightProperty mit den passenden Properties dieser AlphaNumGridView
+	 * bidirektional zu verbinden. Ist die übergebene GridPane das Attribut {@link #buttonGrid}, wird die Zeilenhöhe Prozentual angepasst.
+	 * 
+	 * @param grid		GridPane, der sie RowConstraints hinzugefügt werden
+	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
+	 * @param type		Typ der Zeile
+	 */
+	// TODO JavaDoc EN
+	protected void addRowConstraint(GridPane grid, int rowIndex, ConstraintType type) {
+		if(grid.equals(buttonGrid)) {
+			addRowConstraint(grid, rowIndex, type, true);
+			return;
+		}
+		
+		addRowConstraint(grid, rowIndex, type, false);
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue RowConstraints für die Zeile mit dem Index {@code rowIndex}, die an den ConstraintType angepasst sind.
 	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
 	 * anzupassen und die Properties maxHeightProperty und minHeightProperty mit den passenden Properties dieser AlphaNumGridView
 	 * bidirektional zu verbinden.
 	 * 
+	 * @param grid		GridPane, der sie RowConstraints hinzugefügt werden
 	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
 	 * @param type		Typ der Zeile
+	 * @param usePercentHeigth	{@code true}, wenn die Zeilenhöhe gleichmäßig prozentual verteilt werden soll, sonst {@code false}
 	 */
 	// TODO JavaDoc EN
-	protected void addRowConstraint(int rowIndex, ConstraintType type) {
+	protected void addRowConstraint(GridPane grid, int rowIndex, ConstraintType type, boolean usePercentHeigth) {
 		if(rowIndex < 0) {
 			return;
 		}
@@ -724,59 +820,38 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			return;
 		}
 		
-		addRowConstraint(rowIndex, rowc);
+		if(usePercentHeigth) rowc.setPercentHeight(100.0 / grid.getRowCount());
+		
+		addRowConstraint(grid, rowIndex, rowc);
 	}
-	
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Legt die übergebenen RowConstraints für die Zeile mit dem Index {@code rowIndex} fest.
 	 * 
+	 * @param grid		GridPane, der sie RowConstraints hinzugefügt werden
 	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
 	 * @param rowc		neue RowConstrains, die hinzugefügt werden
 	 */
 	// TODO JavaDoc EN
-	protected void addRowConstraint(int rowIndex, RowConstraints rowc) {
+	protected void addRowConstraint(GridPane grid, int rowIndex, RowConstraints rowc) {
 		if(rowIndex < 0) {
 			return;
 		}
 		
 		// Constraints auffüllen, wenn vorherige Constraints fehlen
-		while(rowIndex > center.getRowConstraints().size()) {
-			center.getRowConstraints().add(new RowConstraints());
+		while(rowIndex > grid.getRowConstraints().size()) {
+			grid.getRowConstraints().add(new RowConstraints());
 		}
 		
 		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
 		try {
-			center.getRowConstraints().remove(rowIndex);
+			grid.getRowConstraints().remove(rowIndex);
 		} catch (Exception e) { /* ignore */ }
 		
 		// Constraints hinzufügen
-		center.getRowConstraints().add(rowIndex, rowc);
-	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/** <!-- $LANGUAGE=DE -->
-	 * Setzt alle {@code ColumnConstraints} für center.
-	 * <p>
-	 * Es werden Breite der Spalten, sowie Anordnung und das Größenwachstum für alle Spalten der GridPane eingestellt.
-	 * </p>
-	 * <p><b>
-	 * Verbindet die Properties {@code maxWidthProperty} und {@code minWidthProperty} der ColumnConstraints bidirektional 
-	 * mit der Property {@link #firstColumnWidthProperty} für die erste Spalte und mit den Properties {@link #btnMaxWidthProperty}
-	 * und {@link #btnMinWidthProperty} für alle weitere Spalten.
-	 * </b></p>
-	 */
-	// TODO JavaDoc EN
-	private void setColumnConstraints() {
-		// ColumnConstraints für erste Spalte
-		addColumnConstraint(0, ConstraintType.FIRST_COLUMN);
-
-		// ColumnConstraints für Spalten mit Buttons
-		for (int i = firstKeyBtnColumn; i < firstKeyBtnColumn + AlphaNumKeys.COLUMN_COUNT; i++) {
-			addColumnConstraint(i, ConstraintType.BUTTON_COLUMN);
-		}
+		grid.getRowConstraints().add(rowIndex, rowc);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -785,13 +860,37 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * Erstellt neue ColumnConstraints für die Spalte mit dem Index {@code columnIndex}, die an den ConstraintType angepasst sind.
 	 * Der ConstraintType bestimmt, ob es sich um die erste Spalte oder um eine Spalte mit Buttons handelt, um Hgrow
 	 * anzupassen und die Properties maxWidthProperty und minWidthProperty mit den passenden Properties dieser AlphaNumGridView
-	 * bidirektional zu verbinden.
+	 * bidirektional zu verbinden. Ist die übergebene GridPane das Attribut {@link #buttonGrid}, wird die Spaltenbreite Prozentual angepasst.
 	 * 
+	 * @param grid			GridPane, der sie ColumnConstraints hinzugefügt werden
 	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
 	 * @param type			Typ der Spalte
 	 */
 	// TODO JavaDoc EN
-	protected void addColumnConstraint(int columnIndex, ConstraintType type) {
+	protected void addColumnConstraint(GridPane grid, int columnIndex, ConstraintType type) {
+		if(grid.equals(buttonGrid)) {
+			addColumnConstraint(grid, columnIndex, type, true);
+			return;
+		}
+		
+		addColumnConstraint(grid, columnIndex, type, false);
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt neue ColumnConstraints für die Spalte mit dem Index {@code columnIndex}, die an den ConstraintType angepasst sind.
+	 * Der ConstraintType bestimmt, ob es sich um die erste Spalte oder um eine Spalte mit Buttons handelt, um Hgrow
+	 * anzupassen und die Properties maxWidthProperty und minWidthProperty mit den passenden Properties dieser AlphaNumGridView
+	 * bidirektional zu verbinden.
+	 * 
+	 * @param grid			GridPane, der sie ColumnConstraints hinzugefügt werden
+	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
+	 * @param type			Typ der Spalte
+	 * @param usePercentWidth	{@code true}, wenn die Spaltenbreite gleichmäßig prozentual verteilt werden soll, sonst {@code false}
+	 */
+	// TODO JavaDoc EN
+	protected void addColumnConstraint(GridPane grid, int columnIndex, ConstraintType type, boolean usePercentWidth) {
 		if(columnIndex < 0) {
 			return;
 		}
@@ -818,19 +917,38 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			return;
 		}
 		
+		addColumnConstraint(grid, columnIndex, column);
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Legt die übergebenen ColumnConstraints für die Spalte mit dem Index {@code columnIndex} fest.
+	 * 
+	 * @param grid			GridPane, der sie ColumnConstraints hinzugefügt werden
+	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
+	 * @param column		ColumnConstranits, die hinzugefügt werden
+	 */
+	// TODO JavaDoc EN
+	protected void addColumnConstraint(GridPane grid, int columnIndex, ColumnConstraints column) {
+		if(columnIndex < 0) {
+			return;
+		}
+		
 		// Constraints auffüllen, wenn vorherige Constraints fehlen
 		while(columnIndex > center.getColumnConstraints().size()) {
-			center.getColumnConstraints().add(new ColumnConstraints());
+			grid.getColumnConstraints().add(new ColumnConstraints());
 		}
 		
 		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
 		try {
-			center.getColumnConstraints().remove(columnIndex);
+			grid.getColumnConstraints().remove(columnIndex);
 		} catch (Exception e) { /* ignore */ }
 		
 		// Constraints hinzufügen
-		center.getColumnConstraints().add(columnIndex, column);
+		grid.getColumnConstraints().add(columnIndex, column);
 	}
+	
 	
 	
 // TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
@@ -877,7 +995,79 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 	
 // Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	
+	// TODO JavaDoc
+	private void formatButtonGrid() {
+		updateButtonConstraints();
+		
+		GridPane.setConstraints(buttonGrid, firstKeyBtnColumn, firstKeyBtnRow, AlphaNumKeys.COLUMN_COUNT, 5, HPos.CENTER, VPos.CENTER, Priority.ALWAYS, Priority.ALWAYS);
+		GridPane.setFillHeight(buttonGrid, true);
+		GridPane.setFillWidth(buttonGrid, true);
+		
+		buttonGrid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		buttonGrid.hgapProperty().bind(hgapProperty);
+		buttonGrid.vgapProperty().bind(vgapProperty);
+		
+		center.getChildren().add(buttonGrid);
+	}
 
+//	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void updateButtonConstraints() {
+		buttonGrid.getChildren().addListener(new ListChangeListener<Node>() {
+			private int lastRowCount = 0;
+			private int lastColumnCount = 0;
+			
+			@Override
+			public void onChanged(Change<? extends Node> c) {
+				if (buttonGrid.getRowCount() != lastRowCount) {
+					updateRowConstraints();
+					lastRowCount = buttonGrid.getRowCount();
+				}
+				
+				if (buttonGrid.getColumnCount() != lastColumnCount) {
+					updateColumnConstraints();
+					lastColumnCount = buttonGrid.getColumnCount();
+				}
+			}
+		});
+	}
+
+//	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void updateRowConstraints() {
+		buttonGrid.getRowConstraints().clear();
+		
+		for (int row = 0; row < buttonGrid.getRowCount(); row++) {
+			addRowConstraint(buttonGrid, row, ConstraintType.BUTTON_ROW);
+			addRowConstraint(center, row + GridPane.getRowIndex(buttonGrid), ConstraintType.BUTTON_ROW);
+		}
+		
+		GridPane.setRowSpan(buttonGrid, buttonGrid.getRowCount());
+	}
+
+//	 *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void updateColumnConstraints() {
+		buttonGrid.getColumnConstraints().clear();
+		
+		for (int column = 0; column < buttonGrid.getColumnCount(); column++) {
+			addColumnConstraint(buttonGrid, column, ConstraintType.BUTTON_COLUMN);
+			addColumnConstraint(center, column + GridPane.getColumnIndex(buttonGrid), ConstraintType.BUTTON_COLUMN);
+		}
+		
+		GridPane.setColumnSpan(buttonGrid, buttonGrid.getColumnCount());
+		
+		for(TextField tf : getTextFieldMap().values()) {
+			GridPane.setColumnSpan(tf, buttonGrid.getColumnCount());
+		}
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+		
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt alle benötigten Buttons und positioniert diese in der GridPane.
 	 * 
@@ -892,21 +1082,21 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 		if (useClearAndBackBtn) {
 			// Constraints für Position in der Tabelle setzen und in die Tabelle legen
-			FXUtils.setGridConstraints(firstKeyBtnColumn, firstKeyBtnRow, AlphaNumKeys.COLUMN_COUNT, 2, buttonList, center::add);
+			FXUtils.setGridConstraints(0, 0, AlphaNumKeys.COLUMN_COUNT, 2, buttonList, buttonGrid::add);
 		}
 		
 		// Tastaturfeld in die Tabelle legen (Constraints werden bereits in AlphaNumKeys gesetzt!)
-		center.getChildren().addAll(alphaNum.getButtonMatrix());
-
 		getButtonMap().putAll(alphaNum.getButtonMap());
-
+		buttonGrid.getChildren().addAll(alphaNum.getButtonMatrix());
+		
+		
 		// Maximale Größe der Buttons setzen
 		FXUtils.setMaxSizes(buttonList, Double.MAX_VALUE);
 		FXUtils.setMaxSizes(alphaNum.getButtonMatrix(), Double.MAX_VALUE);
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt die Buttons {@link #clearBtnKey} und {@link #backspaceBtnKey} und gibt diese in einer ArrayList zurück.
 	 * Alle Buttons werden auch in der Map für Buttons abgelegt.
