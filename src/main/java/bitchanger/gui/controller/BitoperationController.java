@@ -23,6 +23,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -31,6 +32,7 @@ import javafx.scene.input.KeyCharacterCombination;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
@@ -606,6 +608,15 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		addAccelerator(xorBtn, new KeyCodeCombination(KeyCode.CIRCUMFLEX));	// TODO "^"-Taste reagiert nicht
 		addAccelerator(shiftLeftBtn, new KeyCharacterCombination("<"));
 		addAccelerator(shiftRightBtn, new KeyCharacterCombination(">", KeyCombination.SHIFT_DOWN));
+		
+		addAccelerator(andBtn, (EventType<KeyEvent>)null, new KeyCodeCombination(KeyCode.F1, KeyCombination.SHIFT_DOWN), new KeyCodeCombination(KeyCode.F1, KeyCombination.CONTROL_DOWN));
+		addAccelerator(orBtn, (EventType<KeyEvent>)null, new KeyCodeCombination(KeyCode.F2, KeyCombination.SHIFT_DOWN), new KeyCodeCombination(KeyCode.F2, KeyCombination.CONTROL_DOWN));
+		addAccelerator(notBtn, (EventType<KeyEvent>)null, new KeyCodeCombination(KeyCode.F3, KeyCombination.SHIFT_DOWN), new KeyCodeCombination(KeyCode.F3, KeyCombination.CONTROL_DOWN));
+		addAccelerator(nandBtn, (EventType<KeyEvent>)null, new KeyCodeCombination(KeyCode.F4, KeyCombination.SHIFT_DOWN), new KeyCodeCombination(KeyCode.F4, KeyCombination.CONTROL_DOWN));
+		addAccelerator(norBtn, (EventType<KeyEvent>)null, new KeyCodeCombination(KeyCode.F5, KeyCombination.SHIFT_DOWN), new KeyCodeCombination(KeyCode.F5, KeyCombination.CONTROL_DOWN));
+		addAccelerator(xorBtn, (EventType<KeyEvent>)null, new KeyCodeCombination(KeyCode.F6, KeyCombination.SHIFT_DOWN), new KeyCodeCombination(KeyCode.F6, KeyCombination.CONTROL_DOWN));
+		addAccelerator(shiftLeftBtn, (EventType<KeyEvent>)null, new KeyCodeCombination(KeyCode.F7, KeyCombination.SHIFT_DOWN), new KeyCodeCombination(KeyCode.F7, KeyCombination.CONTROL_DOWN));
+		addAccelerator(shiftRightBtn, (EventType<KeyEvent>)null, new KeyCodeCombination(KeyCode.F8, KeyCombination.SHIFT_DOWN), new KeyCodeCombination(KeyCode.F8, KeyCombination.CONTROL_DOWN));
 	}
 	
 }

@@ -203,7 +203,10 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.6
 	protected void addAccelerator(Scene scene, Runnable runnable, EventType<KeyEvent> trigger, KeyCombination... keyCombinations) {
 		for(KeyCombination kc : keyCombinations) {
+			// TODO unterscheiden nach Funktionstasten und normalen Tasten
 			scene.getAccelerators().put(kc, runnable);
+			
+			if(trigger == null) continue;
 			
 			scene.addEventHandler(trigger, new EventHandler<KeyEvent>() {
 				@Override
