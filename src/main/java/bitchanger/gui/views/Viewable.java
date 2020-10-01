@@ -111,67 +111,68 @@ public interface Viewable extends Controllable {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die maximale Höhe der View an
-	 * 
-	 * @return maximale Höhe der View
-	 * 
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Indicates the maximum height of the view
-	 * 
-	 * @return maximum height of the view
-	 * 
-	 */
-	public abstract double getMaxHeigth();
+	// TODO getter entfernen
+//	/**	<!-- $LANGUAGE=DE -->
+//	 * Gibt die maximale Höhe der View an
+//	 * 
+//	 * @return maximale Höhe der View
+//	 * 
+//	 */
+//	/*	<!-- $LANGUAGE=EN -->
+//	 * Indicates the maximum height of the view
+//	 * 
+//	 * @return maximum height of the view
+//	 * 
+//	 */
+//	public abstract double getMaxHeigth();
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die maximale Breite der View an
-	 * 
-	 * @return maximale Breite der View
-	 * 
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Indicates the maximum width of the view
-	 * 
-	 * @return maximum width of the view
-	 * 
-	 */
-	public abstract double getMaxWidth();
+//	/**	<!-- $LANGUAGE=DE -->
+//	 * Gibt die maximale Breite der View an
+//	 * 
+//	 * @return maximale Breite der View
+//	 * 
+//	 */
+//	/*	<!-- $LANGUAGE=EN -->
+//	 * Indicates the maximum width of the view
+//	 * 
+//	 * @return maximum width of the view
+//	 * 
+//	 */
+//	public abstract double getMaxWidth();
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die minimale Höhe der View an
-	 * 
-	 * @return minimale Höhe der View
-	 * 
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Indicates the minimum height of the view
-	 * 
-	 * @return minimum height of the view
-	 * 
-	 */
-	public abstract double getMinHeigth();
+//	/**	<!-- $LANGUAGE=DE -->
+//	 * Gibt die minimale Höhe der View an
+//	 * 
+//	 * @return minimale Höhe der View
+//	 * 
+//	 */
+//	/*	<!-- $LANGUAGE=EN -->
+//	 * Indicates the minimum height of the view
+//	 * 
+//	 * @return minimum height of the view
+//	 * 
+//	 */
+//	public abstract double getMinHeigth();
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die minimale Breite der View an
-	 * 
-	 * @return minimale Breite der View
-	 * 
-	 */
-	/*	<!-- $LANGUAGE=EN -->
-	 * Indicates the minimum width of the view
-	 * 
-	 * @return minimum width of the view
-	 * 
-	 */
-	public abstract double getMinWidth();
+//	/**	<!-- $LANGUAGE=DE -->
+//	 * Gibt die minimale Breite der View an
+//	 * 
+//	 * @return minimale Breite der View
+//	 * 
+//	 */
+//	/*	<!-- $LANGUAGE=EN -->
+//	 * Indicates the minimum width of the view
+//	 * 
+//	 * @return minimum width of the view
+//	 * 
+//	 */
+//	public abstract double getMinWidth();
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	

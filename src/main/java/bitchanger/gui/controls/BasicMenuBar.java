@@ -182,6 +182,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		super();
 		
 		this.menuItemMap = new HashMap<>();
+		this.minHeightProperty().bind(this.heightProperty());
 		
 		createMenuModus();
 		createMenuOptions();

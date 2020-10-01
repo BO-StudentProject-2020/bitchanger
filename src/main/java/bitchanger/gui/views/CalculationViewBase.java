@@ -21,10 +21,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -315,8 +315,14 @@ public class CalculationViewBase extends AlphaNumGridView {
 		createLabels();
 		
 		addRowConstraint(center, firstTFRow - 1, ConstraintType.BUTTON_ROW);
-		addRowConstraint(center, firstTFRow + 1, ConstraintType.TEXT_FIELD_ROW);
-		addRowConstraint(center, firstKeyBtnRow - 1, ConstraintType.BUTTON_ROW);
+		addRowConstraint(center, GridPane.getRowIndex(tf), ConstraintType.TEXT_FIELD_ROW);
+		
+		ColumnConstraints lastRow = new ColumnConstraints();
+		lastRow.minWidthProperty().bind(firstColumnWidthProperty);
+		lastRow.maxWidthProperty().bind(firstColumnWidthProperty);
+		
+		addColumnConstraint(center, center.getColumnCount() - 1, lastRow);
+		center.setGridLinesVisible(true);
 	}
 
 
@@ -444,7 +450,11 @@ public class CalculationViewBase extends AlphaNumGridView {
 		getTextFieldMap().get(this.tfKey()).setId("BIN-RESULT");
 		
 		resultLabels.getChildren().add(box);
-		addRowConstraint(center, firstTFRow - 1, createRowConstraintsFromNode(resultLabels));
+		
+		RowConstraints firstRow = createRowConstraints(ConstraintType.TEXT_FIELD_ROW);
+		firstRow.minHeightProperty().bind(box.prefHeightProperty());
+		firstRow.maxHeightProperty().bind(box.prefHeightProperty());
+		addRowConstraint(center, GridPane.getRowIndex(resultLabels), firstRow);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -464,21 +474,9 @@ public class CalculationViewBase extends AlphaNumGridView {
 		getTextFieldMap().get(this.tfKey()).setId(null);
 		
 		resultLabels.getChildren().add(box);
-		addRowConstraint(center, GridPane.getRowIndex(resultLabels), createRowConstraintsFromNode(resultLabels));
+		addRowConstraint(center, GridPane.getRowIndex(resultLabels), createRowConstraints(ConstraintType.TEXT_FIELD_ROW));
 	}
 
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
-	private RowConstraints createRowConstraintsFromNode(Region n) {
-		RowConstraints rowc = new RowConstraints();
-		rowc.minHeightProperty().bind(n.minHeightProperty());
-		rowc.maxHeightProperty().bind(n.maxHeightProperty());
-		rowc.prefHeightProperty().bind(n.prefHeightProperty());
-
-		return rowc;
-	}
-	
 	
 }
 

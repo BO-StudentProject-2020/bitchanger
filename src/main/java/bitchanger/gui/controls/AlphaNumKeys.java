@@ -23,6 +23,7 @@ import bitchanger.util.IconFactory;
 import bitchanger.util.Resources;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -246,8 +247,8 @@ public class AlphaNumKeys implements Controllable {
 	 * @param scene				Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
 	 */
 	// TODO JavaDoc EN
-	public AlphaNumKeys(int firstRow, int firstColumn, DoubleProperty spacingProperty, Scene scene) {
-		this(firstRow, firstColumn, spacingProperty.get(), scene);
+	public AlphaNumKeys(int firstRow, int firstColumn, ObservableValue<Number> spacingProperty, Scene scene) {
+		this(firstRow, firstColumn, spacingProperty.getValue().doubleValue(), scene);
 		
 		this.spacingProperty.bind(spacingProperty);
 	}

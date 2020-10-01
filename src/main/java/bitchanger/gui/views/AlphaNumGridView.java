@@ -20,8 +20,15 @@ import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
 import bitchanger.util.IconFactory;
 import bitchanger.util.Resources;
+import javafx.beans.binding.BooleanExpression;
+import javafx.beans.binding.DoubleExpression;
+import javafx.beans.binding.NumberBinding;
+import javafx.beans.binding.When;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.HPos;
@@ -35,6 +42,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 
 /** <!-- $LANGUAGE=DE -->
@@ -125,63 +133,63 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Textfelder in dieser View */
 	// TODO JavaDoc EN
-	protected final DoubleProperty tfMaxHeightProperty;
+	protected final ReadOnlyDoubleProperty tfMaxHeightProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Textfelder in dieser View */
 	// TODO JavaDoc EN
-	protected final DoubleProperty tfMinHeightProperty;
+	protected final ReadOnlyDoubleProperty tfMinHeightProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Buttons in dieser View */
 	// TODO JavaDoc EN
-	protected final DoubleProperty btnMaxHeigthProperty;
+	protected final ReadOnlyDoubleProperty btnMaxHeigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Buttons in dieser View */
 	// TODO JavaDoc EN
-	protected final DoubleProperty btnMinHeigthProperty;
+	protected final ReadOnlyDoubleProperty btnMinHeigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Breite der Buttons in dieser View */
 	// TODO JavaDoc EN
-	protected final DoubleProperty btnMaxWidthProperty;
+	protected final ReadOnlyDoubleProperty btnMaxWidthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
 	// TODO JavaDoc EN
-	protected final DoubleProperty btnMinWidthProperty;
+	protected final ReadOnlyDoubleProperty btnMinWidthProperty;
 	
 	/** <!-- $LANGUAGE=DE --> Property für die Höhe der Zeilen zwischen den Textfeldern und Buttons */
 	// TODO JavaDoc EN
-	protected final DoubleProperty whiteSpaceHeigthProperty;
+	protected final ReadOnlyDoubleProperty whiteSpaceHeigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die Breite der ersten Spalte mit den Labels enthält. Wird benötigt, um symmetrisch Weißraum auf der rechten Seite hinzuzufügen. */
 	// TODO JavaDoc EN
-	protected final DoubleProperty firstColumnWidthProperty;
+	protected final ReadOnlyDoubleProperty firstColumnWidthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am oberen Rand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final DoubleProperty paddingTopProperty;
+	protected final ReadOnlyDoubleProperty paddingTopProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am rechten Rand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final DoubleProperty paddingRigthProperty;
+	protected final ReadOnlyDoubleProperty paddingRigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am unteren Rand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final DoubleProperty paddingBottomProperty;
+	protected final ReadOnlyDoubleProperty paddingBottomProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am linken Rand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final DoubleProperty paddingLeftProperty;
+	protected final ReadOnlyDoubleProperty paddingLeftProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand der Buttons in der GridPane */
 	// TODO JavaDoc EN
-	protected final DoubleProperty btnSpacingProperty;
+	protected final ReadOnlyDoubleProperty btnSpacingProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den horizontalen Abstand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final DoubleProperty hgapProperty;
+	protected final ReadOnlyDoubleProperty hgapProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den vertikalen Abstand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final DoubleProperty vgapProperty;
+	protected final ReadOnlyDoubleProperty vgapProperty;
 
 	/** <!-- $LANGUAGE=DE --> Konstante, die die erste Zeile der GridPane definiert, in der die Textfelder positioniert werden */
 	// TODO JavaDoc EN
@@ -228,11 +236,11 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Buttons in dieser View */
 	// TODO JavaDoc EN
-	private final DoubleProperty maxHeigthProperty;
+	private final DoubleProperty maxHeightProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Buttons in dieser View */
 	// TODO JavaDoc EN
-	private final DoubleProperty minHeigthProperty;
+	private final DoubleProperty minHeightProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Breite der Buttons in dieser View */
 	// TODO JavaDoc EN
@@ -391,8 +399,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.hgapProperty = new SimpleDoubleProperty(hgap);
 		this.vgapProperty = new SimpleDoubleProperty(vgap);
 		
-		this.minHeigthProperty = new SimpleDoubleProperty();
-		this.maxHeigthProperty = new SimpleDoubleProperty();
+		this.minHeightProperty = new SimpleDoubleProperty();
+		this.maxHeightProperty = new SimpleDoubleProperty();
 		this.minWidthProperty = new SimpleDoubleProperty();
 		this.maxWidthProperty = new SimpleDoubleProperty();
 		
@@ -426,6 +434,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		
 		this.alphaNum = new AlphaNumKeys(1, 0, btnSpacingProperty, this.scene);
 		
+		observeCenter();
 		observeSize();
 	}
 	
@@ -440,61 +449,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 	/** {@inheritDoc} */
 	@Override
-	public double getMaxHeigth() {
-		return paddingTopProperty.get() + paddingBottomProperty.get()
-				+ getTextFieldMap().size() * tfMaxHeightProperty.get() + (center.getRowCount() - 1) * vgapProperty.get()
-				+ (center.getRowCount() - firstKeyBtnRow) * btnMaxHeigthProperty.get() + whiteSpaceHeigthProperty.get();
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/** {@inheritDoc} */
-	@Override
-	public double getMaxWidth() {
-		return paddingLeftProperty.get() + paddingRigthProperty.get() + firstColumnWidthProperty.get()
-				+ AlphaNumKeys.COLUMN_COUNT * btnMaxWidthProperty.get() + (center.getColumnCount() - 1) * hgapProperty.get();
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/** {@inheritDoc} */
-	@Override
-	public double getMinHeigth() {
-		double minHeight = root.getTop().minHeight(Double.NaN);
-		
-		for(RowConstraints rc : center.getRowConstraints()) {
-			minHeight += rc.getMinHeight();
-		}
-		
-		minHeight += center.getPadding().getTop() + center.getPadding().getBottom();
-		minHeight += (center.getRowCount() - 1) * center.getHgap();
-		
-		return minHeight;
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/** {@inheritDoc} */
-	@Override
-	public double getMinWidth() {
-		// TODO: Berechnung der Größe anpassen
-		double minWidth = center.getPadding().getLeft() * 2 + firstColumnWidthProperty.get() + vgapProperty.get();
-		
-		for(ColumnConstraints cc : center.getColumnConstraints()) {
-			minWidth += cc.getMinWidth();
-		}
-		
-		minWidth += (center.getColumnCount() - 1) * center.getVgap();
-		
-		return minWidth + 10;
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
-	/** {@inheritDoc} */
-	@Override
 	public DoubleProperty maxHeigthProperty() {
-		return this.maxHeigthProperty;
+		return this.maxHeightProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -510,7 +466,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	/** {@inheritDoc} */
 	@Override
 	public DoubleProperty minHeigthProperty() {
-		return this.minHeigthProperty;
+		return this.minHeightProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -718,18 +674,170 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 	
 	// TODO JavaDoc
-	private void observeSize() {
-		// TODO Größen berechnen
-		center.getRowConstraints().addListener(new ListChangeListener<RowConstraints>(){
+	private void observeCenter() {
+		center.getRowConstraints().addListener(new ListChangeListener<RowConstraints>() {
 			@Override
 			public void onChanged(Change<? extends RowConstraints> c) {
+				DoubleExpression minRowHeigths = new SimpleDoubleProperty(0);
+				DoubleExpression maxRowHeigths = new SimpleDoubleProperty(0);
 				
+				for(RowConstraints rc : center.getRowConstraints()) {
+					minRowHeigths = minRowHeigths.add(new When(rc.minHeightProperty().greaterThan(0)).then(rc.minHeightProperty()).otherwise(0));
+					maxRowHeigths = maxRowHeigths.add(new When(rc.maxHeightProperty().greaterThan(0)).then(rc.maxHeightProperty()).otherwise(Double.MAX_VALUE));
+				}
+				
+				NumberBinding vgapWidthBinding = new When(vgapProperty.greaterThan(0)).then(vgapProperty.multiply(center.getRowCount())).otherwise(0);
+				
+				center.minHeightProperty().bind(minRowHeigths.add(vgapWidthBinding));
+				center.maxHeightProperty().bind(maxRowHeigths.add(vgapWidthBinding));
+			}
+		});
+		AlphaNumGridView v = this;
+		center.getColumnConstraints().addListener(new ListChangeListener<ColumnConstraints>() {
+			@Override
+			public void onChanged(Change<? extends ColumnConstraints> c) {
+				DoubleExpression minColumnWidth = new SimpleDoubleProperty(0);
+				DoubleExpression maxColumnWidth = new SimpleDoubleProperty(0);
+				
+				for(ColumnConstraints cc : center.getColumnConstraints()) {
+					minColumnWidth = minColumnWidth.add(new When(cc.minWidthProperty().greaterThan(0)).then(cc.minWidthProperty()).otherwise(0));
+					maxColumnWidth = maxColumnWidth.add(new When(cc.maxWidthProperty().greaterThan(0)).then(cc.maxWidthProperty()).otherwise(Double.MAX_VALUE));
+				}
+				
+				ColumnConstraints firstColumn = center.getColumnConstraints().get(0);
+				ColumnConstraints lastColumn = center.getColumnConstraints().get(center.getColumnConstraints().size() - 1);
+				
+				BooleanExpression lastColumnEqualsFirst = firstColumn.minWidthProperty().isEqualTo(lastColumn.minWidthProperty()).and(firstColumn.maxWidthProperty().isEqualTo(lastColumn.maxWidthProperty()));
+				
+				
+				NumberBinding firstColumnWidthBinding = new When(lastColumnEqualsFirst).then(0).otherwise(new When(firstColumnWidthProperty.greaterThan(0)).then(firstColumnWidthProperty).otherwise(0));
+				NumberBinding hgapWidthBinding = new When(hgapProperty.greaterThan(0)).then(hgapProperty.multiply(center.getColumnCount())).otherwise(0);
+				
+				System.out.println(v + " " + lastColumnEqualsFirst.get() + firstColumnWidthBinding.doubleValue());
+
+				center.minWidthProperty().bind(minColumnWidth.add(hgapWidthBinding).add(firstColumnWidthBinding));
+				center.maxWidthProperty().bind(maxColumnWidth.add(hgapWidthBinding).add(firstColumnWidthBinding));
+			}
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void observeSize() {
+		DoubleProperty topMinHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty topMaxHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty centerMinHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty centerMaxHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty bottomMinHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty bottomMaxHeightProperty = new SimpleDoubleProperty(0);
+		
+		DoubleProperty leftMinWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty leftMaxWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty centerMinWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty centerMaxWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty rightMinWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty rightMaxWidthProperty = new SimpleDoubleProperty(0);
+		
+		listenHeigthProperties(root.topProperty(), topMinHeightProperty, topMaxHeightProperty);
+		listenHeigthProperties(root.centerProperty(), centerMinHeightProperty, centerMaxHeightProperty);
+		listenHeigthProperties(root.bottomProperty(), bottomMinHeightProperty, bottomMaxHeightProperty);
+		
+		listenWidthProperties(root.leftProperty(), leftMinWidthProperty, leftMaxWidthProperty);
+		listenWidthProperties(root.centerProperty(), centerMinWidthProperty, centerMaxWidthProperty);
+		listenWidthProperties(root.rightProperty(), rightMinWidthProperty, rightMaxWidthProperty);
+		
+		this.minHeightProperty.bind(topMinHeightProperty.add(centerMinHeightProperty).add(bottomMinHeightProperty));
+		this.maxHeightProperty.bind(topMaxHeightProperty.add(centerMaxHeightProperty).add(bottomMaxHeightProperty));
+		this.minWidthProperty.bind(leftMinWidthProperty.add(centerMinWidthProperty).add(rightMinWidthProperty));
+		this.maxWidthProperty.bind(leftMaxWidthProperty.add(centerMaxWidthProperty).add(rightMaxWidthProperty));
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void listenHeigthProperties(ObjectProperty<Node> childProperty, DoubleProperty minHeightProperty, DoubleProperty maxHeightProperty) {
+		updateHeigthProperties(childProperty.get(), minHeightProperty, maxHeightProperty);
+		
+		childProperty.addListener(new ChangeListener<Node>() {
+			@Override
+			public void changed(ObservableValue<? extends Node> observable, Node oldChild, Node newChild) {
+				updateHeigthProperties(newChild, minHeightProperty, maxHeightProperty);
 			}
 		});
 	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void updateHeigthProperties(Node child, DoubleProperty minHeightProperty, DoubleProperty maxHeightProperty) {
+		minHeightProperty.unbind();
+		maxHeightProperty.unbind();
+
+		if (child instanceof Region) {
+			DoubleProperty topInset = new SimpleDoubleProperty(((Region) child).getPadding().getTop() > 0 ? ((Region) child).getPadding().getTop() : 0);
+			DoubleProperty bottomInset = new SimpleDoubleProperty(((Region) child).getPadding().getBottom() > 0 ? ((Region) child).getPadding().getBottom() : 0);
+
+			((Region) child).paddingProperty().addListener(new ChangeListener<Insets>() {
+				@Override
+				public void changed(ObservableValue<? extends Insets> observable, Insets oldValue, Insets newInsets) {
+					topInset.set(newInsets.getTop() > 0 ? newInsets.getTop() : 0);
+					bottomInset.set(newInsets.getBottom() > 0 ? newInsets.getBottom() : 0);
+				}
+			});
+			
+			NumberBinding minHeightBinding = new When(((Region) child).minHeightProperty().greaterThan(0)).then(((Region) child).minHeightProperty()).otherwise(0);
+			minHeightProperty.bind(minHeightBinding.add(topInset).add(bottomInset));
+			
+			NumberBinding maxHeightBinding = new When(((Region) child).maxHeightProperty().greaterThan(0)).then(((Region) child).maxHeightProperty()).otherwise(Double.MAX_VALUE);
+			maxHeightProperty.bind(maxHeightBinding.add(topInset).add(bottomInset));
+		}
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void listenWidthProperties(ObjectProperty<Node> childProperty, DoubleProperty minWidthProperty, DoubleProperty maxWidthProperty) {
+		updateWidthProperties(childProperty.get(), minWidthProperty, maxWidthProperty);
+		
+		childProperty.addListener(new ChangeListener<Node>() {
+			@Override
+			public void changed(ObservableValue<? extends Node> observable, Node oldChild, Node newChild) {
+				updateWidthProperties(newChild, minWidthProperty, maxWidthProperty);
+			}
+		});
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void updateWidthProperties(Node child, DoubleProperty minWidthProperty, DoubleProperty maxWidthProperty) {
+		minWidthProperty.unbind();
+		maxWidthProperty.unbind();
+
+		if (child instanceof Region) {
+			DoubleProperty leftInset = new SimpleDoubleProperty(((Region) child).getPadding().getLeft() > 0 ? ((Region) child).getPadding().getLeft() : 0);
+			DoubleProperty rigthInset = new SimpleDoubleProperty(((Region) child).getPadding().getRight() > 0 ? ((Region) child).getPadding().getRight() : 0);
+
+			((Region) child).paddingProperty().addListener(new ChangeListener<Insets>() {
+				@Override
+				public void changed(ObservableValue<? extends Insets> observable, Insets oldValue, Insets newInsets) {
+					leftInset.set(newInsets.getLeft() > 0 ? newInsets.getLeft() : 0);
+					rigthInset.set(newInsets.getRight() > 0 ? newInsets.getRight() : 0);
+				}
+			});
+			
+			NumberBinding minWidthBinding = new When(((Region) child).minWidthProperty().greaterThan(0)).then(((Region) child).minWidthProperty()).otherwise(0);
+			minWidthProperty.bind(minWidthBinding.add(leftInset).add(rigthInset));
+			
+			NumberBinding maxWidthBinding = new When(((Region) child).maxWidthProperty().greaterThan(0)).then(((Region) child).maxWidthProperty()).otherwise(Double.MAX_VALUE);
+			maxWidthProperty.bind(maxWidthBinding.add(leftInset).add(rigthInset));
+		}
+	}
+
 	
 	
+
 // GridPane Center	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	
 	/** <!-- $LANGUAGE=DE -->
@@ -796,33 +904,56 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			return;
 		}
 		
-		RowConstraints rowc = new RowConstraints();
-		rowc.setFillHeight(true);
+		RowConstraints rowc = createRowConstraints(type);
 		
-		switch(type) {
-		case TEXT_FIELD_ROW:
-			rowc.maxHeightProperty().bindBidirectional(tfMaxHeightProperty);
-			rowc.minHeightProperty().bindBidirectional(tfMinHeightProperty);
-			break;
-		case BUTTON_ROW:
-			rowc.maxHeightProperty().bindBidirectional(btnMaxHeigthProperty);
-			rowc.minHeightProperty().bindBidirectional(btnMinHeigthProperty);
-			rowc.setValignment(VPos.CENTER);
-			rowc.setVgrow(Priority.ALWAYS);
-			break;
-		case WHITESPACE_ROW:
-			rowc.maxHeightProperty().bindBidirectional(whiteSpaceHeigthProperty);
-			rowc.minHeightProperty().bindBidirectional(whiteSpaceHeigthProperty);
-			break;
-		case FIRST_COLUMN:	/* fall through	*/
-		case BUTTON_COLUMN:	/* fall through	*/
-		default:
+		if (rowc == null) {
 			return;
 		}
 		
 		if(usePercentHeigth) rowc.setPercentHeight(100.0 / grid.getRowCount());
 		
 		addRowConstraint(grid, rowIndex, rowc);
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt neue RowConstraints, die an den ConstraintType angepasst sind.
+	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
+	 * anzupassen und die Properties maxHeightProperty und minHeightProperty mit den passenden Properties dieser AlphaNumGridView
+	 * zu verbinden.
+	 * 
+	 * @param type	Typ der Zeile
+	 * 
+	 * @return		neue RowConstraints passend zu dem ConstraintType
+	 */
+	// TODO JavaDoc EN
+	protected RowConstraints createRowConstraints(ConstraintType type){
+		RowConstraints rowc = new RowConstraints();
+		rowc.setFillHeight(true);
+		
+		switch(type) {
+		case TEXT_FIELD_ROW:
+			rowc.maxHeightProperty().bind(tfMaxHeightProperty);
+			rowc.minHeightProperty().bind(tfMinHeightProperty);
+			break;
+		case BUTTON_ROW:
+			rowc.maxHeightProperty().bind(btnMaxHeigthProperty);
+			rowc.minHeightProperty().bind(btnMinHeigthProperty);
+			rowc.setValignment(VPos.CENTER);
+			rowc.setVgrow(Priority.ALWAYS);
+			break;
+		case WHITESPACE_ROW:
+			rowc.maxHeightProperty().bind(whiteSpaceHeigthProperty);
+			rowc.minHeightProperty().bind(whiteSpaceHeigthProperty);
+			break;
+		case FIRST_COLUMN:	/* fall through	*/
+		case BUTTON_COLUMN:	/* fall through	*/
+		default:
+			return null;
+		}
+		
+		return rowc;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -842,7 +973,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		
 		// Constraints auffüllen, wenn vorherige Constraints fehlen
 		while(rowIndex > grid.getRowConstraints().size()) {
-			grid.getRowConstraints().add(new RowConstraints());
+			grid.getRowConstraints().add(createRowConstraints(ConstraintType.WHITESPACE_ROW));
 		}
 		
 		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
@@ -902,13 +1033,13 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		switch(type) {
 		case FIRST_COLUMN:
 			column.setHgrow(Priority.NEVER);
-			column.maxWidthProperty().bindBidirectional(firstColumnWidthProperty);
-			column.minWidthProperty().bindBidirectional(firstColumnWidthProperty);
+			column.maxWidthProperty().bind(firstColumnWidthProperty);
+			column.minWidthProperty().bind(firstColumnWidthProperty);
 			break;
 		case BUTTON_COLUMN:
 			column.setHgrow(Priority.ALWAYS);
-			column.maxWidthProperty().bindBidirectional(btnMaxWidthProperty);
-			column.minWidthProperty().bindBidirectional(btnMinWidthProperty);
+			column.maxWidthProperty().bind(btnMaxWidthProperty);
+			column.minWidthProperty().bind(btnMinWidthProperty);
 			break;
 		case TEXT_FIELD_ROW:	/* fall through	*/
 		case BUTTON_ROW:		/* fall through	*/
@@ -1156,10 +1287,10 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			@Override
 			public void accept(String key, Button b) {
 				if (!key.equals(AlphaNumKeys.NEXT_BTN_KEY) && !key.equals(AlphaNumKeys.PREVIOUS_BTN_KEY)) {
-					b.maxHeightProperty().bindBidirectional(btnMaxHeigthProperty);
-					b.minHeightProperty().bindBidirectional(btnMinHeigthProperty);
-					b.maxWidthProperty().bindBidirectional(btnMaxWidthProperty);
-					b.minWidthProperty().bindBidirectional(btnMinWidthProperty);
+					b.maxHeightProperty().bind(btnMaxHeigthProperty);
+					b.minHeightProperty().bind(btnMinHeigthProperty);
+					b.maxWidthProperty().bind(btnMaxWidthProperty);
+					b.minWidthProperty().bind(btnMinWidthProperty);
 				}
 			}
 		});
@@ -1167,15 +1298,26 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		getTextFieldMap().forEach(new BiConsumer<String, TextField>() {
 			@Override
 			public void accept(String key, TextField tf) {
-				tf.maxHeightProperty().bindBidirectional(tfMaxHeightProperty);
-				tf.minHeightProperty().bindBidirectional(tfMinHeightProperty);
+				tf.maxHeightProperty().bind(tfMaxHeightProperty);
+				tf.minHeightProperty().bind(tfMinHeightProperty);
 			}
 		});
-
-		center.hgapProperty().bindBidirectional(hgapProperty);
-		center.vgapProperty().bindBidirectional(vgapProperty);
-		btnSpacingProperty.bindBidirectional(hgapProperty);
-		btnSpacingProperty.bindBidirectional(vgapProperty);
+		
+		if(hgapProperty instanceof DoubleProperty) {
+			center.hgapProperty().bindBidirectional((DoubleProperty) hgapProperty);
+		} else {
+			center.hgapProperty().bind(hgapProperty);
+		}
+		
+		if(vgapProperty instanceof DoubleProperty) {
+			center.vgapProperty().bindBidirectional((DoubleProperty) vgapProperty);
+		} else {
+			center.vgapProperty().bind(vgapProperty);
+		}
+		
+		try { ((DoubleProperty) btnSpacingProperty).bindBidirectional((DoubleProperty) hgapProperty); } catch(Exception e) { /* ignore */ }
+		
+		try { ((DoubleProperty) btnSpacingProperty).bindBidirectional((DoubleProperty)vgapProperty); } catch(Exception e) { /* ignore */ }
 		
 		paddingTopProperty.addListener(this::updatePadding);
 		paddingRigthProperty.addListener(this::updatePadding);
