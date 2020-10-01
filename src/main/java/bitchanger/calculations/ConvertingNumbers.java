@@ -32,7 +32,7 @@ import bitchanger.preferences.Comma;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  */
 /* <!-- $LANGUAGE=EN -->
  * The {@code ConvertingNumbers} class contains methods for performing conversions of numbers with different numeral systems.
@@ -53,7 +53,7 @@ import bitchanger.preferences.Comma;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  */
 public class ConvertingNumbers {
 	

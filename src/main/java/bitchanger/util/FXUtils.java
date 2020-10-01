@@ -46,7 +46,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.7
  *
  */
 /* <!-- $LANGUAGE=EN -->
@@ -55,7 +55,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.7
  *
  */
 public class FXUtils {
@@ -326,7 +326,7 @@ public class FXUtils {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public static Optional<ButtonType> showNumberOverflowWarning(NumberOverflowException noe) {
 		StringBuffer infoText = new StringBuffer();
 		infoText.append("Die größte erlaubte Zahl ist ");
@@ -347,7 +347,7 @@ public class FXUtils {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public static Optional<ButtonType> showDialog(AlertType dialogType, String title, String headerText, String message, ButtonType... buttonTypes) {
 		Alert dialog = new Alert(dialogType, message, buttonTypes);
 		if(title != null) dialog.setTitle(title);
@@ -358,14 +358,14 @@ public class FXUtils {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public static Optional<ButtonType> showDialog(AlertType dialogType, String headerText, String message, ButtonType... buttonTypes) {
 		return showDialog(dialogType, null, headerText, message, buttonTypes);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public static Optional<ButtonType> showDeactivatableDialog(AlertType dialogType, String title, String headerText, String message, BooleanProperty deactivateDialogProperty, ButtonType... buttonTypes) {
 		if(deactivateDialogProperty.get()) {
 			return Optional.empty();
@@ -398,7 +398,7 @@ public class FXUtils {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public static Optional<ButtonType> showDeactivatableDialog(AlertType dialogType, String headerText, String message, BooleanProperty deactivateDialogProperty, ButtonType... buttonTypes) {
 		return showDeactivatableDialog(dialogType, null, headerText, message, deactivateDialogProperty, buttonTypes);
 	}

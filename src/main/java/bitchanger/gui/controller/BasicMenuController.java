@@ -35,7 +35,7 @@ import javafx.stage.Stage;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.7
  * 
  */
 public class BasicMenuController extends ControllerBase<BasicMenuBar> {
@@ -318,7 +318,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void consumeKeyEvents() {
 		modusConverter.setAccelerator(new KeyCodeCombination(KeyCode.F2));
 		modusIEEE.setAccelerator(new KeyCodeCombination(KeyCode.F3));

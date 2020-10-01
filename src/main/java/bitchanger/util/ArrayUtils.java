@@ -17,7 +17,7 @@ import java.util.Queue;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.7
  *
  */
 public class ArrayUtils {
@@ -43,7 +43,7 @@ public class ArrayUtils {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
+	// TODO JavaDoc @since 0.1.7
 	@SafeVarargs
 	public static <T> Queue<T> queueOf(T... values) {
 		ArrayDeque<T> queue = new ArrayDeque<>();

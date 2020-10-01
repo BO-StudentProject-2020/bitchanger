@@ -39,7 +39,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.7
  * 
  */
 public class IEEEController extends ControllerBase<IEEEView> {
@@ -180,9 +180,13 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt die Attribute auf den Ausgangszustand.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the attributes to the initial condition.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setInitialState() {
 		tfDec.requestFocus();
@@ -208,6 +212,8 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	 * @see #setIEEEValListener()
 	 * @see #setTFSelection()
 	 * @see #updateIEEEStandard()
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets listener for the text fields, to convert the input in any numeral system immediately.
@@ -218,6 +224,8 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	 * @see #setIEEEValListener()
 	 * @see #setTFSelection()
 	 * @see #updateIEEEStandard()
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setTextFieldActions() {
 		setDecValListener();
@@ -231,9 +239,13 @@ public class IEEEController extends ControllerBase<IEEEView> {
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfDec}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the listener for {@link #tfDec}, to convert the input and update the other text fields immediately.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setDecValListener() {
 		tfDec.textProperty().addListener(new ChangeListener<String>() {
@@ -262,9 +274,13 @@ public class IEEEController extends ControllerBase<IEEEView> {
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Listener für {@link #tfIEEE}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the listener for {@link #tfIEEE}, to convert the input and update the other text fields immediately.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setIEEEValListener() {
 		tfIEEE.textProperty().addListener(new ChangeListener<String>() {
@@ -294,10 +310,14 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes durch einen Mausklick und 
 	 * verbindet {@link #baseProperty} mit der baseProperty des Textfelds.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Updates the attribute {@link #focusedTF} by selecting a text filed with the cursor 
 	 * and connects {@link #baseProperty} with the baseProperty of the text field.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setTFSelection() {
 		for (ValueField tf : ArrayUtils.arrayOf(tfDec, tfIEEE)) {
@@ -313,7 +333,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	private void updateIEEEStandard() {
 		Preferences.getPrefs().ieeeStandardProperty().addListener(new ChangeListener<IEEEStandard>() {
 			@Override
@@ -333,6 +353,8 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	 * @see #setClearAction()
 	 * @see #setBackspaceAction()
 	 * @see #setSignAction()
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets actions for all buttons
@@ -341,6 +363,8 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	 * @see #setClearAction()
 	 * @see #setBackspaceAction()
 	 * @see #setSignAction()
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setButtonActions() {
 		setAlphaNumBindings();
@@ -354,10 +378,14 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	/**	<!-- $LANGUAGE=DE -->
 	 * Bindet die baseProperty aller alphanumerischen Buttons an das Attribut {@link #baseProperty}, um die Buttons
 	 * bei einem Wechsel der Basis automatisch aus- oder einzublenden.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Links the baseProperty of all alphanumeric buttons to the attribute {@link #baseProperty},
 	 * to show or hide the buttons automatically if the base is changing.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setAlphaNumBindings() {
 		for (Button b : alphaNumButtons) {
@@ -371,11 +399,15 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	 * Setzt {@link #value} bei Klick auf den Clear-Button zurück und aktualisiert alle Textfelder.
 	 * 
 	 * @see ChangeableNumber#reset()
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Resets {@link #value} by clicking on clear button and updates all text fields.
 	 * 
 	 * @see ChangeableNumber#reset()
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setClearAction() {
 		clearBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -392,9 +424,13 @@ public class IEEEController extends ControllerBase<IEEEView> {
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Lässt den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Simulates the backspace button an the keyboard.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setBackspaceAction() {
 		backspcBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -410,9 +446,13 @@ public class IEEEController extends ControllerBase<IEEEView> {
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Kehrt das Vorzeichen von {@link #value} beim Klick auf den Vorzeichen-Button um und aktualisiert alle Textfelder.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Turns the sign of {@link #value} by clicking onto the sign button and updates all text fields.
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	private void setSignAction() {
 		signBtn.setOnAction(new EventHandler<ActionEvent>() {

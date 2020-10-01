@@ -25,7 +25,7 @@ import bitchanger.util.ArrayUtils;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.7
  * 
  * @see IEEEController
  */

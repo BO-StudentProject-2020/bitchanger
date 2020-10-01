@@ -40,7 +40,7 @@ import javafx.scene.input.KeyEvent;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  *
  */
 //TODO JavaDoc EN
@@ -200,7 +200,7 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.6
+	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.7
 	protected void addAccelerator(Scene scene, Runnable runnable, EventType<KeyEvent> trigger, KeyCombination... keyCombinations) {
 		for(KeyCombination kc : keyCombinations) {
 			// TODO unterscheiden nach Funktionstasten und normalen Tasten
@@ -221,14 +221,14 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.6
+	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.7
 	protected void addAccelerator(Button button, EventType<KeyEvent> trigger, KeyCombination... keyCombinations) {
 		addAccelerator(button.getScene(), button::fire, trigger, keyCombinations);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.6
+	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.7
 	protected void addAccelerator(Button button, KeyCombination... keyCombinations) {
 		addAccelerator(button.getScene(), button::fire, KeyEvent.ANY, keyCombinations);
 	}

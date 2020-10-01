@@ -16,8 +16,8 @@ import org.w3c.dom.Element;
  * 
  * @author Tim Mühle
  * 
- * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @since Bitchanger 0.1.7
+ * @version 0.1.7
  *
  */
 // TODO JavaDoc EN

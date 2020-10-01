@@ -9,5 +9,7 @@
         <showBitOperationSymbols>true</showBitOperationSymbols>
         <bitLength>_8_BIT</bitLength>
         <unsignedBitoperations>true</unsignedBitoperations>
+        <deactivateUnsignedBitLenthWarning>false</deactivateUnsignedBitLenthWarning>
+        <deactivateBitLengthDeleteWarning>false</deactivateBitLengthDeleteWarning>
     </preferences>
 </bitchanger>

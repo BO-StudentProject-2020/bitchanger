@@ -22,8 +22,8 @@ import javafx.scene.control.Menu;
  * 
  * @author Tim Mühle
  * 
- * @since Bitchanger 0.1.6
- * @version 0.1.6
+ * @since Bitchanger 0.1.7
+ * @version 0.1.7
  * 
  */
 public class IEEEMenuBar extends BasicMenuBar {

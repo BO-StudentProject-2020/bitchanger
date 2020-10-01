@@ -26,7 +26,7 @@ import bitchanger.util.Resources;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  * 
  */
 /* <!-- $LANGUAGE=EN -->
@@ -35,7 +35,7 @@ import bitchanger.util.Resources;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  * 
  */
 public class BitchangerLauncher {
@@ -92,6 +92,7 @@ public class BitchangerLauncher {
 	}
 
 	
+	// TODO JavaDoc
 	private static void deleteEmptyErrorFile(File errorFile) {
 		try {
 			BufferedReader errIn = new BufferedReader(new FileReader(errorFile));
@@ -112,6 +113,7 @@ public class BitchangerLauncher {
 	}
 	
 
+	// TODO JavaDoc
 	private static void closeErrorStream(PrintStream errStream) {
 		try {
 			errStream.flush();
@@ -119,6 +121,8 @@ public class BitchangerLauncher {
 		} catch (Exception e) { /* ignore */ }
 	}
 
+	
+	// TODO JavaDoc
 	private static PrintStream openErrorStream(File errorFile) {
 		PrintStream errStream;
 		

@@ -42,7 +42,7 @@ import javafx.stage.WindowEvent;
  * @author Tim Mühle
  *
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  * 
  * @see ConverterView
  * @see ConverterController
@@ -57,7 +57,7 @@ import javafx.stage.WindowEvent;
  * @author Tim Muehle
  *
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  * 
  * @see ConverterView
  * @see ConverterController
@@ -88,7 +88,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	
 	/** <!-- $LANGUAGE=DE -->	Aktuelle Version des Bitchangers */
 	// TODO JavaDoc EN
-	public static final String VERSION = "0.1.6";
+	public static final String VERSION = "0.1.7";
 
 	
 	
@@ -314,7 +314,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void computeStageFrameSize() {
 		Stage s = new Stage(StageStyle.DECORATED);
 		
@@ -385,6 +385,8 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		primaryStage.maxHeightProperty().bind(currentViewProperty.get().maxHeigthProperty().add(emptyStageHeigth));
 		primaryStage.minWidthProperty().bind(currentViewProperty.get().minWidthProperty().add(emptyStageWidth));
 		primaryStage.maxWidthProperty().bind(currentViewProperty.get().maxWidthProperty().add(emptyStageWidth));
+		
+		primaryStage.sizeToScene();
 	}
 	
 	

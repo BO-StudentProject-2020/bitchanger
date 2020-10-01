@@ -49,7 +49,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  */
 /* <!-- $LANGUAGE=EN -->
  * Preferences is the global collection for all possible settings that can be selected for the bitchanger.
@@ -62,7 +62,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  */
 public class Preferences {
 	
@@ -259,14 +259,14 @@ public class Preferences {
 	 * 
 	 * @return	Property für das Kommazeichen
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the Property for comma character
 	 * 
 	 * @return Property for comma character
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	public ObjectProperty<Comma> commaProperty(){
 		return this.commaProperty;
@@ -279,14 +279,14 @@ public class Preferences {
 	 * 
 	 * @return	Property für die Anzeige von abgebrochenen Nachkommastellen
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the Property for displaying aborted decimal places
 	 * 
 	 * @return Property for displaying aborted decimal places
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	public BooleanProperty indicateFractionalPrecisionProperty() {
 		return this.indicateFractionalPrecisionProperty;
@@ -299,14 +299,14 @@ public class Preferences {
 	 * 
 	 * @return	ReadOnlyProperty für das gewählte Stylesheet
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the ReadOnlyProperty for the selected Stylesheet
 	 * 
 	 * @return ReadOnlyProperty for the selected Stylesheet
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	public ReadOnlyStringProperty stylesheetProperty() {
 		return this.stylesheetProperty;
@@ -319,14 +319,14 @@ public class Preferences {
 	 * 
 	 * @return	ReadOnlyProperty für das gewählte Stylesheet
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the ReadOnlyProperty for the selected Stylesheet
 	 * 
 	 * @return ReadOnlyProperty for the selected Stylesheet
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	public ReadOnlyObjectProperty<Style> styleProperty() {
 		return this.styleProperty;
@@ -339,14 +339,14 @@ public class Preferences {
 	 * 
 	 * @return	Property für die zuletzt angezeigte View
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the Property for the last shown View
 	 * 
 	 * @return Property for the last shown View
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	public WritableClassProperty<Viewable> viewClassProperty() {
 		return this.viewClassProperty;
@@ -359,14 +359,14 @@ public class Preferences {
 	 * 
 	 * @return	Property für die gewählte IEEE-Norm
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the Property for the selected IEEE standard
 	 * 
 	 * @return Property for the selected IEEE standard
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	public ObjectProperty<IEEEStandard> ieeeStandardProperty() {
 		return this.ieeeStandardProperty;
@@ -379,7 +379,7 @@ public class Preferences {
 	 * 
 	 * @return	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	public BooleanProperty showBitOperationSymbolsProperty() {
@@ -393,7 +393,7 @@ public class Preferences {
 	 * 
 	 * @return	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	public ObjectProperty<BitLength> bitLengthProperty() {
@@ -407,7 +407,7 @@ public class Preferences {
 	 * 
 	 * @return	Property für vorzeichenlose Bitoperationen in der CalculatorView
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	public BooleanProperty useUnsignedBitOperationProperty() {
@@ -416,14 +416,14 @@ public class Preferences {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.6
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public BooleanProperty unsignedBitLengthWarningDeactivatedProperty() {
 		return this.unsignedBitLengthWarningDeactivatedProperty;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.6
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public BooleanProperty bitLengthDeleteWarningDeactivatedProperty() {
 		return this.bitLengthDeleteWarningDeactivatedProperty;
 	}

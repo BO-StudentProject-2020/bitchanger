@@ -79,7 +79,7 @@ import javafx.scene.layout.RowConstraints;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.7
  *
  */
 // TODO JavaDoc EN
@@ -672,7 +672,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void observeCenter() {
 		center.getRowConstraints().addListener(new ListChangeListener<RowConstraints>() {
 			@Override
@@ -720,7 +720,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void observeSize() {
 		DoubleProperty topMinHeightProperty = new SimpleDoubleProperty(0);
 		DoubleProperty topMaxHeightProperty = new SimpleDoubleProperty(0);
@@ -752,7 +752,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void listenHeigthProperties(ObjectProperty<Node> childProperty, DoubleProperty minHeightProperty, DoubleProperty maxHeightProperty) {
 		updateHeigthProperties(childProperty.get(), minHeightProperty, maxHeightProperty);
 		
@@ -766,7 +766,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void updateHeigthProperties(Node child, DoubleProperty minHeightProperty, DoubleProperty maxHeightProperty) {
 		minHeightProperty.unbind();
 		maxHeightProperty.unbind();
@@ -793,7 +793,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void listenWidthProperties(ObjectProperty<Node> childProperty, DoubleProperty minWidthProperty, DoubleProperty maxWidthProperty) {
 		updateWidthProperties(childProperty.get(), minWidthProperty, maxWidthProperty);
 		
@@ -807,7 +807,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void updateWidthProperties(Node child, DoubleProperty minWidthProperty, DoubleProperty maxWidthProperty) {
 		minWidthProperty.unbind();
 		maxWidthProperty.unbind();
@@ -871,6 +871,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param grid		GridPane, der sie RowConstraints hinzugefügt werden
 	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
 	 * @param type		Typ der Zeile
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	protected void addRowConstraint(GridPane grid, int rowIndex, ConstraintType type) {
@@ -894,6 +896,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
 	 * @param type		Typ der Zeile
 	 * @param usePercentHeigth	{@code true}, wenn die Zeilenhöhe gleichmäßig prozentual verteilt werden soll, sonst {@code false}
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	protected void addRowConstraint(GridPane grid, int rowIndex, ConstraintType type, boolean usePercentHeigth) {
@@ -923,6 +927,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param type	Typ der Zeile
 	 * 
 	 * @return		neue RowConstraints passend zu dem ConstraintType
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	protected RowConstraints createRowConstraints(ConstraintType type){
@@ -961,6 +967,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param grid		GridPane, der sie RowConstraints hinzugefügt werden
 	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
 	 * @param rowc		neue RowConstrains, die hinzugefügt werden
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	protected void addRowConstraint(GridPane grid, int rowIndex, RowConstraints rowc) {
@@ -993,6 +1001,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param grid			GridPane, der sie ColumnConstraints hinzugefügt werden
 	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
 	 * @param type			Typ der Spalte
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	protected void addColumnConstraint(GridPane grid, int columnIndex, ConstraintType type) {
@@ -1016,6 +1026,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
 	 * @param type			Typ der Spalte
 	 * @param usePercentWidth	{@code true}, wenn die Spaltenbreite gleichmäßig prozentual verteilt werden soll, sonst {@code false}
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	protected void addColumnConstraint(GridPane grid, int columnIndex, ConstraintType type, boolean usePercentWidth) {
@@ -1056,6 +1068,8 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param grid			GridPane, der sie ColumnConstraints hinzugefügt werden
 	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
 	 * @param column		ColumnConstranits, die hinzugefügt werden
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
 	protected void addColumnConstraint(GridPane grid, int columnIndex, ColumnConstraints column) {
@@ -1124,7 +1138,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 // Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	private void formatButtonGrid() {
 		updateButtonConstraints();
 		
@@ -1141,7 +1155,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 //	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	private void updateButtonConstraints() {
 		buttonGrid.getChildren().addListener(new ListChangeListener<Node>() {
 			private int lastRowCount = 0;
@@ -1164,7 +1178,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 //	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	private void updateRowConstraints() {
 		buttonGrid.getRowConstraints().clear();
 		
@@ -1178,7 +1192,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 //	 *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	private void updateColumnConstraints() {
 		buttonGrid.getColumnConstraints().clear();
 		
@@ -1342,7 +1356,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @author Tim
 	 *
 	 * @since Bitchanger 0.1.4
-	 * @version 0.1.4
+	 * @version 0.1.7
 	 */
 	// TODO JavaDoc EN
 	protected static enum ConstraintType{

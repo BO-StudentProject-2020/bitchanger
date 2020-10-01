@@ -29,7 +29,7 @@ import bitchanger.main.PrimaryFXApp;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.7
  *
  */
 public class Resources {
@@ -518,6 +518,7 @@ public class Resources {
 	 * 
 	 * @return Liste, die Speicherorte aller in dieser Klasse definierten Icons enthält
 	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	public static final LinkedList<File> iconList() {
 		LinkedList<File> iconList = new LinkedList<>();

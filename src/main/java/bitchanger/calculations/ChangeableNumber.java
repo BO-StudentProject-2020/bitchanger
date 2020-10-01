@@ -18,7 +18,7 @@ import javafx.beans.property.ReadOnlyStringProperty;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -27,7 +27,7 @@ import javafx.beans.property.ReadOnlyStringProperty;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  *
  */
 public interface ChangeableNumber {
@@ -373,7 +373,7 @@ public interface ChangeableNumber {
 	 * 
 	 * @return
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	public abstract ReadOnlyStringProperty stringProperty();
 
@@ -384,7 +384,7 @@ public interface ChangeableNumber {
 	 * 
 	 * @return
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	public abstract ReadOnlyStringProperty logicStringProperty();
 
@@ -395,7 +395,7 @@ public interface ChangeableNumber {
 	 * 
 	 * @return
 	 * 
-	 * @since Bitchanger 0.1.6
+	 * @since Bitchanger 0.1.7
 	 */
 	public abstract IntegerProperty baseProperty();
 	

@@ -41,7 +41,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -50,7 +50,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  *
  */
 public class ConverterController extends ControllerBase<ConverterView> {

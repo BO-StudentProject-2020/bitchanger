@@ -30,7 +30,7 @@ import javafx.scene.layout.GridPane;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.6
- * @version 0.1.6
+ * @version 0.1.7
  * 
  * @see CalculatorController
  */
@@ -216,7 +216,7 @@ public class CalculatorView extends CalculationViewBase {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void createArithmeticOperators() {
 		createArithmeticButtons();
 		
@@ -241,7 +241,7 @@ public class CalculatorView extends CalculationViewBase {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void createArithmeticButtons() {
 		UnfocusedButton divBtn = new UnfocusedButton("/");
 		UnfocusedButton multBtn = new UnfocusedButton("*");

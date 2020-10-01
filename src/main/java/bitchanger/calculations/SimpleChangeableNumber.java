@@ -38,7 +38,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.5
+ * @version 0.1.7
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -60,7 +60,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.5
+ * @version 0.1.7
  *
  */
 public class SimpleChangeableNumber implements ChangeableNumber {
@@ -157,7 +157,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void setListeners() {
 		this.baseProperty.addListener(new ChangeListener<Number>() {
 			@Override
@@ -222,7 +222,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void updateStringProperty() {
 		try {
 			if(baseProperty.get() == 10) {
@@ -238,7 +238,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
-	// TODO JavaDoc
+	// TODO JavaDoc 0.1.7
 	private void updateLogicStringProperty() {
 		long val;
 		
