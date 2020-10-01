@@ -1,2 +1,0 @@
-In diesem Ordner werden alle Resourcen (z.B. Bilder, CSS, ...) abgelegt, die an die JAR-Datei von
-Maven integriert werden sollen.

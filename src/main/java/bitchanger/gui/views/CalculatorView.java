@@ -8,18 +8,34 @@
 
 package bitchanger.gui.views;
 
-import java.io.File;
 import java.util.ArrayDeque;
 
+import bitchanger.gui.controller.CalculatorController;
+import bitchanger.gui.controller.ControllableApplication;
+import bitchanger.gui.controller.Controller;
+import bitchanger.gui.controls.AlphaNumKeys;
+import bitchanger.gui.controls.BasicMenuBar;
+import bitchanger.gui.controls.ConverterMenuBar;
 import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.util.FXUtils;
-import bitchanger.util.IconFactory;
-import bitchanger.util.Resources;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 
-
+/**	<!-- $LANGUAGE=DE -->
+ * View, die die Scene für die Berechnungen von verschiedenen Zahlensystemen enthält.
+ * <p><b>
+ * Für diese View-Klasse wird der Controller {@link CalculatorController} registriert.
+ * </b></p>
+ * 
+ * @author Tim Mühle
+ * 
+ * @since Bitchanger 0.1.6
+ * @version 0.1.7
+ * 
+ * @see CalculatorController
+ */
 //TODO JavaDoc
-public class CalculatorView extends AlphaNumGridView {
+public class CalculatorView extends CalculationViewBase {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -27,18 +43,23 @@ public class CalculatorView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-//	/** <!-- $LANGUAGE=DE -->	Array, das die Beschriftungen für die Labels vor den Textfeldern definiert */
-//	// TODO JavaDoc EN
-//	private static final String[] LABEL_TEXTS = {"DEC", "IEEE"};
-//	
-//	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
-//	// TODO JavaDoc EN
-//	private static final String TF_DEC_KEY = "dec-TF";
-//	
-//	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
-//	// TODO JavaDoc EN
-//	private static final String TF_IEEE_KEY = "ieee-TF";
+	//TODO JavaDoc
+	private static final int FIRST_KEY_BTN_ROW = 3;
 	
+	private static final int EQUAL_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 1;
+	private static final int EQUAL_BTN_ROW = 3;
+	private static final int EQUAL_BTN_COLUMN_SPAN = 1;
+	private static final int EQUAL_BTN_ROW_SPAN = 2;
+	
+	private static final int BACKSPACE_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT;
+	private static final int BACKSPACE_BTN_ROW = 0;
+	private static final int BACKSPACE_BTN_COLUMN_SPAN = 2;
+	private static final int BACKSPACE_BTN_ROW_SPAN = 1;
+	
+	private static final int CLEAR_BTN_COLUMN = AlphaNumKeys.COLUMN_COUNT + 1;
+	private static final int CLEAR_BTN_ROW = 1;
+	private static final int CLEAR_BTN_COLUMN_SPAN = 1;
+	private static final int CLEAR_BTN_ROW_SPAN = 1;
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -49,7 +70,7 @@ public class CalculatorView extends AlphaNumGridView {
 
 	static {
 		// Controller Klasse zuordnen
-//		Controller.register(ConverterView.class, IEEEController.class);
+		Controller.register(CalculatorView.class, CalculatorController.class);
 	}
 	
 	
@@ -61,57 +82,181 @@ public class CalculatorView extends AlphaNumGridView {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
-// 	#	Fields			   																											 #
+// 	#	Constructors	   																											 #
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
 	
-//	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
-//	// TODO JavaDoc EN
-//	public final String tfDecKey = "dec-TF";
-//	
-//	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
-//	// TODO JavaDoc EN
-//	public final String tfIEEEKey = "ieee-TF";
+//	/** <!-- $LANGUAGE=DE -->
+//	 * Erzeugt eine neue CalculatorView mit vollständigem Scenegraphen und initialisiert die Funktionen
+//	 * der Bedienelemente mit einem {@link CalculatorController}.
+//	 */
+	// TODO JavaDoc
+	public CalculatorView() {
+		super(FIRST_KEY_BTN_ROW, EQUAL_BTN_COLUMN, EQUAL_BTN_ROW, EQUAL_BTN_COLUMN_SPAN, EQUAL_BTN_ROW_SPAN, BACKSPACE_BTN_COLUMN, 
+					BACKSPACE_BTN_ROW, BACKSPACE_BTN_COLUMN_SPAN, BACKSPACE_BTN_ROW_SPAN, CLEAR_BTN_COLUMN, CLEAR_BTN_ROW, 
+					CLEAR_BTN_COLUMN_SPAN, CLEAR_BTN_ROW_SPAN);
+		
+		buildScenegraph();
+	}
 	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
-// 	#	Constructors	   																											 #
+// 	#	Getter and Setter																											 #
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
 
-//	/** <!-- $LANGUAGE=DE -->
-//	 * Erzeugt eine neue IEEEView mit vollständigem Scenegraphen und initialisiert die Funktionen
-//	 * der Bedienelemente mit einem {@link IEEEController}.
-//	 */
-	// TODO JavaDoc
-	public CalculatorView() {
-		super(0, 0, 0, 1, 6, 1, null);
-		
-		buildScenegraph();
-		
-		center.getChildren().clear();
-		
-		ArrayDeque<Button> buttons = new ArrayDeque<>();
-		for(File file : Resources.ICON_LIST) {
-			Button b = new UnfocusedButton("", IconFactory.ofSVGFile(file));
-			b.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-			buttons.add(b);
-		}
-		
-		FXUtils.setGridConstraints(0, 0, 9, 0, buttons);
-		center.getChildren().addAll(buttons);
-		
-		for(int row = 0; row < center.getRowCount(); row++) {
-			this.addRowConstraint(row, ConstraintType.BUTTON_ROW);
-		}
-		for(int column = 0; column < center.getColumnCount(); column++) {
-			this.addColumnConstraint(column, ConstraintType.BUTTON_COLUMN);
-		}
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem der Button zum Dividieren in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Dividieren in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String divideBtnKey() {
+		return "divide-btn";
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem der Button zum Multiplizieren in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Multiplizieren in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String multiplyBtnKey() {
+		return "multiply-btn";
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem der Button zum Subtrahieren in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Subtrahieren in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String subtractBtnKey() {
+		return "sub-btn";
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem der Button zum Addieren in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Addieren in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String addBtnKey() {
+		return "add-btn";
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem der Modulo-Button in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem der Modulo-Button in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String moduloBtnKey() {
+		return "mod-btn";
 	}
 	
 	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Methods   																													 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	/** {@inheritDoc} */
+	@Override
+	public BasicMenuBar generateMenuBar(ControllableApplication controllableApp) {
+		try {
+			return new ConverterMenuBar(controllableApp);
+		} catch (NullPointerException e) {
+			return generateMenuBar();
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** {@inheritDoc} */
+	@Override
+	public BasicMenuBar generateMenuBar() {
+		return new ConverterMenuBar();
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** {@inheritDoc} */
+	@Override
+	protected void createScenegraph() {
+		super.createScenegraph();
+		
+		createArithmeticOperators();
+	}
+
+
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	private Methods   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
+	// TODO JavaDoc 0.1.7
+	private void createArithmeticOperators() {
+		createArithmeticButtons();
+		
+		String[] arithmeticBtnKeys = {divideBtnKey(), multiplyBtnKey(), subtractBtnKey(), addBtnKey()};
+		
+		ArrayDeque<Button> arithmeticButtons = new ArrayDeque<>();
+		
+		for (String key : arithmeticBtnKeys) {
+			arithmeticButtons.add(this.getButtonMap().get(key));
+		}
+		
+		FXUtils.setGridConstraints(AlphaNumKeys.COLUMN_COUNT, 1, 1, 0, arithmeticButtons);
+		FXUtils.setMaxSizes(arithmeticButtons, Double.MAX_VALUE);
+		
+		buttonGrid.getChildren().addAll(arithmeticButtons);
+
+		Button modBtn = getButtonMap().get(moduloBtnKey());
+		GridPane.setConstraints(modBtn, EQUAL_BTN_COLUMN, 2);
+		modBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		buttonGrid.getChildren().add(modBtn);
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc 0.1.7
+	private void createArithmeticButtons() {
+		UnfocusedButton divBtn = new UnfocusedButton("/");
+		UnfocusedButton multBtn = new UnfocusedButton("*");
+		UnfocusedButton subBtn = new UnfocusedButton("-");
+		UnfocusedButton addBtn = new UnfocusedButton("+");
+		UnfocusedButton modBtn = new UnfocusedButton("%");
+		
+		this.getButtonMap().put(divideBtnKey(), divBtn);
+		this.getButtonMap().put(multiplyBtnKey(), multBtn);
+		this.getButtonMap().put(subtractBtnKey(), subBtn);
+		this.getButtonMap().put(addBtnKey(), addBtn);
+		this.getButtonMap().put(moduloBtnKey(), modBtn);
+	}
+	
+
 }
 
 

@@ -8,8 +8,11 @@
 
 package bitchanger.gui.views;
 
+import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.IEEEController;
+import bitchanger.gui.controls.BasicMenuBar;
+import bitchanger.gui.controls.IEEEMenuBar;
 import bitchanger.util.ArrayUtils;
 
 
@@ -22,7 +25,7 @@ import bitchanger.util.ArrayUtils;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.7
  * 
  * @see IEEEController
  */
@@ -57,7 +60,7 @@ public class IEEEView extends AlphaNumGridView {
 
 	static {
 		// Controller Klasse zuordnen
-		Controller.register(ConverterView.class, IEEEController.class);
+		Controller.register(IEEEView.class, IEEEController.class);
 	}
 	
 	
@@ -67,21 +70,6 @@ public class IEEEView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-//  #																																 #
-// 	#	Fields			   																											 #
-//  #																																 #
-//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfDecKey = "dec-TF";
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String tfIEEEKey = "ieee-TF";
-	
-	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -98,11 +86,64 @@ public class IEEEView extends AlphaNumGridView {
 		super(0, 0, 0, 1, 6, 1, LABEL_TEXTS, ArrayUtils.arrayOf(TF_DEC_KEY, TF_IEEE_KEY));
 		
 		buildScenegraph();
-		
 	}
 	
 	
-	// TODO MenuBar -> Elemente hinzufügen
+
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Getter and Setter																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String tfDecKey() {
+		return IEEEView.TF_DEC_KEY;
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort zurück, mit dem das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird
+	 * 
+	 * @return	Schlüsselwort, mit dem das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String tfIEEEKey() {
+		return IEEEView.TF_IEEE_KEY;
+	}
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Methods   																													 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	
+	/** {@inheritDoc} */
+	@Override
+	public BasicMenuBar generateMenuBar(ControllableApplication controllableApp) {
+		try {
+			return new IEEEMenuBar(controllableApp);
+		} catch (NullPointerException e) {
+			return generateMenuBar();
+		}
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** {@inheritDoc} */
+	@Override
+	public BasicMenuBar generateMenuBar() {
+		return new IEEEMenuBar();
+	}
+	
 	
 }
 

@@ -5,5 +5,11 @@
         <indicateFractionalPrecision>true</indicateFractionalPrecision>
         <style>DARK</style>
         <viewClass>bitchanger.gui.views.ConverterView</viewClass>
+        <IEEE_Standard>IEEE_754_2008_b32</IEEE_Standard>
+        <showBitOperationSymbols>true</showBitOperationSymbols>
+        <bitLength>_8_BIT</bitLength>
+        <unsignedBitoperations>true</unsignedBitoperations>
+        <deactivateUnsignedBitLenthWarning>false</deactivateUnsignedBitLenthWarning>
+        <deactivateBitLengthDeleteWarning>false</deactivateBitLengthDeleteWarning>
     </preferences>
 </bitchanger>

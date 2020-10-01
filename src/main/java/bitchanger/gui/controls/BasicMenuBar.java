@@ -40,7 +40,7 @@ import javafx.scene.control.TextField;
  * @author Tim Mühle
  *
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.7
  * 
  * @see BasicMenuController
  */
@@ -53,7 +53,7 @@ import javafx.scene.control.TextField;
  * @author Tim Mühle
  *
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.7
  * 
  * @see BasicMenuController
  */
@@ -92,6 +92,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Berechnungen" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Berechnungen" is associated in the Map {@link #menuItemMap} */
 	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
+	
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Bitoperationen" in der Map {@link #menuItemMap} abgelegt ist */
+	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Bitoperationen" is associated in the Map {@link #menuItemMap} */
+	public static final String MODUS_BITOPERATIONS_ITEM_KEY = "modus-bitoperations-item";
 	
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das Menu "Stil" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the Menu "Stil" is associated in the Map {@link #menuItemMap} */
@@ -155,7 +159,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 
 	/** <!-- $LANGUAGE=DE -->	{@code Map}, in der alle vom Controller benötigten MenuItems mit einem eindeutigen Schlüssel abgelegt werden */
 	/* <!-- $LANGUAGE=EN -->	{@code Map} in which all MenuItems required by the controller are stored with a unique key */
-	public final HashMap<String, MenuItem> menuItemMap;
+	protected final HashMap<String, MenuItem> menuItemMap;
 
 	
 
@@ -178,6 +182,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		super();
 		
 		this.menuItemMap = new HashMap<>();
+		this.minHeightProperty().bind(this.heightProperty());
 		
 		createMenuModus();
 		createMenuOptions();
@@ -222,6 +227,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	public Map<String, TextField> getTextFieldMap() {
 		return Controllable.EMPTY_TEXTFIELD_MAP;
 	}
+	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
@@ -229,6 +235,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	public Map<String, Button> getButtonMap() {
 		return Controllable.EMPTY_BUTTON_MAP;
 	}
+	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
@@ -236,7 +243,23 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	public Map<String, Node> getNodeMap() {
 		return Controllable.EMPTY_NODE_MAP;
 	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die {@code Map} zurück, in der alle vom Controller benötigten MenuItems mit einem eindeutigen Schlüssel abgelegt werden
+	 * 
+	 * @return	{@code Map}, in der alle vom Controller benötigten MenuItems mit einem eindeutigen Schlüssel abgelegt werden
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the {@code Map} in which all MenuItems required by the controller are stored with a unique key
+	 * 
+	 * @return	{@code Map} in which all MenuItems required by the controller are stored with a unique key
+	 */
+	public final HashMap<String, MenuItem> getMenuItemMap(){
+		return this.menuItemMap;
+	}
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -284,12 +307,14 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		MenuItem viewConverter = new MenuItem("Umrechner", IconFactory.ofSVGFile(Resources.SYNC_2_ICON));
 		MenuItem viewIEEE = new MenuItem("IEEE", IconFactory.ofSVGFile(Resources.TEXTFIELD_ICON));
 		MenuItem viewCalculator = new MenuItem("Berechnungen", IconFactory.styleBindIcon(Resources.CALCULATOR_SYMBOLS_ICON, Resources.CALCULATOR_SYMBOLS_FILLED_ICON));
+		MenuItem viewBitoperations = new MenuItem("Bitoperationen", IconFactory.ofSVGFile(Resources.CODE_ICON));
 		
 		menuItemMap.put(MODUS_CONVERTER_ITEM_KEY, viewConverter);
 		menuItemMap.put(MODUS_IEEE_ITEM_KEY, viewIEEE);
 		menuItemMap.put(MODUS_CALCULATOR_ITEM_KEY, viewCalculator);
+		menuItemMap.put(MODUS_BITOPERATIONS_ITEM_KEY, viewBitoperations);
 		
-		modus.getItems().addAll(viewConverter, viewIEEE, viewCalculator);
+		modus.getItems().addAll(viewConverter, viewIEEE, viewCalculator, viewBitoperations);
 	}
 	
 	

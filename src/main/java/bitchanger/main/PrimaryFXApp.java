@@ -11,6 +11,7 @@ package bitchanger.main;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BasicMenuBar;
+import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
@@ -19,12 +20,17 @@ import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.Resources;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /** <!-- $LANGUAGE=DE -->
  * Hauptfenster der Applikation mit javaFX
@@ -36,7 +42,7 @@ import javafx.stage.Stage;
  * @author Tim Mühle
  *
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  * 
  * @see ConverterView
  * @see ConverterController
@@ -51,7 +57,7 @@ import javafx.stage.Stage;
  * @author Tim Muehle
  *
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  * 
  * @see ConverterView
  * @see ConverterController
@@ -76,9 +82,13 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	// TODO JavaDoc EN
 	public static final String CALCULATOR_VIEW_KEY = "calculator-view";
 	
+	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
+	// TODO JavaDoc EN
+	public static final String BITOPERATIONS_VIEW_KEY = "bitoperations-view";
+	
 	/** <!-- $LANGUAGE=DE -->	Aktuelle Version des Bitchangers */
 	// TODO JavaDoc EN
-	public static final String VERSION = "0.1.6";
+	public static final String VERSION = "0.1.7";
 
 	
 	
@@ -141,9 +151,21 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	/* <!-- $LANGUAGE=EN --> View for calculating with number systems */
 	private Viewable calculatorView;
 	
+	/** <!-- $LANGUAGE=DE --> View für Bitoperationen mit Zahlensystemen */
+	/* <!-- $LANGUAGE=EN --> View for bitwise operations with number systems */
+	private Viewable bitoperationsView;
+	
 	/** <!-- $LANGUAGE=DE --> Hauptfenster der Anwendung */
 	/* <!-- $LANGUAGE=EN --> Main application window */
 	private Stage primaryStage;
+	
+	/** <!-- $LANGUAGE=DE --> Höhe des Fensterrahmens */
+	/* <!-- $LANGUAGE=EN --> Height of the window frame */
+	private double emptyStageHeigth;
+	
+	/** <!-- $LANGUAGE=DE --> Breite des Fensterrahmens */
+	/* <!-- $LANGUAGE=EN --> Width of the window frame */
+	private double emptyStageWidth;
 	
 	
 	
@@ -188,6 +210,8 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 			return ieeeView;
 		case CALCULATOR_VIEW_KEY:
 			return calculatorView;
+		case BITOPERATIONS_VIEW_KEY:
+			return bitoperationsView;
 		default:
 			return null;
 		}
@@ -259,16 +283,18 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
+		primaryStage.setFullScreenExitHint("Drücken Sie F11, um den Vollbildmodus zu beenden.");
+		
+		computeStageFrameSize();
 
 		this.converterView = new ConverterView();
 		this.ieeeView = new IEEEView();
 		this.calculatorView = new CalculatorView();
+		this.bitoperationsView = new BitoperationView();
 		
-		adjustViews(converterView, ieeeView, calculatorView);
+		adjustViews(converterView, ieeeView, calculatorView, bitoperationsView);
 
-		changeView(converterView);
-		
-		for(Viewable view : ArrayUtils.arrayOf(converterView, ieeeView, calculatorView)) {
+		for(Viewable view : ArrayUtils.arrayOf(converterView, ieeeView, calculatorView, bitoperationsView)) {
 			if(Preferences.getPrefs().viewClassProperty().get().equals(view.getClass())) {
 				changeView(view);
 			}
@@ -286,6 +312,42 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		primaryStage.show();
 	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc 0.1.7
+	private void computeStageFrameSize() {
+		Stage s = new Stage(StageStyle.DECORATED);
+		
+		Region r = new Region();
+		r.setMaxSize(0, 0);
+		r.setPrefSize(0, 0);
+		
+		Scene sc = new Scene(r, 1, 1);
+		
+		s.setScene(sc);
+		s.setOpacity(0);
+		s.setMaxHeight(0);
+		s.setMaxWidth(0);
+		
+		s.setOnShown(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				emptyStageHeigth = s.getHeight();
+				emptyStageWidth = s.getWidth();
+				
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						s.close();
+					}
+				});
+			}
+		});
+		
+		s.show();
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
 	private void updateViewClassProperty() {
@@ -319,43 +381,16 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	private void setStageSize() {
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen
 		// (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
-		primaryStage.setMinHeight(currentViewProperty.get().getMinHeigth());
-		primaryStage.setMinWidth(currentViewProperty.get().getMinWidth());
+		primaryStage.minHeightProperty().bind(currentViewProperty.get().minHeigthProperty().add(emptyStageHeigth));
+		primaryStage.maxHeightProperty().bind(currentViewProperty.get().maxHeigthProperty().add(emptyStageHeigth));
+		primaryStage.minWidthProperty().bind(currentViewProperty.get().minWidthProperty().add(emptyStageWidth));
+		primaryStage.maxWidthProperty().bind(currentViewProperty.get().maxWidthProperty().add(emptyStageWidth));
 		
 		primaryStage.sizeToScene();
-		
-
-		// TODO Größe anpassen
-//		Scene sc = new Scene(new Label("Hallo1"));
-//		Scene sc2 = new Scene(new Label("Hallo2"));
-//		Stage st = new Stage(StageStyle.DECORATED);
-//		st.setScene(sc);
-//		st.setOnShowing(e->{
-//			
-//			Platform.runLater(()->{
-//				st.sizeToScene();
-//				System.out.println(st.getHeight());
-//				st.hide();
-//			});
-//		});
-//		
-//		Stage st2 = new Stage(StageStyle.UNDECORATED);
-//		st2.setScene(sc2);
-//		st2.setOnShowing(e->{
-//			Platform.runLater(()->{
-//				st2.sizeToScene();
-//				System.out.println(st2.getHeight());
-//				st2.hide();
-//			});
-//		});
-//		
-//		st.show();
-//		st2.show();
 	}
 	
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
 
 	// TODO JavaDoc
 	private void observeStageOnShowing() {
@@ -369,9 +404,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		});
 	}
 	
-	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
 
 	// TODO JavaDoc
 	private void observeScene() {

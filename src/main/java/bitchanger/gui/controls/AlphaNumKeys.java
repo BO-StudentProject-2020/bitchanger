@@ -23,6 +23,7 @@ import bitchanger.util.IconFactory;
 import bitchanger.util.Resources;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -50,7 +51,7 @@ import javafx.scene.layout.Priority;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  *
  * @see AlphaNumKeysController
  * @see UnfocusedButton
@@ -134,14 +135,13 @@ public class AlphaNumKeys implements Controllable {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-// public	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-
-	/** <!-- $LANGUAGE=DE -->	Property für den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons */
-	// TODO JavaDoc EN
-	public final DoubleProperty spacingProperty;
 	
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+	
+	/** <!-- $LANGUAGE=DE -->	Property für den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons */
+	// TODO JavaDoc EN
+	private final DoubleProperty spacingProperty;
 
 	/** <!-- $LANGUAGE=DE -->	Liste, die alle Buttons der Tastatur-Matrix enthält */
 	// TODO JavaDoc EN
@@ -247,8 +247,8 @@ public class AlphaNumKeys implements Controllable {
 	 * @param scene				Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
 	 */
 	// TODO JavaDoc EN
-	public AlphaNumKeys(int firstRow, int firstColumn, DoubleProperty spacingProperty, Scene scene) {
-		this(firstRow, firstColumn, spacingProperty.get(), scene);
+	public AlphaNumKeys(int firstRow, int firstColumn, ObservableValue<Number> spacingProperty, Scene scene) {
+		this(firstRow, firstColumn, spacingProperty.getValue().doubleValue(), scene);
 		
 		this.spacingProperty.bind(spacingProperty);
 	}
@@ -308,6 +308,19 @@ public class AlphaNumKeys implements Controllable {
 	public ArrayList<Node> getButtonMatrix() {
 		return buttonList;
 	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons zurück.
+	 * 
+	 * @return	Property für den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons
+	 */
+	// TODO JavaDoc EN
+	public DoubleProperty spacingProperty() {
+		return spacingProperty;
+	};
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

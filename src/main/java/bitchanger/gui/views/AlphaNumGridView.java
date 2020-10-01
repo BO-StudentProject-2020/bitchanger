@@ -20,9 +20,16 @@ import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
 import bitchanger.util.IconFactory;
 import bitchanger.util.Resources;
+import javafx.beans.binding.BooleanExpression;
+import javafx.beans.binding.DoubleExpression;
+import javafx.beans.binding.NumberBinding;
+import javafx.beans.binding.When;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -34,6 +41,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 
 /** <!-- $LANGUAGE=DE -->
@@ -71,7 +79,7 @@ import javafx.scene.layout.RowConstraints;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.7
  *
  */
 // TODO JavaDoc EN
@@ -87,52 +95,16 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 // public	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE --> Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden */
-	// TODO JavaDoc EN
-	public final String[] tfKeys;
-
+	private String[] tfKeys;
+	
 	/** <!-- $LANGUAGE=DE --> Schlüsselwort, mit dem der Löschen-Button (AC) in der Map {@code btnMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String clearBtnKey;
-
+	private String clearBtnKey;
+	
 	/** <!-- $LANGUAGE=DE --> Schlüsselwort, mit dem der Backspace-Button in der Map {@code btnMap} gespeichert wird */
-	// TODO JavaDoc EN
-	public final String backspaceBtnKey;
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Vorzeichenwechsel */
-	// TODO JavaDoc EN
-	public final String signBtnKey = AlphaNumKeys.SIGN_BTN_KEY;
-	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button, der die Null repräsentiert */
-	// TODO JavaDoc EN
-	public final String zeroBtnKey = AlphaNumKeys.ZERO_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Komma-Button */
-	// TODO JavaDoc EN
-	public final String commaBtnKey = AlphaNumKeys.COMMA_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Umschalten des Tastaturlayouts */
-	// TODO JavaDoc EN
-	public final String keyboardBtnKey = AlphaNumKeys.KEYBOARD_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Weiterscrollen durch die Tastatur */
-	// TODO JavaDoc EN
-	public final String nextBtnKey = AlphaNumKeys.NEXT_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Rückwärtsscrollen durch die Tastatur */
-	// TODO JavaDoc EN
-	public final String previousBtnKey = AlphaNumKeys.PREVIOUS_BTN_KEY;
-
-	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Buchstaben-Buttons definiert */
-	// TODO JavaDoc EN
-	public final String[] alphaKeys = AlphaNumKeys.ALPHA_KEYS;
-
-	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Zahlen-Buttons definiert */
-	// TODO JavaDoc EN
-	public final String[] numKeys = AlphaNumKeys.NUM_KEYS;
+	private String backspaceBtnKey;
 	
 	/** <!-- $LANGUAGE=DE -->	Array, das die Beschriftungen für die Labels vor den Textfeldern definiert */
-	// TODO JavaDoc EN
-	public final String[] labelTexts;
+	private String[] labelTexts;
 	
 	
 // protected	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -181,7 +153,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
 	// TODO JavaDoc EN
 	protected final DoubleProperty btnMinWidthProperty;
-
+	
 	/** <!-- $LANGUAGE=DE --> Property für die Höhe der Zeilen zwischen den Textfeldern und Buttons */
 	// TODO JavaDoc EN
 	protected final DoubleProperty whiteSpaceHeigthProperty;
@@ -245,6 +217,10 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE --> Tabelle im Center von {@code root}, in der alle Controls positioniert werden */
 	// TODO JavaDoc EN
 	protected final GridPane center;
+	
+	/** <!-- $LANGUAGE=DE --> Tabelle, in der alle Buttons positioniert werden */
+	// TODO JavaDoc EN
+	protected final GridPane buttonGrid;
 
 	/** <!-- $LANGUAGE=DE --> Buttons, die als alpha-numerische Tastatur dienen, die für verschiedene Zahlensysteme ausgelegt ist. */
 	// TODO JavaDoc EN
@@ -256,6 +232,23 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	/** <!-- $LANGUAGE=DE --> Map, in der die angezeigten Texte oder Icons für die Buttons definiert werden. */
 	// TODO JavaDoc EN
 	private final HashMap<String, Object> btnTexts;
+	
+	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Buttons in dieser View */
+	// TODO JavaDoc EN
+	private final DoubleProperty maxHeightProperty;
+
+	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Buttons in dieser View */
+	// TODO JavaDoc EN
+	private final DoubleProperty minHeightProperty;
+
+	/** <!-- $LANGUAGE=DE --> Property für die maximale Breite der Buttons in dieser View */
+	// TODO JavaDoc EN
+	private final DoubleProperty maxWidthProperty;
+
+	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
+	// TODO JavaDoc EN
+	private final DoubleProperty minWidthProperty;
+	
 	
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -314,11 +307,11 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			int firstKeyBtnColumn, String[] labelTexts, String... tfKeys) {
 		
 		this(firstLabelRow, labelColumn, firstTFRow, tfColumn, firstKeyBtnRow, firstKeyBtnColumn, labelTexts, 
-				tfKeys, 40, Double.MAX_VALUE, 50, 40, 70, 20, 6);
+				tfKeys, 40, Double.MAX_VALUE, 45, 40, 70, 20, 6);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels, Textfelder und die Tastaturmatrix nach den übergebenen Parametern
 	 * positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -347,7 +340,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 		this(firstLabelRow, labelColumn, firstTFRow, tfColumn, firstKeyBtnRow, firstKeyBtnColumn, labelTexts, tfKeys, tfHeight, 
 				tfHeight, btnMaxSize, btnMinSize, btnMaxSize, btnMinSize, whiteSpaceHeigth, firstColumnWidth, paddingTopRigthBottomLeft, 
-				paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, spacing, spacing, spacing);
+				paddingTopRigthBottomLeft + firstColumnWidth, paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, spacing, spacing, spacing);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -405,6 +398,11 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.hgapProperty = new SimpleDoubleProperty(hgap);
 		this.vgapProperty = new SimpleDoubleProperty(vgap);
 		
+		this.minHeightProperty = new SimpleDoubleProperty();
+		this.maxHeightProperty = new SimpleDoubleProperty();
+		this.minWidthProperty = new SimpleDoubleProperty();
+		this.maxWidthProperty = new SimpleDoubleProperty();
+		
 		this.firstTFRow = (firstTFRow >= 0 && tfColumn >= 0) ? firstTFRow : -1;
 		this.tfColumn = (firstTFRow >= 0 && tfColumn >= 0) ? tfColumn : -1;
 		this.firstLabelRow = (firstLabelRow >= 0 && labelColumn >= 0) ? firstLabelRow : -1;
@@ -431,7 +429,12 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.btnTexts.put(backspaceBtnKey, backSpaceIcon == null ? "<--" : backSpaceIcon);
 
 		this.center = new GridPane();
-		this.alphaNum = new AlphaNumKeys(firstKeyBtnRow + 1, firstKeyBtnColumn, btnSpacingProperty, this.scene);
+		this.buttonGrid = new GridPane();
+		
+		this.alphaNum = new AlphaNumKeys(1, 0, btnSpacingProperty, this.scene);
+		
+		observeCenter();
+		observeSize();
 	}
 	
 	
@@ -442,55 +445,179 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
 	/** {@inheritDoc} */
 	@Override
-	public double getMaxHeigth() {
-		return paddingTopProperty.get() + paddingBottomProperty.get()
-				+ getTextFieldMap().size() * tfMaxHeightProperty.get() + (center.getRowCount() - 1) * vgapProperty.get()
-				+ (center.getRowCount() - firstKeyBtnRow) * btnMaxHeigthProperty.get() + whiteSpaceHeigthProperty.get();
+	public DoubleProperty maxHeigthProperty() {
+		return this.maxHeightProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
 	@Override
-	public double getMaxWidth() {
-		return paddingLeftProperty.get() + paddingRigthProperty.get() + firstColumnWidthProperty.get()
-				+ AlphaNumKeys.COLUMN_COUNT * btnMaxWidthProperty.get() + (center.getColumnCount() - 1) * hgapProperty.get();
+	public DoubleProperty maxWidthProperty() {
+		return this.maxWidthProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** {@inheritDoc} */
 	@Override
-	public double getMinHeigth() {
-		double minHeight = root.getTop().minHeight(Double.NaN);
-		
-		for(RowConstraints rc : center.getRowConstraints()) {
-			minHeight += rc.getMinHeight();
-		}
-		
-		minHeight += center.getPadding().getTop() + center.getPadding().getBottom();
-		minHeight += (center.getRowCount() - 1) * center.getHgap();
-		
-		return minHeight;
+	public DoubleProperty minHeigthProperty() {
+		return this.minHeightProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** {@inheritDoc} */
+	@Override
+	public DoubleProperty minWidthProperty() {
+		return this.minWidthProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	/** {@inheritDoc} */
-	@Override
-	public double getMinWidth() {
-		// TODO: Berechnung der Größe anpassen
-		double minWidth = center.getPadding().getLeft() * 2 + firstColumnWidthProperty.get() + vgapProperty.get();
-		
-		for(ColumnConstraints cc : center.getColumnConstraints()) {
-			minWidth += cc.getMinWidth();
-		}
-		
-		minWidth += (center.getColumnCount() - 1) * center.getVgap();
-		
-		return minWidth + 10;
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden zurück.
+	 * 
+	 * @return	Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden
+	 */
+	// TODO JavaDoc EN
+	public final String[] tfKeys() {
+		return tfKeys;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Löschen-Button (AC) in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Löschen-Button (AC) in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String clearBtnKey() {
+		return clearBtnKey;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Backspace-Button in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Backspace-Button in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String backspaceBtnKey() {
+		return backspaceBtnKey;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button zum Vorzeichenwechsel in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Vorzeichenwechsel in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String signBtnKey() {
+		return AlphaNumKeys.SIGN_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button, der die Null repräsentiert in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button, der die Null repräsentiert in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String zeroBtnKey() {
+		return AlphaNumKeys.ZERO_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Komma-Button in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Komma-Button in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String commaBtnKey() {
+		return AlphaNumKeys.COMMA_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button zum Umschalten des Tastaturlayouts in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Umschalten des Tastaturlayouts in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String keyboardBtnKey() {
+		return AlphaNumKeys.KEYBOARD_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button zum Weiterscrollen durch die Tastatur in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Weiterscrollen durch die Tastatur in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String nextBtnKey() {
+		return AlphaNumKeys.NEXT_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem der Button zum Rückwärtsscrollen durch die Tastatur in der Map {@code btnMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem der Button zum Rückwärtsscrollen durch die Tastatur in der Map {@code btnMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String previousBtnKey() {
+		return AlphaNumKeys.PREVIOUS_BTN_KEY;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Array, das die Schlüsselwörter für die Buchstaben-Buttons definiert zurück.
+	 * 
+	 * @return	Array, das die Schlüsselwörter für die Buchstaben-Buttons definiert
+	 */
+	// TODO JavaDoc EN
+	public final String[] alphaKeys() {
+		return AlphaNumKeys.ALPHA_KEYS;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Array, das die Schlüsselwörter für die Zahlen-Buttons definiert zurück.
+	 * 
+	 * @return	Array, das die Schlüsselwörter für die Zahlen-Buttons definiert
+	 */
+	// TODO JavaDoc EN
+	public final String[] numKeys() {
+		return AlphaNumKeys.NUM_KEYS;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Array, das die Beschriftungen für die Labels vor den Textfeldern definiert zurück.
+	 * 
+	 * @return	Array, das die Beschriftungen für die Labels vor den Textfeldern definiert
+	 */
+	// TODO JavaDoc EN
+	public final String[] labelTexts() {
+		return labelTexts;
 	}
 
 	
@@ -514,13 +641,16 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 		// Textfelder erstellen und in die GridPane einfügen
 		createTextFields();
-
+		
+		// buttonGrid formatieren
+		formatButtonGrid();
+		
 		// Buttons erstellen und in die GridPane einfügen
 		createButtonMatrix();
 
 		// Constraints für Größe und Wachstum setzen
 		setRowConstraints();
-		setColumnConstraints();
+		addColumnConstraint(center, 0, ConstraintType.FIRST_COLUMN);
 
 		// GridPane formatieren
 		updatePadding(null, null, null);
@@ -542,6 +672,169 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
+	// TODO JavaDoc 0.1.7
+	private void observeCenter() {
+		center.getRowConstraints().addListener(new ListChangeListener<RowConstraints>() {
+			@Override
+			public void onChanged(Change<? extends RowConstraints> c) {
+				DoubleExpression minRowHeigths = new SimpleDoubleProperty(0);
+				DoubleExpression maxRowHeigths = new SimpleDoubleProperty(0);
+				
+				for(RowConstraints rc : center.getRowConstraints()) {
+					minRowHeigths = minRowHeigths.add(new When(rc.minHeightProperty().greaterThan(0)).then(rc.minHeightProperty()).otherwise(0));
+					maxRowHeigths = maxRowHeigths.add(new When(rc.maxHeightProperty().greaterThan(0)).then(rc.maxHeightProperty()).otherwise(Double.MAX_VALUE));
+				}
+				
+				NumberBinding vgapWidthBinding = new When(vgapProperty.greaterThan(0)).then(vgapProperty.multiply(center.getRowCount())).otherwise(0);
+				
+				center.minHeightProperty().bind(minRowHeigths.add(vgapWidthBinding));
+				center.maxHeightProperty().bind(maxRowHeigths.add(vgapWidthBinding));
+			}
+		});
+		
+		center.getColumnConstraints().addListener(new ListChangeListener<ColumnConstraints>() {
+			@Override
+			public void onChanged(Change<? extends ColumnConstraints> c) {
+				DoubleExpression minColumnWidth = new SimpleDoubleProperty(0);
+				DoubleExpression maxColumnWidth = new SimpleDoubleProperty(0);
+				
+				for(ColumnConstraints cc : center.getColumnConstraints()) {
+					minColumnWidth = minColumnWidth.add(new When(cc.minWidthProperty().greaterThan(0)).then(cc.minWidthProperty()).otherwise(0));
+					maxColumnWidth = maxColumnWidth.add(new When(cc.maxWidthProperty().greaterThan(0)).then(cc.maxWidthProperty()).otherwise(Double.MAX_VALUE));
+				}
+				
+				ColumnConstraints firstColumn = center.getColumnConstraints().get(0);
+				ColumnConstraints lastColumn = center.getColumnConstraints().get(center.getColumnConstraints().size() - 1);
+				
+				BooleanExpression lastColumnEqualsFirst = firstColumn.minWidthProperty().isEqualTo(lastColumn.minWidthProperty()).and(firstColumn.maxWidthProperty().isEqualTo(lastColumn.maxWidthProperty()));
+				
+				
+				NumberBinding firstColumnWidthBinding = new When(lastColumnEqualsFirst).then(0).otherwise(new When(firstColumnWidthProperty.greaterThan(0)).then(firstColumnWidthProperty).otherwise(0));
+				NumberBinding hgapWidthBinding = new When(hgapProperty.greaterThan(0)).then(hgapProperty.multiply(center.getColumnCount())).otherwise(0);
+				
+				center.minWidthProperty().bind(minColumnWidth.add(hgapWidthBinding).add(firstColumnWidthBinding));
+				center.maxWidthProperty().bind(maxColumnWidth.add(hgapWidthBinding).add(firstColumnWidthBinding));
+			}
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc 0.1.7
+	private void observeSize() {
+		DoubleProperty topMinHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty topMaxHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty centerMinHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty centerMaxHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty bottomMinHeightProperty = new SimpleDoubleProperty(0);
+		DoubleProperty bottomMaxHeightProperty = new SimpleDoubleProperty(0);
+		
+		DoubleProperty leftMinWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty leftMaxWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty centerMinWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty centerMaxWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty rightMinWidthProperty = new SimpleDoubleProperty(0);
+		DoubleProperty rightMaxWidthProperty = new SimpleDoubleProperty(0);
+		
+		listenHeigthProperties(root.topProperty(), topMinHeightProperty, topMaxHeightProperty);
+		listenHeigthProperties(root.centerProperty(), centerMinHeightProperty, centerMaxHeightProperty);
+		listenHeigthProperties(root.bottomProperty(), bottomMinHeightProperty, bottomMaxHeightProperty);
+		
+		listenWidthProperties(root.leftProperty(), leftMinWidthProperty, leftMaxWidthProperty);
+		listenWidthProperties(root.centerProperty(), centerMinWidthProperty, centerMaxWidthProperty);
+		listenWidthProperties(root.rightProperty(), rightMinWidthProperty, rightMaxWidthProperty);
+		
+		this.minHeightProperty.bind(topMinHeightProperty.add(centerMinHeightProperty).add(bottomMinHeightProperty));
+		this.maxHeightProperty.bind(topMaxHeightProperty.add(centerMaxHeightProperty).add(bottomMaxHeightProperty));
+		this.minWidthProperty.bind(leftMinWidthProperty.add(centerMinWidthProperty).add(rightMinWidthProperty));
+		this.maxWidthProperty.bind(leftMaxWidthProperty.add(centerMaxWidthProperty).add(rightMaxWidthProperty));
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc 0.1.7
+	private void listenHeigthProperties(ObjectProperty<Node> childProperty, DoubleProperty minHeightProperty, DoubleProperty maxHeightProperty) {
+		updateHeigthProperties(childProperty.get(), minHeightProperty, maxHeightProperty);
+		
+		childProperty.addListener(new ChangeListener<Node>() {
+			@Override
+			public void changed(ObservableValue<? extends Node> observable, Node oldChild, Node newChild) {
+				updateHeigthProperties(newChild, minHeightProperty, maxHeightProperty);
+			}
+		});
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc 0.1.7
+	private void updateHeigthProperties(Node child, DoubleProperty minHeightProperty, DoubleProperty maxHeightProperty) {
+		minHeightProperty.unbind();
+		maxHeightProperty.unbind();
+
+		if (child instanceof Region) {
+			DoubleProperty topInset = new SimpleDoubleProperty(((Region) child).getPadding().getTop() > 0 ? ((Region) child).getPadding().getTop() : 0);
+			DoubleProperty bottomInset = new SimpleDoubleProperty(((Region) child).getPadding().getBottom() > 0 ? ((Region) child).getPadding().getBottom() : 0);
+
+			((Region) child).paddingProperty().addListener(new ChangeListener<Insets>() {
+				@Override
+				public void changed(ObservableValue<? extends Insets> observable, Insets oldValue, Insets newInsets) {
+					topInset.set(newInsets.getTop() > 0 ? newInsets.getTop() : 0);
+					bottomInset.set(newInsets.getBottom() > 0 ? newInsets.getBottom() : 0);
+				}
+			});
+			
+			NumberBinding minHeightBinding = new When(((Region) child).minHeightProperty().greaterThan(0)).then(((Region) child).minHeightProperty()).otherwise(0);
+			minHeightProperty.bind(minHeightBinding.add(topInset).add(bottomInset));
+			
+			NumberBinding maxHeightBinding = new When(((Region) child).maxHeightProperty().greaterThan(0)).then(((Region) child).maxHeightProperty()).otherwise(Double.MAX_VALUE);
+			maxHeightProperty.bind(maxHeightBinding.add(topInset).add(bottomInset));
+		}
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc 0.1.7
+	private void listenWidthProperties(ObjectProperty<Node> childProperty, DoubleProperty minWidthProperty, DoubleProperty maxWidthProperty) {
+		updateWidthProperties(childProperty.get(), minWidthProperty, maxWidthProperty);
+		
+		childProperty.addListener(new ChangeListener<Node>() {
+			@Override
+			public void changed(ObservableValue<? extends Node> observable, Node oldChild, Node newChild) {
+				updateWidthProperties(newChild, minWidthProperty, maxWidthProperty);
+			}
+		});
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc 0.1.7
+	private void updateWidthProperties(Node child, DoubleProperty minWidthProperty, DoubleProperty maxWidthProperty) {
+		minWidthProperty.unbind();
+		maxWidthProperty.unbind();
+
+		if (child instanceof Region) {
+			DoubleProperty leftInset = new SimpleDoubleProperty(((Region) child).getPadding().getLeft() > 0 ? ((Region) child).getPadding().getLeft() : 0);
+			DoubleProperty rigthInset = new SimpleDoubleProperty(((Region) child).getPadding().getRight() > 0 ? ((Region) child).getPadding().getRight() : 0);
+
+			((Region) child).paddingProperty().addListener(new ChangeListener<Insets>() {
+				@Override
+				public void changed(ObservableValue<? extends Insets> observable, Insets oldValue, Insets newInsets) {
+					leftInset.set(newInsets.getLeft() > 0 ? newInsets.getLeft() : 0);
+					rigthInset.set(newInsets.getRight() > 0 ? newInsets.getRight() : 0);
+				}
+			});
+			
+			NumberBinding minWidthBinding = new When(((Region) child).minWidthProperty().greaterThan(0)).then(((Region) child).minWidthProperty()).otherwise(0);
+			minWidthProperty.bind(minWidthBinding.add(leftInset).add(rigthInset));
+			
+			NumberBinding maxWidthBinding = new When(((Region) child).maxWidthProperty().greaterThan(0)).then(((Region) child).maxWidthProperty()).otherwise(Double.MAX_VALUE);
+			maxWidthProperty.bind(maxWidthBinding.add(leftInset).add(rigthInset));
+		}
+	}
+
+	
+	
+
 // GridPane Center	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	
 	/** <!-- $LANGUAGE=DE -->
@@ -555,7 +848,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	private void setRowConstraints() {
 		// RowConstraints für Zeilen mit Textfeldern
 		for (int i = firstTFRow; i < firstTFRow + getTextFieldMap().size(); i++) {
-			addRowConstraint(i, ConstraintType.TEXT_FIELD_ROW);
+			addRowConstraint(center, i, ConstraintType.TEXT_FIELD_ROW);
 		}
 
 		// Zeilen zwischen Textfeldern und Buttons
@@ -563,95 +856,138 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		int whitespaceEnd = Math.max(firstTFRow, firstKeyBtnRow);
 		
 		for (int i = firstWhitespaceRow; i < whitespaceEnd; i++) {
-			addRowConstraint(i, ConstraintType.WHITESPACE_ROW);
-		}
-
-		// RowConstraints für die Buttons
-		int btnStartRow = useClearAndBackBtn ? firstKeyBtnRow : firstKeyBtnRow + 1;
-		int btnEndRow = useClearAndBackBtn ? btnStartRow + AlphaNumKeys.ROW_COUNT + 1 : btnStartRow + AlphaNumKeys.ROW_COUNT;
-		
-		for (int i = btnStartRow; i < btnEndRow; i++) {
-			addRowConstraint(i, ConstraintType.BUTTON_ROW);
+			addRowConstraint(center, i, ConstraintType.WHITESPACE_ROW);
 		}
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt neue RowConstraints für die Zeile mit dem Index {@code rowIndex}, die an den ConstraintType angepasst sind.
+	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
+	 * anzupassen und die Properties maxHeightProperty und minHeightProperty mit den passenden Properties dieser AlphaNumGridView
+	 * bidirektional zu verbinden. Ist die übergebene GridPane das Attribut {@link #buttonGrid}, wird die Zeilenhöhe Prozentual angepasst.
+	 * 
+	 * @param grid		GridPane, der sie RowConstraints hinzugefügt werden
+	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
+	 * @param type		Typ der Zeile
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
+	protected void addRowConstraint(GridPane grid, int rowIndex, ConstraintType type) {
+		if(grid.equals(buttonGrid)) {
+			addRowConstraint(grid, rowIndex, type, true);
+			return;
+		}
+		
+		addRowConstraint(grid, rowIndex, type, false);
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue RowConstraints für die Zeile mit dem Index {@code rowIndex}, die an den ConstraintType angepasst sind.
 	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
 	 * anzupassen und die Properties maxHeightProperty und minHeightProperty mit den passenden Properties dieser AlphaNumGridView
 	 * bidirektional zu verbinden.
 	 * 
+	 * @param grid		GridPane, der sie RowConstraints hinzugefügt werden
 	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
 	 * @param type		Typ der Zeile
+	 * @param usePercentHeigth	{@code true}, wenn die Zeilenhöhe gleichmäßig prozentual verteilt werden soll, sonst {@code false}
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
-	protected void addRowConstraint(int rowIndex, ConstraintType type) {
+	protected void addRowConstraint(GridPane grid, int rowIndex, ConstraintType type, boolean usePercentHeigth) {
 		if(rowIndex < 0) {
 			return;
 		}
 		
+		RowConstraints rowc = createRowConstraints(type);
+		
+		if (rowc == null) {
+			return;
+		}
+		
+		if(usePercentHeigth) rowc.setPercentHeight(100.0 / grid.getRowCount());
+		
+		addRowConstraint(grid, rowIndex, rowc);
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt neue RowConstraints, die an den ConstraintType angepasst sind.
+	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
+	 * anzupassen und die Properties maxHeightProperty und minHeightProperty mit den passenden Properties dieser AlphaNumGridView
+	 * zu verbinden.
+	 * 
+	 * @param type	Typ der Zeile
+	 * 
+	 * @return		neue RowConstraints passend zu dem ConstraintType
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
+	protected RowConstraints createRowConstraints(ConstraintType type){
 		RowConstraints rowc = new RowConstraints();
 		rowc.setFillHeight(true);
 		
 		switch(type) {
 		case TEXT_FIELD_ROW:
-			rowc.maxHeightProperty().bindBidirectional(tfMaxHeightProperty);
-			rowc.minHeightProperty().bindBidirectional(tfMinHeightProperty);
+			rowc.maxHeightProperty().bind(tfMaxHeightProperty);
+			rowc.minHeightProperty().bind(tfMinHeightProperty);
 			break;
 		case BUTTON_ROW:
-			rowc.maxHeightProperty().bindBidirectional(btnMaxHeigthProperty);
-			rowc.minHeightProperty().bindBidirectional(btnMinHeigthProperty);
+			rowc.maxHeightProperty().bind(btnMaxHeigthProperty);
+			rowc.minHeightProperty().bind(btnMinHeigthProperty);
 			rowc.setValignment(VPos.CENTER);
 			rowc.setVgrow(Priority.ALWAYS);
 			break;
 		case WHITESPACE_ROW:
-			rowc.maxHeightProperty().bindBidirectional(whiteSpaceHeigthProperty);
-			rowc.minHeightProperty().bindBidirectional(whiteSpaceHeigthProperty);
+			rowc.maxHeightProperty().bind(whiteSpaceHeigthProperty);
+			rowc.minHeightProperty().bind(whiteSpaceHeigthProperty);
 			break;
 		case FIRST_COLUMN:	/* fall through	*/
 		case BUTTON_COLUMN:	/* fall through	*/
 		default:
+			return null;
+		}
+		
+		return rowc;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Legt die übergebenen RowConstraints für die Zeile mit dem Index {@code rowIndex} fest.
+	 * 
+	 * @param grid		GridPane, der sie RowConstraints hinzugefügt werden
+	 * @param rowIndex	Index der Zeile, für die neue RowConstraints hinzugefügt werden
+	 * @param rowc		neue RowConstrains, die hinzugefügt werden
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
+	protected void addRowConstraint(GridPane grid, int rowIndex, RowConstraints rowc) {
+		if(rowIndex < 0) {
 			return;
 		}
 		
 		// Constraints auffüllen, wenn vorherige Constraints fehlen
-		while(rowIndex > center.getRowConstraints().size()) {
-			center.getRowConstraints().add(new RowConstraints());
+		while(rowIndex > grid.getRowConstraints().size()) {
+			grid.getRowConstraints().add(createRowConstraints(ConstraintType.WHITESPACE_ROW));
 		}
 		
 		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
 		try {
-			center.getRowConstraints().remove(rowIndex);
+			grid.getRowConstraints().remove(rowIndex);
 		} catch (Exception e) { /* ignore */ }
 		
 		// Constraints hinzufügen
-		center.getRowConstraints().add(rowIndex, rowc);
-	}
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/** <!-- $LANGUAGE=DE -->
-	 * Setzt alle {@code ColumnConstraints} für center.
-	 * <p>
-	 * Es werden Breite der Spalten, sowie Anordnung und das Größenwachstum für alle Spalten der GridPane eingestellt.
-	 * </p>
-	 * <p><b>
-	 * Verbindet die Properties {@code maxWidthProperty} und {@code minWidthProperty} der ColumnConstraints bidirektional 
-	 * mit der Property {@link #firstColumnWidthProperty} für die erste Spalte und mit den Properties {@link #btnMaxWidthProperty}
-	 * und {@link #btnMinWidthProperty} für alle weitere Spalten.
-	 * </b></p>
-	 */
-	// TODO JavaDoc EN
-	private void setColumnConstraints() {
-		// ColumnConstraints für erste Spalte
-		addColumnConstraint(0, ConstraintType.FIRST_COLUMN);
-
-		// ColumnConstraints für Spalten mit Buttons
-		for (int i = firstKeyBtnColumn; i < firstKeyBtnColumn + AlphaNumKeys.COLUMN_COUNT; i++) {
-			addColumnConstraint(i, ConstraintType.BUTTON_COLUMN);
-		}
+		grid.getRowConstraints().add(rowIndex, rowc);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -660,13 +996,41 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * Erstellt neue ColumnConstraints für die Spalte mit dem Index {@code columnIndex}, die an den ConstraintType angepasst sind.
 	 * Der ConstraintType bestimmt, ob es sich um die erste Spalte oder um eine Spalte mit Buttons handelt, um Hgrow
 	 * anzupassen und die Properties maxWidthProperty und minWidthProperty mit den passenden Properties dieser AlphaNumGridView
-	 * bidirektional zu verbinden.
+	 * bidirektional zu verbinden. Ist die übergebene GridPane das Attribut {@link #buttonGrid}, wird die Spaltenbreite Prozentual angepasst.
 	 * 
+	 * @param grid			GridPane, der sie ColumnConstraints hinzugefügt werden
 	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
 	 * @param type			Typ der Spalte
+	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	// TODO JavaDoc EN
-	protected void addColumnConstraint(int columnIndex, ConstraintType type) {
+	protected void addColumnConstraint(GridPane grid, int columnIndex, ConstraintType type) {
+		if(grid.equals(buttonGrid)) {
+			addColumnConstraint(grid, columnIndex, type, true);
+			return;
+		}
+		
+		addColumnConstraint(grid, columnIndex, type, false);
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt neue ColumnConstraints für die Spalte mit dem Index {@code columnIndex}, die an den ConstraintType angepasst sind.
+	 * Der ConstraintType bestimmt, ob es sich um die erste Spalte oder um eine Spalte mit Buttons handelt, um Hgrow
+	 * anzupassen und die Properties maxWidthProperty und minWidthProperty mit den passenden Properties dieser AlphaNumGridView
+	 * bidirektional zu verbinden.
+	 * 
+	 * @param grid			GridPane, der sie ColumnConstraints hinzugefügt werden
+	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
+	 * @param type			Typ der Spalte
+	 * @param usePercentWidth	{@code true}, wenn die Spaltenbreite gleichmäßig prozentual verteilt werden soll, sonst {@code false}
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
+	protected void addColumnConstraint(GridPane grid, int columnIndex, ConstraintType type, boolean usePercentWidth) {
 		if(columnIndex < 0) {
 			return;
 		}
@@ -678,13 +1042,13 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		switch(type) {
 		case FIRST_COLUMN:
 			column.setHgrow(Priority.NEVER);
-			column.maxWidthProperty().bindBidirectional(firstColumnWidthProperty);
-			column.minWidthProperty().bindBidirectional(firstColumnWidthProperty);
+			column.maxWidthProperty().bind(firstColumnWidthProperty);
+			column.minWidthProperty().bind(firstColumnWidthProperty);
 			break;
 		case BUTTON_COLUMN:
 			column.setHgrow(Priority.ALWAYS);
-			column.maxWidthProperty().bindBidirectional(btnMaxWidthProperty);
-			column.minWidthProperty().bindBidirectional(btnMinWidthProperty);
+			column.maxWidthProperty().bind(btnMaxWidthProperty);
+			column.minWidthProperty().bind(btnMinWidthProperty);
 			break;
 		case TEXT_FIELD_ROW:	/* fall through	*/
 		case BUTTON_ROW:		/* fall through	*/
@@ -693,19 +1057,40 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			return;
 		}
 		
+		addColumnConstraint(grid, columnIndex, column);
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Legt die übergebenen ColumnConstraints für die Spalte mit dem Index {@code columnIndex} fest.
+	 * 
+	 * @param grid			GridPane, der sie ColumnConstraints hinzugefügt werden
+	 * @param columnIndex	Index der Spalte, für die neue RowConstraints hinzugefügt werden
+	 * @param column		ColumnConstranits, die hinzugefügt werden
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
+	protected void addColumnConstraint(GridPane grid, int columnIndex, ColumnConstraints column) {
+		if(columnIndex < 0) {
+			return;
+		}
+		
 		// Constraints auffüllen, wenn vorherige Constraints fehlen
 		while(columnIndex > center.getColumnConstraints().size()) {
-			center.getColumnConstraints().add(new ColumnConstraints());
+			grid.getColumnConstraints().add(new ColumnConstraints());
 		}
 		
 		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
 		try {
-			center.getColumnConstraints().remove(columnIndex);
+			grid.getColumnConstraints().remove(columnIndex);
 		} catch (Exception e) { /* ignore */ }
 		
 		// Constraints hinzufügen
-		center.getColumnConstraints().add(columnIndex, column);
+		grid.getColumnConstraints().add(columnIndex, column);
 	}
+	
 	
 	
 // TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
@@ -728,7 +1113,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			center.getChildren().add(tf);
 
 			// Textfeld mit Schlüssel in Map speichern
-			getTextFieldMap().put(tfKeys[row], tf);
+			getTextFieldMap().put(tfKeys[row - firstTFRow], tf);
 		}
 	}
 
@@ -743,7 +1128,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		ArrayDeque<Node> labels = new ArrayDeque<>();
 
 		for (int i = firstLabelRow; i < firstLabelRow + labelTexts.length; i++) {
-			labels.add(new Label(labelTexts[i]));
+			labels.add(new Label(labelTexts[i - firstLabelRow]));
 		}
 
 		FXUtils.setGridConstraints(labelColumn, firstLabelRow, 1, 0, labels);
@@ -752,7 +1137,79 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 	
 // Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	private void formatButtonGrid() {
+		updateButtonConstraints();
+		
+		GridPane.setConstraints(buttonGrid, firstKeyBtnColumn, firstKeyBtnRow, AlphaNumKeys.COLUMN_COUNT, 5, HPos.CENTER, VPos.CENTER, Priority.ALWAYS, Priority.ALWAYS);
+		GridPane.setFillHeight(buttonGrid, true);
+		GridPane.setFillWidth(buttonGrid, true);
+		
+		buttonGrid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		buttonGrid.hgapProperty().bind(hgapProperty);
+		buttonGrid.vgapProperty().bind(vgapProperty);
+		
+		center.getChildren().add(buttonGrid);
+	}
 
+//	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	private void updateButtonConstraints() {
+		buttonGrid.getChildren().addListener(new ListChangeListener<Node>() {
+			private int lastRowCount = 0;
+			private int lastColumnCount = 0;
+			
+			@Override
+			public void onChanged(Change<? extends Node> c) {
+				if (buttonGrid.getRowCount() != lastRowCount) {
+					updateRowConstraints();
+					lastRowCount = buttonGrid.getRowCount();
+				}
+				
+				if (buttonGrid.getColumnCount() != lastColumnCount) {
+					updateColumnConstraints();
+					lastColumnCount = buttonGrid.getColumnCount();
+				}
+			}
+		});
+	}
+
+//	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	private void updateRowConstraints() {
+		buttonGrid.getRowConstraints().clear();
+		
+		for (int row = 0; row < buttonGrid.getRowCount(); row++) {
+			addRowConstraint(buttonGrid, row, ConstraintType.BUTTON_ROW);
+			addRowConstraint(center, row + GridPane.getRowIndex(buttonGrid), ConstraintType.BUTTON_ROW);
+		}
+		
+		GridPane.setRowSpan(buttonGrid, buttonGrid.getRowCount());
+	}
+
+//	 *	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	private void updateColumnConstraints() {
+		buttonGrid.getColumnConstraints().clear();
+		
+		for (int column = 0; column < buttonGrid.getColumnCount(); column++) {
+			addColumnConstraint(buttonGrid, column, ConstraintType.BUTTON_COLUMN);
+			addColumnConstraint(center, column + GridPane.getColumnIndex(buttonGrid), ConstraintType.BUTTON_COLUMN);
+		}
+		
+		GridPane.setColumnSpan(buttonGrid, buttonGrid.getColumnCount());
+		
+		for(TextField tf : getTextFieldMap().values()) {
+			GridPane.setColumnSpan(tf, buttonGrid.getColumnCount());
+		}
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+		
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt alle benötigten Buttons und positioniert diese in der GridPane.
 	 * 
@@ -767,21 +1224,21 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 		if (useClearAndBackBtn) {
 			// Constraints für Position in der Tabelle setzen und in die Tabelle legen
-			FXUtils.setGridConstraints(firstKeyBtnColumn, firstKeyBtnRow, AlphaNumKeys.COLUMN_COUNT, 2, buttonList, center::add);
+			FXUtils.setGridConstraints(0, 0, AlphaNumKeys.COLUMN_COUNT, 2, buttonList, buttonGrid::add);
 		}
 		
 		// Tastaturfeld in die Tabelle legen (Constraints werden bereits in AlphaNumKeys gesetzt!)
-		center.getChildren().addAll(alphaNum.getButtonMatrix());
-
 		getButtonMap().putAll(alphaNum.getButtonMap());
-
+		buttonGrid.getChildren().addAll(alphaNum.getButtonMatrix());
+		
+		
 		// Maximale Größe der Buttons setzen
 		FXUtils.setMaxSizes(buttonList, Double.MAX_VALUE);
 		FXUtils.setMaxSizes(alphaNum.getButtonMatrix(), Double.MAX_VALUE);
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt die Buttons {@link #clearBtnKey} und {@link #backspaceBtnKey} und gibt diese in einer ArrayList zurück.
 	 * Alle Buttons werden auch in der Map für Buttons abgelegt.
@@ -841,10 +1298,10 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			@Override
 			public void accept(String key, Button b) {
 				if (!key.equals(AlphaNumKeys.NEXT_BTN_KEY) && !key.equals(AlphaNumKeys.PREVIOUS_BTN_KEY)) {
-					b.maxHeightProperty().bindBidirectional(btnMaxHeigthProperty);
-					b.minHeightProperty().bindBidirectional(btnMinHeigthProperty);
-					b.maxWidthProperty().bindBidirectional(btnMaxWidthProperty);
-					b.minWidthProperty().bindBidirectional(btnMinWidthProperty);
+					b.maxHeightProperty().bind(btnMaxHeigthProperty);
+					b.minHeightProperty().bind(btnMinHeigthProperty);
+					b.maxWidthProperty().bind(btnMaxWidthProperty);
+					b.minWidthProperty().bind(btnMinWidthProperty);
 				}
 			}
 		});
@@ -852,13 +1309,14 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		getTextFieldMap().forEach(new BiConsumer<String, TextField>() {
 			@Override
 			public void accept(String key, TextField tf) {
-				tf.maxHeightProperty().bindBidirectional(tfMaxHeightProperty);
-				tf.minHeightProperty().bindBidirectional(tfMinHeightProperty);
+				tf.maxHeightProperty().bind(tfMaxHeightProperty);
+				tf.minHeightProperty().bind(tfMinHeightProperty);
 			}
 		});
-
+		
 		center.hgapProperty().bindBidirectional(hgapProperty);
 		center.vgapProperty().bindBidirectional(vgapProperty);
+		
 		btnSpacingProperty.bindBidirectional(hgapProperty);
 		btnSpacingProperty.bindBidirectional(vgapProperty);
 		
@@ -879,7 +1337,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 */
 	// TODO JavaDoc EN
 	private void updatePadding(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-		center.setPadding(new Insets(paddingTopProperty.get(), paddingRigthProperty.get() + firstColumnWidthProperty.get(),
+		center.setPadding(new Insets(paddingTopProperty.get(), paddingRigthProperty.get(),
 						paddingBottomProperty.get(), paddingLeftProperty.get()));
 	}
 
@@ -891,16 +1349,17 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Aufzählung von möglichen Typen für Constraints einer GridPane
 	 * 
 	 * @author Tim
 	 *
 	 * @since Bitchanger 0.1.4
-	 * @version 0.1.4
+	 * @version 0.1.7
 	 */
 	// TODO JavaDoc EN
-	protected enum ConstraintType{
+	protected static enum ConstraintType{
 		/** <!-- $LANGUAGE=DE -->	Konstante für eine Zeile, die Textfelder enthält */
 		// TODO JavaDoc EN
 		TEXT_FIELD_ROW,

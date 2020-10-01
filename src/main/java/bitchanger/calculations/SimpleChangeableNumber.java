@@ -11,6 +11,13 @@ package bitchanger.calculations;
 import java.util.Objects;
 
 import bitchanger.preferences.Preferences;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 /**	<!-- $LANGUAGE=DE -->
  * Die Klasse SimpleChangeableNumber bietet eine vollständige Implementierung von {@link ChangeableNumber}.
@@ -31,7 +38,7 @@ import bitchanger.preferences.Preferences;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -53,7 +60,7 @@ import bitchanger.preferences.Preferences;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  *
  */
 public class SimpleChangeableNumber implements ChangeableNumber {
@@ -80,6 +87,15 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der oktalen String-Darstellung */
 	/* <!-- $LANGUAGE=EN --> wrapped value as octal String representation */
 	private String octalValue;
+	
+	// TODO JavaDoc
+	private final StringProperty stringProperty;
+	
+	// TODO JavaDoc
+	private final StringProperty logicStringProperty;
+	
+	// TODO JavaDoc
+	private final IntegerProperty baseProperty;
 	
 	
 	
@@ -123,9 +139,15 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	 * 
 	 */
 	public SimpleChangeableNumber(String decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		this.stringProperty = new SimpleStringProperty();
+		this.logicStringProperty = new SimpleStringProperty();
+		this.baseProperty = new SimpleIntegerProperty(10);
+		
+		setListeners();
+		
 		this.initDecimal(decValue);
 	}
-
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -134,6 +156,33 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+	
+	// TODO JavaDoc 0.1.7
+	private void setListeners() {
+		this.baseProperty.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldBase, Number newBase) {
+				updateStringProperty();
+				updateLogicStringProperty();
+			}
+		});
+		
+		Preferences.getPrefs().bitLengthProperty().addListener(new ChangeListener<BitLength>() {
+			@Override
+			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+				updateLogicStringProperty();
+			}
+		});
+		
+		Preferences.getPrefs().useUnsignedBitOperationProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				updateLogicStringProperty();
+			}
+		});
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt den eingeschlossenen Wert dieser {@code SimpleChangeableNumber} auf den übergebenen dezimal-Wert.
@@ -166,6 +215,76 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		} catch (Exception e) {
 			this.binValue = "";
 		}
+		
+		updateStringProperty();
+		updateLogicStringProperty();
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+	
+	// TODO JavaDoc 0.1.7
+	private void updateStringProperty() {
+		try {
+			if(baseProperty.get() == 10) {
+				stringProperty.set(toDecString());
+			}
+			else {
+				stringProperty.set(toBaseString(baseProperty.get()));
+			}
+		} catch (Exception e) {
+			stringProperty.set("");
+		}
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+	
+	// TODO JavaDoc 0.1.7
+	private void updateLogicStringProperty() {
+		long val;
+		
+		if(Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
+			if (Preferences.getPrefs().bitLengthProperty().get().equals(BitLength._64_BIT) && Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
+				// bei unsigned maximal 63 Bit möglich!
+				val = (long) this.asDouble() & 0xEFFFFFFFFFFFFFFFl;
+			} else {
+				val = (long) this.asDouble() & Preferences.getPrefs().bitLengthProperty().get().getBitmask();
+			}
+		} else {
+			switch(Preferences.getPrefs().bitLengthProperty().get()) {
+				case _8_BIT:	val = (byte)this.asDouble();
+					break;
+				case _16_BIT:	val = (short)this.asDouble();
+					break;
+				case _32_BIT:	val = (int)this.asDouble();
+					break;
+				case _64_BIT:	// fall through
+				case UNKNOWN:	// fall through
+				default:		val = (long)this.asDouble();
+					break;
+			}
+		}
+		
+		if (baseProperty.get() == 10) {
+			this.logicStringProperty.set(ConvertingNumbers.decToBaseBlocks(10, String.valueOf(val), Preferences.getPrefs().getComma(), 3));
+		} 
+		else if (baseProperty.get() == 2) {
+			StringBuffer binText = new StringBuffer();
+			binText.append(ConvertingNumbers.decToBase(baseProperty.get(), String.valueOf(val)));
+			
+			while(binText.length() < Preferences.getPrefs().bitLengthProperty().get().getNumberOfBits()) {
+				binText.insert(0, binText.charAt(0));
+			}
+			
+			// zu lange Strings kürzen (können wegen dem Vorzeichen zu lang sein)
+			binText.reverse();
+			binText.setLength(Preferences.getPrefs().bitLengthProperty().get().getNumberOfBits());
+			binText.reverse();
+			
+			this.logicStringProperty.set(ConvertingNumbers.splitInBlocks(binText.toString(), 4));
+		}
+		else {
+			this.logicStringProperty.set(ConvertingNumbers.decToBaseBlocks(baseProperty.get(), String.valueOf(val), Preferences.getPrefs().getComma(), 4));
+		}
 	}
 
 	
@@ -176,7 +295,20 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	
+	/** {@inheritDoc} */
+	@Override
+	public void set(double decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException {
+		if(decValue > Long.MAX_VALUE || decValue < -Long.MAX_VALUE) {
+			throw new NumberOverflowException("for Number " + decValue, 
+					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
+		}
+		
+		this.setDec(String.valueOf(decValue));
+	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
+	
 	/** {@inheritDoc} */
 	@Override
 	public void setHex(String hexValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
@@ -206,7 +338,6 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	@Override
 	public void setBin(String binValue) throws NullPointerException, NumberFormatException, IllegalArgumentException {
 		this.setValue(binValue, 2);
-
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -234,6 +365,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		this.decValue = "";
 		this.hexValue = "";
 		this.octalValue = "";
+		this.stringProperty.set("");
 	}
 
 
@@ -325,7 +457,6 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		return s;
 	}
 
-
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	
 	/** {@inheritDoc} */
@@ -333,6 +464,30 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	public String toIEEEString(IEEEStandard standard) {
 		// TODO IEEE Implementieren
 		return null;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+
+	/** {@inheritDoc} */
+	@Override
+	public ReadOnlyStringProperty stringProperty() {
+		return this.stringProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+
+	/** {@inheritDoc} */
+	@Override
+	public ReadOnlyStringProperty logicStringProperty() {
+		return this.logicStringProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+
+	/** {@inheritDoc} */
+	@Override
+	public IntegerProperty baseProperty() {
+		return this.baseProperty;
 	}
 	
 	

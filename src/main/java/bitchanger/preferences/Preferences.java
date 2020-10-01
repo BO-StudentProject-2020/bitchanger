@@ -9,6 +9,7 @@
 package bitchanger.preferences;
 
 import java.io.File;
+import java.lang.reflect.Field;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,17 +23,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import bitchanger.calculations.BitLength;
+import bitchanger.calculations.IEEEStandard;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.Viewable;
+import bitchanger.preferences.writableProperty.WritableBooleanProperty;
+import bitchanger.preferences.writableProperty.WritableClassProperty;
+import bitchanger.preferences.writableProperty.WritableEnumProperty;
 import bitchanger.util.Resources;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 /** <!-- $LANGUAGE=DE -->
  * Preferences ist die globale Sammlung für alle möglichen Einstellungen, die am Bitchanger vorgenommen 
@@ -46,7 +49,7 @@ import javafx.beans.property.StringProperty;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  */
 /* <!-- $LANGUAGE=EN -->
  * Preferences is the global collection for all possible settings that can be selected for the bitchanger.
@@ -59,7 +62,7 @@ import javafx.beans.property.StringProperty;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  */
 public class Preferences {
 	
@@ -144,23 +147,47 @@ public class Preferences {
 	
 	/** <!-- $LANGUAGE=DE -->	Property für das Kommazeichen */
 	/* <!-- $LANGUAGE=EN -->	Property for comma character */
-	private final ObjectProperty<Comma> commaProperty;
+	private final WritableEnumProperty<Comma> commaProperty;
 	
 	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige von abgebrochenen Nachkommastellen */
 	/* <!-- $LANGUAGE=EN -->	Property for displaying aborted decimal places */
-	private final BooleanProperty indicateFractionalPrecisionProperty;
+	private final WritableBooleanProperty indicateFractionalPrecisionProperty;
 	
 	/** <!-- $LANGUAGE=DE -->	Property für das gewählte Stylesheet */
 	/* <!-- $LANGUAGE=EN -->	Property for the selected Stylesheet */
-	private final StringProperty stylesheetProperty;
+	private final SimpleStringProperty stylesheetProperty;
 	
 	/** <!-- $LANGUAGE=DE -->	Property für den gewählten Style des Stylesheets */
 	/* <!-- $LANGUAGE=EN -->	Property for the selected Style of the Stylesheet */
-	private final ObjectProperty<Style> styleProperty;
+	private final WritableEnumProperty<Style> styleProperty;
 	
 	/** <!-- $LANGUAGE=DE -->	Property für die zuletzt angezeigte View */
 	/* <!-- $LANGUAGE=EN -->	Property for the last shown View */
-	private final ObjectProperty<Class<? extends Viewable>> viewClassProperty;
+	private final WritableClassProperty<Viewable> viewClassProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für die gewählte IEEE-Norm */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected IEEE standard */
+	private final WritableEnumProperty<IEEEStandard> ieeeStandardProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView */
+	/* <!-- $LANGUAGE=EN -->	Property for showing symbols of the logical bit operations in CalculatorView */
+	private final WritableBooleanProperty showBitOperationSymbolsProperty;
+
+	/** <!-- $LANGUAGE=DE -->	Property für die gewählte Bitlänge */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected number of Bits */
+	private final WritableEnumProperty<BitLength> bitLengthProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für vorzeichenlose Bitoperationen in der CalculatorView */
+	/* <!-- $LANGUAGE=EN -->	Property for unsigned logical bit operations in CalculatorView */
+	private final WritableBooleanProperty useUnsignedBitOperationProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für das Deaktivieren der Warnmeldung für vorzeichenlose Bitoperationen mit 64-Bit */
+	/* <!-- $LANGUAGE=EN -->	Property for deactivating the warning alert that appears when bitLengthProperty is set to 64-Bit and useUnsignedBitOperationProperty is set to true */
+	private final WritableBooleanProperty unsignedBitLengthWarningDeactivatedProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property für das Deaktivieren der Warnmeldung beim Verkleinern der Bitlänge */
+	/* <!-- $LANGUAGE=EN -->	Property for deactivating the warning alert that appears when bitLengthProperty is set to a lower bit length */
+	private final WritableBooleanProperty bitLengthDeleteWarningDeactivatedProperty;
 	
 	
 	
@@ -199,22 +226,22 @@ public class Preferences {
 	 * @param file	File with the settings to be loaded in XML format
 	 */
 	private Preferences(File file) {
-		this.commaProperty = new SimpleObjectProperty<>();
-		this.indicateFractionalPrecisionProperty = new SimpleBooleanProperty();
-		this.stylesheetProperty = new SimpleStringProperty();
-		this.styleProperty = new SimpleObjectProperty<>();
-		this.viewClassProperty = new SimpleObjectProperty<>();
-		
+		this.commaProperty = new WritableEnumProperty<>(Comma.COMMA_DE, "comma");
+		this.indicateFractionalPrecisionProperty = new WritableBooleanProperty(true, "indicateFractionalPrecision");
+		this.stylesheetProperty = new SimpleStringProperty("");
+		this.styleProperty = new WritableEnumProperty<>(Style.UNKNOWN, "style");
+		this.viewClassProperty = new WritableClassProperty<>(ConverterView.class, "viewClass");
+		this.ieeeStandardProperty = new WritableEnumProperty<>(IEEEStandard.IEEE_754_2008_b32, "IEEE_Standard");
+		this.showBitOperationSymbolsProperty = new WritableBooleanProperty(false, "showBitOperationSymbols");
+		this.bitLengthProperty = new WritableEnumProperty<>(BitLength._8_BIT, "bitLength");
+		this.useUnsignedBitOperationProperty = new WritableBooleanProperty(true, "unsignedBitoperations");
+		this.unsignedBitLengthWarningDeactivatedProperty = new WritableBooleanProperty(false, "deactivateUnsignedBitLenthWarning");
+		this.bitLengthDeleteWarningDeactivatedProperty = new WritableBooleanProperty(false, "deactivateBitLengthDeleteWarning");
 		
 		try {
 			this.load(file);
 		} catch (Exception e) {
 			e.printStackTrace();
-			this.commaProperty.set(Comma.COMMA_DE);
-			this.indicateFractionalPrecisionProperty.set(true);
-			this.stylesheetProperty.set("");
-			this.styleProperty.set(Style.UNKNOWN);
-			this.viewClassProperty.set(ConverterView.class);
 		}
 	}
 	
@@ -227,45 +254,179 @@ public class Preferences {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	/** <!-- $LANGUAGE=DE -->	Property für das Kommazeichen */
-	/* <!-- $LANGUAGE=EN -->	Property for comma character */
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für das Kommazeichen zurück
+	 * 
+	 * @return	Property für das Kommazeichen
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the Property for comma character
+	 * 
+	 * @return Property for comma character
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
 	public ObjectProperty<Comma> commaProperty(){
 		return this.commaProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige von abgebrochenen Nachkommastellen */
-	/* <!-- $LANGUAGE=EN -->	Property for displaying aborted decimal places */
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die Anzeige von abgebrochenen Nachkommastellen zurück
+	 * 
+	 * @return	Property für die Anzeige von abgebrochenen Nachkommastellen
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the Property for displaying aborted decimal places
+	 * 
+	 * @return Property for displaying aborted decimal places
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
 	public BooleanProperty indicateFractionalPrecisionProperty() {
 		return this.indicateFractionalPrecisionProperty;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
-	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die ReadOnlyProperty für das gewählte Stylesheet zurück
+	 * 
+	 * @return	ReadOnlyProperty für das gewählte Stylesheet
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the ReadOnlyProperty for the selected Stylesheet
+	 * 
+	 * @return ReadOnlyProperty for the selected Stylesheet
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
 	public ReadOnlyStringProperty stylesheetProperty() {
 		return this.stylesheetProperty;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	/** <!-- $LANGUAGE=DE -->	ReadOnlyProperty für das gewählte Stylesheet */
-	/* <!-- $LANGUAGE=EN -->	ReadOnlyProperty for the selected Stylesheet */
-	public ReadOnlyObjectProperty<Style> styleProperty(){
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die ReadOnlyProperty für das gewählte Stylesheet zurück
+	 * 
+	 * @return	ReadOnlyProperty für das gewählte Stylesheet
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the ReadOnlyProperty for the selected Stylesheet
+	 * 
+	 * @return ReadOnlyProperty for the selected Stylesheet
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	public ReadOnlyObjectProperty<Style> styleProperty() {
 		return this.styleProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die zuletzt angezeigte View */
-	/* <!-- $LANGUAGE=EN -->	Property for the last shown View */
-	public ObjectProperty<Class<? extends Viewable>> viewClassProperty(){
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die zuletzt angezeigte View zurück
+	 * 
+	 * @return	Property für die zuletzt angezeigte View
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the Property for the last shown View
+	 * 
+	 * @return Property for the last shown View
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	public WritableClassProperty<Viewable> viewClassProperty() {
 		return this.viewClassProperty;
 	}
-
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die gewählte IEEE-Norm zurück
+	 * 
+	 * @return	Property für die gewählte IEEE-Norm
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Returns the Property for the selected IEEE standard
+	 * 
+	 * @return Property for the selected IEEE standard
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	public ObjectProperty<IEEEStandard> ieeeStandardProperty() {
+		return this.ieeeStandardProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView zurück
+	 * 
+	 * @return	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
+	public BooleanProperty showBitOperationSymbolsProperty() {
+		return this.showBitOperationSymbolsProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView zurück
+	 * 
+	 * @return	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
+	public ObjectProperty<BitLength> bitLengthProperty() {
+		return this.bitLengthProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property für vorzeichenlose Bitoperationen in der CalculatorView zurück
+	 * 
+	 * @return	Property für vorzeichenlose Bitoperationen in der CalculatorView
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
+	public BooleanProperty useUnsignedBitOperationProperty() {
+		return this.useUnsignedBitOperationProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	public BooleanProperty unsignedBitLengthWarningDeactivatedProperty() {
+		return this.unsignedBitLengthWarningDeactivatedProperty;
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	public BooleanProperty bitLengthDeleteWarningDeactivatedProperty() {
+		return this.bitLengthDeleteWarningDeactivatedProperty;
+	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 		
@@ -426,21 +587,21 @@ public class Preferences {
 			
 			NodeList nodes = doc.getElementsByTagName("preferences");
 			
-			Element prefs = (Element) nodes.item(0);
+			Element preferencesTag = (Element) nodes.item(0);
 			
-			String comma = prefs.getElementsByTagName("comma").item(0).getTextContent();
-			this.commaProperty.set(Comma.valueOf(comma));
+			// Alle Attribute einlesen, die eine Instanz von XMLWritable sind
+			for(Field f : this.getClass().getDeclaredFields()) {
+				if(XMLWritable.class.isAssignableFrom(f.getType())) {
+					try {
+						XMLWritable property = (XMLWritable) f.get(this);
+						property.setFromXMLTag(preferencesTag);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
 			
-			String indicateFractionalPrecision = prefs.getElementsByTagName("indicateFractionalPrecision").item(0).getTextContent();
-			this.indicateFractionalPrecisionProperty.set(Boolean.valueOf(indicateFractionalPrecision));
-			
-			String style = prefs.getElementsByTagName("style").item(0).getTextContent();
-			this.setStylesheet(Style.valueOf(style));
-			
-			String viewClassName = prefs.getElementsByTagName("viewClass").item(0).getTextContent();
-			@SuppressWarnings("unchecked")
-			Class<? extends Viewable> viewClass = (Class<? extends Viewable>) Class.forName(viewClassName);
-			this.viewClassProperty.set(viewClass);
+			this.setStylesheet(styleProperty.get());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -506,28 +667,21 @@ public class Preferences {
 	 */
 	private void createXMLTree(Document doc, Element xmlRoot) {
 		// Preferences
-		Element prefs = doc.createElement("preferences");
-		xmlRoot.appendChild(prefs);
-
-		// commaProperty
-		Element commaPropertyTag = doc.createElement("comma");
-		commaPropertyTag.appendChild(doc.createTextNode(this.commaProperty.get().name()));
-		prefs.appendChild(commaPropertyTag);
-
-		// indicateFractionalPrecisionProperty
-		Element indicateFractionalPrecisionPropertyTag = doc.createElement("indicateFractionalPrecision");
-		indicateFractionalPrecisionPropertyTag.appendChild(doc.createTextNode(String.valueOf(this.indicateFractionalPrecisionProperty.get())));
-		prefs.appendChild(indicateFractionalPrecisionPropertyTag);
-
-		// styleProperty
-		Element stylePropertyTag = doc.createElement("style");
-		stylePropertyTag.appendChild(doc.createTextNode(this.styleProperty.get().name()));
-		prefs.appendChild(stylePropertyTag);
-
-		// viewClassProperty
-		Element viewClassPropertyTag = doc.createElement("viewClass");
-		viewClassPropertyTag.appendChild(doc.createTextNode(this.viewClassProperty.get().getName()));
-		prefs.appendChild(viewClassPropertyTag);
+		Element prefTag = doc.createElement("preferences");
+		xmlRoot.appendChild(prefTag);
+		
+		// Alle Attribute zum XML-Baum hinzufügen, die eine Instanz von XMLWritable sind
+		for(Field f : this.getClass().getDeclaredFields()) {
+			if(XMLWritable.class.isAssignableFrom(f.getType())) {
+				try {
+					XMLWritable property = (XMLWritable) f.get(this);
+					Element propertyTag = property.getXMLTag(doc);
+					prefTag.appendChild(propertyTag);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	

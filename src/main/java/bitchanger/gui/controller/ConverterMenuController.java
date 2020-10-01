@@ -14,10 +14,10 @@ import bitchanger.preferences.Preferences;
 import javafx.scene.control.CheckMenuItem;
 
 //TODO JavaDoc
-/** <!-- $LANGUAGE=DE -->
+/**	<!-- $LANGUAGE=DE -->
  * 
  * @author Tim Mühle
- *
+ * 
  * @since Bitchanger 0.1.4
  * @version 0.1.6
  * 
@@ -62,7 +62,7 @@ public class ConverterMenuController extends BasicMenuController {
 	protected void initControls() {
 		super.initControls();
 		
-		this.indicateFractionalInaccuracy = (CheckMenuItem) this.controllable.menuItemMap.get(ConverterMenuBar.OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY);
+		this.indicateFractionalInaccuracy = (CheckMenuItem) this.controllable.getMenuItemMap().get(ConverterMenuBar.OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY);
 	}
 	
 	

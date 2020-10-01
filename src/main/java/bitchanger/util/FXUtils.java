@@ -9,6 +9,7 @@
 package bitchanger.util;
 
 import java.io.File;
+import java.util.Optional;
 import java.util.Queue;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -18,10 +19,21 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.controls.SVGIcon;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
@@ -34,7 +46,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.7
  *
  */
 /* <!-- $LANGUAGE=EN -->
@@ -43,7 +55,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.4
+ * @version 0.1.7
  *
  */
 public class FXUtils {
@@ -311,7 +323,86 @@ public class FXUtils {
 	public static void setIconOrText(Labeled labeled, SVGIcon icon) {
 		setIconOrText(labeled, icon, labeled.getText());
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	public static Optional<ButtonType> showNumberOverflowWarning(NumberOverflowException noe) {
+		StringBuffer infoText = new StringBuffer();
+		infoText.append("Die größte erlaubte Zahl ist ");
+		infoText.append(String.valueOf((long) noe.getMaxSupportetNumber()));
+		infoText.append(" und die kleinste erlaubte Zahl ist ");
+		infoText.append(String.valueOf((long) noe.getMinSupportetNumber()));
+		
+		Label infoLabel = new Label(infoText.toString());
+		infoLabel.setWrapText(true);
+		
+		Alert dialog = new Alert(Alert.AlertType.WARNING);
+		dialog.setHeaderText("Überlauf");
+		dialog.setContentText(noe.getDescription());
+		dialog.getDialogPane().setExpandableContent(infoLabel);
+		
+		return dialog.showAndWait();
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	public static Optional<ButtonType> showDialog(AlertType dialogType, String title, String headerText, String message, ButtonType... buttonTypes) {
+		Alert dialog = new Alert(dialogType, message, buttonTypes);
+		if(title != null) dialog.setTitle(title);
+		if(headerText != null) dialog.setHeaderText(headerText);
+		
+		return dialog.showAndWait();
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	public static Optional<ButtonType> showDialog(AlertType dialogType, String headerText, String message, ButtonType... buttonTypes) {
+		return showDialog(dialogType, null, headerText, message, buttonTypes);
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	public static Optional<ButtonType> showDeactivatableDialog(AlertType dialogType, String title, String headerText, String message, BooleanProperty deactivateDialogProperty, ButtonType... buttonTypes) {
+		if(deactivateDialogProperty.get()) {
+			return Optional.empty();
+		}
+		
+		Alert dialog = new Alert(dialogType, message, buttonTypes);
+		
+		CheckBox deactivateDialog = new CheckBox("Diese Meldung nicht mehr anzeigen");
+		ButtonBar.setButtonData(deactivateDialog, ButtonData.LEFT);
+		ButtonBar.setButtonUniformSize(deactivateDialog, false);
+		
+		deactivateDialog.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				deactivateDialogProperty.set(newValue);
+			}
+		});
+		
+		for(Node child : dialog.getDialogPane().getChildren()) {
+			if(child instanceof ButtonBar) {
+				((ButtonBar)child).getButtons().add(deactivateDialog);
+			}
+		}
+		
+		if(title != null) dialog.setTitle(title);
+		if(headerText != null) dialog.setHeaderText(headerText);
+		
+		return dialog.showAndWait();
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.7
+	public static Optional<ButtonType> showDeactivatableDialog(AlertType dialogType, String headerText, String message, BooleanProperty deactivateDialogProperty, ButtonType... buttonTypes) {
+		return showDeactivatableDialog(dialogType, null, headerText, message, deactivateDialogProperty, buttonTypes);
+	}
+
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

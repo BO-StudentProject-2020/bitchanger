@@ -11,11 +11,14 @@ package bitchanger.gui.controller;
 import java.util.Map;
 
 import bitchanger.gui.views.Viewable;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
 /**	<!-- $LANGUAGE=DE -->
@@ -37,7 +40,7 @@ import javafx.scene.input.KeyEvent;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  *
  */
 //TODO JavaDoc EN
@@ -193,6 +196,41 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	// TODO JavaDoc EN
 	protected void simulateKeyEvents(Button source, Node target, Scene scene, String character, String text, KeyCode keycode) {
 		simulateKeyEvents(source, target, scene, character, text, keycode, false, false, false, false);
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.7
+	protected void addAccelerator(Scene scene, Runnable runnable, EventType<KeyEvent> trigger, KeyCombination... keyCombinations) {
+		for(KeyCombination kc : keyCombinations) {
+			// TODO unterscheiden nach Funktionstasten und normalen Tasten
+			scene.getAccelerators().put(kc, runnable);
+			
+			if(trigger == null) continue;
+			
+			scene.addEventHandler(trigger, new EventHandler<KeyEvent>() {
+				@Override
+				public void handle(KeyEvent event) {
+					if(kc.match(event)) {
+						runnable.run();
+					}
+				}
+			});
+		}
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.7
+	protected void addAccelerator(Button button, EventType<KeyEvent> trigger, KeyCombination... keyCombinations) {
+		addAccelerator(button.getScene(), button::fire, trigger, keyCombinations);
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	// TODO JavaDoc -> Shortcuts @since Bitchanger 0.1.7
+	protected void addAccelerator(Button button, KeyCombination... keyCombinations) {
+		addAccelerator(button.getScene(), button::fire, KeyEvent.ANY, keyCombinations);
 	}
 
 }

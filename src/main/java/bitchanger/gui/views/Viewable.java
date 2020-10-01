@@ -12,6 +12,7 @@ import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controls.BasicMenuBar;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 
@@ -32,7 +33,7 @@ import javafx.scene.control.MenuBar;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.0
+ * @version 0.1.7
  * 
  * @see Controllable
  * @see Controller
@@ -54,7 +55,7 @@ import javafx.scene.control.MenuBar;
  * @author Tim
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.0
+ * @version 0.1.7
  * 
  * @see Controllable
  * @see Controller
@@ -111,67 +112,75 @@ public interface Viewable extends Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die maximale Höhe der View an
+	 * Gibt die Property für maximale Höhe der View zurück
 	 * 
-	 * @return maximale Höhe der View
+	 * @return Property für die maximale Höhe der View
 	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
-	 * Indicates the maximum height of the view
+	 * Property for the maximum height of the view
 	 * 
-	 * @return maximum height of the view
+	 * @return Property for maximum height of the view
 	 * 
+	 * @since Bitchanger 0.1.7
 	 */
-	public abstract double getMaxHeigth();
-	
+	public abstract DoubleProperty maxHeigthProperty();
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die maximale Breite der View an
+	 * Gibt die Property für maximale Breite der View zurück
 	 * 
-	 * @return maximale Breite der View
+	 * @return Property für die maximale Breite der View
 	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
-	 * Indicates the maximum width of the view
+	 * Property for the maximum width of the view
 	 * 
-	 * @return maximum width of the view
+	 * @return Property for maximum width of the view
 	 * 
+	 * @since Bitchanger 0.1.7
 	 */
-	public abstract double getMaxWidth();
-	
+	public abstract DoubleProperty maxWidthProperty();
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die minimale Höhe der View an
+	 * Gibt die Property für minimale Höhe der View zurück
 	 * 
-	 * @return minimale Höhe der View
+	 * @return Property für die minimale Höhe der View
 	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
-	 * Indicates the minimum height of the view
+	 * Property for the minimum height of the view
 	 * 
-	 * @return minimum height of the view
+	 * @return Property for minimum height of the view
 	 * 
+	 * @since Bitchanger 0.1.7
 	 */
-	public abstract double getMinHeigth();
-	
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	public abstract DoubleProperty minHeigthProperty();
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die minimale Breite der View an
+	 * Gibt die Property für minimale Breite der View zurück
 	 * 
-	 * @return minimale Breite der View
+	 * @return Property für die minimale Breite der View
 	 * 
+	 * @since Bitchanger 0.1.7
 	 */
 	/*	<!-- $LANGUAGE=EN -->
-	 * Indicates the minimum width of the view
+	 * Property for the minimum width of the view
 	 * 
-	 * @return minimum width of the view
+	 * @return Property for minimum width of the view
 	 * 
+	 * @since Bitchanger 0.1.7
 	 */
-	public abstract double getMinWidth();
-	
+	public abstract DoubleProperty minWidthProperty();
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->

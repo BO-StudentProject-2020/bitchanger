@@ -24,10 +24,20 @@ import javafx.event.EventHandler;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 //TODO JavaDoc
+/**	<!-- $LANGUAGE=DE -->
+ * 
+ * @author Tim Mühle
+ * 
+ * @since Bitchanger 0.1.4
+ * @version 0.1.7
+ * 
+ */
 public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -45,6 +55,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 
 	// TODO JavaDoc
 	protected MenuItem modusCalculator;
+	
+	// TODO JavaDoc
+	protected MenuItem modusBitoperations;
 
 	// TODO JavaDoc
 	protected Menu options;
@@ -104,18 +117,19 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 	/** {@inheritDoc} */
 	@Override
 	protected void initControls() {
-		this.modusConverter = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_CONVERTER_ITEM_KEY);
-		this.modusIEEE = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_IEEE_ITEM_KEY);
-		this.modusCalculator = this.controllable.menuItemMap.get(BasicMenuBar.MODUS_CALCULATOR_ITEM_KEY);
-		this.options = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.OPTIONS_MENU_KEY);
-		this.styleMenu = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
-		this.styleLight = this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
-		this.styleDark = this.controllable.menuItemMap.get(BasicMenuBar.VIEW_STYLE_DARK_ITEM_KEY);
-		this.moveToScreen = (Menu) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_MOVE_TO_SCREEN_ITEM_KEY);
-		this.showFullscreen = (CheckMenuItem) this.controllable.menuItemMap.get(BasicMenuBar.VIEW_SHOW_FULLSCREEN_ITEM_KEY);
-		this.about = this.controllable.menuItemMap.get(BasicMenuBar.HELP_ABOUT_ITEM_KEY);
-		this.version = this.controllable.menuItemMap.get(BasicMenuBar.HELP_VERSION_ITEM_KEY);
-		this.resetPreferences = this.controllable.menuItemMap.get(BasicMenuBar.HELP_RESET_PREFS_ITEM_KEY);
+		this.modusConverter = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_CONVERTER_ITEM_KEY);
+		this.modusIEEE = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_IEEE_ITEM_KEY);
+		this.modusCalculator = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_CALCULATOR_ITEM_KEY);
+		this.modusBitoperations = this.controllable.getMenuItemMap().get(BasicMenuBar.MODUS_BITOPERATIONS_ITEM_KEY);
+		this.options = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.OPTIONS_MENU_KEY);
+		this.styleMenu = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
+		this.styleLight = this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
+		this.styleDark = this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_DARK_ITEM_KEY);
+		this.moveToScreen = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_MOVE_TO_SCREEN_ITEM_KEY);
+		this.showFullscreen = (CheckMenuItem) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_SHOW_FULLSCREEN_ITEM_KEY);
+		this.about = this.controllable.getMenuItemMap().get(BasicMenuBar.HELP_ABOUT_ITEM_KEY);
+		this.version = this.controllable.getMenuItemMap().get(BasicMenuBar.HELP_VERSION_ITEM_KEY);
+		this.resetPreferences = this.controllable.getMenuItemMap().get(BasicMenuBar.HELP_RESET_PREFS_ITEM_KEY);
 	}
 	
 	
@@ -134,6 +148,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		changeToViewAction(modusConverter, application.getViewable(PrimaryFXApp.CONVERTER_VIEW_KEY));
 		changeToViewAction(modusIEEE, application.getViewable(PrimaryFXApp.IEEE_VIEW_KEY));
 		changeToViewAction(modusCalculator, application.getViewable(PrimaryFXApp.CALCULATOR_VIEW_KEY));
+		changeToViewAction(modusBitoperations, application.getViewable(PrimaryFXApp.BITOPERATIONS_VIEW_KEY));
 		
 		// Menu View
 		changeStyleAction();
@@ -145,6 +160,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		showAboutAction();
 		showVersionAction();
 		resetPreferencesAction();
+		
+		// Tastaturabfragen
+		consumeKeyEvents();
 	}
 
 
@@ -200,12 +218,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		application.getPrimaryStage().fullScreenProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean isFullscreen) {
-				if(isFullscreen) {
-					showFullscreen.setSelected(true);
-				}
-				else {
-					showFullscreen.setSelected(false);
-				}
+				showFullscreen.setSelected(isFullscreen);
 			}
 		});
 	}
@@ -302,6 +315,18 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 			screenNum++;
 		}
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc 0.1.7
+	private void consumeKeyEvents() {
+		modusConverter.setAccelerator(new KeyCodeCombination(KeyCode.F2));
+		modusIEEE.setAccelerator(new KeyCodeCombination(KeyCode.F3));
+		modusCalculator.setAccelerator(new KeyCodeCombination(KeyCode.F4));
+		modusBitoperations.setAccelerator(new KeyCodeCombination(KeyCode.F5));
+		showFullscreen.setAccelerator(new KeyCodeCombination(KeyCode.F11));
+	}
+	
 }
 
 

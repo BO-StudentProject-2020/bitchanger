@@ -8,6 +8,9 @@
 
 package bitchanger.calculations;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
+
 /**	<!-- $LANGUAGE=DE -->
  * Schnittstelle, die Methoden definiert, um eine Zahl aus einem beliebigen Zahlensystem
  * in beliebige andere Zahlensysteme umzuwandeln
@@ -15,7 +18,7 @@ package bitchanger.calculations;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -24,7 +27,7 @@ package bitchanger.calculations;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  *
  */
 public interface ChangeableNumber {
@@ -45,13 +48,7 @@ public interface ChangeableNumber {
 			return Double.NaN;
 		}
 	}
-	
-	
-	// TODO JavaDoc
-	public default void set(double decValue) {
-		this.setDec(String.valueOf(decValue));
-	}
-	
+
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -66,6 +63,11 @@ public interface ChangeableNumber {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+
+	// TODO JavaDoc
+	public void set(double decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException;
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines hexadezimalen Strings
@@ -188,8 +190,32 @@ public interface ChangeableNumber {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
-	public abstract void setIEEE(String ieee, IEEEStandard standard) throws NullPointerException, NumberFormatException, IllegalArgumentException;
+	/**	<!-- $LANGUAGE=DE -->
+	 * Setzt den Wert dieser {@code ChangeableNumber} auf den übergebenen Wert in der spezifischen IEEE-Norm (16 Bit oder 32 Bit)
+	 * 
+	 * @param ieee			Neuer Wert, den diese Klasse repräsentiert, in der String-Darstellung
+	 * @param standard		Standard der verwendeten IEEE-Norm von {@code ieee}
+	 * 
+	 * @throws NullPointerException			wenn der Parameter {@code ieee} {@code null} ist
+	 * @throws NumberFormatException		wenn der Parameter {@code ieee} keine Zahl zur Basis 2 ist und mehr als 16 bzw. 32 Zeichen hat
+	 * @throws IllegalArgumentException		wenn {@code ieee} ein leerer String ist oder wenn {@code standard} anderer Wert als 16 oder 32 ist
+	 * 
+	 * @since Bitchanger 0.1.6
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Sets the value of this {@code ChangeableNumber} to a value of one of both IEEE standards (16 Bit or 32 Bit)
+	 * 
+	 * @param ieee			New Value that is represented as a String, by this class
+	 * @param standard		Standard of the used IEEE standard of {@code ieee}
+	 * 
+	 * @throws NullPointerException			if the parameter {@code ieee} is {@code null}
+	 * @throws NumberFormatException		if the parameter {@code ieee} is not a number of the binary system or has more characters than 16 respectively 32
+	 * @throws IllegalArgumentException		if {@code ieee} is an empty String or {@code standard} is something else than 16 or 32
+	 * 
+	 * @since Bitchanger 0.1.6
+	 */
+	// TODO JavaDoc NumberOverflowException
+	public abstract void setIEEE(String ieee, IEEEStandard standard) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException;
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
@@ -320,11 +346,60 @@ public interface ChangeableNumber {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	/**	<!-- $LANGUAGE=DE -->
+	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als IEEE String zurück.
+	 * 
+	 * @param standard	IEEE-Norm, die zur Umwandlung verwendet werden soll
+	 * 
+	 * @return IEEE als String-Darstellung dieser {@code ChangeableNumber}
+	 * 
+	 * @since Bitchanger 0.1.6
+	 */
+	/*	<!-- $LANGUAGE=EN -->
+	 * Returns the String representation of this {@code ChangeableNumber} as IEEE standard String.
+	 * 
+	 * @param standard	IEEE standard that is used for converting
+	 * 
+	 * @return IEEE as String representation of this {@code ChangeableNumber}
+	 * 
+	 * @since Bitchanger 0.1.6
+	 */
 	public abstract String toIEEEString(IEEEStandard standard);
-	
-	
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	/**
+	 * 
+	 * @return
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	public abstract ReadOnlyStringProperty stringProperty();
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	/**
+	 * 
+	 * @return
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	public abstract ReadOnlyStringProperty logicStringProperty();
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	/**
+	 * 
+	 * @return
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	public abstract IntegerProperty baseProperty();
+	
+	
 }
 
 

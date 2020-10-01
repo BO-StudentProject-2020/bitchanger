@@ -110,6 +110,10 @@ public class UnfocusedButton extends Button{
 		observeGraphicScaling();
 		
 		getStyleClass().add("unfocused-button");
+		
+		// TODO Effect?
+//		setEffect(new Lighting());
+//		setEffect(new InnerShadow());
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*

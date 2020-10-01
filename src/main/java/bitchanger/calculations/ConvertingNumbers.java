@@ -32,7 +32,7 @@ import bitchanger.preferences.Comma;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  */
 /* <!-- $LANGUAGE=EN -->
  * The {@code ConvertingNumbers} class contains methods for performing conversions of numbers with different numeral systems.
@@ -53,7 +53,7 @@ import bitchanger.preferences.Comma;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  */
 public class ConvertingNumbers {
 	
@@ -191,6 +191,7 @@ public class ConvertingNumbers {
 		checkValue(base, value);
 		value = trimToNumberString(value);	// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
 		
+		// TODO Programmcode in Methoden auslagern
 		
 		// Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
 		boolean isNegative = value.startsWith("-");
@@ -333,6 +334,7 @@ public class ConvertingNumbers {
 		checkValue(base, value);
 		value = trimToNumberString(value); // Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
 		
+		// TODO Programmcode in Methoden auslagern
 		
 		// Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
 		boolean isNegative = value.startsWith("-");
@@ -395,10 +397,17 @@ public class ConvertingNumbers {
 		double integerPart = baseToDecIntPart(base, separated[0]);
 		double fractionalPart = baseToDecFractionalPart(base, separated[1]);
 		
+		if(integerPart > (double)Long.MAX_VALUE) {
+			// TODO JavaDoc NumberOverflowException
+			throw new NumberOverflowException("for Number " + (integerPart + fractionalPart),
+					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
+		}
+		
+		
 		// Bei negativen Binärzahlen ist durch die Rückumwandlung des Zweierkomplements eine Subtraktion von -1 nötig
 		if(isNegativeBin) {
 					
-			integerPart = integerPart+1;
+			integerPart = integerPart + 1;
 		}
 		
 		if(fractionalPart != 0.0) {
@@ -539,7 +548,7 @@ public class ConvertingNumbers {
 	 * @throws NullPointerException				If the parameter {@code decValue} is {@code null}
 	 * @throws NumberFormatException			If the parameter {@code decValue} is not a number of base 10
 	 * @throws IllegalArgumentException			If {@code decValue} is an empty String or {@code newBase} leaves the range of values [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws UnsupportedOperationException 	
+	 * @throws UnsupportedOperationException 	If {@code decValue} is a negative value with decimal places and {@code newBase} has the value two
 	 * 
 	 * @see Preferences
 	 */
@@ -551,6 +560,8 @@ public class ConvertingNumbers {
 		if(newBase < MIN_BASE || newBase > MAX_BASE) {
 			throw new IllegalArgumentException("Out of Bounds for base = " + newBase + " (base must be within " + MIN_BASE + " and " + MAX_BASE + ")");
 		}
+		
+		// TODO Programmcode in Methoden auslagern
 	
 		// Implementierung von negativen Zahlen
 		boolean isNegative = decValue.startsWith("-");
@@ -566,11 +577,24 @@ public class ConvertingNumbers {
 		// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
 		String[] separated = separateByComma(decValue);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
 			
-		long integerPart = Long.parseLong(separated[0]);
+		long integerPart;
+		
+		try {
+			integerPart = Long.parseLong(separated[0]);
+		} catch (NumberFormatException e) {
+			if (!separated[0].equals("")) {
+				// TODO JavaDoc NumberOverflowException
+				throw new NumberOverflowException("for Number " + decValue,
+						"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE, e);
+			} else {
+				throw e;
+			}
+		}
+		
 		double fractionalPart = Double.parseDouble("0." + separated[1]);
 			
 		StringBuffer newBaseValue = new StringBuffer();	// Variable, in der die String-Darstellung zur neuen Basis gespeichert wird
-			
+		
 			
 		// Sonderfall für Zahlensystem der Basis 2
 			
@@ -616,7 +640,8 @@ public class ConvertingNumbers {
 				newBaseValue.insert(0, '-');
 			}
 			
-			if(newBase == 2) {
+			
+			if(newBase == 2 && !(newBaseValue.charAt(0) == '0')) {
 				newBaseValue.insert(0, '0');
 			}
 				

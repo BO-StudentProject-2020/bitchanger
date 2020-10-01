@@ -17,7 +17,7 @@ cd "$(dirname "$0")"	# zum Pfad dieses Skriptes wechseln
 # Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 NAME=Bitchanger
 DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-VERSION=0.1.6
+VERSION=0.1.7
 VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
 # set COPYRIGHT = ""
 # set LICENSE_FILE = ""
@@ -78,6 +78,7 @@ do
 	--linux-shortcut
 
 	echo ""
+	mv "${OUT}/${NAME-$VERSION}.${TYPE}" "${OUT}/${NAME-$VERSION}-debian-install.${TYPE}"
 	echo ""
 done
 

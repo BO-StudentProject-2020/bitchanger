@@ -26,7 +26,7 @@ import bitchanger.util.Resources;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.7
  * 
  */
 /* <!-- $LANGUAGE=EN -->
@@ -35,7 +35,7 @@ import bitchanger.util.Resources;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  * 
  */
 public class BitchangerLauncher {
@@ -67,23 +67,32 @@ public class BitchangerLauncher {
 		/* Dies ist notwendig, da ohne den Aufruf mit diesem Launcher der Classpath auf die javafx Runtime
 		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
 		 */
-		String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
-		File errorFile = new File(Resources.RESOURCES_ROOT, "/log/error_" + time + ".txt");
-		PrintStream errStream = openErrorStream(errorFile);
+		boolean relocateErr = true;
 		
-		if(errStream != null) {
-			System.setErr(errStream);
+		File errorFile = null;
+		PrintStream errStream = null;
+		
+		if (relocateErr) {
+			String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+			errorFile = new File(Resources.RESOURCES_ROOT, "/log/error_" + time + ".txt");
+			errStream = openErrorStream(errorFile);
+			if (errStream != null) {
+				System.setErr(errStream);
+			} 
 		}
-
+		
 		PrimaryFXApp.launchFXApplication(args);
 		
 		Preferences.storeCustom();
 		
-		closeErrorStream(errStream);
-		deleteEmptyErrorFile(errorFile);
+		if (relocateErr) {
+			closeErrorStream(errStream);
+			deleteEmptyErrorFile(errorFile);
+		}
 	}
 
 	
+	// TODO JavaDoc
 	private static void deleteEmptyErrorFile(File errorFile) {
 		try {
 			BufferedReader errIn = new BufferedReader(new FileReader(errorFile));
@@ -104,6 +113,7 @@ public class BitchangerLauncher {
 	}
 	
 
+	// TODO JavaDoc
 	private static void closeErrorStream(PrintStream errStream) {
 		try {
 			errStream.flush();
@@ -111,6 +121,8 @@ public class BitchangerLauncher {
 		} catch (Exception e) { /* ignore */ }
 	}
 
+	
+	// TODO JavaDoc
 	private static PrintStream openErrorStream(File errorFile) {
 		PrintStream errStream;
 		
