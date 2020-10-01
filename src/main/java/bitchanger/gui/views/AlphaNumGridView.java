@@ -26,7 +26,6 @@ import javafx.beans.binding.NumberBinding;
 import javafx.beans.binding.When;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -133,63 +132,63 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Textfelder in dieser View */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty tfMaxHeightProperty;
+	protected final DoubleProperty tfMaxHeightProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Textfelder in dieser View */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty tfMinHeightProperty;
+	protected final DoubleProperty tfMinHeightProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Buttons in dieser View */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty btnMaxHeigthProperty;
+	protected final DoubleProperty btnMaxHeigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Buttons in dieser View */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty btnMinHeigthProperty;
+	protected final DoubleProperty btnMinHeigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die maximale Breite der Buttons in dieser View */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty btnMaxWidthProperty;
+	protected final DoubleProperty btnMaxWidthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty btnMinWidthProperty;
+	protected final DoubleProperty btnMinWidthProperty;
 	
 	/** <!-- $LANGUAGE=DE --> Property für die Höhe der Zeilen zwischen den Textfeldern und Buttons */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty whiteSpaceHeigthProperty;
+	protected final DoubleProperty whiteSpaceHeigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für die Breite der ersten Spalte mit den Labels enthält. Wird benötigt, um symmetrisch Weißraum auf der rechten Seite hinzuzufügen. */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty firstColumnWidthProperty;
+	protected final DoubleProperty firstColumnWidthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am oberen Rand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty paddingTopProperty;
+	protected final DoubleProperty paddingTopProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am rechten Rand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty paddingRigthProperty;
+	protected final DoubleProperty paddingRigthProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am unteren Rand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty paddingBottomProperty;
+	protected final DoubleProperty paddingBottomProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand am linken Rand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty paddingLeftProperty;
+	protected final DoubleProperty paddingLeftProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den Abstand der Buttons in der GridPane */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty btnSpacingProperty;
+	protected final DoubleProperty btnSpacingProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den horizontalen Abstand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty hgapProperty;
+	protected final DoubleProperty hgapProperty;
 
 	/** <!-- $LANGUAGE=DE --> Property für den vertikalen Abstand der GridPane im Center */
 	// TODO JavaDoc EN
-	protected final ReadOnlyDoubleProperty vgapProperty;
+	protected final DoubleProperty vgapProperty;
 
 	/** <!-- $LANGUAGE=DE --> Konstante, die die erste Zeile der GridPane definiert, in der die Textfelder positioniert werden */
 	// TODO JavaDoc EN
@@ -312,7 +311,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
+	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue AlphaNumGridView, die ihre Labels, Textfelder und die Tastaturmatrix nach den übergebenen Parametern
 	 * positioniert. Der Scenegraph wird nicht automatisch erstellt.
@@ -341,7 +340,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 		this(firstLabelRow, labelColumn, firstTFRow, tfColumn, firstKeyBtnRow, firstKeyBtnColumn, labelTexts, tfKeys, tfHeight, 
 				tfHeight, btnMaxSize, btnMinSize, btnMaxSize, btnMinSize, whiteSpaceHeigth, firstColumnWidth, paddingTopRigthBottomLeft, 
-				paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, spacing, spacing, spacing);
+				paddingTopRigthBottomLeft + firstColumnWidth, paddingTopRigthBottomLeft, paddingTopRigthBottomLeft, spacing, spacing, spacing);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -1303,21 +1302,11 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			}
 		});
 		
-		if(hgapProperty instanceof DoubleProperty) {
-			center.hgapProperty().bindBidirectional((DoubleProperty) hgapProperty);
-		} else {
-			center.hgapProperty().bind(hgapProperty);
-		}
+		center.hgapProperty().bindBidirectional(hgapProperty);
+		center.vgapProperty().bindBidirectional(vgapProperty);
 		
-		if(vgapProperty instanceof DoubleProperty) {
-			center.vgapProperty().bindBidirectional((DoubleProperty) vgapProperty);
-		} else {
-			center.vgapProperty().bind(vgapProperty);
-		}
-		
-		try { ((DoubleProperty) btnSpacingProperty).bindBidirectional((DoubleProperty) hgapProperty); } catch(Exception e) { /* ignore */ }
-		
-		try { ((DoubleProperty) btnSpacingProperty).bindBidirectional((DoubleProperty)vgapProperty); } catch(Exception e) { /* ignore */ }
+		btnSpacingProperty.bindBidirectional(hgapProperty);
+		btnSpacingProperty.bindBidirectional(vgapProperty);
 		
 		paddingTopProperty.addListener(this::updatePadding);
 		paddingRigthProperty.addListener(this::updatePadding);
@@ -1336,7 +1325,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 */
 	// TODO JavaDoc EN
 	private void updatePadding(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-		center.setPadding(new Insets(paddingTopProperty.get(), paddingRigthProperty.get() + firstColumnWidthProperty.get(),
+		center.setPadding(new Insets(paddingTopProperty.get(), paddingRigthProperty.get(),
 						paddingBottomProperty.get(), paddingLeftProperty.get()));
 	}
 

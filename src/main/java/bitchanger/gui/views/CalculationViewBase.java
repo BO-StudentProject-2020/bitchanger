@@ -66,12 +66,9 @@ public class CalculationViewBase extends AlphaNumGridView {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-	// TODO JavaDoc
-	private HBox firstValBox;
-	private HBox secondValBox;
-	private StackPane resultLabels;
-	private final int LABEL_SPACING = 10;
+// protected	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+	// TODO JavaDoc
 	protected final int equalBtnColumn;
 
 	protected final int equalBtnRow;
@@ -95,8 +92,18 @@ public class CalculationViewBase extends AlphaNumGridView {
 	protected final int clearBtnColumnSpan;
 
 	protected final int clearBtnRowSpan;
+
 	
-	
+// private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	// TODO JavaDoc
+	private HBox firstValBox;
+	private HBox secondValBox;
+	private StackPane resultLabels;
+	private final int LABEL_SPACING = 10;
+	private boolean isHorizontal;
+	private boolean isVertical;
+
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -141,6 +148,8 @@ public class CalculationViewBase extends AlphaNumGridView {
 		this.clearBtnRow = clearBtnRow;
 		this.clearBtnColumnSpan = clearBtnColumnSpan;
 		this.clearBtnRowSpan = clearBtnRowSpan;
+		
+		this.paddingRigthProperty.bind(paddingLeftProperty);
 	}
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -301,6 +310,14 @@ public class CalculationViewBase extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+	@Override
+	protected void init() {
+		super.init();
+		
+		this.isHorizontal = false;
+		this.isVertical = false;
+	}
+	
 	
 	/** {@inheritDoc} */
 	@Override
@@ -322,7 +339,6 @@ public class CalculationViewBase extends AlphaNumGridView {
 		lastRow.maxWidthProperty().bind(firstColumnWidthProperty);
 		
 		addColumnConstraint(center, center.getColumnCount() - 1, lastRow);
-		center.setGridLinesVisible(true);
 	}
 
 
@@ -435,6 +451,10 @@ public class CalculationViewBase extends AlphaNumGridView {
 
 	// TODO JavaDoc
 	public void positionValuesVertical() {
+		if(isVertical) {
+			return;
+		}
+		
 		resultLabels.getChildren().clear();
 		try {
 			Label equalsLabel = (Label) this.getNodeMap().get(equalsLabelKey());
@@ -452,15 +472,22 @@ public class CalculationViewBase extends AlphaNumGridView {
 		resultLabels.getChildren().add(box);
 		
 		RowConstraints firstRow = createRowConstraints(ConstraintType.TEXT_FIELD_ROW);
-		firstRow.minHeightProperty().bind(box.prefHeightProperty());
-		firstRow.maxHeightProperty().bind(box.prefHeightProperty());
+		firstRow.minHeightProperty().bind(box.heightProperty());
+		firstRow.maxHeightProperty().bind(box.heightProperty());
 		addRowConstraint(center, GridPane.getRowIndex(resultLabels), firstRow);
+		
+		isVertical = true;
+		isHorizontal = false;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
 	public void positionValuesHorizontal() {
+		if (isHorizontal) {
+			return;
+		}
+		
 		resultLabels.getChildren().clear();
 		try {
 			Label equalsLabel = (Label) this.getNodeMap().get(equalsLabelKey());
@@ -474,7 +501,14 @@ public class CalculationViewBase extends AlphaNumGridView {
 		getTextFieldMap().get(this.tfKey()).setId(null);
 		
 		resultLabels.getChildren().add(box);
-		addRowConstraint(center, GridPane.getRowIndex(resultLabels), createRowConstraints(ConstraintType.TEXT_FIELD_ROW));
+		
+		RowConstraints firstRow = createRowConstraints(ConstraintType.TEXT_FIELD_ROW);
+		firstRow.minHeightProperty().bind(box.heightProperty());
+		firstRow.maxHeightProperty().bind(box.heightProperty());
+		addRowConstraint(center, GridPane.getRowIndex(resultLabels), firstRow);
+		
+		isVertical = false;
+		isHorizontal = true;
 	}
 
 	

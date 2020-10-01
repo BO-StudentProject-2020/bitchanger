@@ -20,12 +20,17 @@ import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.Resources;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /** <!-- $LANGUAGE=DE -->
  * Hauptfenster der Applikation mit javaFX
@@ -154,6 +159,14 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	/* <!-- $LANGUAGE=EN --> Main application window */
 	private Stage primaryStage;
 	
+	/** <!-- $LANGUAGE=DE --> Höhe des Fensterrahmens */
+	/* <!-- $LANGUAGE=EN --> Height of the window frame */
+	private double emptyStageHeigth;
+	
+	/** <!-- $LANGUAGE=DE --> Breite des Fensterrahmens */
+	/* <!-- $LANGUAGE=EN --> Width of the window frame */
+	private double emptyStageWidth;
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -271,6 +284,8 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
 		primaryStage.setFullScreenExitHint("Drücken Sie F11, um den Vollbildmodus zu beenden.");
+		
+		computeStageFrameSize();
 
 		this.converterView = new ConverterView();
 		this.ieeeView = new IEEEView();
@@ -279,8 +294,6 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		
 		adjustViews(converterView, ieeeView, calculatorView, bitoperationsView);
 
-		changeView(converterView);
-		
 		for(Viewable view : ArrayUtils.arrayOf(converterView, ieeeView, calculatorView, bitoperationsView)) {
 			if(Preferences.getPrefs().viewClassProperty().get().equals(view.getClass())) {
 				changeView(view);
@@ -299,6 +312,42 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		primaryStage.show();
 	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc
+	private void computeStageFrameSize() {
+		Stage s = new Stage(StageStyle.DECORATED);
+		
+		Region r = new Region();
+		r.setMaxSize(0, 0);
+		r.setPrefSize(0, 0);
+		
+		Scene sc = new Scene(r, 1, 1);
+		
+		s.setScene(sc);
+		s.setOpacity(0);
+		s.setMaxHeight(0);
+		s.setMaxWidth(0);
+		
+		s.setOnShown(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				emptyStageHeigth = s.getHeight();
+				emptyStageWidth = s.getWidth();
+				
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						s.close();
+					}
+				});
+			}
+		});
+		
+		s.show();
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	// TODO JavaDoc
 	private void updateViewClassProperty() {
@@ -332,17 +381,14 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	private void setStageSize() {
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen
 		// (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
-		primaryStage.minHeightProperty().bind(currentViewProperty.get().minHeigthProperty());
-		primaryStage.maxHeightProperty().bind(currentViewProperty.get().maxHeigthProperty());
-		primaryStage.minWidthProperty().bind(currentViewProperty.get().minWidthProperty());
-		primaryStage.maxWidthProperty().bind(currentViewProperty.get().maxWidthProperty());
-		
-		
+		primaryStage.minHeightProperty().bind(currentViewProperty.get().minHeigthProperty().add(emptyStageHeigth));
+		primaryStage.maxHeightProperty().bind(currentViewProperty.get().maxHeigthProperty().add(emptyStageHeigth));
+		primaryStage.minWidthProperty().bind(currentViewProperty.get().minWidthProperty().add(emptyStageWidth));
+		primaryStage.maxWidthProperty().bind(currentViewProperty.get().maxWidthProperty().add(emptyStageWidth));
 	}
 	
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
 
 	// TODO JavaDoc
 	private void observeStageOnShowing() {
@@ -356,9 +402,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		});
 	}
 	
-	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
 
 	// TODO JavaDoc
 	private void observeScene() {
