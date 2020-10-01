@@ -67,7 +67,7 @@ public class BitchangerLauncher {
 		/* Dies ist notwendig, da ohne den Aufruf mit diesem Launcher der Classpath auf die javafx Runtime
 		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
 		 */
-		boolean relocateErr = false;
+		boolean relocateErr = true;
 		
 		File errorFile = null;
 		PrintStream errStream = null;

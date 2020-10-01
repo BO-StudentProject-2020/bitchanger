@@ -39,7 +39,7 @@ echo Installer fuer Windows werden erzeugt.
 echo.
 
 rem ---- exe ----
-echo %NAME%-%VERSION%.exe wird erstellt
+echo %NAME%-%VERSION%-Win-Install.exe wird erstellt
 echo.
 @echo on
 jpackage ^
@@ -57,11 +57,14 @@ jpackage ^
 --win-menu-group  
 
 @echo off
+
+ren "%OUT%\%NAME%-%VERSION%.exe" "%NAME%-%VERSION%-Win-Install.exe"
+ 
 echo.
 echo.
 
 rem ---- msi ----
-echo %NAME%-%VERSION%.msi wird erstellt
+echo %NAME%-%VERSION%-Win-Install.msi wird erstellt
 echo.
 @echo on
 
@@ -80,6 +83,9 @@ jpackage ^
 --win-menu-group  
 
 @echo off
+
+ren "%OUT%\%NAME%-%VERSION%.msi" "%NAME%-%VERSION%-Win-Install.msi"
+
 echo.
 echo.
 

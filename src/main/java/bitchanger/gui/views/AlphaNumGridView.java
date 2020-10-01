@@ -691,7 +691,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 				center.maxHeightProperty().bind(maxRowHeigths.add(vgapWidthBinding));
 			}
 		});
-		AlphaNumGridView v = this;
+		
 		center.getColumnConstraints().addListener(new ListChangeListener<ColumnConstraints>() {
 			@Override
 			public void onChanged(Change<? extends ColumnConstraints> c) {
@@ -712,8 +712,6 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 				NumberBinding firstColumnWidthBinding = new When(lastColumnEqualsFirst).then(0).otherwise(new When(firstColumnWidthProperty.greaterThan(0)).then(firstColumnWidthProperty).otherwise(0));
 				NumberBinding hgapWidthBinding = new When(hgapProperty.greaterThan(0)).then(hgapProperty.multiply(center.getColumnCount())).otherwise(0);
 				
-				System.out.println(v + " " + lastColumnEqualsFirst.get() + firstColumnWidthBinding.doubleValue());
-
 				center.minWidthProperty().bind(minColumnWidth.add(hgapWidthBinding).add(firstColumnWidthBinding));
 				center.maxWidthProperty().bind(maxColumnWidth.add(hgapWidthBinding).add(firstColumnWidthBinding));
 			}

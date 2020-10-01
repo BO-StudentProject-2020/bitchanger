@@ -78,6 +78,7 @@ do
 	--linux-shortcut
 
 	echo ""
+	mv "${OUT}/${NAME-$VERSION}.${TYPE}" "${OUT}/${NAME-$VERSION}-rpm-install.${TYPE}"
 	echo ""
 done
 

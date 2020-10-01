@@ -55,6 +55,7 @@ do
 	--mac-package-name "${NAME}"
 
 	echo ""
+	mv "${OUT}/${NAME-$VERSION}.${TYPE}" "${OUT}/${NAME-$VERSION}-mac-install.${TYPE}"
 	echo ""
 done
 
