@@ -79,11 +79,28 @@ import javafx.scene.layout.RowConstraints;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 // TODO JavaDoc EN
 public class AlphaNumGridView extends ViewBase<BorderPane> {
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constants		   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	// TODO JavaDoc
+	public static final double TF_HEIGHT = 40;
+	public static final double BTN_MAX_SIZE = Double.MAX_VALUE;
+	public static final double BTN_MIN_SIZE = 45;
+	public static final double WHITESPACE_HEIGHT = 40;
+	public static final double FIRST_COLUMN_WIDTH = 70;
+	public static final double PADDING = 20;
+	public static final double SPACING = 6;
+	
+	
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -233,23 +250,6 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	// TODO JavaDoc EN
 	private final HashMap<String, Object> btnTexts;
 	
-	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Buttons in dieser View */
-	// TODO JavaDoc EN
-	private final DoubleProperty maxHeightProperty;
-
-	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Buttons in dieser View */
-	// TODO JavaDoc EN
-	private final DoubleProperty minHeightProperty;
-
-	/** <!-- $LANGUAGE=DE --> Property für die maximale Breite der Buttons in dieser View */
-	// TODO JavaDoc EN
-	private final DoubleProperty maxWidthProperty;
-
-	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
-	// TODO JavaDoc EN
-	private final DoubleProperty minWidthProperty;
-	
-	
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -307,9 +307,9 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			int firstKeyBtnColumn, String[] labelTexts, String... tfKeys) {
 		
 		this(firstLabelRow, labelColumn, firstTFRow, tfColumn, firstKeyBtnRow, firstKeyBtnColumn, labelTexts, 
-				tfKeys, 40, Double.MAX_VALUE, 45, 40, 70, 20, 6);
+				tfKeys, TF_HEIGHT, BTN_MAX_SIZE, BTN_MIN_SIZE, WHITESPACE_HEIGHT, FIRST_COLUMN_WIDTH, PADDING, SPACING);
 	}
-
+	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
@@ -398,11 +398,6 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		this.hgapProperty = new SimpleDoubleProperty(hgap);
 		this.vgapProperty = new SimpleDoubleProperty(vgap);
 		
-		this.minHeightProperty = new SimpleDoubleProperty();
-		this.maxHeightProperty = new SimpleDoubleProperty();
-		this.minWidthProperty = new SimpleDoubleProperty();
-		this.maxWidthProperty = new SimpleDoubleProperty();
-		
 		this.firstTFRow = (firstTFRow >= 0 && tfColumn >= 0) ? firstTFRow : -1;
 		this.tfColumn = (firstTFRow >= 0 && tfColumn >= 0) ? tfColumn : -1;
 		this.firstLabelRow = (firstLabelRow >= 0 && labelColumn >= 0) ? firstLabelRow : -1;
@@ -446,38 +441,6 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	/** {@inheritDoc} */
-	@Override
-	public DoubleProperty maxHeigthProperty() {
-		return this.maxHeightProperty;
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/** {@inheritDoc} */
-	@Override
-	public DoubleProperty maxWidthProperty() {
-		return this.maxWidthProperty;
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	/** {@inheritDoc} */
-	@Override
-	public DoubleProperty minHeigthProperty() {
-		return this.minHeightProperty;
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-	
-	/** {@inheritDoc} */
-	@Override
-	public DoubleProperty minWidthProperty() {
-		return this.minWidthProperty;
-	}
-
-// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
 	/** <!-- $LANGUAGE=DE -->
 	 * Gibt das Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden zurück.
 	 * 

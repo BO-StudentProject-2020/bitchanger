@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bitchanger.gui.controller.Controller;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,7 +40,7 @@ import javafx.scene.layout.Pane;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.4
+ * @version 0.1.8
  *
  */
 //TODO JavaDoc EN
@@ -69,6 +71,22 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	/** <!-- $LANGUAGE=DE --> MenuBar des Scenegraphen */
 	// TODO JavaDoc EN
 	protected MenuBar menubar;
+	
+	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Buttons in dieser View */
+	// TODO JavaDoc EN
+	protected final DoubleProperty maxHeightProperty;
+
+	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Buttons in dieser View */
+	// TODO JavaDoc EN
+	protected final DoubleProperty minHeightProperty;
+
+	/** <!-- $LANGUAGE=DE --> Property für die maximale Breite der Buttons in dieser View */
+	// TODO JavaDoc EN
+	protected final DoubleProperty maxWidthProperty;
+
+	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
+	// TODO JavaDoc EN
+	protected final DoubleProperty minWidthProperty;
 	
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -138,10 +156,16 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	// TODO JavaDoc EN
 	public ViewBase(T root, boolean buildScenegraph) {
 		this.root = root;
+		this.scene = new Scene(this.root);
+		
 		this.tfMap = new HashMap<String, TextField>();
 		this.btnMap = new HashMap<String, Button>();
 		this.nodeMap = new HashMap<String, Node>();
-		this.scene = new Scene(this.root);
+		
+		this.minHeightProperty = new SimpleDoubleProperty();
+		this.maxHeightProperty = new SimpleDoubleProperty();
+		this.minWidthProperty = new SimpleDoubleProperty();
+		this.maxWidthProperty = new SimpleDoubleProperty();
 		
 		init();
 		
@@ -225,7 +249,39 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 			((BorderPane) root).setTop(menubar);
 		}
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** {@inheritDoc} */
+	@Override
+	public DoubleProperty maxHeigthProperty() {
+		return this.maxHeightProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** {@inheritDoc} */
+	@Override
+	public DoubleProperty maxWidthProperty() {
+		return this.maxWidthProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** {@inheritDoc} */
+	@Override
+	public DoubleProperty minHeigthProperty() {
+		return this.minHeightProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
+	/** {@inheritDoc} */
+	@Override
+	public DoubleProperty minWidthProperty() {
+		return this.minWidthProperty;
+	}
+
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##

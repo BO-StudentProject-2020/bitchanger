@@ -8,6 +8,7 @@
 
 package bitchanger.calculations;
 
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -236,59 +237,7 @@ public class ConvertingNumbers {
 	 * @throws NumberOverflowException		if integer part of {@code value} is greater or less +/- {@link Long#MAX_VALUE}
 	 */
 	public static String baseToDecString(int base, String value, char comma) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException {	
-		// Prüfen, ob value eine Zahl zur gegebenen Basis repräsentiert
-		checkValue(base, value);
-		value = trimToNumberString(value); // Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
-		
-		// Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
-		boolean isNegative = value.startsWith("-");
-		
-		// Wenn eine Binäreingabe mit '1' beginnt, dann ist diese Zahl eine negative Binärzahl -> Zweierkomplement 
-		boolean isNegativeBin = (base == 2 && value.startsWith("1"));
-		
-		if(isNegative && base == 2) {
-			throw new NumberFormatException("negative binary values must ba passed as two's complement");
-		}
-		else if (isNegative) {
-			// Minuszeichen entfernen
-			value = value.substring(1, value.length());
-		}
-		else if(isNegativeBin) {
-			// Abfrage auf illegales Zeichen (Komma-Abfrage bei negativen Binärzahlen)
-			if(value.contains(String.valueOf(Preferences.getPrefs().getComma()))) {
-				throw new NumberFormatException("negative binary values must not have a fractional part");
-			}
-			
-			value = complementOf(value);
-			isNegative = true;
-		}
-		
-		// Uebergebene Zahl in ganzen Anteil und Nachkommastellen trennen
-		String[] separated = separateByComma(value);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
-		
-		// Strings die ganzen und Nachkommateil zu der uebergebenen Basis 
-		// repraesentieren in double Zahlen zur Basis 10 umwandeln
-		double integerPart = baseToDecIntPart(base, separated[0]);
-		double fractionalPart = baseToDecFractionalPart(base, separated[1]);
-		
-		if(integerPart > (double)Long.MAX_VALUE) {
-			// TODO JavaDoc NumberOverflowException
-			throw new NumberOverflowException("for Number " + (integerPart + fractionalPart), "Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
-		}
-		
-		// Bei negativen Binärzahlen ist durch die Rückumwandlung des Zweierkomplements eine Addition von +1 nötig
-		if(isNegativeBin) {
-			integerPart += 1;
-		}
-		
-		if(fractionalPart != 0.0) {
-			// Rueckgabe mit Nachkommateil
-			return isNegative ? "-" + (String.valueOf((long)(integerPart)) + comma + String.valueOf(fractionalPart).substring(2))
-					: (String.valueOf((long)integerPart) + comma + String.valueOf(fractionalPart).substring(2));
-		} else {
-			// Rueckgabe des ganzen Anteils
-			return isNegative ? "-" + String.valueOf((long)integerPart) : String.valueOf((long)integerPart);
-		}
+		return baseToDecString(base, value, comma, null);
 	}
 	
 	
@@ -328,11 +277,6 @@ public class ConvertingNumbers {
 		checkValue(base, value);
 		value = trimToNumberString(value); // Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
 		
-		
-		// TODO calcPath bilden
-		
-		
-		
 		// Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
 		boolean isNegative = value.startsWith("-");
 		
@@ -340,47 +284,93 @@ public class ConvertingNumbers {
 		boolean isNegativeBin = (base == 2 && value.startsWith("1"));
 		
 		if(isNegative && base == 2) {
+			if(calcPath != null) {
+				calcPath.clear();
+				calcPath.add(new ConversionStep("Keine Umwandlung m\u00F6glich, negative Bin\u00E4rzahlen m\u00FCssen im Zweierkomplement \u00FCbergeben werden!"));
+			}
 			throw new NumberFormatException("negative binary values must ba passed as two's complement");
 		}
 		else if (isNegative) {
 			// Minuszeichen entfernen
+			if(calcPath != null) calcPath.add(new ConversionStep("Betrag nehmen und das Vorzeichen für sp\u00E4ter merken"));
 			value = value.substring(1, value.length());
 		}
 		else if(isNegativeBin) {
 			// Abfrage auf illegales Zeichen (Komma-Abfrage bei negativen Binärzahlen)
-			if(value.contains(String.valueOf(Preferences.getPrefs().getComma()))) {
+			if(value.contains(String.valueOf(comma))) {
+				if(calcPath != null) {
+					calcPath.clear();
+					calcPath.add(new ConversionStep("Keine Umwandlung m\u00F6glich, negative Bin\u00E4rzahlen d\u00FCrfen keine Nachkommastellen haben!"));
+				}
 				throw new NumberFormatException("negative binary values must not have a fractional part");
+			}
+			
+			if(calcPath != null) {
+				calcPath.add(new ConversionStep("negative Bin\u00E4rzahlen werden im Zweierkomplement abgebildet => zur R\u00FCckwandlung erneut das Zweierkomplement bilden und Vorzeichen für sp\u00E4ter merken!", true));
+				calcPath.add(new TwosComplement(Long.parseLong(value)));
 			}
 			
 			value = complementOf(value);
 			isNegative = true;
 		}
 		
-		// Uebergebene Zahl in ganzen Anteil und Nachkommastellen trennen
+		// Übergebene Zahl in ganzen Anteil und Nachkommastellen trennen
 		String[] separated = separateByComma(value);	// Index 0 => Ganzer Anteil, Index 1 => Nachkommaanteil
 		
-		// Strings die ganzen und Nachkommateil zu der uebergebenen Basis 
-		// repraesentieren in double Zahlen zur Basis 10 umwandeln
-		double integerPart = baseToDecIntPart(base, separated[0]);
-		double fractionalPart = baseToDecFractionalPart(base, separated[1]);
+		// ganzzahligen Anteil zur Basis 10 umwandeln
+		if(calcPath != null) calcPath.add(new ConversionStep("Ganzzahligen Anteil mit dem Hornerschema (Zielverfahren) von Basis " + base + " zur Basis 10 umwandeln:\n"
+														   + "  -> 1. Erste Ziffer (von links) mit ihrer Basis (" + base + ") multiplizieren\n"
+														   + "  -> 2. Nächste Ziffer mit dem Produkt addieren\n"
+														   + "  -> 3. Ergebnis erneut mit der Basis multiplizieren\n"
+														   + "  -> 4. Schritte 2 und 3 wiederholen, bis die letzte Ziffer der Zahl erreicht ist", true));
+		double integerPart = baseToDecIntPart(base, separated[0], calcPath);
+		if(calcPath != null) calcPath.add(new ConversionStep("=> Die letzte Summe ist die umgewandelte ganze Zahl zur Basis 10: " + (long) integerPart));
+		
+		
+		// gebrochenen Anteil zur Basis 10 umwandeln
+		double fractionalPart = 0.0;
+		if(! separated[1].equals("0")) {
+			// Nachkommateil vorhanden
+			if(calcPath != null) calcPath.add(new ConversionStep("Gebrochenen Anteil mit dem Hornerschema (Zielverfahren) von Basis " + base + " zur Basis 10 umwandeln:\n"
+															   + "  -> 1. Reihenfolge der Ziffern der umzuwandelnden Zahl inklusive der Null vor dem Komma umdrehen\n"
+															   + "  -> 2. Erste Ziffer (von links) mit dem Kehrwert ihrer Basis (1/" + base + ") multiplizieren\n"
+															   + "  -> 3. Nächste Ziffer mit dem Produkt addieren\n"
+															   + "  -> 4. Ergebnis erneut mit dem Kehrwert der Basis multiplizieren\n"
+															   + "  -> 5. Schritte 3 und 4 wiederholen, bis die letzte Ziffer der Zahl erreicht ist", true));
+			fractionalPart = baseToDecFractionalPart(base, separated[1], calcPath);
+			if(calcPath != null) calcPath.add(new ConversionStep("=> Die letzte Summe ist der umgewandelte gebrochene Anteil zur Basis 10: " + fractionalPart));
+		}
+		
 		
 		if(integerPart > (double)Long.MAX_VALUE) {
-			// TODO JavaDoc NumberOverflowException
+			if(calcPath != null) {
+				calcPath.clear();
+				calcPath.add(new ConversionStep("Keine Umwandlung m\u00F6glich, da der erlaubte Wertebereich verlassen wurde!"));
+			}
 			throw new NumberOverflowException("for Number " + (integerPart + fractionalPart), "Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
 		}
 		
-		// Bei negativen Binärzahlen ist durch die Rückumwandlung des Zweierkomplements eine Addition von +1 nötig
+		
+		// Bei negativen Binärzahlen ist durch die Rückumwandlung des Zweierkomplements eine Addition von + 1 nötig
 		if(isNegativeBin) {
 			integerPart += 1;
 		}
 		
+		String integerStr = String.valueOf((long)(integerPart));
+		
 		if(fractionalPart != 0.0) {
-			// Rueckgabe mit Nachkommateil
-			return isNegative ? "-" + (String.valueOf((long)(integerPart)) + comma + String.valueOf(fractionalPart).substring(2))
-					: (String.valueOf((long)integerPart) + comma + String.valueOf(fractionalPart).substring(2));
+			// Rückgabe mit Nachkommateil
+			String fractionalStr = String.valueOf(fractionalPart).substring(2);
+			String valueStr = integerStr + comma + fractionalStr;
+			
+			if(calcPath != null) calcPath.add(new ConversionStep("Beide Teile zusammenf\u00FCgen: " + integerStr + " + " + fractionalStr + " = " + valueStr, true));
+			if(isNegative && calcPath != null) calcPath.add(new ConversionStep("Vorzeichen beachten!", true));
+			
+			return isNegative ? "-" + valueStr : valueStr;
 		} else {
-			// Rueckgabe des ganzen Anteils
-			return isNegative ? "-" + String.valueOf((long)integerPart) : String.valueOf((long)integerPart);
+			// Rückgabe des ganzen Anteils
+			if(isNegative && calcPath != null) calcPath.add(new ConversionStep("Vorzeichen beachten!", true));
+			return isNegative ? "-" + integerStr : integerStr;
 		}
 	}
 
@@ -813,8 +803,8 @@ public class ConvertingNumbers {
 	public static String splitInBlocks(String value, int blockSize) {
 		String[] separated = separateByComma(value);
 		
-		StringBuffer integerPart = new StringBuffer(separated[0]);
-		StringBuffer fractionalPart = new StringBuffer();
+		StringBuilder integerPart = new StringBuilder(separated[0]);
+		StringBuilder fractionalPart = new StringBuilder();
 		
 		insertSpace(integerPart.reverse(), blockSize);
 		
@@ -924,17 +914,17 @@ public class ConvertingNumbers {
 	 * @param integerPart	Number which will be converted as string representation
 	 * @return				Value of the submitted number as decimal representation as{@code double}
 	 */
-	private static double baseToDecIntPart(int base, String integerPart) {
-		char[] digits = integerPart.toCharArray();
-		double sum = 0;
+	private static double baseToDecIntPart(int base, String integerPart, Queue<? super HornersMethod> calcSteps) {
+		ArrayList<Double> coefficients = new ArrayList<>();
 		
-		// umwandeln von beliebiger Basis zum Zehnersystem mit dem Horner-Schema
-		for(int i = 0; i < digits.length; i++) {
-			sum *= base;
-			sum += valueOfDigit(digits[i]);
+		for(char digit : integerPart.toCharArray()) {
+			coefficients.add((double) valueOfDigit(digit));
 		}
 		
-		return sum;
+		HornersMethod horner = new HornersMethod(coefficients, base);
+		if (calcSteps != null) calcSteps.add(horner);
+		
+		return horner.getResult();
 	}
 	
 	
@@ -957,21 +947,29 @@ public class ConvertingNumbers {
 	 * @param fractionalPart	Decimal places of a number which will be converted <b>without comma</b> as an integer as string representation 
 	 * @return					Value of the submitted decimal place as decimal representation as{@code double}
 	 */
-	private static double baseToDecFractionalPart(int base, String fractionalPart) {
+	private static double baseToDecFractionalPart(int base, String fractionalPart, Queue<ConversionStep> calcSteps) {
 		// umwandeln von beliebiger Basis zum Zehnersystem mit dem Horner-Schema
 		// dafür muss die Reihenfolge der Ziffern umgekehrt und eine 0 angehangen werden
-		StringBuffer sb = new StringBuffer(fractionalPart);
+		StringBuilder sb = new StringBuilder(fractionalPart);
 		sb.reverse();
 		sb.append(0);
 		
-		double sum = 0;
-		
-		for(int i = 0; i < sb.length(); i++) {
-			sum *= 1.0/base;
-			sum += valueOfDigit(sb.charAt(i));
+		if(calcSteps != null) {
+			calcSteps.add(new ConversionStep("Reihenfolge der Ziffern umkehren:\n"
+										   + "0" + Preferences.getPrefs().getComma() + fractionalPart + "  =>  " + insertSpace(new StringBuilder(sb.toString()), 1)));
 		}
 		
-		return sum;
+		ArrayList<Double> coefficients = new ArrayList<>();
+		
+		sb.chars()
+		  .mapToDouble(digit -> { return valueOfDigit((char) digit); })
+		  .forEach(coefficients::add);
+		
+		HornersMethod horner = new HornersMethod(coefficients, 1.0/base);
+		
+		if(calcSteps != null) calcSteps.add(horner);
+		
+		return horner.getResult();
 	}
 	
 	
@@ -1334,7 +1332,7 @@ public class ConvertingNumbers {
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
-	private static StringBuffer insertSpace(StringBuffer sb, int blockSize) {
+	private static StringBuilder insertSpace(StringBuilder sb, int blockSize) {
 		for(int i = blockSize; i < sb.length(); i += blockSize + 1) {
 			sb.insert(i, " ");
 		}

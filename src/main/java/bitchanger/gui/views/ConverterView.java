@@ -14,7 +14,16 @@ import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.controls.ConverterMenuBar;
+import bitchanger.util.FXUtils;
+import bitchanger.util.IconFactory;
+import bitchanger.util.Resources;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
  * View, die die Scene für die Umwandlung von Zahlensystemen enthält.
@@ -25,7 +34,7 @@ import javafx.scene.control.Spinner;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  * 
  * @see ConverterController
  */
@@ -173,13 +182,25 @@ public class ConverterView extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort, mit dem der Spinner für die beliebige Basis in der Map {@code tfMap} gespeichert wird zurück.
+	 * Gibt das Schlüsselwort, mit dem der Spinner für die beliebige Basis in der Map {@code nodeMap} gespeichert wird zurück.
 	 * 
 	 * @return	Schlüsselwort, mit dem der Spinner für die beliebige Basis in der Map {@code nodeMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String baseSpinnerKey() {
 		return "baseSpinner";
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schlüsselwort, mit dem das Label zur Anzeige des Rechenweges in der Map {@code nodeMap} gespeichert wird zurück.
+	 * 
+	 * @return	Schlüsselwort, mit dem das Label zur Anzeige des Rechenweges in der Map {@code nodeMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String calcPathHelpKey() {
+		return "calc-path-btn";
 	}
 	
 	
@@ -215,7 +236,16 @@ public class ConverterView extends AlphaNumGridView {
 	@Override
 	protected void createScenegraph() {
 		super.createScenegraph();
+		
 		createAnyBase();
+		createCalcPathBtn();
+		
+		ColumnConstraints lastRow = new ColumnConstraints();
+		lastRow.minWidthProperty().bind(firstColumnWidthProperty);
+		lastRow.maxWidthProperty().bind(firstColumnWidthProperty);
+		
+		addColumnConstraint(center, center.getColumnCount() - 1, lastRow);
+		this.paddingRigthProperty.bind(paddingLeftProperty);
 	}
 	
 
@@ -239,6 +269,29 @@ public class ConverterView extends AlphaNumGridView {
 		center.add(baseSpinner, 0, LABEL_TEXTS.length);
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc 0.1.8
+	private void createCalcPathBtn() {
+		Label calcPathBtn = new Label();
+		FXUtils.setIconOrText(calcPathBtn, IconFactory.styleBindIcon(Resources.LIGHT_BULB_2_ICON, Resources.LIGHT_BULB_2_FILLED_ICON), "Rechenweg");
+		
+		calcPathBtn.setTooltip(new Tooltip("Hilfe zum Rechenweg anzeigen"));
+		calcPathBtn.maxHeightProperty().bind(btnMaxHeigthProperty);
+		calcPathBtn.minHeightProperty().bind(btnMinHeigthProperty);
+		calcPathBtn.maxWidthProperty().bind(btnMaxWidthProperty);
+		calcPathBtn.minWidthProperty().bind(btnMinWidthProperty);
+		calcPathBtn.setPadding(new Insets(0, 5, 0, 5));
+		
+		getNodeMap().put(calcPathHelpKey(), calcPathBtn);
+		
+		TextField tfDec = getTextFieldMap().get(TF_DEC_KEY);
+		GridPane.setConstraints(calcPathBtn, GridPane.getColumnIndex(tfDec) + GridPane.getColumnSpan(tfDec), GridPane.getRowIndex(tfDec));
+		
+		center.getChildren().add(calcPathBtn);
+	}
+
+
 	
 
 }

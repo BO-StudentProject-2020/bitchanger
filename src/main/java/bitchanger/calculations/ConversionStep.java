@@ -21,7 +21,6 @@ package bitchanger.calculations;
 public class ConversionStep {
 	
 	private String description;
-	private boolean isDescription;
 	private boolean isNewStep;
 	
 	public ConversionStep() {
@@ -34,10 +33,6 @@ public class ConversionStep {
 	
 	public ConversionStep(String description, boolean isNewStep) {
 		this.description = description;
-		
-		Class<?> superClass = ConversionStep.class.getSuperclass();
-		this.isDescription = this.getClass().getSuperclass().equals(superClass);
-		
 		this.isNewStep = isNewStep;
 	}
 	
@@ -58,7 +53,12 @@ public class ConversionStep {
 	}
 	
 	public boolean isDescription() {
-		return this.isDescription;
+		Class<?> superClass = ConversionStep.class.getSuperclass();
+		return this.getClass().getSuperclass().equals(superClass);
+	}
+	
+	public boolean hasDescription() {
+		return this.description == null ? false : ! this.description.equals("");
 	}
 	
 	@Override

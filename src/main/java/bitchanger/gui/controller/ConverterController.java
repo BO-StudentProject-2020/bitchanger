@@ -17,6 +17,7 @@ import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
+import bitchanger.gui.views.CalcPathView;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
@@ -30,10 +31,16 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**	<!-- $LANGUAGE=DE -->
  * Controller, der die Funktion für eine {@linkplain ConverterView} bereitstellt.
@@ -41,7 +48,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -50,7 +57,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 public class ConverterController extends ControllerBase<ConverterView> {
@@ -126,6 +133,10 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/**	<!-- $LANGUAGE=DE -->	Button, mit dem das Vorzeichen der Zahl gewechselt werden kann */
 	/*	<!-- $LANGUAGE=EN -->	Button that action is to change the sign of the number */
 	private Button signBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button, mit dem ein neues Fenster geöffnet wird, das den Rechenweg anzeigt */
+	/*	<!-- $LANGUAGE=EN -->	Button that action is to show a new Window for explaining the calculation path */
+	private Label calcPathHelp;
 
 	
 	
@@ -227,6 +238,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 
 		for (int i = 0; i < 10; i++) {
 			alphaNumButtons[i + 6] = this.buttonMap.get("num_" + i);
+		}
+		
+		try {
+			calcPathHelp = (Label) this.nodeMap.get(controllable.calcPathHelpKey());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -414,7 +431,6 @@ public class ConverterController extends ControllerBase<ConverterView> {
 						FXUtils.showNumberOverflowWarning(noe);
 					} catch (Exception e) {
 						value.reset();
-						e.printStackTrace();
 					}
 					setTexts(setHex, setDec, setOct, setBin, setAny);
 				}
@@ -468,6 +484,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 				public void handle(MouseEvent event) {
 					focusedTF = tf;
 					baseProperty.bind(tf.getBaseProperty());
+					
+					// Hilfelabel für Rechenweg neben neuem Textfeld positionieren
+					GridPane.setRowIndex(calcPathHelp, GridPane.getRowIndex(focusedTF));
 				}
 			});
 		}
@@ -567,8 +586,10 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		setClearAction();
 		setBackspaceAction();
 		setSignAction();
+		
+		setCalcPathHelpAction();
 	}
-	
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
@@ -663,6 +684,62 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			}
 		});
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since 0.1.8
+	private void setCalcPathHelpAction() {
+		calcPathHelp.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				// Neues Fenster mit CalcPathView anzeigen
+				CalcPathView cpv = new CalcPathView(focusedTF.getText(), baseProperty.get(),
+						baseProperty.get() == 10 ? 2 : 10);
+				
+//				cpv.getScene().getStylesheets().add(Resources.LAYOUT_CSS);
+				cpv.getScene().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+				
+				Preferences.getPrefs().stylesheetProperty().addListener(new ChangeListener<String>() {
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldStylesheet, String newStylesheet) {
+						try { cpv.getScene().getStylesheets().remove(oldStylesheet); } catch(Exception e) { /* ignore */ }
+						cpv.getScene().getStylesheets().add(newStylesheet);
+					}
+				});
+				
+				Stage stage = new Stage(StageStyle.DECORATED);
+				stage.setTitle("Rechenweg f\u00FCr Umwandlungen");
+				stage.setScene(cpv.getScene());
+				
+				// Fenster verkleinern, falls größer als Bildschirm
+				stage.setOnShown(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent event) {
+						if(stage.getHeight() > Screen.getPrimary().getVisualBounds().getHeight()) {
+							stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+							stage.centerOnScreen();
+						}
+						
+						if(stage.getWidth() > Screen.getPrimary().getVisualBounds().getWidth()) {
+							stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+							stage.centerOnScreen();
+						}
+					}
+				});
+				
+				stage.show();
+				
+				// Fenster automatisch schließen
+				controllable.getScene().getWindow().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent event) {
+						stage.close();
+					}
+				});
+			}
+		});
+	}
+
 
 }
 
