@@ -79,7 +79,8 @@ public class CalcPathViewController extends ControllerBase<CalcPathView> {
 			} else {
 				// TODO: 2 beliebige Basen umrechnen über Basis 10
 			}
-
+			
+			output = ConvertingNumbers.splitInBlocks(toBaseProperty.get(), output);
 			calcPath.add(new ConversionStep("Das Ergebnis ist:  " + output, true));
 		}
 		catch (Exception e) {

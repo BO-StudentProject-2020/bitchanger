@@ -292,7 +292,7 @@ public class ConvertingNumbers {
 		}
 		else if (isNegative) {
 			// Minuszeichen entfernen
-			if(calcPath != null) calcPath.add(new ConversionStep("Betrag nehmen und das Vorzeichen für sp\u00E4ter merken"));
+			if(calcPath != null) calcPath.add(new ConversionStep("Betrag nehmen und das Vorzeichen für sp\u00E4ter merken", true));
 			value = value.substring(1, value.length());
 		}
 		else if(isNegativeBin) {
@@ -324,7 +324,7 @@ public class ConvertingNumbers {
 														   + "  -> 3. Ergebnis erneut mit der Basis multiplizieren\n"
 														   + "  -> 4. Schritte 2 und 3 wiederholen, bis die letzte Ziffer der Zahl erreicht ist", true));
 		double integerPart = baseToDecIntPart(base, separated[0], calcPath);
-		if(calcPath != null) calcPath.add(new ConversionStep("=> Die letzte Summe ist die umgewandelte ganze Zahl zur Basis 10: " + (long) integerPart));
+		if(calcPath != null) calcPath.add(new ConversionStep("=> Die letzte Summe ist die umgewandelte ganze Zahl zur Basis 10: " + splitInBlocks(10, String.valueOf((long) integerPart))));
 		
 		
 		// gebrochenen Anteil zur Basis 10 umwandeln
@@ -338,7 +338,7 @@ public class ConvertingNumbers {
 															   + "  -> 4. Ergebnis erneut mit dem Kehrwert der Basis multiplizieren\n"
 															   + "  -> 5. Schritte 3 und 4 wiederholen, bis die letzte Ziffer der Zahl erreicht ist", true));
 			fractionalPart = baseToDecFractionalPart(base, separated[1], calcPath);
-			if(calcPath != null) calcPath.add(new ConversionStep("=> Die letzte Summe ist der umgewandelte gebrochene Anteil zur Basis 10: " + fractionalPart));
+			if(calcPath != null) calcPath.add(new ConversionStep("=> Die letzte Summe ist der umgewandelte gebrochene Anteil zur Basis 10: " + splitInBlocks(10, String.valueOf(fractionalPart))));
 		}
 		
 		
@@ -347,7 +347,7 @@ public class ConvertingNumbers {
 				calcPath.clear();
 				calcPath.add(new ConversionStep("Keine Umwandlung m\u00F6glich, da der erlaubte Wertebereich verlassen wurde!"));
 			}
-			throw new NumberOverflowException("for Number " + (integerPart + fractionalPart), "Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
+			throw new NumberOverflowException("for Number " + splitInBlocks(10, String.valueOf(integerPart + fractionalPart)), "Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
 		}
 		
 		
@@ -363,7 +363,7 @@ public class ConvertingNumbers {
 			String fractionalStr = String.valueOf(fractionalPart).substring(2);
 			String valueStr = integerStr + comma + fractionalStr;
 			
-			if(calcPath != null) calcPath.add(new ConversionStep("Beide Teile zusammenf\u00FCgen: " + integerStr + " + " + fractionalStr + " = " + valueStr, true));
+			if(calcPath != null) calcPath.add(new ConversionStep("Beide Teile zusammenf\u00FCgen: " + splitInBlocks(10, integerStr) + " + " + splitInBlocks(10, "0." +fractionalStr) + " = " + splitInBlocks(10, valueStr), true));
 			if(isNegative && calcPath != null) calcPath.add(new ConversionStep("Vorzeichen beachten!", true));
 			
 			return isNegative ? "-" + valueStr : valueStr;
@@ -634,9 +634,9 @@ public class ConvertingNumbers {
 				calcPath.add(new ConversionStep("mit Quellenverfahren (Divisionsmethode) von Basis 10 zur neuen Basis 2 umwandeln:\n"
 											  + "  -> 1. umzuwandelnde Dezimalzahl ganzzahlig durch neue Basis teilen und den Rest notieren\n"
 											  + "  -> 2. ganzzahligen Divisionsanteil vom letzten Schritt ganzzahlig durch neue Basis teilen und den Rest notieren\n"
-											  + "  -> 3. Schritt 2 so lange wiederholen, bis der ganzzahlige Divisionsanteil 0 ist"));
-				String binStr = convertDecIntegerToBaseString(newBase, integerPart, calcPath);
-				calcPath.add(new ConversionStep("=> Die Reste der ganzzahligen Division ergeben von unten nach oben gelesen die umgewandelte Zahl zur neuen Basis: " + binStr));
+											  + "  -> 3. Schritt 2 so lange wiederholen, bis der ganzzahlige Divisionsanteil 0 ist", true));
+				String newBaseStr = convertDecIntegerToBaseString(newBase, integerPart, calcPath);
+				calcPath.add(new ConversionStep("=> Die Reste der ganzzahligen Division ergeben von unten nach oben gelesen die umgewandelte Zahl zur neuen Basis: " + splitInBlocks(newBase, newBaseStr)));
 				calcPath.add(new ConversionStep("negative bin\u00E4re Zahlen werden im Zweierkomplement abgebildet => Zweierkomplement bilden", true));
 				calcPath.add(new TwosComplement(integerPart));
 			}
@@ -674,13 +674,13 @@ public class ConvertingNumbers {
 		
 		StringBuilder integerStr = new StringBuilder(convertDecIntegerToBaseString(newBase, integerPart, calcPath));
 		
-		if(calcPath != null) calcPath.add(new ConversionStep("=> Die Reste der ganzzahligen Division ergeben von unten nach oben gelesen die umgewandelte ganze Zahl zur neuen Basis: " + integerStr));
+		if(calcPath != null) calcPath.add(new ConversionStep("=> Die Reste der ganzzahligen Division ergeben von unten nach oben gelesen die umgewandelte ganze Zahl zur neuen Basis: " + splitInBlocks(newBase, integerStr.toString())));
 		
 		if(newBase == 2 && !(integerStr.charAt(0) == '0')) {
 			integerStr.insert(0, '0');
 			if(calcPath != null) {
 				calcPath.add(new ConversionStep("Bei positiven Binärzahlen wird eine 0 vorangestellt, um diese nicht mit einer negativen Zahl im Zweierkomplement zu verwechseln:\n"
-						+ "=> " + integerStr, true));
+						+ "=> " + splitInBlocks(newBase, integerStr.toString()), true));
 			}
 		}
 		
@@ -702,8 +702,8 @@ public class ConvertingNumbers {
 			String fractionalStr = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma, calcPath);
 			newBaseValue.append(fractionalStr);
 			
-			if(calcPath != null) calcPath.add(new ConversionStep("=> Die ganzzahligen Produktanteile ergeben von oben nach unten gelesen die Nachkommastellen zur neuen Basis: 0" + fractionalStr));
-			if(calcPath != null) calcPath.add(new ConversionStep("Beide Teile zusammenf\u00FCgen: " + integerStr + " + 0" + fractionalStr + " = " + newBaseValue, true));
+			if(calcPath != null) calcPath.add(new ConversionStep("=> Die ganzzahligen Produktanteile ergeben von oben nach unten gelesen die Nachkommastellen zur neuen Basis: " + splitInBlocks(newBase,  "0" + fractionalStr)));
+			if(calcPath != null) calcPath.add(new ConversionStep("Beide Teile zusammenf\u00FCgen: " + splitInBlocks(newBase, integerStr.toString()) + " + " + splitInBlocks(newBase, "0" + fractionalStr) + " = " + splitInBlocks(newBase, newBaseValue.toString()), true));
 		}
 		
 		if(isNegative) {
@@ -773,10 +773,6 @@ public class ConvertingNumbers {
 	public static String decToBaseBlocks(int newBase, String decValue, char comma, int blockSize) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException {
 		String value = decToBase(newBase, decValue, comma);
 		
-		if(value.contains(FRACTIONAL_PRECISION_INDICATOR)) {
-			return splitInBlocks(value.replace(FRACTIONAL_PRECISION_INDICATOR, ""), blockSize) + FRACTIONAL_PRECISION_INDICATOR;
-		}
-		
 		return splitInBlocks(value, blockSize);
 	}
 	
@@ -806,6 +802,10 @@ public class ConvertingNumbers {
 	 * @since Bitchanger 0.1.4
 	 */
 	public static String splitInBlocks(String value, int blockSize) {
+		if(value.contains(FRACTIONAL_PRECISION_INDICATOR)) {
+			return splitInBlocks(value.replace(FRACTIONAL_PRECISION_INDICATOR, ""), blockSize) + FRACTIONAL_PRECISION_INDICATOR;
+		}
+		
 		String[] separated = separateByComma(value);
 		
 		StringBuilder integerPart = new StringBuilder(separated[0]);
@@ -819,10 +819,37 @@ public class ConvertingNumbers {
 			fractionalPart.insert(0, Preferences.getPrefs().getComma());
 		}
 
-
 		return integerPart.reverse().toString() + fractionalPart.toString();
 	}
 	
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Unterteilt den übergebenen String in Blöcke mit einer Länge von 4 Zeichen für binäre und hexadezimale Zahlen
+	 * oder 3 Zeichen für alle anderen Zahlensysteme
+	 * 
+	 * @param base	Basis von {@code value}
+	 * @param value	String, der aufgeteilt wird
+	 * 
+	 * @return	Aufgeteilter String mit Blöcken
+	 * 
+	 * @since Bitchanger 0.1.8
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Splits the String value into blocks of the given length. This is used e.g. to separate thousands.
+	 * 
+	 * @param base	base of {@code value}
+	 * @param value	String that is splitted
+	 * 
+	 * @return	splitted String with blocks
+	 * 
+	 * @since Bitchanger 0.1.8
+	 */
+	public static String splitInBlocks(int base, String value) {
+		return splitInBlocks(value, base == 2 || base == 16 ? 4 : 3);
+	}
 	
 	
 	
