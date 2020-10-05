@@ -6,6 +6,25 @@
 	-fx-font-size: 25px;
 }
 
+.styleable-label {
+	-fx-font-size: 16px;
+}
+
+.styleable-label-bold {
+	-fx-font-weight: bold;
+}
+
+.styleable-label-heading {
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-underline: true;
+}
+
+.scroll-pane {
+	-fx-background-color: transparent;
+	-fx-fit-to-width: true;
+}
+
 #result-label {
 	
 }

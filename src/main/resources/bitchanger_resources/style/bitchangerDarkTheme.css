@@ -34,6 +34,10 @@
 	-fx-text-fill: -fx-text;
 }
 
+.styleable-label {
+	-fx-text-fill: -fx-text;
+}
+
 .unfocused-button {
 	-fx-text-fill: black;
 	-fx-background-color: gray;

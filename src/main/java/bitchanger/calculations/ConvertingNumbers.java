@@ -592,7 +592,7 @@ public class ConvertingNumbers {
 		
 		if (isNegative) {
 			decValue = decValue.substring(1, decValue.length());
-			if(calcPath != null) calcPath.add(new ConversionStep("Betrag nehmen und das Vorzeichen für sp\u00E4ter merken"));
+			if(calcPath != null) calcPath.add(new ConversionStep("Betrag nehmen und das Vorzeichen für sp\u00E4ter merken", true));
 		}
 		
 		// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
@@ -662,7 +662,7 @@ public class ConvertingNumbers {
 		
 		// Ganzen Anteil umrechnen
 		if(calcPath != null && fractionalPart != 0) {
-			calcPath.add(new ConversionStep("Zahl aufteilen in ganzzahligen und Nachkommateil"));
+			calcPath.add(new ConversionStep("Zahl aufteilen in ganzzahligen und Nachkommateil", true));
 		}
 		
 		if(calcPath != null) {
@@ -672,11 +672,21 @@ public class ConvertingNumbers {
 					  + "  -> 3. Schritt 2 so lange wiederholen, bis der ganzzahlige Divisionsanteil 0 ist", true));
 		}
 		
-		String integerStr = convertDecIntegerToBaseString(newBase, integerPart, calcPath);
+		StringBuilder integerStr = new StringBuilder(convertDecIntegerToBaseString(newBase, integerPart, calcPath));
+		
+		if(calcPath != null) calcPath.add(new ConversionStep("=> Die Reste der ganzzahligen Division ergeben von unten nach oben gelesen die umgewandelte ganze Zahl zur neuen Basis: " + integerStr));
+		
+		if(newBase == 2 && !(integerStr.charAt(0) == '0')) {
+			integerStr.insert(0, '0');
+			if(calcPath != null) {
+				calcPath.add(new ConversionStep("Bei positiven Binärzahlen wird eine 0 vorangestellt, um diese nicht mit einer negativen Zahl im Zweierkomplement zu verwechseln:\n"
+						+ "=> " + integerStr, true));
+			}
+		}
+		
 		newBaseValue.append(integerStr);
 		
-		if(calcPath != null) calcPath.add(new ConversionStep("=> Die Reste der ganzzahligen Division ergeben von unten nach oben gelesen die umgewandelte Zahl zur neuen Basis: " + integerStr));
-			
+		
 		// Wenn vorhanden Nachkommateil umwandeln
 		if(fractionalPart != 0){
 			if(calcPath != null) {
@@ -684,28 +694,23 @@ public class ConvertingNumbers {
 											  + "  -> 1. umzurechnenden Dezimalbruch mit neuer Basis multiplizieren\n"
 											  + "  -> 2. ganzer Anteil des Ergebnisses ist die nächste Nachkommastelle\n"
 											  + "  -> 3. gebrochenen Anteil des Ergebnisses erneut mit der neuen Basis multiplizieren\n"
-											  + "  -> 4. Schritte 2 und 3 wiederholen, bis die Multiplikation eine ganze Zahl ergibt. "
-											  + "Oft wird dies nicht erreicht und die Berechnung wird nach ausrerchend Stellen abgebrochen. "
-											  + "Es ergibt sich dann ein Abbruchfehler als Rest.", true));
+											  + "  -> 4. Schritte 2 und 3 wiederholen, bis die Multiplikation eine ganze Zahl ergibt.\n"
+											  + "        Oft wird dies nicht erreicht und die Berechnung wird nach ausreichend Stellen abgebrochen.\n"
+											  + "        Es ergibt sich dann ein Abbruchfehler als Rest.", true));
 			}
 			
 			String fractionalStr = convertDecFractionalToBaseString(newBase, fractionalPart, fractionalPrecision, comma, calcPath);
 			newBaseValue.append(fractionalStr);
 			
-			if(calcPath != null) calcPath.add(new ConversionStep("=> Die ganzzahligen Produktanteile ergeben von oben nach unten gelesen die Nachkommastellen zur neuen Basis: 0" + Preferences.getPrefs().getComma() + fractionalStr));
-			if(calcPath != null) calcPath.add(new ConversionStep("Beide Teile zusammenf\u00FCgen: " + integerStr + " + " + fractionalStr + " = " + newBaseValue, true));
+			if(calcPath != null) calcPath.add(new ConversionStep("=> Die ganzzahligen Produktanteile ergeben von oben nach unten gelesen die Nachkommastellen zur neuen Basis: 0" + fractionalStr));
+			if(calcPath != null) calcPath.add(new ConversionStep("Beide Teile zusammenf\u00FCgen: " + integerStr + " + 0" + fractionalStr + " = " + newBaseValue, true));
 		}
-		
 		
 		if(isNegative) {
 			if(calcPath != null) calcPath.add(new ConversionStep("Vorzeichen beachten!", true));
 			newBaseValue.insert(0, '-');
 		}
 		
-		if(newBase == 2 && !(newBaseValue.charAt(0) == '0')) {
-			newBaseValue.insert(0, '0');
-		}
-			
 		return newBaseValue.toString();
 	}
 	

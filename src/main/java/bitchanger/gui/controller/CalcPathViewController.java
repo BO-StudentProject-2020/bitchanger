@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt für das AID-Labor der Hochschule Bochum
+ * 
+ */
+
 package bitchanger.gui.controller;
 
 import java.util.ArrayDeque;
@@ -11,6 +19,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
+/** <!-- $LANGUAGE=DE -->
+ * 
+ * 
+ * @author Tim Mühle
+ * 
+ * @since Bitchanger 0.1.8
+ * @version 0.1.8
+ *
+ */
+// TODO JavaDoc
 public class CalcPathViewController extends ControllerBase<CalcPathView> {
 
 	
@@ -53,25 +71,22 @@ public class CalcPathViewController extends ControllerBase<CalcPathView> {
 		String output = "";
 		ArrayDeque<ConversionStep> calcPath = new ArrayDeque<>();
 		
-		if(fromBaseProperty.get() == 10) {
-			output = ConvertingNumbers.decToBase(toBaseProperty.get(), tfInput.getText(), Preferences.getPrefs().getComma(), 16, calcPath);
-		} else if(toBaseProperty.get() == 10){
-			output = ConvertingNumbers.baseToDecString(fromBaseProperty.get(), tfInput.getText(), Preferences.getPrefs().getComma(), calcPath);
-		} else {
-			// TODO: 2 beliebige Basen umrechnen über Basis 10
+		try {
+			if(fromBaseProperty.get() == 10) {
+				output = ConvertingNumbers.decToBase(toBaseProperty.get(), tfInput.getText(), Preferences.getPrefs().getComma(), 16, calcPath);
+			} else if(toBaseProperty.get() == 10){
+				output = ConvertingNumbers.baseToDecString(fromBaseProperty.get(), tfInput.getText(), Preferences.getPrefs().getComma(), calcPath);
+			} else {
+				// TODO: 2 beliebige Basen umrechnen über Basis 10
+			}
+
+			calcPath.add(new ConversionStep("Das Ergebnis ist:  " + output, true));
+		}
+		catch (Exception e) {
+			output = "";
 		}
 		
 		tfOutput.setText(output);
-		
-		for(ConversionStep cs : calcPath) {
-			System.out.println(cs);
-			System.out.println();
-		}
-		System.out.println();
-		System.out.println();
-		
-		calcPath.add(new ConversionStep("Das Ergebnis ist : " + output, true));
-		
 		controllable.setCalcPath(calcPath);
 	}
 	

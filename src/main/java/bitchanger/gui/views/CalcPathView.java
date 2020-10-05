@@ -21,6 +21,7 @@ import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.calculations.TwosComplement;
 import bitchanger.gui.controller.CalcPathViewController;
 import bitchanger.gui.controller.Controller;
+import bitchanger.gui.controls.StyleableLabel;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
@@ -30,9 +31,9 @@ import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
@@ -41,6 +42,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /** <!-- $LANGUAGE=DE -->
@@ -144,13 +146,14 @@ public class CalcPathView extends ViewBase<BorderPane> {
 			
 			if(step.isNewStep()) {
 				if(i > 1) calcPathContainer.getChildren().add(new Separator());
-				calcPathContainer.getChildren().add(new Label("Schritt " + i + ":"));
+				StyleableLabel heading = new StyleableLabel("Schritt " + i + ":");
+				heading.setHeading(true);
+				calcPathContainer.getChildren().add(heading);
 				i++;
 			}
 			
 			if(step.hasDescription()) {
-				Label description = new Label(step.getDescription());
-				description.setWrapText(true);
+				StyleableLabel description = new StyleableLabel(step.getDescription());
 				calcPathContainer.getChildren().add(description);
 			}
 			
@@ -184,7 +187,7 @@ public class CalcPathView extends ViewBase<BorderPane> {
 				addHornersMethod((HornersMethod)step);
 			}
 			else {
-				Label l = new Label(step.toString());
+				StyleableLabel l = new StyleableLabel(step.toString());
 				l.setWrapText(true);
 				calcPathContainer.getChildren().add(l);
 			}
@@ -202,8 +205,14 @@ public class CalcPathView extends ViewBase<BorderPane> {
 
 	@Override
 	protected void createScenegraph() {
-		createTop();
-		createCenter();
+		GridPane center = new GridPane();
+		
+		createInputSection(center);
+		createPathContainer(center);
+		
+		formatGrid(center);
+		
+		root.setCenter(center);
 	}
 	
 	
@@ -215,10 +224,10 @@ public class CalcPathView extends ViewBase<BorderPane> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 
-	private void createTop() {
-		Label lBase = new Label("Basis");
-		Label lFrom = new Label("Von:");
-		Label lTo = new Label("Nach:");
+	private void createInputSection(GridPane grid) {
+		StyleableLabel lBase = new StyleableLabel("Basis");
+		StyleableLabel lFrom = new StyleableLabel("Von:");
+		StyleableLabel lTo = new StyleableLabel("Nach:");
 		
 		ComboBox<Integer> fromBase = new ComboBox<>();
 		ComboBox<Integer> toBase = new ComboBox<>();
@@ -244,9 +253,8 @@ public class CalcPathView extends ViewBase<BorderPane> {
 		tfTo.getBaseProperty().bind(toBaseProperty);
 		tfTo.setEditable(false);
 		
-		GridPane top = new GridPane();
-		
-		top.add(lBase, 1, 0);
+		grid.add(lBase, 1, 0);
+		GridPane.setHalignment(lBase, HPos.CENTER);
 		
 		Queue<Node> children = ArrayUtils.queueOf(lFrom, fromBase, tfFrom, lTo, toBase, tfTo);
 		FXUtils.setGridConstraints(0, 1, 3, 0, children, new TriConsumer<Node, Integer, Integer>() {
@@ -260,51 +268,62 @@ public class CalcPathView extends ViewBase<BorderPane> {
 			}
 		});
 		
-		top.getChildren().addAll(children);
-		
-		formatTop(top);
-		
-		root.setTop(top);
+		grid.getChildren().addAll(children);
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	private void formatTop(GridPane top) {
-		top.setPadding(new Insets(AlphaNumGridView.PADDING));
-		top.setVgap(AlphaNumGridView.SPACING);
-		top.setHgap(AlphaNumGridView.SPACING);
+	private void formatGrid(GridPane grid) {
+		grid.setPadding(new Insets(AlphaNumGridView.PADDING));
+		grid.setVgap(AlphaNumGridView.SPACING);
+		grid.setHgap(AlphaNumGridView.SPACING);
 		
-		for(int i = 0; i < top.getRowCount(); i++) {
+		RowConstraints firstRow = new RowConstraints();
+		firstRow.setFillHeight(true);
+		firstRow.setVgrow(Priority.NEVER);
+		grid.getRowConstraints().add(firstRow);
+		
+		for(int i = 1; i < 3; i++) {
 			RowConstraints row = new RowConstraints(AlphaNumGridView.TF_HEIGHT, AlphaNumGridView.TF_HEIGHT, AlphaNumGridView.TF_HEIGHT);
 			row.setFillHeight(true);
 			row.setVgrow(Priority.NEVER);
-			top.getRowConstraints().add(row);
+			grid.getRowConstraints().add(row);
 		}
 		
-		for(int i = 0; i < top.getColumnCount() - 1; i++) {
+		RowConstraints lastRow = new RowConstraints();
+		lastRow.setFillHeight(true);
+		lastRow.setVgrow(Priority.ALWAYS);
+		grid.getRowConstraints().add(lastRow);
+		
+		for(int i = 0; i < grid.getColumnCount() - 1; i++) {
 			ColumnConstraints column = new ColumnConstraints();
 			column.setFillWidth(true);
 			column.setHgrow(Priority.NEVER);
-			top.getColumnConstraints().add(column);
+			grid.getColumnConstraints().add(column);
 		}
 		
 		ColumnConstraints lastColumn = new ColumnConstraints();
 		lastColumn.setFillWidth(true);
 		lastColumn.setHgrow(Priority.ALWAYS);
-		top.getColumnConstraints().add(lastColumn);
+		grid.getColumnConstraints().add(lastColumn);
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	private void createCenter() {
+	private void createPathContainer(GridPane grid) {
 		calcPathContainer = new VBox();
 		calcPathContainer.setSpacing(15);
+		calcPathContainer.setPadding(new Insets(0, 15, 0, 0));
 		
-		ScrollPane center = new ScrollPane();
-		center.setPadding(new Insets(AlphaNumGridView.PADDING));
-		center.setContent(calcPathContainer);
+		ScrollPane scroll = new ScrollPane();
+		scroll.setContent(calcPathContainer);
 		
-		root.setCenter(center);
+		StackPane scrollContainer = new StackPane(scroll);
+		scrollContainer.setPadding(new Insets(30, 0, 0, 0));
+		
+		GridPane.setConstraints(scrollContainer, 1, 3, 2, 1, HPos.LEFT, VPos.TOP, Priority.ALWAYS, Priority.ALWAYS);
+		
+		grid.getChildren().add(scrollContainer);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -313,16 +332,16 @@ public class CalcPathView extends ViewBase<BorderPane> {
 		GridPane hornerTable = new GridPane();
 		
 		// TODO Labels im StackPane unterbringen, um Linien anzeigen zu können
-		hornerTable.add(new Label("Basis = " + horner.getBase()), 0, 1);
-		hornerTable.add(new Label(String.valueOf(horner.getCoefficients().get(0))), 1, 0);
-		hornerTable.add(new Label(String.valueOf(horner.getSums().get(0))), 1, 2);
+		hornerTable.add(new StyleableLabel("Basis = " + horner.getBase()), 0, 1);
+		hornerTable.add(new StyleableLabel(String.valueOf(horner.getCoefficients().get(0))), 1, 0);
+		hornerTable.add(new StyleableLabel(String.valueOf(horner.getSums().get(0))), 1, 2);
 		
 		int columnIndex = 2;
 		
 		for(int i = 1; i < horner.getCoefficients().size(); i++) {
-			hornerTable.add(new Label(String.valueOf(horner.getCoefficients().get(i))), columnIndex, 0);
-			hornerTable.add(new Label(horner.getBase() + "x" + horner.getCoefficients().get(i-1) + " = " + horner.getProducts().get(i)), columnIndex, 1);
-			hornerTable.add(new Label(horner.getCoefficients().get(i) + "+" + horner.getProducts().get(i) + " = " + horner.getSums().get(i)), columnIndex, 2);
+			hornerTable.add(new StyleableLabel(String.valueOf(horner.getCoefficients().get(i))), columnIndex, 0);
+			hornerTable.add(new StyleableLabel(horner.getBase() + "x" + horner.getCoefficients().get(i-1) + " = " + horner.getProducts().get(i)), columnIndex, 1);
+			hornerTable.add(new StyleableLabel(horner.getCoefficients().get(i) + "+" + horner.getProducts().get(i) + " = " + horner.getSums().get(i)), columnIndex, 2);
 			columnIndex++;
 		}
 		
@@ -340,12 +359,15 @@ public class CalcPathView extends ViewBase<BorderPane> {
 		
 		int rowIndex = 0;
 		for(LongDivision div : divisions) {
-			Label left = new Label(div.getDivident() + " : " + div.getDivisor());
+			StyleableLabel left = new StyleableLabel(div.getDivident() + " : " + div.getDivisor());
 			GridPane.setHalignment(left, HPos.RIGHT);
 			table.add(left, 0, rowIndex);
 			
-			table.add(new Label(" = " + div.getQuotient()), 1, rowIndex);
-			table.add(new Label(" Rest = " + div.getRemainder()), 2, rowIndex);
+			table.add(new StyleableLabel(" = " + div.getQuotient()), 1, rowIndex);
+			table.add(new StyleableLabel("   Rest: "), 2, rowIndex);
+			table.add(new StyleableLabel(String.valueOf(div.getRemainder()), true), 3, rowIndex);
+			
+			// TODO Bei Rest >= 10 passenden Buchstaben hinzufügen
 			
 			rowIndex++;
 		}
@@ -363,14 +385,26 @@ public class CalcPathView extends ViewBase<BorderPane> {
 		
 		int rowIndex = 0;
 		for(Multiplication mult : steps) {
-			Label left = new Label(mult.getLeftFactor() + " x " + mult.getRigthFactor());
+			if(mult.calculationWasCanceled()) {
+				StyleableLabel canceled = new StyleableLabel("Berechnung nach " + rowIndex + " Nachkommastellen abbrechen -> Abbruchfehler nach ausreichend Nachkommastellen nur gering");
+				GridPane.setColumnSpan(canceled, table.getColumnCount());
+				table.add(canceled, 0, rowIndex);
+				break;
+			}
+			
+			StyleableLabel left = new StyleableLabel(mult.getLeftFactor() + " x " + mult.getRigthFactor() + " = ");
 			GridPane.setHalignment(left, HPos.RIGHT);
 			table.add(left, 0, rowIndex);
 			
-			table.add(new Label(" = " + mult.getProduct()), 1, rowIndex);
+			String product = String.valueOf(mult.getProduct());
+			int commaPos = product.indexOf('.');
+			table.add(new StyleableLabel(product.substring(0, commaPos), true), 1, rowIndex);
+			table.add(new StyleableLabel(product.substring(commaPos)), 2, rowIndex);
 			
 			rowIndex++;
 		}
+		
+		// TODO Benötigte Stellenwertigkeiten auflisten
 		
 		table.setPadding(new Insets(20, 50, 20, 50));
 		table.setVgap(10);
@@ -388,24 +422,24 @@ public class CalcPathView extends ViewBase<BorderPane> {
 		
 		int columnIndex = 2;
 		for(char c : value.toBinString().toCharArray()) {
-			table.add(new Label(String.valueOf(c)), columnIndex, 0);
-			table.add(new Label(c == '0' ? "1" : "0"), columnIndex, 1);
+			table.add(new StyleableLabel(String.valueOf(c)), columnIndex, 0);
+			table.add(new StyleableLabel(c == '0' ? "1" : "0"), columnIndex, 1);
 			columnIndex++;
 		}
 		
 		columnIndex--;
 		
-		table.add(new Label("Invertieren: "), 0, 1);
-		table.add(new Label("Addieren: "), 0, 2);
-		table.add(new Label("+"), 1, 2);
-		table.add(new Label("1"), columnIndex, 2);
+		table.add(new StyleableLabel("Invertieren: "), 0, 1);
+		table.add(new StyleableLabel("Addieren: "), 0, 2);
+		table.add(new StyleableLabel("+"), 1, 2);
+		table.add(new StyleableLabel("1"), columnIndex, 2);
 		
 		value.set(step.getResult());
 		
 		char[] complementReverse = new StringBuilder(value.toBinString()).reverse().toString().toCharArray();
 		
 		for(char c : complementReverse) {
-			table.add(new Label(String.valueOf(c)), columnIndex, 3);
+			table.add(new StyleableLabel(String.valueOf(c)), columnIndex, 3);
 			columnIndex--;
 		}
 		

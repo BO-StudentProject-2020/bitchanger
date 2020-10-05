@@ -22,6 +22,7 @@ import bitchanger.gui.views.ConverterView;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
+import bitchanger.util.Resources;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -696,7 +697,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 				CalcPathView cpv = new CalcPathView(focusedTF.getText(), baseProperty.get(),
 						baseProperty.get() == 10 ? 2 : 10);
 				
-//				cpv.getScene().getStylesheets().add(Resources.LAYOUT_CSS);
+				cpv.getScene().getStylesheets().add(Resources.LAYOUT_CSS);
 				cpv.getScene().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
 				
 				Preferences.getPrefs().stylesheetProperty().addListener(new ChangeListener<String>() {
@@ -708,7 +709,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 				});
 				
 				Stage stage = new Stage(StageStyle.DECORATED);
-				stage.setTitle("Rechenweg f\u00FCr Umwandlungen");
+				stage.setTitle("Bitchanger - Rechenweg f\u00FCr Umwandlungen");
 				stage.setScene(cpv.getScene());
 				
 				// Fenster verkleinern, falls größer als Bildschirm
