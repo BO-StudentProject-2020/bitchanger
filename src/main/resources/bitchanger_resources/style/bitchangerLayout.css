@@ -1,4 +1,5 @@
 .root {
+	-fx-cell-border-color: black;
 	-fx-font-size: 18px;
 }
 
@@ -20,24 +21,39 @@
 	-fx-underline: true;
 }
 
-.table-view > .column-header-background {
-	-fx-min-height: 0;
-	-fx-pref-height: 0;
-	-fx-max-height: 0;
-	-fx-min-width: 0;
-	-fx-pref-width: 0;
-	-fx-max-width: 0;
-	visibility: false;
+.stack-cell {
+	-fx-border-color: -fx-cell-border-color;
 }
 
-.table-view > .column-overlay {
-	-fx-background-color: red;
-	-fx-border-color: green;
+.top-row {
+	-fx-border-width: 0px 2px 2px 2px;
+	-fx-border-color: transparent -fx-cell-border-color -fx-cell-border-color -fx-cell-border-color;
 }
+
+.inner-row{
+	-fx-border-width: 2px;
+}
+
+.bottom-row{
+	-fx-border-width: 2px 2px 0px 2px;
+	-fx-border-color: -fx-cell-border-color -fx-cell-border-color transparent -fx-cell-border-color;
+}
+
+.inner-column{
+	-fx-border-width: 2px;
+}
+
+.left-column{
+	-fx-border-width: 2px 2px 2px 0px;
+}
+
+.right-column{
+	-fx-border-width: 2px 0px 2px 2px;
+}
+
 
 .scroll-pane {
 	-fx-background-color: transparent;
-	-fx-fit-to-width: true;
 }
 
 #result-label {

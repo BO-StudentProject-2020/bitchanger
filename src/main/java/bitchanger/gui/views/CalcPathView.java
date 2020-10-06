@@ -9,9 +9,7 @@
 package bitchanger.gui.views;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -27,17 +25,14 @@ import bitchanger.calculations.TwosComplement;
 import bitchanger.gui.controller.CalcPathViewController;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controls.StyleableLabel;
+import bitchanger.gui.controls.TablePane;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
 import bitchanger.util.TriConsumer;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,9 +41,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -57,9 +49,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Callback;
 
 /** <!-- $LANGUAGE=DE -->
  * 
@@ -344,56 +333,31 @@ public class CalcPathView extends ViewBase<BorderPane> {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	private static class Row<V> {
-		private final List<V> columns;
-		private String s;
-		
-		@Override
-		public String toString() {
-		// TODO Auto-generated method stub
-		return s;
-		}
-		
-		public Row(String s) {
-			this.columns = new ArrayList<>();
-		}
-		
-		public List<V> getColumns() {
-			return this.columns;
-		}
-		
-		public void addColumn(V value) {
-			this.columns.add(value);
-		}
-		
-		public V getColumn(int index) {
-			try {
-				return this.columns.get(index);
-			} catch (Exception e) {
-				return null;
+	private void addHornersMethod(HornersMethod horner) {
+		Set<Integer> digitsOverNine = new HashSet<>();
+
+		for(Double d : horner.getCoefficients()) {
+			if(d >= 10) {
+				digitsOverNine.add(d.intValue());
 			}
 		}
-	}
-	
-	private void addHornersMethod(HornersMethod horner) {
-		GridPane hornerTable = new GridPane();
 		
+		if (! digitsOverNine.isEmpty()) {
+			// Benötigte Stellenwertigkeiten auflisten
+			StringBuilder digitList = new StringBuilder("Stellenwertigkeiten beachten:");
+			digitsOverNine.stream().sorted().forEach(new Consumer<Integer>() {
+				@Override
+				public void accept(Integer i) {
+					digitList.append("\n").append((char) ('A' + i - 10)).append("  \u2259  ").append(i);
+				}
+			});
+			calcPathContainer.getChildren().add(new StyleableLabel(digitList.toString(), true));
+		}
+		
+		
+		TablePane hornerTable = new TablePane();
 		
 		// TODO Liste mit Stellenwertigkeiten
-		
-		// TODO Labels im StackPane unterbringen, um Linien anzeigen zu können
-		Row<Node> firstRow = new Row<>("Zeile 1");
-		Row<Node> secondRow = new Row<>("Zeile 2");
-		Row<Node> thirdRow = new Row<>("Zeile 3");
-		
-		firstRow.addColumn(null);
-		secondRow.addColumn(new StyleableLabel("Basis = " + horner.getBase(), true));
-		thirdRow.addColumn(null);
-		
-		firstRow.addColumn(new StyleableLabel(String.valueOf(horner.getCoefficients().get(0)), true));
-		secondRow.addColumn(null);
-		thirdRow.addColumn(new StyleableLabel(String.valueOf(horner.getSums().get(0)), true));
-		
 		hornerTable.add(new StyleableLabel("Basis = " + horner.getBase(), true), 0, 1);
 		hornerTable.add(new StyleableLabel(String.valueOf(horner.getCoefficients().get(0)), true), 1, 0);
 		hornerTable.add(new StyleableLabel(String.valueOf(horner.getSums().get(0)), true), 1, 2);
@@ -417,71 +381,26 @@ public class CalcPathView extends ViewBase<BorderPane> {
 			
 			hornerTable.add(sum, columnIndex, 2);
 			
-			
-			firstRow.addColumn(new StyleableLabel(String.valueOf(horner.getCoefficients().get(i)), true));
-			product = new VBox();
-			product.getChildren().add(new StyleableLabel(horner.getBase() + " x " + horner.getCoefficients().get(i-1)));
-			product.getChildren().add(new StyleableLabel("=  " + horner.getProducts().get(i), true));
-			
-			secondRow.addColumn(product);
-			
-			sum = new VBox();
-			sum.getChildren().add(new StyleableLabel(horner.getCoefficients().get(i) + " + " + horner.getProducts().get(i)));
-			sum.getChildren().add(new StyleableLabel("=  " + horner.getSums().get(i), true));
-			
-			thirdRow.addColumn(sum);
-			
 			columnIndex++;
 		}
 		
-		hornerTable.setPadding(new Insets(20, 50, 20, 50));
-		hornerTable.setHgap(20);
-		hornerTable.setVgap(10);
+		hornerTable.setPadding(new Insets(20, 0, 20, 10));
 		
-		for(Node child : hornerTable.getChildren()) {
-			GridPane.setHalignment(child, HPos.CENTER);
-			GridPane.setValignment(child, VPos.CENTER);
+		for(Node cell : hornerTable.getChildren()) {
+			GridPane.setHalignment(cell, HPos.CENTER);
+			GridPane.setValignment(cell, VPos.CENTER);
+		}
+		
+		for(Node child : hornerTable.getCellChildren()) {
+			if(child instanceof Region) {
+				((Region) child).setPadding(new Insets(5, 15, 5, 15));
+			}
 		}
 		
 		calcPathContainer.getChildren().add(hornerTable);
-		
-		
-		ObservableList<Row<Node>> rows = FXCollections.observableArrayList();
-		rows.add(firstRow);
-		rows.add(secondRow);
-		rows.add(thirdRow);
-		
-		TableView<Row<Node>> t = new TableView<>(rows);
-		
-		int columnCount = Math.max(firstRow.getColumns().size(), Math.max(secondRow.getColumns().size(), thirdRow.getColumns().size()));
-		
-		for(int i = 0; i < columnCount; i++) {
-			System.out.println(i + "/" + columnCount);
-			t.getColumns().add(createTableColumn(i));
-		}
-		
-		calcPathContainer.getChildren().add(t);
 	}
 
 	
-	private TableColumn<Row<Node>, ?> createTableColumn(int columnIndex) {
-		TableColumn<Row<Node>, Node> column = new TableColumn<CalcPathView.Row<Node>, Node>();
-		
-		column.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Row<Node>,Node>, ObservableValue<Node>>() {
-			@Override
-			public ObservableValue<Node> call(CellDataFeatures<Row<Node>, Node> param) {
-				try {
-					return new ReadOnlyObjectWrapper<Node>(param.getValue().getColumn(columnIndex));
-				} catch (Exception e) {
-					return null;
-				}
-			}
-		});
-		
-		return column;
-	}
-	
-
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	private void addLongDivisions(Queue<LongDivision> divisions) {
@@ -558,7 +477,7 @@ public class CalcPathView extends ViewBase<BorderPane> {
 					digitList.append("\n").append(i).append("  \u2259  ").append((char) ('A' + i - 10));
 				}
 			});
-			calcPathContainer.getChildren().add(new StyleableLabel(digitList.toString()));
+			calcPathContainer.getChildren().add(new StyleableLabel(digitList.toString(), true));
 		}
 	}
 

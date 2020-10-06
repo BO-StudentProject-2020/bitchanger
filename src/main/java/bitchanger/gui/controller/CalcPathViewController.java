@@ -77,7 +77,12 @@ public class CalcPathViewController extends ControllerBase<CalcPathView> {
 			} else if(toBaseProperty.get() == 10){
 				output = ConvertingNumbers.baseToDecString(fromBaseProperty.get(), tfInput.getText(), Preferences.getPrefs().getComma(), calcPath);
 			} else {
-				// TODO: 2 beliebige Basen umrechnen über Basis 10
+				calcPath.add(new ConversionStep("Umrechnung in Zahl zur Basis 10", true));
+				output = ConvertingNumbers.baseToDecString(fromBaseProperty.get(), tfInput.getText(), Preferences.getPrefs().getComma(), calcPath);
+				
+				calcPath.add(new ConversionStep("Zahl zur Basis 10 ist:  " + output, true));
+				calcPath.add(new ConversionStep("Umrechnung von Basis 10 zur Basis " + toBaseProperty.get(), true));
+				output = ConvertingNumbers.decToBase(toBaseProperty.get(), output, Preferences.getPrefs().getComma(), 16, calcPath);
 			}
 			
 			output = ConvertingNumbers.splitInBlocks(toBaseProperty.get(), output);

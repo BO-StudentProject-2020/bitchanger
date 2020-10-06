@@ -3,6 +3,7 @@
 	-fx-background-color: -fx-background;
 	-fx-text-box-border: dimgray;
 	-fx-control-inner-background: darkgray;
+	-fx-cell-border-color: white;
 	
 	-fx-hover-base: midnightblue;
 	-fx-accent: midnightblue;
