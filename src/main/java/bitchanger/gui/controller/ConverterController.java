@@ -8,6 +8,7 @@
 
 package bitchanger.gui.controller;
 
+import java.net.MalformedURLException;
 import java.util.function.Consumer;
 
 import bitchanger.calculations.ChangeableNumber;
@@ -33,6 +34,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
@@ -710,7 +712,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 				
 				Stage stage = new Stage(StageStyle.DECORATED);
 				stage.setTitle("Bitchanger - Rechenweg f\u00FCr Umwandlungen");
+				try {
+					stage.getIcons().add(new Image(Resources.BITCHANGER_LOGO_PNG.toURI().toURL().toExternalForm()));
+				} catch (MalformedURLException e) { /* ignore */ }
 				stage.setScene(cpv.getScene());
+				stage.setHeight(700);
+				stage.setWidth(1000);
 				
 				// Fenster verkleinern, falls größer als Bildschirm
 				stage.setOnShown(new EventHandler<WindowEvent>() {

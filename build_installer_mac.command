@@ -52,7 +52,8 @@ do
 	--input $INPUT/jpackage \
 	--dest $OUT \
 	--main-jar "${MAIN_JAR}" \
-	--mac-package-name "${NAME}"
+	--mac-package-name "${NAME}" \
+	--icon ./Logo/$NAME.icns
 
 	echo ""
 	mv "${OUT}/${NAME-$VERSION}.${TYPE}" "${OUT}/${NAME-$VERSION}-mac-install.${TYPE}"

@@ -51,6 +51,7 @@ jpackage ^
 --input %INPUT%\jpackage ^
 --dest %OUT% ^
 --main-jar %MAIN_JAR% ^
+--icon .\Logo\%NAME%.ico ^
 --win-dir-chooser ^
 --win-shortcut ^
 --win-menu ^
@@ -77,6 +78,7 @@ jpackage ^
 --input %INPUT%\jpackage ^
 --dest %OUT% ^
 --main-jar %MAIN_JAR% ^
+--icon .\Logo\%NAME%.ico ^
 --win-dir-chooser ^
 --win-shortcut ^
 --win-menu ^

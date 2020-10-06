@@ -27,6 +27,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -304,6 +305,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 		
 		
 		primaryStage.setTitle("Bitchanger " + VERSION);
+		primaryStage.getIcons().add(new Image(Resources.BITCHANGER_LOGO_PNG.toURI().toURL().toExternalForm()));
 		
 		// Fenstergroesse an Scene anpassen und Maximale / Minimale Groesse einstellen (berechnet aus groesse der Scene und dem zusaetzlichen Fensterrahmen)
 		observeStageOnShowing();

@@ -216,7 +216,6 @@ public class CalcPathView extends ViewBase<BorderPane> {
 		createPathContainer(center);
 		
 		formatGrid(center);
-		
 		root.setCenter(center);
 	}
 	
@@ -322,6 +321,7 @@ public class CalcPathView extends ViewBase<BorderPane> {
 		
 		ScrollPane scroll = new ScrollPane();
 		scroll.setContent(calcPathContainer);
+		scroll.setFitToWidth(true);
 		
 		StackPane scrollContainer = new StackPane(scroll);
 		scrollContainer.setPadding(new Insets(30, 0, 0, 0));
@@ -397,7 +397,11 @@ public class CalcPathView extends ViewBase<BorderPane> {
 			}
 		}
 		
-		calcPathContainer.getChildren().add(hornerTable);
+		ScrollPane scroll = new ScrollPane(hornerTable);
+		scroll.getStyleClass().add("scroll-pane-horners-method");
+		scroll.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		
+		calcPathContainer.getChildren().add(scroll);
 	}
 
 	

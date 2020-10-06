@@ -146,6 +146,12 @@ public class Resources {
 	
 	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons eines nach oben zeigenden Pfeils oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File ARROW_UP_ICON = getResourceAsFile("/graphic/svg/iconmonstr-arrow-66.svg");
+
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->	Speicherort des Logos als PNG oder {@code null}, wenn das Icon nicht gefunden wurde */
+	public static final File BITCHANGER_LOGO_PNG = getResourceAsFile("/graphic/Bitchanger.png");
 	
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*

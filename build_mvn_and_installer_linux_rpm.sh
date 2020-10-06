@@ -75,7 +75,8 @@ do
 	--input $INPUT/jpackage \
 	--dest $OUT \
 	--main-jar "${MAIN_JAR}" \
-	--linux-shortcut
+	--linux-shortcut \
+	--icon ./Logo/$NAME.png
 
 	echo ""
 	mv "${OUT}/${NAME-$VERSION}.${TYPE}" "${OUT}/${NAME-$VERSION}-rpm-install.${TYPE}"

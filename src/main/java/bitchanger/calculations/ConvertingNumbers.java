@@ -16,22 +16,22 @@ import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
 
 /**	<!-- $LANGUAGE=DE -->
- * Die Klasse {@code ConvertingNumbers} enthält Methoden zum Umwandeln von Zahlen mit verschiedenen Zahlensystemen.
+ * Die Klasse {@code ConvertingNumbers} enth\u00E4lt Methoden zum Umwandeln von Zahlen mit verschiedenen Zahlensystemen.
  * <p>
- * Die Methoden dieser Klasse können sowohl ganze Zahlen als auch Kommazahlen mit positiven oder negativen Wert umwandeln.
- * Es werden beliebige Zahlensysteme von der Basis 2 bis zur Basis 36 unterstützt, was dem Zeichenvorrat 0-9 und A-Z entspricht.
- * In der String-Darstellung können Zahlen mit Ziffern, Großbuchstaben und Kleinbuchstaben an die Methoden dieser Klasse
- * übergeben werden, allerdings enthalten die Rückgaben in der String-Darstellung aller Methoden ausschließlich Zahlen 
+ * Die Methoden dieser Klasse k\u00F6nnen sowohl ganze Zahlen als auch Kommazahlen mit positiven oder negativen Wert umwandeln.
+ * Es werden beliebige Zahlensysteme von der Basis 2 bis zur Basis 36 unterst\u00FCtzt, was dem Zeichenvorrat 0-9 und A-Z entspricht.
+ * In der String-Darstellung k\u00F6nnen Zahlen mit Ziffern, Großbuchstaben und Kleinbuchstaben an die Methoden dieser Klasse
+ * \u00FCbergeben werden, allerdings enthalten die R\u00FCckgaben in der String-Darstellung aller Methoden ausschließlich Zahlen 
  * und Großbuchstaben.
  * </p>
  * <p>
  * Das Komma-Zeichen kann mit der Klasse {@code Preferences} auf Deutsch (,) oder Englisch (.) eingestellt werden.
- * Ebenso kann der Indikator für abgeschnittene Nachkommastellen (...) aktiviert oder deaktiviert werden.
+ * Ebenso kann der Indikator f\u00FCr abgeschnittene Nachkommastellen (...) aktiviert oder deaktiviert werden.
  * </p>
  * 
  * @see Preferences
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
@@ -66,15 +66,15 @@ public class ConvertingNumbers {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/**	<!-- $LANGUAGE=DE --> Eine Konstante für die kleinstmögliche Basis **/
+	/**	<!-- $LANGUAGE=DE --> Eine Konstante f\u00FCr die kleinstm\u00F6gliche Basis **/
 	/*	<!-- $LANGUAGE=EN --> Constant for the lowest possible base **/
 	public static final int MIN_BASE = 2;
 	
-	/** <!-- $LANGUAGE=DE --> Eine Konstante für die größtmögliche Basis bei einem Zeichenvorrat von 0-9 und A-Z **/
+	/** <!-- $LANGUAGE=DE --> Eine Konstante f\u00FCr die gr\u00F6ßtm\u00F6gliche Basis bei einem Zeichenvorrat von 0-9 und A-Z **/
 	/*	<!-- $LANGUAGE=EN --> Constant for the highest possible base of 36 characters given through 0-9 and A-Z **/
 	public static final int MAX_BASE = 36;
 	
-	/** <!-- $LANGUAGE=DE --> Indikator für Abgeschnittene Nachkommastellen bei der Umwandlung vom Zehnersystem in ein anderes, beliebiges Zahlensystem **/
+	/** <!-- $LANGUAGE=DE --> Indikator f\u00FCr Abgeschnittene Nachkommastellen bei der Umwandlung vom Zehnersystem in ein anderes, beliebiges Zahlensystem **/
 	/*	<!-- $LANGUAGE=EN --> Indicator for the cut fractional part in case of converting from decimal system into a system of any base **/
 	public static final String FRACTIONAL_PRECISION_INDICATOR = "...";
 	
@@ -95,17 +95,17 @@ public class ConvertingNumbers {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Prüft, ob {@code value} eine Zahl zur geforderten Basis {@code base} repräsentiert.
-	 * Ist der Indikator für abgeschnittene Nachkommastellen aktiviert, wird dieser bei der Auswertung ignoriert.
-	 * Leerzeichen können als Tausender-Trennung verwendet werden und werden von dieser Methode ebenfalls ignoriert.
+	 * Pr\u00FCft, ob {@code value} eine Zahl zur geforderten Basis {@code base} repr\u00E4sentiert.
+	 * Ist der Indikator f\u00FCr abgeschnittene Nachkommastellen aktiviert, wird dieser bei der Auswertung ignoriert.
+	 * Leerzeichen k\u00F6nnen als Tausender-Trennung verwendet werden und werden von dieser Methode ebenfalls ignoriert.
 	 * 
-	 * @param value	zu prüfende Zahl repräsentiert als {@code String}
+	 * @param value	zu pr\u00FCfende Zahl repr\u00E4sentiert als {@code String}
 	 * @param base	geforderte Basis von {@code value} - erlaubt sind nur Werte von 2 bis 36 (einschließlich)
 	 * 
 	 * @return 	{@code true}, wenn {@code value} eine Zahl zur geforderten Basis {@code base} 
-	 * 			repräsentiert, andernfalls wird {@code false} zurückgegeben
+	 * 			repr\u00E4sentiert, andernfalls wird {@code false} zur\u00FCckgegeben
 	 * 
-	 * @throws IllegalArgumentException	wenn {@code basis} den Wertebereich [2, 36] verlässt
+	 * @throws IllegalArgumentException	wenn {@code basis} den Wertebereich [2, 36] verl\u00E4sst
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Checks if {@code value} represents a number to the required base {@code base}.
@@ -175,17 +175,17 @@ public class ConvertingNumbers {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt die übergebene Zahl {@code value} zur beliebigen Basis {@code base} in eine Zahl zur Basis 10 in der String-Darstellung um.
+	 * Wandelt die \u00FCbergebene Zahl {@code value} zur beliebigen Basis {@code base} in eine Zahl zur Basis 10 in der String-Darstellung um.
 	 * 
-	 * @param base	die spezifische Basis des übergebenen Wertes {@code value}
+	 * @param base	die spezifische Basis des \u00FCbergebenen Wertes {@code value}
 	 * @param value	der Zahlenwert, der umgewandelt werden soll, in der String-Darstellung
 	 * 
-	 * @return	Wert der Zahl im Zehnersystem in der String-Darstellung mit dem standardmäßig eingestellten Komma
+	 * @return	Wert der Zahl im Zehnersystem in der String-Darstellung mit dem standardm\u00E4ßig eingestellten Komma
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code value} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
-	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} größer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
@@ -209,9 +209,9 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt die übergebene Zahl {@code value} zur beliebigen Basis {@code base} in eine Zahl zur Basis 10 in der String-Darstellung um.
+	 * Wandelt die \u00FCbergebene Zahl {@code value} zur beliebigen Basis {@code base} in eine Zahl zur Basis 10 in der String-Darstellung um.
 	 * 
-	 * @param base	die spezifische Basis des übergebenen Wertes {@code value}
+	 * @param base	die spezifische Basis des \u00FCbergebenen Wertes {@code value}
 	 * @param value	der Zahlenwert, der umgewandelt werden soll, in der String-Darstellung
 	 * @param comma	das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
 	 * 
@@ -219,8 +219,8 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code value} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
-	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
-	 * @throws NumberOverflowException		wenn der ganzzahlige Wert von {@code value} größer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
+	 * @throws NumberOverflowException		wenn der ganzzahlige Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
@@ -245,9 +245,9 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt die übergebene Zahl {@code value} zur beliebigen Basis {@code base} in eine Zahl zur Basis 10 in der String-Darstellung um.
+	 * Wandelt die \u00FCbergebene Zahl {@code value} zur beliebigen Basis {@code base} in eine Zahl zur Basis 10 in der String-Darstellung um.
 	 * 
-	 * @param base	die spezifische Basis des übergebenen Wertes {@code value}
+	 * @param base	die spezifische Basis des \u00FCbergebenen Wertes {@code value}
 	 * @param value	der Zahlenwert, der umgewandelt werden soll, in der String-Darstellung
 	 * @param comma	das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
 	 * 
@@ -255,8 +255,8 @@ public class ConvertingNumbers {
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code value} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
-	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
-	 * @throws NumberOverflowException		wenn der ganzzahlige Wert von {@code value} größer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
+	 * @throws NumberOverflowException		wenn der ganzzahlige Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
@@ -292,7 +292,7 @@ public class ConvertingNumbers {
 		}
 		else if (isNegative) {
 			// Minuszeichen entfernen
-			if(calcPath != null) calcPath.add(new ConversionStep("Betrag nehmen und das Vorzeichen für sp\u00E4ter merken", true));
+			if(calcPath != null) calcPath.add(new ConversionStep("Betrag nehmen und das Vorzeichen f\u00FCr sp\u00E4ter merken", true));
 			value = value.substring(1, value.length());
 		}
 		else if(isNegativeBin) {
@@ -306,7 +306,7 @@ public class ConvertingNumbers {
 			}
 			
 			if(calcPath != null) {
-				calcPath.add(new ConversionStep("negative Bin\u00E4rzahlen werden im Zweierkomplement abgebildet => zur R\u00FCckwandlung erneut das Zweierkomplement bilden und Vorzeichen für sp\u00E4ter merken!", true));
+				calcPath.add(new ConversionStep("negative Bin\u00E4rzahlen werden im Zweierkomplement abgebildet => zur R\u00FCckwandlung erneut das Zweierkomplement bilden und Vorzeichen f\u00FCr sp\u00E4ter merken!", true));
 				calcPath.add(new TwosComplement(Long.parseLong(value)));
 			}
 			
@@ -320,7 +320,7 @@ public class ConvertingNumbers {
 		// ganzzahligen Anteil zur Basis 10 umwandeln
 		if(calcPath != null) calcPath.add(new ConversionStep("Ganzzahligen Anteil mit dem Hornerschema (Zielverfahren) von Basis " + base + " zur Basis 10 umwandeln:\n"
 														   + "  -> 1. Erste Ziffer (von links) mit ihrer Basis (" + base + ") multiplizieren\n"
-														   + "  -> 2. Nächste Ziffer mit dem Produkt addieren\n"
+														   + "  -> 2. N\u00E4chste Ziffer mit dem Produkt addieren\n"
 														   + "  -> 3. Ergebnis erneut mit der Basis multiplizieren\n"
 														   + "  -> 4. Schritte 2 und 3 wiederholen, bis die letzte Ziffer der Zahl erreicht ist", true));
 		double integerPart = baseToDecIntPart(base, separated[0], calcPath);
@@ -334,7 +334,7 @@ public class ConvertingNumbers {
 			if(calcPath != null) calcPath.add(new ConversionStep("Gebrochenen Anteil mit dem Hornerschema (Zielverfahren) von Basis " + base + " zur Basis 10 umwandeln:\n"
 															   + "  -> 1. Reihenfolge der Ziffern der umzuwandelnden Zahl inklusive der Null vor dem Komma umdrehen\n"
 															   + "  -> 2. Erste Ziffer (von links) mit dem Kehrwert ihrer Basis (1/" + base + ") multiplizieren\n"
-															   + "  -> 3. Nächste Ziffer mit dem Produkt addieren\n"
+															   + "  -> 3. N\u00E4chste Ziffer mit dem Produkt addieren\n"
 															   + "  -> 4. Ergebnis erneut mit dem Kehrwert der Basis multiplizieren\n"
 															   + "  -> 5. Schritte 3 und 4 wiederholen, bis die letzte Ziffer der Zahl erreicht ist", true));
 			fractionalPart = baseToDecFractionalPart(base, separated[1], calcPath);
@@ -384,21 +384,21 @@ public class ConvertingNumbers {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt die übergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um.
+	 * Wandelt die \u00FCbergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um.
 	 * <p>
-	 * Wenn in der Klasse {@code Preferences} der Indikator für Nachkommastellen aktiviert ist, werden die wegen der 
+	 * Wenn in der Klasse {@code Preferences} der Indikator f\u00FCr Nachkommastellen aktiviert ist, werden die wegen der 
 	 * maximalen Anzahl von Nachkommastellen abgeschnittenen Nachkommastellen durch "..." angedeutet.
 	 * </p>
 	 * 
 	 * @param newBase	Basis des neuen Zahlensystems, in das die Zahl {@code decValue} umgewandelt werden soll
 	 * @param decValue	Wert der Zahl im Zehnersystem in der String-Darstellung
 	 * 
-	 * @return 	umgewandelte Zahl zur übergebenen Basis in der String-Darstellung mit dem standardmäßig eingestellten Komma
+	 * @return 	umgewandelte Zahl zur \u00FCbergebenen Basis in der String-Darstellung mit dem standardm\u00E4ßig eingestellten Komma
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} größer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 */
@@ -430,9 +430,9 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt die übergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um.
+	 * Wandelt die \u00FCbergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um.
 	 * <p>
-	 * Wenn in der Klasse {@code Preferences} der Indikator für Nachkommastellen aktiviert ist, werden die wegen der 
+	 * Wenn in der Klasse {@code Preferences} der Indikator f\u00FCr Nachkommastellen aktiviert ist, werden die wegen der 
 	 * maximalen Anzahl von Nachkommastellen abgeschnittenen Nachkommastellen durch "..." angedeutet.
 	 * </p>
 	 * 
@@ -440,12 +440,12 @@ public class ConvertingNumbers {
 	 * @param decValue	Wert der Zahl im Zehnersystem in der String-Darstellung
 	 * @param comma		das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
 	 * 
-	 * @return	umgewandelte Zahl zur übergebenen Basis in der String-Darstellung mit maximal 15 Nachkommastellen
+	 * @return	umgewandelte Zahl zur \u00FCbergebenen Basis in der String-Darstellung mit maximal 15 Nachkommastellen
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} größer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 */
@@ -478,9 +478,9 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt die übergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um.
+	 * Wandelt die \u00FCbergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um.
 	 * <p>
-	 * Wenn in der Klasse {@code Preferences} der Indikator für Nachkommastellen aktiviert ist, werden die wegen der 
+	 * Wenn in der Klasse {@code Preferences} der Indikator f\u00FCr Nachkommastellen aktiviert ist, werden die wegen der 
 	 * maximalen Anzahl von Nachkommastellen abgeschnittenen Nachkommastellen durch "..." angedeutet.
 	 * </p>
 	 * 
@@ -489,13 +489,13 @@ public class ConvertingNumbers {
 	 * @param comma		das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
 	 * @param fractionalPrecision	maximale Anzahl der Nachkommastellen
 	 * 
-	 * @return	umgewandelte Zahl zur übergebenen Basis in der String-Darstellung
+	 * @return	umgewandelte Zahl zur \u00FCbergebenen Basis in der String-Darstellung
 	 * 
 	 * @throws NullPointerException				wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException			wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException			wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws UnsupportedOperationException 	wenn {@code decValue} negativ ist und Nachkommastellen enthält und gleichzeitig {@code newBase} zwei ist 
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} größer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws IllegalArgumentException			wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws UnsupportedOperationException 	wenn {@code decValue} negativ ist und Nachkommastellen enth\u00E4lt und gleichzeitig {@code newBase} zwei ist 
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 */
@@ -530,9 +530,9 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt die übergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um.
+	 * Wandelt die \u00FCbergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um.
 	 * <p>
-	 * Wenn in der Klasse {@code Preferences} der Indikator für Nachkommastellen aktiviert ist, werden die wegen der 
+	 * Wenn in der Klasse {@code Preferences} der Indikator f\u00FCr Nachkommastellen aktiviert ist, werden die wegen der 
 	 * maximalen Anzahl von Nachkommastellen abgeschnittenen Nachkommastellen durch "..." angedeutet.
 	 * </p>
 	 * 
@@ -541,13 +541,13 @@ public class ConvertingNumbers {
 	 * @param comma		das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
 	 * @param fractionalPrecision	maximale Anzahl der Nachkommastellen
 	 * 
-	 * @return	umgewandelte Zahl zur übergebenen Basis in der String-Darstellung
+	 * @return	umgewandelte Zahl zur \u00FCbergebenen Basis in der String-Darstellung
 	 * 
 	 * @throws NullPointerException				wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException			wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException			wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws UnsupportedOperationException 	wenn {@code decValue} negativ ist und Nachkommastellen enthält und gleichzeitig {@code newBase} zwei ist 
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} größer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws IllegalArgumentException			wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws UnsupportedOperationException 	wenn {@code decValue} negativ ist und Nachkommastellen enth\u00E4lt und gleichzeitig {@code newBase} zwei ist 
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 */
@@ -592,7 +592,7 @@ public class ConvertingNumbers {
 		
 		if (isNegative) {
 			decValue = decValue.substring(1, decValue.length());
-			if(calcPath != null) calcPath.add(new ConversionStep("Betrag nehmen und das Vorzeichen für sp\u00E4ter merken", true));
+			if(calcPath != null) calcPath.add(new ConversionStep("Betrag nehmen und das Vorzeichen f\u00FCr sp\u00E4ter merken", true));
 		}
 		
 		// ganzen Anteil und Nachkommateil (Basis 10) separieren und in long bzw. double umwandeln
@@ -627,7 +627,7 @@ public class ConvertingNumbers {
 					calcPath.add(new ConversionStep("Keine Umwandlung m\u00F6glich, da nur ganze Zahlen als Zweierkomplement gespeichert werden k\u00F6nnen!"));
 				}
 				
-				throw new UnsupportedOperationException("Nachkommateil bei binärer negativer Zahl");
+				throw new UnsupportedOperationException("Nachkommateil bei bin\u00E4rer negativer Zahl");
 			}
 			
 			if(calcPath != null) {
@@ -679,7 +679,7 @@ public class ConvertingNumbers {
 		if(newBase == 2 && !(integerStr.charAt(0) == '0')) {
 			integerStr.insert(0, '0');
 			if(calcPath != null) {
-				calcPath.add(new ConversionStep("Bei positiven Binärzahlen wird eine 0 vorangestellt, um diese nicht mit einer negativen Zahl im Zweierkomplement zu verwechseln:\n"
+				calcPath.add(new ConversionStep("Bei positiven Bin\u00E4rzahlen wird eine 0 vorangestellt, um diese nicht mit einer negativen Zahl im Zweierkomplement zu verwechseln:\n"
 						+ "=> " + splitInBlocks(newBase, integerStr.toString()), true));
 			}
 		}
@@ -692,7 +692,7 @@ public class ConvertingNumbers {
 			if(calcPath != null) {
 				calcPath.add(new ConversionStep("Gebrochenen Anteil umrechnen:\n"
 											  + "  -> 1. umzurechnenden Dezimalbruch mit neuer Basis multiplizieren\n"
-											  + "  -> 2. ganzer Anteil des Ergebnisses ist die nächste Nachkommastelle\n"
+											  + "  -> 2. ganzer Anteil des Ergebnisses ist die n\u00E4chste Nachkommastelle\n"
 											  + "  -> 3. gebrochenen Anteil des Ergebnisses erneut mit der neuen Basis multiplizieren\n"
 											  + "  -> 4. Schritte 2 und 3 wiederholen, bis die Multiplikation eine ganze Zahl ergibt.\n"
 											  + "        Oft wird dies nicht erreicht und die Berechnung wird nach ausreichend Stellen abgebrochen.\n"
@@ -719,24 +719,24 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt die übergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um
-	 * und unterteilt die Zahl in Blöcke der gewünschten Länge.
+	 * Wandelt die \u00FCbergebene Zahl {@code decValue} zur Basis 10 in eine Zahl zur beliebigen Basis {@code newBase} in der String-Darstellung um
+	 * und unterteilt die Zahl in Bl\u00F6cke der gew\u00FCnschten L\u00E4nge.
 	 * <p>
-	 * Wenn in der Klasse {@code Preferences} der Indikator für Nachkommastellen aktiviert ist, werden die wegen der 
+	 * Wenn in der Klasse {@code Preferences} der Indikator f\u00FCr Nachkommastellen aktiviert ist, werden die wegen der 
 	 * maximalen Anzahl von Nachkommastellen abgeschnittenen Nachkommastellen durch "..." angedeutet.
 	 * </p>
 	 * 
 	 * @param newBase				Basis des neuen Zahlensystems, in das die Zahl {@code decValue} umgewandelt werden soll
 	 * @param decValue				Wert der Zahl im Zehnersystem in der String-Darstellung
 	 * @param comma					das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
-	 * @param blockSize				Länge der Blöcke, in die der String unterteilt wird
+	 * @param blockSize				L\u00E4nge der Bl\u00F6cke, in die der String unterteilt wird
 	 * 
-	 * @return	umgewandelte Zahl zur übergebenen Basis in der String-Darstellung
+	 * @return	umgewandelte Zahl zur \u00FCbergebenen Basis in der String-Darstellung
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
-	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} größer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 * @see #decToBase(int, String, char)
@@ -781,13 +781,13 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Unterteilt den übergebenen String in Blöcke mit der gegebenen Länge, beispielsweise
+	 * Unterteilt den \u00FCbergebenen String in Bl\u00F6cke mit der gegebenen L\u00E4nge, beispielsweise
 	 * zur Tausendertrennung
 	 * 
 	 * @param value		String, der aufgeteilt wird
-	 * @param blockSize	Länge der Blöcke
+	 * @param blockSize	L\u00E4nge der Bl\u00F6cke
 	 * 
-	 * @return	Aufgeteilter String mit Blöcken
+	 * @return	Aufgeteilter String mit Bl\u00F6cken
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
@@ -827,13 +827,13 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Unterteilt den übergebenen String in Blöcke mit einer Länge von 4 Zeichen für binäre und hexadezimale Zahlen
-	 * oder 3 Zeichen für alle anderen Zahlensysteme
+	 * Unterteilt den \u00FCbergebenen String in Bl\u00F6cke mit einer L\u00E4nge von 4 Zeichen f\u00FCr bin\u00E4re und hexadezimale Zahlen
+	 * oder 3 Zeichen f\u00FCr alle anderen Zahlensysteme
 	 * 
 	 * @param base	Basis von {@code value}
 	 * @param value	String, der aufgeteilt wird
 	 * 
-	 * @return	Aufgeteilter String mit Blöcken
+	 * @return	Aufgeteilter String mit Bl\u00F6cken
 	 * 
 	 * @since Bitchanger 0.1.8
 	 */
@@ -861,15 +861,15 @@ public class ConvertingNumbers {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Überprüft, ob der übergebene String {@code value} eine Zahl zur Basis {@code base} ist
+	 * \u00DCberpr\u00FCft, ob der \u00FCbergebene String {@code value} eine Zahl zur Basis {@code base} ist
 	 * und wirft eine Exception, wenn dies nicht der Fall ist.
 	 * 
-	 * @param base	Basis, auf die {@code value} geprüft wird
-	 * @param value	String, der geprüft wird
+	 * @param base	Basis, auf die {@code value} gepr\u00FCft wird
+	 * @param value	String, der gepr\u00FCft wird
 	 * 
 	 * @throws NullPointerException		wenn {@code value} den Wert {@code null} hat
 	 * @throws NumberFormatException	wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
-	 * @throws IllegalArgumentException wenn {@code basis} den Wertebereich [2, 36] verlässt oder wenn {@code value} ein leerer String ist
+	 * @throws IllegalArgumentException wenn {@code basis} den Wertebereich [2, 36] verl\u00E4sst oder wenn {@code value} ein leerer String ist
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Checks if the submitted string {@code value} represents a number to the required base {@code base} and
@@ -891,7 +891,7 @@ public class ConvertingNumbers {
 			throw new IllegalArgumentException("empty String");
 		}
 		
-		if(!isValueToBase(base, value)) {	// Prüfen, ob value eine Zahl zur gegebenen Basis repräsentiert
+		if(!isValueToBase(base, value)) {	// Prüfen, ob value eine Zahl zur gegebenen Basis repr\u00E4sentiert
 			throw new NumberFormatException("For input string: \"" + value + "\" - Value cannot be converted to base " + base + " number");
 		}
 	}
@@ -931,12 +931,12 @@ public class ConvertingNumbers {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt die übergebene ganze Zahl {@code integerPart} zur beliebigen Basis {@code base} ins Zehnersystem um.
+	 * Wandelt die \u00FCbergebene ganze Zahl {@code integerPart} zur beliebigen Basis {@code base} ins Zehnersystem um.
 	 * Zur Umwandlung von einem beliebigen Zahlensystem in das Zehnersystem wird das Horner-Schema verwendet.
 	 * 
 	 * @param base			beliebige Basis des Zahlensystems von {@code integerPart} im Bereich [2; 36]
 	 * @param integerPart	umzuwandelnde Zahl in der String-Darstellung
-	 * @return				Wert der übergebenen Zahl im Zehnersystem als {@code double}
+	 * @return				Wert der \u00FCbergebenen Zahl im Zehnersystem als {@code double}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code integerPart} of any base  {@code base} into the decimal system.
@@ -964,12 +964,12 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt den übergebenen Nachkommateil einer Zahl zu einer beliebigen Basis ins Zehnersystem um.
+	 * Wandelt den \u00FCbergebenen Nachkommateil einer Zahl zu einer beliebigen Basis ins Zehnersystem um.
 	 * Zur Umwandlung von einem beliebigen Zahlensystem in das Zehnersystem wird das Horner-Schema verwendet.
 	 * 
 	 * @param base				beliebige Basis des Zahlensystems von {@code fractionalPart} im Bereich [2; 36]
 	 * @param fractionalPart	umzuwandelnder Nachkommateil einer Zahl <b>ohne Komma</b> und als ganze Zahl in der String-Darstellung 
-	 * @return					Wert des übergebenen Nachkommaanteils im Zehnersystem als {@code double}
+	 * @return					Wert des \u00FCbergebenen Nachkommaanteils im Zehnersystem als {@code double}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted decimal place of a number of any base into the decimal system.
@@ -1076,7 +1076,7 @@ public class ConvertingNumbers {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Wandelt einen Nachkommateil vom Zehnersystem in einen Wert zu einer beliebigen Basis in der String-Darstellung um.
-	 * Wenn in der Klasse {@code Preferences} der Indikator für Nachkommastellen aktiviert ist, werden die wegen der 
+	 * Wenn in der Klasse {@code Preferences} der Indikator f\u00FCr Nachkommastellen aktiviert ist, werden die wegen der 
 	 * maximalen Anzahl von Nachkommastellen abgeschnittenen Nachkommastellen durch "..." angedeutet.
 	 * 
 	 * @param newBase				Basis des neuen Zahlensystems
@@ -1084,7 +1084,7 @@ public class ConvertingNumbers {
 	 * @param fractionalPrecision	Maximale Anzahl von Nachkommastellen im Ergebnis
 	 * @param comma					Zeichen, das als Komma vor dem Nachkommateil platziert wird
 	 * 
-	 * @return	umgewandelter Nachkommateil zur neuen Basis in String-Darstellung mit führendem Komma
+	 * @return	umgewandelter Nachkommateil zur neuen Basis in String-Darstellung mit f\u00FChrendem Komma
 	 * 
 	 * @since Bitchanger 0.1.8
 	 * 
@@ -1164,10 +1164,10 @@ public class ConvertingNumbers {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Berechnet das Zeichen für eine Stellenwertigkeit.
+	 * Berechnet das Zeichen f\u00FCr eine Stellenwertigkeit.
 	 * Die Ziffern 0 bis 9 entsprechen der Wertigkeit 0 bis 9, die Buchstaben A bis Z entsprechen der Wertigkeit 10 bis 35.
 	 * @param value		Wert der gesuchten Stelle zur Basis 10
-	 * @return			Zeichen, das die Stellenwertigkeit des übergebenen Wertes repräsentiert
+	 * @return			Zeichen, das die Stellenwertigkeit des \u00FCbergebenen Wertes repr\u00E4sentiert
 	 * 
 	 * @see #valueOfDigit(char)
 	 */
@@ -1193,10 +1193,10 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Berechnet die Stellenwertigkeit, die von einem Zeichen repräsentiert wird.
+	 * Berechnet die Stellenwertigkeit, die von einem Zeichen repr\u00E4sentiert wird.
 	 * Die Ziffern 0 bis 9 entsprechen der Wertigkeit 0 bis 9, die Buchstaben A bis Z entsprechen der Wertigkeit 10 bis 35.
 	 * @param digit		Zeichen, dessen Wertigkeit berechnet wird
-	 * @return			Stellenwertigkeit, die von {@code digit} repräsentiert wird
+	 * @return			Stellenwertigkeit, die von {@code digit} repr\u00E4sentiert wird
 	 * 
 	 * @see #digitOfValue(int)
 	 */
@@ -1227,9 +1227,9 @@ public class ConvertingNumbers {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Separiert den Anteil vor und nach dem Komma bzw. Punkt (je nach Format) des übergebenen String {@code value}, 
-	 * der eine Zahl zu der Basis {@code base} repräsentiert, und gibt diese beiden separierten Strings ohne führende 0
-	 * im Nachkommateil zurück.
+	 * Separiert den Anteil vor und nach dem Komma bzw. Punkt (je nach Format) des \u00FCbergebenen String {@code value}, 
+	 * der eine Zahl zu der Basis {@code base} repr\u00E4sentiert, und gibt diese beiden separierten Strings ohne f\u00FChrende 0
+	 * im Nachkommateil zur\u00FCck.
 	 * 
 	 * @param value	Zahl, die zerlegt werden soll
 	 * 
@@ -1288,9 +1288,9 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * überprüft, ob bei dem übergebenen String zuerst ein deutsches Komma (,) oder ein englisches Komma (.) auftaucht.
+	 * \u00FCberpr\u00FCft, ob bei dem \u00FCbergebenen String zuerst ein deutsches Komma (,) oder ein englisches Komma (.) auftaucht.
 	 * 
-	 * @param value	String, der auf Kommata überprüft wird
+	 * @param value	String, der auf Kommata \u00FCberpr\u00FCft wird
 	 * 
 	 * @return das Komma, welches zuerst in dem String auftaucht oder {@code null}, wenn kein Komma enthalten ist
 	 */
@@ -1321,8 +1321,8 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Schneidet den übergebenen String so zu, dass dieser nicht mehr den Indikator für abgeschnittene Nachkommastellen
-	 * und keine Leerzeichen enthält und wandelt alle Buchstaben in Großbuchstaben um.
+	 * Schneidet den \u00FCbergebenen String so zu, dass dieser nicht mehr den Indikator f\u00FCr abgeschnittene Nachkommastellen
+	 * und keine Leerzeichen enth\u00E4lt und wandelt alle Buchstaben in Großbuchstaben um.
 	 * 
 	 * @param value String, der formatiert werden soll
 	 * @return	zugeschnittener String
@@ -1345,12 +1345,12 @@ public class ConvertingNumbers {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Unterteilt den übergebenen StringBuffer in Blöcke mit bestimmter Länge
+	 * Unterteilt den \u00FCbergebenen StringBuffer in Bl\u00F6cke mit bestimmter L\u00E4nge
 	 * 
 	 * @param sb		StringBuffer, der unterteilt wird
-	 * @param blockSize Länge der Blöcke
+	 * @param blockSize L\u00E4nge der Bl\u00F6cke
 	 * 
-	 * @return den veränderten StringBuffer, der auch übergeben wurde
+	 * @return den ver\u00E4nderten StringBuffer, der auch \u00FCbergeben wurde
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */

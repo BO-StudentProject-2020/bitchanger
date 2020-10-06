@@ -54,6 +54,13 @@
 
 .scroll-pane {
 	-fx-background-color: transparent;
+	-fx-fit-to-width: true;
+}
+
+.scroll-pane-horners-method {
+	-fx-vbar-policy: never;
+ 	-fx-fit-to-height: true;
+	-fx-fit-to-width: false;
 }
 
 #result-label {
