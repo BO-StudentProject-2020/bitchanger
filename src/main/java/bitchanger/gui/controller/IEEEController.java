@@ -26,7 +26,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
@@ -230,6 +232,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	private void setTextFieldActions() {
 		setDecValListener();
 		setIEEEValListener();
+		setIEEEOnAction();
 
 		setTFSelection();
 		updateIEEEStandard();
@@ -286,27 +289,71 @@ public class IEEEController extends ControllerBase<IEEEView> {
 		tfIEEE.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (tfIEEE.isFocused()) {
-					try {
-						value.setIEEE(newValue, Preferences.getPrefs().ieeeStandardProperty().get());
-					} catch (NumberOverflowException noe) {
-						FXUtils.showNumberOverflowWarning(noe);
-						value.reset();
-					} catch (Exception e) {
-						value.reset();
-						if (! (e instanceof NoSuchElementException)) { // NoSuchElementException tritt auf, wenn Nachkommateil fehlt (wegen Scanner)
-							e.printStackTrace();
-						}
-					}
-					
-					tfDec.setText(value.toDecString());
+				if (tfIEEE.getText().replace(" ", "").length() > Preferences.getPrefs().ieeeStandardProperty().get().getBitLength()) {
+					// Warnung bei zu vielen Zeichen
+					FXUtils.showDialog(AlertType.WARNING, "Warnung", "Eingabefehler", "Die eingegebene Zahl ist zu lang. Es werden 16-Bit und 32-Bit IEEE-Zahlen unterstützt. Die gewünschte Norm kann im Menü Optionen ausgewählt werden.", ButtonType.OK);
+				}
+				else if (tfIEEE.isFocused() && newValue.replace(" ", "").length() == Preferences.getPrefs().ieeeStandardProperty().get().getBitLength()) {
+					updateIEEEValue(newValue);
 				}
 			}
 		});
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since 0.1.8
+	private void updateIEEEValue(String newValue) {
+		try {
+			value.setIEEE(newValue, Preferences.getPrefs().ieeeStandardProperty().get());
+		} catch (NumberOverflowException noe) {
+			FXUtils.showNumberOverflowWarning(noe);
+			value.reset();
+		} catch (Exception e) {
+			value.reset();
+			if (! (e instanceof NoSuchElementException)) { // NoSuchElementException tritt auf, wenn Nachkommateil fehlt (wegen Scanner)
+				e.printStackTrace();
+			}
+		}
+		
+		tfDec.setText(value.toDecString());
+	}
 
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since 0.1.8
+	private void setIEEEOnAction() {
+		tfIEEE.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (tfIEEE.getText().replace(" ", "").length() > Preferences.getPrefs().ieeeStandardProperty().get().getBitLength()) {
+					// Warnung bei zu vielen Zeichen
+					FXUtils.showDialog(AlertType.WARNING, "Warnung", "Eingabefehler", "Die eingegebene Zahl ist zu lang. Es werden 16-Bit und 32-Bit IEEE-Zahlen unterstützt. Die gewünschte Norm kann im Menü Optionen ausgewählt werden.", ButtonType.OK);
+					return;
+				}
+				
+				StringBuilder value = new StringBuilder();
+				value.append(tfIEEE.getText().replace(" ", ""));
+				
+				while(value.length() < Preferences.getPrefs().ieeeStandardProperty().get().getBitLength()) {
+					// Mit Nullen auf benötigte Länge auffüllen
+					value.append("0");
+				}
+				
+				updateIEEEValue(value.toString());
+				
+				IEEEStandard ieee = Preferences.getPrefs().ieeeStandardProperty().get();
+				
+				value.insert(ieee.getExponentLength() + 1, " ");
+				value.insert(1, " ");
+				
+				tfIEEE.setText(value.toString());
+			}
+		});
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes durch einen Mausklick und 
 	 * verbindet {@link #baseProperty} mit der baseProperty des Textfelds.
