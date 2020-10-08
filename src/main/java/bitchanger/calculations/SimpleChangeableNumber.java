@@ -38,7 +38,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -60,7 +60,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 public class SimpleChangeableNumber implements ChangeableNumber {
