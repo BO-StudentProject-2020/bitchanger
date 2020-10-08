@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -20,7 +20,7 @@ import javafx.scene.control.Menu;
 //TODO JavaDoc
 /**	<!-- $LANGUAGE=DE -->
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
  * @version 0.1.6
@@ -28,7 +28,7 @@ import javafx.scene.control.Menu;
  */
 public class ConverterMenuBar extends BasicMenuBar {
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das CheckMenuItem "abgeschnittene Nachkommastellen kennzeichnen" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das CheckMenuItem "abgeschnittene Nachkommastellen kennzeichnen" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the CheckMenuItem "abgeschnittene Nachkommastellen kennzeichnen" is associated in the Map {@link #menuItemMap} */
 	public static final String OPTIONS_INDICATE_FRACTIONAL_INACCURACY_CHECK_ITEM_KEY = "modus-indicate-fractional-inaccuracy-item";
 	

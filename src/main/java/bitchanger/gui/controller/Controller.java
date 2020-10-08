@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -21,12 +21,12 @@ import java.util.stream.Stream;
  * einer View mit einer Funktion zu belegen.
  * </p>
  * <p><b>
- * Die Factory-Methode {@link #of(Controllable)} kann Controller für ein bestimmtes Controllable
+ * Die Factory-Methode {@link #of(Controllable)} kann Controller f\u00FCr ein bestimmtes Controllable
  * erzeugen, wenn der Controller mit der Methode {@link #register(Class, Class)} angemeldet und
  * dem Controllable zugeordnet wurde.
  * </b></p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -59,7 +59,7 @@ public interface Controller {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Map, die die für ein Controllable registrierten Controller speichert und diese verknüpft
+	 * Map, die die f\u00FCr ein Controllable registrierten Controller speichert und diese verkn\u00FCpft
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Map that saves the Controllers registered for a Controllable and associates them
@@ -76,7 +76,7 @@ public interface Controller {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Registriert eine Controller-Klasse für die Factory-Methode {@link #of(Controllable)} 
+	 * Registriert eine Controller-Klasse f\u00FCr die Factory-Methode {@link #of(Controllable)} 
 	 * und ordnet diese einer Controllable-Klasse zu.
 	 * 
 	 * @param controllable	Controllable-Klasse, der die Controller-Klasse zugeordnet wird
@@ -96,13 +96,13 @@ public interface Controller {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Factory-Methode, die einen neuen Controller für das übergebene Controllable erzeugt und zurückgibt.
+	 * Factory-Methode, die einen neuen Controller f\u00FCr das \u00FCbergebene Controllable erzeugt und zur\u00FCckgibt.
 	 * <p><b>
-	 * Der registrierte Controller muss einen öffentlichen Konstruktor haben, der als einzigen Parameter
-	 * das Controllable übergeben bekommt.
+	 * Der registrierte Controller muss einen \u00F6ffentlichen Konstruktor haben, der als einzigen Parameter
+	 * das Controllable \u00FCbergeben bekommt.
 	 * </b></p>
 	 * <p><b>
-	 * Es kann nur ein passender Controller zurückgegeben werden, wenn ein Passendes Wertepaar in
+	 * Es kann nur ein passender Controller zur\u00FCckgegeben werden, wenn ein Passendes Wertepaar in
 	 * der Map {@link #REGISTERED_CONTROLLERS} vorhanden ist. Ein Controllable kann einen Controller
 	 * mit der Methode {@link #register(Class, Class)} zugeordnet bekommen.
 	 * </b></p>
@@ -140,20 +140,20 @@ public interface Controller {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Factory-Methode, die einen neuen Controller für das übergebene Controllable erzeugt und zurückgibt.
+	 * Factory-Methode, die einen neuen Controller f\u00FCr das \u00FCbergebene Controllable erzeugt und zur\u00FCckgibt.
 	 * <p><b>
-	 * Der registrierte Controller muss einen öffentlichen Konstruktor haben, der als ersten Parameter
-	 * das Controllable übergeben bekommt und alle weiteren übergebenen Objekte ebenfalls in der selben
-	 * Reihenfolge erhält, in der diese übergeben wurden.
+	 * Der registrierte Controller muss einen \u00F6ffentlichen Konstruktor haben, der als ersten Parameter
+	 * das Controllable \u00FCbergeben bekommt und alle weiteren \u00FCbergebenen Objekte ebenfalls in der selben
+	 * Reihenfolge erh\u00E4lt, in der diese \u00FCbergeben wurden.
 	 * </b></p>
 	 * <p><b>
-	 * Es kann nur ein passender Controller zurückgegeben werden, wenn ein Passendes Wertepaar in
+	 * Es kann nur ein passender Controller zur\u00FCckgegeben werden, wenn ein Passendes Wertepaar in
 	 * der Map {@link #REGISTERED_CONTROLLERS} vorhanden ist. Ein Controllable kann einen Controller
 	 * mit der Methode {@link #register(Class, Class)} zugeordnet bekommen.
 	 * </b></p>
 	 * 
 	 * @param c	Controllable, das durch den neuen Controller eine Funktion erhalten soll
-	 * @param args Parameter in der Reihenfolge, wie diese vom Konstruktor benötigt werden
+	 * @param args Parameter in der Reihenfolge, wie diese vom Konstruktor ben\u00F6tigt werden
 	 * 
 	 * @return	neuer Controller, der an das Controllable gebunden ist oder {@code null}, wenn kein Controller registriert wurde
 	 * 
@@ -245,7 +245,7 @@ public interface Controller {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt alle für die View benötigten Funktionen.
+	 * Setzt alle f\u00FCr die View ben\u00F6tigten Funktionen.
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets all functions that are needed for the view.

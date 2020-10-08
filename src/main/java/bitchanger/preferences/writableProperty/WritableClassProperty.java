@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -11,7 +11,7 @@ package bitchanger.preferences.writableProperty;
 /** <!-- $LANGUAGE=DE -->
  * 
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7

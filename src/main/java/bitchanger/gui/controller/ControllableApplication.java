@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 /** <!-- $LANGUAGE=DE -->
  * Schnittstelle, die Methoden definiert, um eine Application mit einem Controller zu verbinden.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
  * @version 0.1.4
@@ -44,7 +44,7 @@ public interface ControllableApplication {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Wechselt die Scene der primaryStage zu Scene des übergebenen Viewable
+	 * Wechselt die Scene der primaryStage zu Scene des \u00FCbergebenen Viewable
 	 * 
 	 * @param newView	Neue View, die dargestellt werden soll
 	 */
@@ -72,7 +72,7 @@ public interface ControllableApplication {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Hauptfenster der Application zurück
+	 * Gibt das Hauptfenster der Application zur\u00FCck
 	 * 
 	 * @return Hauptfenster der Application
 	 */
@@ -86,10 +86,10 @@ public interface ControllableApplication {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die mit dem String {@code key} verknüpfte View zurück
+	 * Gibt die mit dem String {@code key} verkn\u00FCpfte View zur\u00FCck
 	 * 
-	 * @param key	Schlüsselwort für die View
-	 * @return		View, die dem Schlüssel zugeordnet ist oder {@code null}, wenn keine passende View gefunden wird
+	 * @param key	Schl\u00FCsselwort f\u00FCr die View
+	 * @return		View, die dem Schl\u00FCssel zugeordnet ist oder {@code null}, wenn keine passende View gefunden wird
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the view that is associated to the string {@code key}
@@ -102,7 +102,7 @@ public interface ControllableApplication {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die CurrentViewProperty zurück
+	 * Gibt die CurrentViewProperty zur\u00FCck
 	 * 
 	 * @return	CurrentViewProperty
 	 */

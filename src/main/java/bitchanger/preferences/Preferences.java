@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -38,15 +38,15 @@ import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /** <!-- $LANGUAGE=DE -->
- * Preferences ist die globale Sammlung für alle möglichen Einstellungen, die am Bitchanger vorgenommen 
- * werden können. Die Einstellungen können über die Methode {@link #getPrefs()} aus allen anderen Klassen
- * abgefragt und geändert werden.
+ * Preferences ist die globale Sammlung f\u00FCr alle m\u00F6glichen Einstellungen, die am Bitchanger vorgenommen 
+ * werden k\u00F6nnen. Die Einstellungen k\u00F6nnen \u00FCber die Methode {@link #getPrefs()} aus allen anderen Klassen
+ * abgefragt und ge\u00E4ndert werden.
  * 
  * <p>
- * Zudem gibt es Methoden, mit denen alle Einstellungen dauerhaft abgespeichert und wieder geladen werden können.
+ * Zudem gibt es Methoden, mit denen alle Einstellungen dauerhaft abgespeichert und wieder geladen werden k\u00F6nnen.
  * </p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.7
@@ -59,21 +59,21 @@ import javafx.beans.property.SimpleStringProperty;
  * Furthermore there are methods to store all settings permanently and load these at a later moment.
  * </p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.7
  */
 public class Preferences {
 	
-	/** <!-- $LANGUAGE=DE -->	Konstante, die alle aktuellen Einstellungen enthält */
+	/** <!-- $LANGUAGE=DE -->	Konstante, die alle aktuellen Einstellungen enth\u00E4lt */
 	/* <!-- $LANGUAGE=EN -->	Constant that contains all the current settings */
 	private static Preferences prefs = new Preferences(Resources.CUSTOM_PREFERENCES);
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die aktuellen Einstellungen zurück
+	 * Gibt die aktuellen Einstellungen zur\u00FCck
 	 * 
 	 * @return	aktuelle Einstellungen
 	 * 
@@ -105,7 +105,7 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Lädt die letzten Einstellungen aus der Datei {@link Resources#CUSTOM_PREFERENCES}
+	 * L\u00E4dt die letzten Einstellungen aus der Datei {@link Resources#CUSTOM_PREFERENCES}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Loads the last settings from the file {@link Resources#CUSTOM_PREFERENCES}
@@ -117,7 +117,7 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Lädt die Standardeinstellungen aus der Datei {@link Resources#DEFAULT_PREFERENCES}
+	 * L\u00E4dt die Standardeinstellungen aus der Datei {@link Resources#DEFAULT_PREFERENCES}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Loads the default settings from the file {@link Resources#DEFAULT_PREFERENCES}
@@ -145,47 +145,47 @@ public class Preferences {
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE -->	Property für das Kommazeichen */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr das Kommazeichen */
 	/* <!-- $LANGUAGE=EN -->	Property for comma character */
 	private final WritableEnumProperty<Comma> commaProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige von abgebrochenen Nachkommastellen */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr die Anzeige von abgebrochenen Nachkommastellen */
 	/* <!-- $LANGUAGE=EN -->	Property for displaying aborted decimal places */
 	private final WritableBooleanProperty indicateFractionalPrecisionProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für das gewählte Stylesheet */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr das gew\u00E4hlte Stylesheet */
 	/* <!-- $LANGUAGE=EN -->	Property for the selected Stylesheet */
 	private final SimpleStringProperty stylesheetProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für den gewählten Style des Stylesheets */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr den gew\u00E4hlten Style des Stylesheets */
 	/* <!-- $LANGUAGE=EN -->	Property for the selected Style of the Stylesheet */
 	private final WritableEnumProperty<Style> styleProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die zuletzt angezeigte View */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr die zuletzt angezeigte View */
 	/* <!-- $LANGUAGE=EN -->	Property for the last shown View */
 	private final WritableClassProperty<Viewable> viewClassProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die gewählte IEEE-Norm */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr die gew\u00E4hlte IEEE-Norm */
 	/* <!-- $LANGUAGE=EN -->	Property for the selected IEEE standard */
 	private final WritableEnumProperty<IEEEStandard> ieeeStandardProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr die Anzeige der Symbole der Bitoperationen in der CalculatorView */
 	/* <!-- $LANGUAGE=EN -->	Property for showing symbols of the logical bit operations in CalculatorView */
 	private final WritableBooleanProperty showBitOperationSymbolsProperty;
 
-	/** <!-- $LANGUAGE=DE -->	Property für die gewählte Bitlänge */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr die gew\u00E4hlte Bitl\u00E4nge */
 	/* <!-- $LANGUAGE=EN -->	Property for the selected number of Bits */
 	private final WritableEnumProperty<BitLength> bitLengthProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für vorzeichenlose Bitoperationen in der CalculatorView */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr vorzeichenlose Bitoperationen in der CalculatorView */
 	/* <!-- $LANGUAGE=EN -->	Property for unsigned logical bit operations in CalculatorView */
 	private final WritableBooleanProperty useUnsignedBitOperationProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für das Deaktivieren der Warnmeldung für vorzeichenlose Bitoperationen mit 64-Bit */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr das Deaktivieren der Warnmeldung f\u00FCr vorzeichenlose Bitoperationen mit 64-Bit */
 	/* <!-- $LANGUAGE=EN -->	Property for deactivating the warning alert that appears when bitLengthProperty is set to 64-Bit and useUnsignedBitOperationProperty is set to true */
 	private final WritableBooleanProperty unsignedBitLengthWarningDeactivatedProperty;
 	
-	/** <!-- $LANGUAGE=DE -->	Property für das Deaktivieren der Warnmeldung beim Verkleinern der Bitlänge */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr das Deaktivieren der Warnmeldung beim Verkleinern der Bitl\u00E4nge */
 	/* <!-- $LANGUAGE=EN -->	Property for deactivating the warning alert that appears when bitLengthProperty is set to a lower bit length */
 	private final WritableBooleanProperty bitLengthDeleteWarningDeactivatedProperty;
 	
@@ -214,8 +214,8 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Erstellt neue Preferences mit den Einstellungen, die in der übergebenen Datei gespeichert sind oder den Standardeinstellungen,
-	 * wenn die übergebene Datei nicht gefunden oder geladen werden konnte.
+	 * Erstellt neue Preferences mit den Einstellungen, die in der \u00FCbergebenen Datei gespeichert sind oder den Standardeinstellungen,
+	 * wenn die \u00FCbergebene Datei nicht gefunden oder geladen werden konnte.
 	 * 
 	 * @param file	Datei mit den Einstellungen, die geladen werden sollen, im XML-Format
 	 */
@@ -255,9 +255,9 @@ public class Preferences {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property für das Kommazeichen zurück
+	 * Gibt die Property f\u00FCr das Kommazeichen zur\u00FCck
 	 * 
-	 * @return	Property für das Kommazeichen
+	 * @return	Property f\u00FCr das Kommazeichen
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -275,9 +275,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property für die Anzeige von abgebrochenen Nachkommastellen zurück
+	 * Gibt die Property f\u00FCr die Anzeige von abgebrochenen Nachkommastellen zur\u00FCck
 	 * 
-	 * @return	Property für die Anzeige von abgebrochenen Nachkommastellen
+	 * @return	Property f\u00FCr die Anzeige von abgebrochenen Nachkommastellen
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -295,9 +295,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die ReadOnlyProperty für das gewählte Stylesheet zurück
+	 * Gibt die ReadOnlyProperty f\u00FCr das gew\u00E4hlte Stylesheet zur\u00FCck
 	 * 
-	 * @return	ReadOnlyProperty für das gewählte Stylesheet
+	 * @return	ReadOnlyProperty f\u00FCr das gew\u00E4hlte Stylesheet
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -315,9 +315,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die ReadOnlyProperty für das gewählte Stylesheet zurück
+	 * Gibt die ReadOnlyProperty f\u00FCr das gew\u00E4hlte Stylesheet zur\u00FCck
 	 * 
-	 * @return	ReadOnlyProperty für das gewählte Stylesheet
+	 * @return	ReadOnlyProperty f\u00FCr das gew\u00E4hlte Stylesheet
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -335,9 +335,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property für die zuletzt angezeigte View zurück
+	 * Gibt die Property f\u00FCr die zuletzt angezeigte View zur\u00FCck
 	 * 
-	 * @return	Property für die zuletzt angezeigte View
+	 * @return	Property f\u00FCr die zuletzt angezeigte View
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -355,9 +355,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property für die gewählte IEEE-Norm zurück
+	 * Gibt die Property f\u00FCr die gew\u00E4hlte IEEE-Norm zur\u00FCck
 	 * 
-	 * @return	Property für die gewählte IEEE-Norm
+	 * @return	Property f\u00FCr die gew\u00E4hlte IEEE-Norm
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -375,9 +375,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView zurück
+	 * Gibt die Property f\u00FCr die Anzeige der Symbole der Bitoperationen in der CalculatorView zur\u00FCck
 	 * 
-	 * @return	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView
+	 * @return	Property f\u00FCr die Anzeige der Symbole der Bitoperationen in der CalculatorView
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -389,9 +389,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView zurück
+	 * Gibt die Property f\u00FCr die Anzeige der Symbole der Bitoperationen in der CalculatorView zur\u00FCck
 	 * 
-	 * @return	Property für die Anzeige der Symbole der Bitoperationen in der CalculatorView
+	 * @return	Property f\u00FCr die Anzeige der Symbole der Bitoperationen in der CalculatorView
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -403,9 +403,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property für vorzeichenlose Bitoperationen in der CalculatorView zurück
+	 * Gibt die Property f\u00FCr vorzeichenlose Bitoperationen in der CalculatorView zur\u00FCck
 	 * 
-	 * @return	Property für vorzeichenlose Bitoperationen in der CalculatorView
+	 * @return	Property f\u00FCr vorzeichenlose Bitoperationen in der CalculatorView
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -431,7 +431,7 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 		
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das eingestellte Kommazeichen zurück
+	 * Gibt das eingestellte Kommazeichen zur\u00FCck
 	 * 
 	 * @return eingestelltes Kommazeichen
 	 * 
@@ -451,7 +451,7 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt den Wert der indicateFractionalPrecisionProperty zurück
+	 * Gibt den Wert der indicateFractionalPrecisionProperty zur\u00FCck
 	 * 
 	 * @return	{@code true}, wenn die Anzeige von abgebrochenen Nachkommastellen angeschaltet ist, sonst {@code false}
 	 * 
@@ -491,9 +491,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Sucht die Ressource mit dem übergebenen Pfad und speichert den Speicherort der Resource in der {@link #stylesheetProperty}.
+	 * Sucht die Ressource mit dem \u00FCbergebenen Pfad und speichert den Speicherort der Resource in der {@link #stylesheetProperty}.
 	 * 
-	 * @param path	Pfad zum gewünschten Stylesheet
+	 * @param path	Pfad zum gew\u00FCnschten Stylesheet
 	 * 
 	 * @return	{@code true}, wenn die Ressource gefunden und in der Property gespeichert wurde, sonst {@code false}
 	 * 
@@ -567,7 +567,7 @@ public class Preferences {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Lädt alle Einstellungen aus der übergebenen XML-Datei
+	 * L\u00E4dt alle Einstellungen aus der \u00FCbergebenen XML-Datei
 	 * 
 	 * @param file	Datei, aus der die Einstellungen geladen werden sollen
 	 * 
@@ -611,9 +611,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Speichert alle Einstellungen in der übergebenen Datei im XML-Format
+	 * Speichert alle Einstellungen in der \u00FCbergebenen Datei im XML-Format
 	 * 
-	 * @param file	Datei, in der die Einstellungen gespeichert werden. Der eventuelle Inhalt der Datei wird überschrieben!
+	 * @param file	Datei, in der die Einstellungen gespeichert werden. Der eventuelle Inhalt der Datei wird \u00FCberschrieben!
 	 * 
 	 * @since Bitchanger 0.1.4
 	 */
@@ -654,7 +654,7 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Fügt alle Einstellungen dieser Preferences zu dem XML-Baum des Element xmlRoot hinzu
+	 * F\u00FCgt alle Einstellungen dieser Preferences zu dem XML-Baum des Element xmlRoot hinzu
 	 * 
 	 * @param doc		XML-Dokument, in dem xmlRoot gespeichert ist
 	 * @param xmlRoot	Wurzelelement des XML-Baumes, der erweitert wird

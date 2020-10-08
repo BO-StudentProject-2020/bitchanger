@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -21,9 +21,9 @@ import bitchanger.preferences.Preferences;
 import bitchanger.util.Resources;
 
 /** <!-- $LANGUAGE=DE -->
- * Diese Klasse enthält die Main-Methode, die der Einstiegspunkt für die Applikation ist.
+ * Diese Klasse enth\u00E4lt die Main-Methode, die der Einstiegspunkt f\u00FCr die Applikation ist.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.7
@@ -46,7 +46,7 @@ public class BitchangerLauncher {
 	 * Die Main Methode startet die PrimaryFXApp der Anwendung und wartet, bis das Anwendungsfenster geschlossen wurde.
 	 * Danach werden zuerst alle Einstellungen aus {@link Preferences} gespeichert, bevor das Programm beendet wird.
 	 * 
-	 * @param args	Argumente, die beim Programmstart übergeben werden. Die Argumente werden vom Programm ignoriert.
+	 * @param args	Argumente, die beim Programmstart \u00FCbergeben werden. Die Argumente werden vom Programm ignoriert.
 	 * 
 	 * @see Preferences
 	 * @see PrimaryFXApp#launchFXApplication(String[])

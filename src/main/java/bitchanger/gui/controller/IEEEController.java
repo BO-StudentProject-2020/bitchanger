@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -38,7 +38,7 @@ import javafx.scene.input.MouseEvent;
 //TODO JavaDoc
 /**	<!-- $LANGUAGE=DE -->
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
  * @version 0.1.7
@@ -66,11 +66,11 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	
 	
 // TextFields	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
-	/** <!-- $LANGUAGE=DE -->	Textfeld für die dezimale Darstellung */
+	/** <!-- $LANGUAGE=DE -->	Textfeld f\u00FCr die dezimale Darstellung */
 	// TODO JavaDoc EN
 	private ValueField tfDec;
 
-	/** <!-- $LANGUAGE=DE -->	Textfeld für die IEEE Darstellung */
+	/** <!-- $LANGUAGE=DE -->	Textfeld f\u00FCr die IEEE Darstellung */
 	// TODO JavaDoc EN
 	private ValueField tfIEEE;
 	
@@ -78,7 +78,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 // Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Button zum Löschen und Zurücksetzen von {@link #value}
+	 * Button zum L\u00F6schen und Zur\u00FCcksetzen von {@link #value}
 	 * 
 	 * @see ChangeableNumber#reset()
 	 */
@@ -206,7 +206,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	
 // TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt Listener für die Textfelder, um die Eingabe direkt in alle anderen Zahlensysteme umzuwandeln.
+	 * Setzt Listener f\u00FCr die Textfelder, um die Eingabe direkt in alle anderen Zahlensysteme umzuwandeln.
 	 * Zudem wird das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes aktualisiert und {@link #baseProperty}
 	 * mit der Basis des Textfelds verbunden.
 	 * 
@@ -241,7 +241,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Listener für {@link #tfDec}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * Setzt den Listener f\u00FCr {@link #tfDec}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -276,7 +276,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Listener für {@link #tfIEEE}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * Setzt den Listener f\u00FCr {@link #tfIEEE}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -291,7 +291,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (tfIEEE.getText().replace(" ", "").length() > Preferences.getPrefs().ieeeStandardProperty().get().getBitLength()) {
 					// Warnung bei zu vielen Zeichen
-					FXUtils.showDialog(AlertType.WARNING, "Warnung", "Eingabefehler", "Die eingegebene Zahl ist zu lang. Es werden 16-Bit und 32-Bit IEEE-Zahlen unterstützt. Die gewünschte Norm kann im Menü Optionen ausgewählt werden.", ButtonType.OK);
+					FXUtils.showDialog(AlertType.WARNING, "Warnung", "Eingabefehler", "Die eingegebene Zahl ist zu lang. Es werden 16-Bit und 32-Bit IEEE-Zahlen unterst\u00FCtzt. Die gew\u00FCnschte Norm kann im Men\u00FC Optionen ausgew\u00E4hlt werden.", ButtonType.OK);
 				}
 				else if (tfIEEE.isFocused() && newValue.replace(" ", "").length() == Preferences.getPrefs().ieeeStandardProperty().get().getBitLength()) {
 					updateIEEEValue(newValue);
@@ -328,7 +328,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 			public void handle(ActionEvent event) {
 				if (tfIEEE.getText().replace(" ", "").length() > Preferences.getPrefs().ieeeStandardProperty().get().getBitLength()) {
 					// Warnung bei zu vielen Zeichen
-					FXUtils.showDialog(AlertType.WARNING, "Warnung", "Eingabefehler", "Die eingegebene Zahl ist zu lang. Es werden 16-Bit und 32-Bit IEEE-Zahlen unterstützt. Die gewünschte Norm kann im Menü Optionen ausgewählt werden.", ButtonType.OK);
+					FXUtils.showDialog(AlertType.WARNING, "Warnung", "Eingabefehler", "Die eingegebene Zahl ist zu lang. Es werden 16-Bit und 32-Bit IEEE-Zahlen unterst\u00FCtzt. Die gew\u00FCnschte Norm kann im Men\u00FC Optionen ausgew\u00E4hlt werden.", ButtonType.OK);
 					return;
 				}
 				
@@ -394,7 +394,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	
 // Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt die Actions für alle Buttons
+	 * Setzt die Actions f\u00FCr alle Buttons
 	 * 
 	 * @see #setAlphaNumBindings()
 	 * @see #setClearAction()
@@ -443,7 +443,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 //	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt {@link #value} bei Klick auf den Clear-Button zurück und aktualisiert alle Textfelder.
+	 * Setzt {@link #value} bei Klick auf den Clear-Button zur\u00FCck und aktualisiert alle Textfelder.
 	 * 
 	 * @see ChangeableNumber#reset()
 	 * 
@@ -470,7 +470,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 //	* 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Lässt den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
+	 * L\u00E4sst den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */

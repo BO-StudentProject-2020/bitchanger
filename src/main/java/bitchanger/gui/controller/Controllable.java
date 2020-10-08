@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
 /** <!-- $LANGUAGE=DE -->
  * Schnittstelle, die Methoden definiert, um eine View mit einem Controller zu verbinden.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -49,8 +49,8 @@ public interface Controllable {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
-	 * Textfelder an seinen Controller übergeben muss
+	 * Leere und unver\u00E4nderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
+	 * Textfelder an seinen Controller \u00FCbergeben muss
 	 * 
 	 * @see Collections#emptyMap()
 	 */
@@ -64,8 +64,8 @@ public interface Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
-	 * Buttons an seinen Controller übergeben muss
+	 * Leere und unver\u00E4nderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
+	 * Buttons an seinen Controller \u00FCbergeben muss
 	 * 
 	 * @see Collections#emptyMap()
 	 */
@@ -79,8 +79,8 @@ public interface Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Leere und unveränderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
-	 * Nodes an seinen Controller übergeben muss
+	 * Leere und unver\u00E4nderliche Map, die als Platzhalter verwendet werden kann, wenn ein Controllable keine 
+	 * Nodes an seinen Controller \u00FCbergeben muss
 	 * 
 	 * @see Collections#emptyMap()
 	 */
@@ -101,13 +101,13 @@ public interface Controllable {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt eine {@code Map} mit allen Textfelder der View zurück. Jedes Textfeld ist einem eindeutigen Schlüsselwort zugeordnet,
+	 * Gibt eine {@code Map} mit allen Textfelder der View zur\u00FCck. Jedes Textfeld ist einem eindeutigen Schl\u00FCsselwort zugeordnet,
 	 * mit dem es aus der Map herausgesucht werden kann.
 	 * <p>
-	 * Jedes Schlüsselwort sollte einen Sinnvollen Bezug zum Einsatz des Textfeldes haben!
+	 * Jedes Schl\u00FCsselwort sollte einen Sinnvollen Bezug zum Einsatz des Textfeldes haben!
 	 * </p>
 	 * 
-	 * @return {@code Map}, die alle Textfelder einer View enthält
+	 * @return {@code Map}, die alle Textfelder einer View enth\u00E4lt
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns a {@code Map} with all text fields of the controllable. Each text field is allocated to a unique keyword,
@@ -123,13 +123,13 @@ public interface Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt eine {@code Map} mit allen Buttons der View zurück. Jeder Button ist einem eindeutigen Schlüsselwort zugeordnet,
+	 * Gibt eine {@code Map} mit allen Buttons der View zur\u00FCck. Jeder Button ist einem eindeutigen Schl\u00FCsselwort zugeordnet,
 	 * mit dem er aus der Map herausgesucht werden kann.
 	 * <p>
-	 * Jedes Schlüsselwort sollte einen Sinnvollen Bezug zum Einsatz des Buttons haben!
+	 * Jedes Schl\u00FCsselwort sollte einen Sinnvollen Bezug zum Einsatz des Buttons haben!
 	 * </p>
 	 * 
-	 * @return {@code Map}, die alle Buttons einer View enthält
+	 * @return {@code Map}, die alle Buttons einer View enth\u00E4lt
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns a {@code Map} with all buttons of the controllable. Each button is allocated to a unique keyword,
@@ -145,13 +145,13 @@ public interface Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt eine {@code Map} mit allen Elemente (Nodes) der View zurück, die keine Buttons oder Textfelder sind und im Controller benötigt werden.
-	 * Jedes Element ist einem eindeutigen Schlüsselwort zugeordnet, mit dem es aus der Map herausgesucht werden kann.
+	 * Gibt eine {@code Map} mit allen Elemente (Nodes) der View zur\u00FCck, die keine Buttons oder Textfelder sind und im Controller ben\u00F6tigt werden.
+	 * Jedes Element ist einem eindeutigen Schl\u00FCsselwort zugeordnet, mit dem es aus der Map herausgesucht werden kann.
 	 * <p>
-	 * Jedes Schlüsselwort sollte einen Sinnvollen Bezug zum Einsatz des Elements haben!
+	 * Jedes Schl\u00FCsselwort sollte einen Sinnvollen Bezug zum Einsatz des Elements haben!
 	 * </p>
 	 * 
-	 * @return {@code Map}, die alle Elemente einer View enthält, die keine Buttons oder Textfelder sind und im Controller benötigt werden
+	 * @return {@code Map}, die alle Elemente einer View enth\u00E4lt, die keine Buttons oder Textfelder sind und im Controller ben\u00F6tigt werden
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns a {@code Map} with all elements (Nodes) of the controllable, that are not buttons or text fields and are required in the controller.

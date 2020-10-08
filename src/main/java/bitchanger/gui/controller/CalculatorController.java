@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -19,9 +19,9 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 
 /**	<!-- $LANGUAGE=DE -->
- * Controller, der die Funktion für eine {@linkplain CalculatorView} bereitstellt.
+ * Controller, der die Funktion f\u00FCr eine {@linkplain CalculatorView} bereitstellt.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7
@@ -54,7 +54,7 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 	// TODO JavaDoc EN
 	private Button addBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für die Modulo-Operation */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr die Modulo-Operation */
 	// TODO JavaDoc EN
 	private Button moduloBtn;
 	
@@ -68,7 +68,7 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
+	 * Konstruiert einen neuen Controller f\u00FCr eine ConverterView und verkn\u00FCpft die ben\u00F6tigten Attribute mit
 	 * Referenzen auf die Bedienelemente aus der ConverterView.
 	 * 
 	 * @param view ConverterView, an die dieser Controller gebunden wird

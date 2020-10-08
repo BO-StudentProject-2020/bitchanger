@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -32,12 +32,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
 /**	<!-- $LANGUAGE=DE -->
- * Basis Menüleiste, die die allgemein benötigten Menüpunkte enthält.
- * Über die MenuItems, die in Optionen -&gt; Komma einstellen vorhanden sind, wird
- * entsprechend das {@link Preferences#commaProperty} geändert.
- * Weitere Funktionen können über Controller hinzugefügt werden.
+ * Basis Men\u00FCleiste, die die allgemein ben\u00F6tigten Men\u00FCpunkte enth\u00E4lt.
+ * \u00DCber die MenuItems, die in Optionen -&gt; Komma einstellen vorhanden sind, wird
+ * entsprechend das {@link Preferences#commaProperty} ge\u00E4ndert.
+ * Weitere Funktionen k\u00F6nnen \u00FCber Controller hinzugef\u00FCgt werden.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  *
  * @since Bitchanger 0.1.4
  * @version 0.1.7
@@ -50,7 +50,7 @@ import javafx.scene.control.TextField;
  * which are available in Options -&gt; Set Comma.
  * Further functions can be added via Controllers.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  *
  * @since Bitchanger 0.1.4
  * @version 0.1.7
@@ -65,68 +65,68 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das Menu "Modus" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das Menu "Modus" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the Menu "Modus" is associated in the Map {@link #menuItemMap} */
 	public static final String MODUS_MENU_KEY = "modus-menu";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das Menu "Optionen" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das Menu "Optionen" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the Menu "Optionen" is associated in the Map {@link #menuItemMap} */
 	public static final String OPTIONS_MENU_KEY = "options-menu";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das Menu "Fenster" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das Menu "Fenster" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the Menu "Fenster" is associated in the Map {@link #menuItemMap} */
 	public static final String VIEW_MENU_KEY = "view-menu";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das Menu "Hilfe" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das Menu "Hilfe" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the Menu "Hilfe" is associated in the Map {@link #menuItemMap} */
 	public static final String HELP_MENU_KEY = "help-menu";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Umrechner" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Umrechner" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Umrechner" is associated in the Map {@link #menuItemMap} */
 	public static final String MODUS_CONVERTER_ITEM_KEY = "modus-converter-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "IEEE" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "IEEE" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "IEEE" is associated in the Map {@link #menuItemMap} */
 	public static final String MODUS_IEEE_ITEM_KEY = "modus-ieee-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Berechnungen" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Berechnungen" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Berechnungen" is associated in the Map {@link #menuItemMap} */
 	public static final String MODUS_CALCULATOR_ITEM_KEY = "modus-calculator-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Bitoperationen" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Bitoperationen" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Bitoperationen" is associated in the Map {@link #menuItemMap} */
 	public static final String MODUS_BITOPERATIONS_ITEM_KEY = "modus-bitoperations-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das Menu "Stil" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das Menu "Stil" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the Menu "Stil" is associated in the Map {@link #menuItemMap} */
 	public static final String VIEW_STYLE_MENU_KEY = "view-style-menu";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Hell" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Hell" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Hell" is associated in the Map {@link #menuItemMap} */
 	public static final String VIEW_STYLE_LIGHT_ITEM_KEY = "view-style-ligth-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Dunkel" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Dunkel" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Dunkel" is associated in the Map {@link #menuItemMap} */
 	public static final String VIEW_STYLE_DARK_ITEM_KEY = "view-style-dark-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Auf Monitor bewegen" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Auf Monitor bewegen" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Auf Monitor bewegen" is associated in the Map {@link #menuItemMap} */
 	public static final String VIEW_MOVE_TO_SCREEN_ITEM_KEY = "view-movetoscreen-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das CheckMenuItem "Vollbild" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das CheckMenuItem "Vollbild" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the CheckMenuItem "Vollbild" is associated in the Map {@link #menuItemMap} */
 	public static final String VIEW_SHOW_FULLSCREEN_ITEM_KEY = "view-showfullscreen-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Über" in der Map {@link #menuItemMap} abgelegt ist */
-	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Über" is associated in the Map {@link #menuItemMap} */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "\u00DCber" in der Map {@link #menuItemMap} abgelegt ist */
+	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "\u00DCber" is associated in the Map {@link #menuItemMap} */
 	public static final String HELP_ABOUT_ITEM_KEY = "help-about-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Version" in der Map {@link #menuItemMap} abgelegt ist */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Version" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Version" is associated in the Map {@link #menuItemMap} */
 	public static final String HELP_VERSION_ITEM_KEY = "help-version-item";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem das MenuItem "Einstellungen zurücksetzen" in der Map {@link #menuItemMap} abgelegt ist */
-	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Einstellungen zurücksetzen" is associated in the Map {@link #menuItemMap} */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Einstellungen zur\u00FCcksetzen" in der Map {@link #menuItemMap} abgelegt ist */
+	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Einstellungen zur\u00FCcksetzen" is associated in the Map {@link #menuItemMap} */
 	public static final String HELP_RESET_PREFS_ITEM_KEY = "help-reset-preferences-item";
 	
 	
@@ -157,7 +157,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 
-	/** <!-- $LANGUAGE=DE -->	{@code Map}, in der alle vom Controller benötigten MenuItems mit einem eindeutigen Schlüssel abgelegt werden */
+	/** <!-- $LANGUAGE=DE -->	{@code Map}, in der alle vom Controller ben\u00F6tigten MenuItems mit einem eindeutigen Schl\u00FCssel abgelegt werden */
 	/* <!-- $LANGUAGE=EN -->	{@code Map} in which all MenuItems required by the controller are stored with a unique key */
 	protected final HashMap<String, MenuItem> menuItemMap;
 
@@ -172,7 +172,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue BasicMenuBar mit allen MenuItems. Die einzige bereitgestellte Funktion ist
-	 * die Änderung des CommaProperty in {@link Preferences#getPrefs()} zu englisch oder deutsch.
+	 * die \u00C4nderung des CommaProperty in {@link Preferences#getPrefs()} zu englisch oder deutsch.
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Constructs a new BasicMenuBar with all MenuItems. The only function provided is changing the
@@ -195,7 +195,7 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue BasicMenuBar mit allen MenuItems, die bereits mit den Basisfunktionen belegt sind.
 	 * 
-	 * @param controllableApp	Anwendungsklasse, mit der die Basisfunktionen verknüpft werden
+	 * @param controllableApp	Anwendungsklasse, mit der die Basisfunktionen verkn\u00FCpft werden
 	 * 
 	 * @throws NullPointerException	wenn der Parameter {@code controllableApp} null ist
 	 */
@@ -247,9 +247,9 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die {@code Map} zurück, in der alle vom Controller benötigten MenuItems mit einem eindeutigen Schlüssel abgelegt werden
+	 * Gibt die {@code Map} zur\u00FCck, in der alle vom Controller ben\u00F6tigten MenuItems mit einem eindeutigen Schl\u00FCssel abgelegt werden
 	 * 
-	 * @return	{@code Map}, in der alle vom Controller benötigten MenuItems mit einem eindeutigen Schlüssel abgelegt werden
+	 * @return	{@code Map}, in der alle vom Controller ben\u00F6tigten MenuItems mit einem eindeutigen Schl\u00FCssel abgelegt werden
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Returns the {@code Map} in which all MenuItems required by the controller are stored with a unique key
@@ -270,10 +270,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die Action des übergebenen MenuItems, sodass das spezifische Comma in den Einstellungen
+	 * Setzt die Action des \u00FCbergebenen MenuItems, sodass das spezifische Comma in den Einstellungen
 	 * gesetzt wird.
 	 * 
-	 * @param chooseComma	MenuItem, das die Action erhält
+	 * @param chooseComma	MenuItem, das die Action erh\u00E4lt
 	 * @param comma			spezifisches Comma, das gesetzt wird
 	 */
 	/* <!-- $LANGUAGE=EN -->
@@ -321,11 +321,11 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Erstellt das Menu "Optionen" mit den Elementen "Komma wählen" und den Unterelementen 
+	 * Erstellt das Menu "Optionen" mit den Elementen "Komma w\u00E4hlen" und den Unterelementen 
 	 * "deutsch" und "englisch"
 	 */
 	/* <!-- $LANGUAGE=EN -->
-	 * Creates the Menu "Optionen" with its Items "Komma wählen" and the sub-elements
+	 * Creates the Menu "Optionen" with its Items "Komma w\u00E4hlen" and the sub-elements
 	 * "deutsch" and "englisch"
 	 */
 	private void createMenuOptions() {
@@ -378,10 +378,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Erstellt das Menu "Hilfe" mit den Elementen "Über" und "Version"
+	 * Erstellt das Menu "Hilfe" mit den Elementen "\u00DCber" und "Version"
 	 */
 	/* <!-- $LANGUAGE=EN -->
-	 * Creates the Menu "Hilfe" with its Items "Über" and "Version"
+	 * Creates the Menu "Hilfe" with its Items "\u00DCber" and "Version"
 	 */
 	private void createMenuHelp() {
 		Menu help = new Menu("Hilfe", IconFactory.styleBindIcon(Resources.QUESTION_CIRCLE_ICON, Resources.QUESTION_CIRCLE_FILLED_ICON));
@@ -401,11 +401,11 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Fügt das übergebene Menu zu dieser MenuBar hinzu und speichert dieses mit dem Schlüssel
+	 * F\u00FCgt das \u00FCbergebene Menu zu dieser MenuBar hinzu und speichert dieses mit dem Schl\u00FCssel
 	 * {@code key} in der Map {@link #menuItemMap}
 	 * 
-	 * @param m		Menu, das hinzugefügt und an die nächste Stelle gesetzt wird
-	 * @param key	Schlüsselwort, mit dem {@code m} in der Map {@link #menuItemMap} abgelegt wird
+	 * @param m		Menu, das hinzugef\u00FCgt und an die n\u00E4chste Stelle gesetzt wird
+	 * @param key	Schl\u00FCsselwort, mit dem {@code m} in der Map {@link #menuItemMap} abgelegt wird
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Adds the given Menu to this MenuBar and puts it in the Map {@link #menuItemMap}

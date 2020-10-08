@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -40,16 +40,16 @@ import javafx.scene.layout.HBox;
  * Tastatur an die gekapselte Scene.
  * <p>
  * Die Hauptfunktion ist die Simulation einer Tastatur mit den alphanumerischen Buttons. Beim Klick auf einer dieser
- * Buttons werden die benötigten KeyEvents ausgelöst und an die gebundene Scene weitergeleitet.
- * Die zur weiteren zur Verfügung gestellten Funktionen sind das Umschalten zwischen den Tastaturmodi, scrollen durch die Tastatur, 
- * Aktualisierung des Komma-Buttons bei Änderung der CommaProperty aus {@link Preferences}.
+ * Buttons werden die ben\u00F6tigten KeyEvents ausgel\u00F6st und an die gebundene Scene weitergeleitet.
+ * Die zur weiteren zur Verf\u00FCgung gestellten Funktionen sind das Umschalten zwischen den Tastaturmodi, scrollen durch die Tastatur, 
+ * Aktualisierung des Komma-Buttons bei \u00C4nderung der CommaProperty aus {@link Preferences}.
  * </p>
  * <p><b>
- * Die Funktion des +/- Buttons zum Vorzeichenwechsel bleibt unbelegt, da weitere Bedienelemente benötigt werden. Die Funktion dieses
+ * Die Funktion des +/- Buttons zum Vorzeichenwechsel bleibt unbelegt, da weitere Bedienelemente ben\u00F6tigt werden. Die Funktion dieses
  * Buttons muss in einem anderen Controller implementiert werden.
  * </b></p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.6
@@ -69,7 +69,7 @@ import javafx.scene.layout.HBox;
  * The function of this button needs to be implemented in an other controller.
  * </b></p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.6
@@ -84,11 +84,11 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-	/** <!-- $LANGUAGE=DE -->	Liste, die alle Buttons der Tastatur-Matrix enthält */
+	/** <!-- $LANGUAGE=DE -->	Liste, die alle Buttons der Tastatur-Matrix enth\u00E4lt */
 	/* <!-- $LANGUAGE=EN -->	List that contains all buttons off the keyboard matrix */
 	private final ArrayList<Node> buttonList;
 	
-	/** <!-- $LANGUAGE=DE -->	Scene, an die dieser Controller gebunden wird und die alle simulierten KeyEvents erhält */
+	/** <!-- $LANGUAGE=DE -->	Scene, an die dieser Controller gebunden wird und die alle simulierten KeyEvents erh\u00E4lt */
 	/* <!-- $LANGUAGE=EN -->	Scene where this controller is linked to and that contains all simulated KeyEvents */
 	private final Scene scene;
 	
@@ -103,11 +103,11 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	/* <!-- $LANGUAGE=EN -->	Button to switch between numbers and alphabet on the keyboard */
 	private Button keyboardBtn;
 	
-	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur zurück gescrollt werden kann */
+	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur zur\u00FCck gescrollt werden kann */
 	/* <!-- $LANGUAGE=EN -->	Button that is used to scroll backwards on the keyboard */
 	private Button previousBtn;
 	
-	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur vorwärts gescrollt werden kann */
+	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur vorw\u00E4rts gescrollt werden kann */
 	/* <!-- $LANGUAGE=EN -->	Button that is used to scroll forwards on the keyboard */
 	private Button nextBtn;
 	
@@ -127,7 +127,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	/* <!-- $LANGUAGE=EN -->	HBox with buttons, that functions are, to scroll through the different keyboard layouts. */
 	private HBox arrowButtons;
 	
-	/** <!-- $LANGUAGE=DE -->	Merker für den derzeitigen Tastaturmodus */
+	/** <!-- $LANGUAGE=DE -->	Merker f\u00FCr den derzeitigen Tastaturmodus */
 	/* <!-- $LANGUAGE=EN -->	Flag for the currently used keyboard mode */
 	private boolean isShowingKeyboard;
 
@@ -194,9 +194,9 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Actions zum Umschalten zwischen den Tastaturmodi, zum scrollen durch die Tastatur, zur Aktualisierung des Komma-Buttons
-	 * und simuliert die Tastatureingaben für die alphanumerischen Buttons.
+	 * und simuliert die Tastatureingaben f\u00FCr die alphanumerischen Buttons.
 	 * <p><b>
-	 * Die Funktion des +/- Buttons zum Vorzeichenwechsel bleibt unbelegt, da weitere Bedienelemente benötigt werden. Die Funktion dieses
+	 * Die Funktion des +/- Buttons zum Vorzeichenwechsel bleibt unbelegt, da weitere Bedienelemente ben\u00F6tigt werden. Die Funktion dieses
 	 * Buttons muss in einem anderen Controller implementiert werden.
 	 * </b></p>
 	 */
@@ -300,11 +300,11 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Texte der Alpha-Buttons in der Reihenfolge von {@linkplain AlphaNumKeys#ALPHA_KEYS}.
-	 * Mit jedem Button wird das Zeichen für den Text inkrementiert. Diese Methode setzt nur die Zeichen 'A' bis 'Z' als
+	 * Mit jedem Button wird das Zeichen f\u00FCr den Text inkrementiert. Diese Methode setzt nur die Zeichen 'A' bis 'Z' als
 	 * Text der Buttons, wird dieser Bereich verlassen wird stattdessen ein leerer String gesetzt und der betroffene Button 
 	 * ausgeblendet.
 	 * 
-	 * @param startLetter	Zeichen, das der Erste Alpha-Button erhält
+	 * @param startLetter	Zeichen, das der Erste Alpha-Button erh\u00E4lt
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the texts of the alpha buttons into the order of {@linkplain AlphaNumKeys#ALPHA_KEYS}.
@@ -336,7 +336,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Texte der nummerischen-Buttons in der Reihenfolge von {@linkplain AlphaNumKeys#NUM_KEYS}.
-	 * Jedem Button wird die Nummer aus dem Schlüssel in {@linkplain AlphaNumKeys#NUM_KEYS} zugewiesen.
+	 * Jedem Button wird die Nummer aus dem Schl\u00FCssel in {@linkplain AlphaNumKeys#NUM_KEYS} zugewiesen.
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the texts of the numeric Buttons in order of {@linkplain AlphaNumKeys#NUM_KEYS}.
@@ -355,7 +355,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt bei allen Buttons die Texte. Der erste Button erhält den übergebenen Buchstaben als Text, für jeden weiteren
+	 * Setzt bei allen Buttons die Texte. Der erste Button erh\u00E4lt den \u00FCbergebenen Buchstaben als Text, f\u00FCr jeden weiteren
 	 * Button in {@link #buttonList} wird der Buchstabe inkrementiert. Diese Methode setzt nur die Zeichen 'A' bis 'Z' als
 	 * Text der Buttons, wird dieser Bereich verlassen wird stattdessen ein leerer String gesetzt und der betroffene Button 
 	 * ausgeblendet.
@@ -421,7 +421,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt ChangeListener beim letzten Alpha-Button und beim letzten Nummer-Button, um zu überwachen, ob das Ende des Alphabets erreicht wurde.
+	 * Setzt ChangeListener beim letzten Alpha-Button und beim letzten Nummer-Button, um zu \u00FCberwachen, ob das Ende des Alphabets erreicht wurde.
 	 * Dadurch wird der Button zum weiter-scrollen der Alpha-Tastatur in beiden Tastaturmodi automatisch aktiviert und deaktiviert.
 	 */
 	/* <!-- $LANGUAGE=EN -->
@@ -458,8 +458,8 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt einen ChangeListener beim ersten Alpha-Button, um zu überwachen, ob der Anfang des Alphabets erreicht wurde.
-	 * Dadurch wird der Button zum zurück-scrollen der Alpha-Tastatur in beiden Tastaturmodi automatisch aktiviert und deaktiviert.
+	 * Setzt einen ChangeListener beim ersten Alpha-Button, um zu \u00FCberwachen, ob der Anfang des Alphabets erreicht wurde.
+	 * Dadurch wird der Button zum zur\u00FCck-scrollen der Alpha-Tastatur in beiden Tastaturmodi automatisch aktiviert und deaktiviert.
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets a ChangeListener at the first alpha button, to control if the beginning of the alphabet is reached.
@@ -489,7 +489,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die Funktion zum vorwärts scrollen durch die Alpha-Tastatur beim Klick auf den Button {@link #nextBtn}.
+	 * Setzt die Funktion zum vorw\u00E4rts scrollen durch die Alpha-Tastatur beim Klick auf den Button {@link #nextBtn}.
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the function to scroll the alpha keyboard forwards, by clicking on the button {@link #nextBtn}.
@@ -517,7 +517,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die Funktion zum rückwärts scrollen durch die Alpha-Tastatur beim Klick auf den Button {@link #previousBtn}.
+	 * Setzt die Funktion zum r\u00FCckw\u00E4rts scrollen durch die Alpha-Tastatur beim Klick auf den Button {@link #previousBtn}.
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the function to scroll the alpha keyboard backwards, by clicking on the button {@link #previousBtn}.
@@ -620,7 +620,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Fügt einem Button die Funktion hinzu, dass dieser beim Klick einen Druck einer Taste auf der Tastatur simuliert.
+	 * F\u00FCgt einem Button die Funktion hinzu, dass dieser beim Klick einen Druck einer Taste auf der Tastatur simuliert.
 	 * Die simulierte Taste wird durch den Text des Buttons festgelegt.
 	 * 
 	 * @param b Button, dessen Action gesetzt wird
@@ -657,7 +657,7 @@ public class AlphaNumKeysController extends ControllerBase<AlphaNumKeys> {
 	 * {@link KeyEvent#KEY_PRESSED}, {@link KeyEvent#KEY_TYPED} und {@link KeyEvent#KEY_RELEASED}. Die Events werden an die Scene
 	 * weitergeleitet, an die dieser Controller gebunden ist.
 	 * 
-	 * @param b			Quelle für die gefeuerten Events
+	 * @param b			Quelle f\u00FCr die gefeuerten Events
 	 * @param keycode	KeyCode der simulierten Taste
 	 * 
 	 * @see #simulateKeyEvents(Button, Node, Scene, String, String, KeyCode)

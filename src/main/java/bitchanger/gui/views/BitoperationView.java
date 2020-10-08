@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -24,12 +24,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
- * View, die die Scene für die Bitoperationen mit verschiedenen Zahlensystemen enthält.
+ * View, die die Scene f\u00FCr die Bitoperationen mit verschiedenen Zahlensystemen enth\u00E4lt.
  * <p><b>
- * Für diese View-Klasse wird der Controller {@link BitoperationController} registriert.
+ * F\u00FCr diese View-Klasse wird der Controller {@link BitoperationController} registriert.
  * </b></p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7
@@ -121,9 +121,9 @@ public class BitoperationView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button für die logische UND-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr die logische UND-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button für die logische UND-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr die logische UND-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String andBtnKey() {
@@ -133,9 +133,9 @@ public class BitoperationView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button für die logische ODER-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr die logische ODER-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button für die logische ODER-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr die logische ODER-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String orBtnKey() {
@@ -145,9 +145,9 @@ public class BitoperationView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button für die logische NICHT-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr die logische NICHT-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button für die logische NICHT-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr die logische NICHT-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String notBtnKey() {
@@ -157,9 +157,9 @@ public class BitoperationView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button für die logische NAND-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr die logische NAND-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button für die logische NAND-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr die logische NAND-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String nandBtnKey() {
@@ -169,9 +169,9 @@ public class BitoperationView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button für die logische NOR-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr die logische NOR-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button für die logische NOR-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr die logische NOR-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String norBtnKey() {
@@ -181,9 +181,9 @@ public class BitoperationView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button für die logische Exklusiv-Oder-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr die logische Exklusiv-Oder-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button für die logische Exklusiv-Oder-Verknüpfung in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr die logische Exklusiv-Oder-Verkn\u00FCpfung in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String xorBtnKey() {
@@ -193,9 +193,9 @@ public class BitoperationView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button für Rechtsshift in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr Rechtsshift in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button für Rechtsshift in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr Rechtsshift in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String shiftLeftBtnKey() {
@@ -205,9 +205,9 @@ public class BitoperationView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button für Linksshift in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr Linksshift in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button für Linksshift in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr Linksshift in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String shiftRightBtnKey() {
@@ -217,9 +217,9 @@ public class BitoperationView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem die ComboBox für die Anzahl der Bits in der Map {@code nodeMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem die ComboBox f\u00FCr die Anzahl der Bits in der Map {@code nodeMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem die ComboBox für die Anzahl der Bits in der Map {@code nodeMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem die ComboBox f\u00FCr die Anzahl der Bits in der Map {@code nodeMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String bitLengthKey() {

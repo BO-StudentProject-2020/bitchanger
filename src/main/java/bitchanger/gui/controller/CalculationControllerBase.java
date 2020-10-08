@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -36,9 +36,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**	<!-- $LANGUAGE=DE -->
- * Controller, der einige Grundfunktionen für eine {@linkplain CalculationViewBase} bereitstellt.
+ * Controller, der einige Grundfunktionen f\u00FCr eine {@linkplain CalculationViewBase} bereitstellt.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7
@@ -67,19 +67,19 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/*	<!-- $LANGUAGE=EN -->	Last result */
 	protected final ChangeableNumber result;
 	
-	/** <!-- $LANGUAGE=DE -->	Merker für die Anzeige eines Rechenergebnisses im Textfeld */
+	/** <!-- $LANGUAGE=DE -->	Merker f\u00FCr die Anzeige eines Rechenergebnisses im Textfeld */
 	// TODO JavaDoc EN
 	protected boolean isShowingResult;
 	
-	/** <!-- $LANGUAGE=DE --> 	Merker für das löschen von {@link #lastOperation} beim zweiten Klick auf den Button {@link #clearBtn} */
+	/** <!-- $LANGUAGE=DE --> 	Merker f\u00FCr das l\u00F6schen von {@link #lastOperation} beim zweiten Klick auf den Button {@link #clearBtn} */
 	// TODO JavaDoc EN
 	protected boolean isCleared;
 	
-	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die ausgeführt werden soll */
+	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die ausgef\u00FChrt werden soll */
 	// TODO: JavaDoc EN
 	protected Operation operation;
 	
-	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die zuletzt ausgeführt wurde */
+	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die zuletzt ausgef\u00FChrt wurde */
 	// TODO: JavaDoc EN
 	protected Operation lastOperation;
 	
@@ -87,23 +87,23 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/*	<!-- $LANGUAGE=EN -->	Property to adjust the base of the currently focused text field */
 	protected final IntegerProperty baseProperty;
 	
-	/**	<!-- $LANGUAGE=DE -->	Textfeld für die Eingabe */
+	/**	<!-- $LANGUAGE=DE -->	Textfeld f\u00FCr die Eingabe */
 	/*	<!-- $LANGUAGE=EN -->	Textfield for input */
 	protected final ValueField textField;
 	
-	/** <!-- $LANGUAGE=DE -->	Label für den ersten Wert */
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr den ersten Wert */
 	// TODO JavaDoc EN
 	protected final Label firstValueLabel;
 
-	/** <!-- $LANGUAGE=DE -->	Label für die Rechenoperation */
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr die Rechenoperation */
 	// TODO JavaDoc EN
 	protected final Label operationLabel;
 
-	/** <!-- $LANGUAGE=DE -->	Label für den zweiten Wert */
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr den zweiten Wert */
 	// TODO JavaDoc EN
 	protected final Label secondValueLabel;
 
-	/** <!-- $LANGUAGE=DE -->	Label für das Gleichheitszeichen */
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr das Gleichheitszeichen */
 	// TODO JavaDoc EN
 	protected final Label equalsLabel;
 
@@ -115,7 +115,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	// TODO JavaDoc EN
 	protected final Button signBtn;
 	
-	/**	<!-- $LANGUAGE=DE --> 	Button zum Löschen und Zurücksetzen */
+	/**	<!-- $LANGUAGE=DE --> 	Button zum L\u00F6schen und Zur\u00FCcksetzen */
 	/*	<!-- $LANGUAGE=EN --> 	Button to clear the values */
 	protected Button clearBtn;
 	
@@ -123,11 +123,11 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	/**	<!-- $LANGUAGE=DE -->	Spinner für die auswählbare, beliebige Basis */
+	/**	<!-- $LANGUAGE=DE -->	Spinner f\u00FCr die ausw\u00E4hlbare, beliebige Basis */
 	/*	<!-- $LANGUAGE=EN -->	Spinner for the eligible base */
 	private BaseSpinner anyBase;
 	
-	/** <!-- $LANGUAGE=DE -->	Label für die Basis des Ergebnisses */
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr die Basis des Ergebnisses */
 	// TODO JavaDoc EN
 	private Label baseLabel;
 	
@@ -139,19 +139,19 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/*	<!-- $LANGUAGE=EN -->	alphanumeric keys to simulate a keyboard */
 	private Button[] alphaNumButtons;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das Hexadezimalsystem */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das Hexadezimalsystem */
 	// TODO JavaDoc EN
 	private Button hexBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das Dezimalsystem */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das Dezimalsystem */
 	// TODO JavaDoc EN
 	private Button decBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das Oktalsystem */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das Oktalsystem */
 	// TODO JavaDoc EN
 	private Button octBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das Binärsystem */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das Bin\u00E4rsystem */
 	// TODO JavaDoc EN
 	private Button binBtn;
 	
@@ -165,7 +165,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
+	 * Konstruiert einen neuen Controller f\u00FCr eine ConverterView und verkn\u00FCpft die ben\u00F6tigten Attribute mit
 	 * Referenzen auf die Bedienelemente aus der ConverterView.
 	 * 
 	 * @param view ConverterView, an die dieser Controller gebunden wird
@@ -294,7 +294,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Sucht die benötigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
+	 * Sucht die ben\u00F6tigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Searches the necessary references to the buttons of the buttonMap and stores these in the attributes
@@ -321,11 +321,11 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Prüft, ob die übergebene Node einer der Pfeil-Buttons zum Scrollen in einem Spinner ist.
-	 * Dies ist der Fall, wenn die StyleClass den String "arrow-button" enthält.
+	 * Pr\u00FCft, ob die \u00FCbergebene Node einer der Pfeil-Buttons zum Scrollen in einem Spinner ist.
+	 * Dies ist der Fall, wenn die StyleClass den String "arrow-button" enth\u00E4lt.
 	 * 
-	 * @param n	Testkandidat für einen Pfeil-Button
-	 * @return	{@code true}, wenn die StyleClass von n den String "arrow-button" enthält, {@code false} andernfalls
+	 * @param n	Testkandidat f\u00FCr einen Pfeil-Button
+	 * @return	{@code true}, wenn die StyleClass von n den String "arrow-button" enth\u00E4lt, {@code false} andernfalls
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Checks if the committed node is one of the button, which is used to scroll the spinner.
@@ -383,8 +383,8 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	
 // Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
-	 * Aktualisiert die Basis, wenn sich die valueProperty von {@link #anyBase} ändert.
-	 * Sorgt außerdem dafür, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
+	 * Aktualisiert die Basis, wenn sich die valueProperty von {@link #anyBase} \u00E4ndert.
+	 * Sorgt außerdem daf\u00FCr, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
 	 * Inkrement- und Dekrement-Buttons wieder an {@link #textField} abgibt.
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -415,10 +415,10 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Fokussiert das Textfeld für die Eingabe.
-	 * Diese Methode wird als Referenz für einen EventHandler verwendet.
+	 * Fokussiert das Textfeld f\u00FCr die Eingabe.
+	 * Diese Methode wird als Referenz f\u00FCr einen EventHandler verwendet.
 	 * 
-	 * @param e	Event, das den EventHanler auslöst
+	 * @param e	Event, das den EventHanler ausl\u00F6st
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Focuses the input text field.
@@ -433,7 +433,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	
 // Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt die Actions für alle Buttons
+	 * Setzt die Actions f\u00FCr alle Buttons
 	 * 
 	 * @see #setAlphaNumBindings()
 	 * @see #setClearAction()
@@ -513,7 +513,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Lässt den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
+	 * L\u00E4sst den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Simulates the backspace button an the keyboard.
@@ -627,7 +627,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 				try {
 					calculate();
 				} catch (NumberOverflowException noe) {
-					noe.setDescription("Das Ergebnis der Berechnung verlässt den zugelassenen Zahlenbereich.");
+					noe.setDescription("Das Ergebnis der Berechnung verl\u00E4sst den zugelassenen Zahlenbereich.");
 					FXUtils.showNumberOverflowWarning(noe);
 					return;
 				} catch (Exception e) {
@@ -731,7 +731,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 			num.setValue(textField.getText(), oldBase.intValue());
 		} catch (NumberOverflowException noe) {
 			num.reset();
-			noe.setDescription("Die eingegebene Zahl lag außerhalb des erlaubten Wertebereiches und wurde zurückgesetzt.");
+			noe.setDescription("Die eingegebene Zahl lag außerhalb des erlaubten Wertebereiches und wurde zur\u00FCckgesetzt.");
 			FXUtils.showNumberOverflowWarning(noe);
 		} catch (Exception e) {
 			num.reset();

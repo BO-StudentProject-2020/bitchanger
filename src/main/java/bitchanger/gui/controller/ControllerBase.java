@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -22,22 +22,22 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 
 /**	<!-- $LANGUAGE=DE -->
- * Basis für einen Controller, der einer Instanz von Controllable (z.B. eine View) eine Funktion gibt. Die wichtigsten Attribute, 
- * die benötigt werden um Zugriff auf die Bedienelemente des Controllables zu erhalten, werden im Konstruktor initialisiert und sind in 
+ * Basis f\u00FCr einen Controller, der einer Instanz von Controllable (z.B. eine View) eine Funktion gibt. Die wichtigsten Attribute, 
+ * die ben\u00F6tigt werden um Zugriff auf die Bedienelemente des Controllables zu erhalten, werden im Konstruktor initialisiert und sind in 
  * allen Subklassen sichtbar.
  * <p>
- * Subklassen müssen die Methoden {@link #initControls()} und {@link #setActions()} implementieren, um die Bedienelemente
+ * Subklassen m\u00FCssen die Methoden {@link #initControls()} und {@link #setActions()} implementieren, um die Bedienelemente
  * mit einer Funktion zu belegen.
  * </p>
  * <p>
- * Jedem Controller kann nur ein einziges Controllable zugewiesen werden. Umgekehrt ist es möglich ein Controllable mit mehreren
- * Controllern für verschiedene Funktionen zu verbinden.
+ * Jedem Controller kann nur ein einziges Controllable zugewiesen werden. Umgekehrt ist es m\u00F6glich ein Controllable mit mehreren
+ * Controllern f\u00FCr verschiedene Funktionen zu verbinden.
  * </p>
  * 
- * @param <T>	Typ des Controllable (wird benötigt, um auf weitere Methoden zugreifen zu können, die nicht in 
+ * @param <T>	Typ des Controllable (wird ben\u00F6tigt, um auf weitere Methoden zugreifen zu k\u00F6nnen, die nicht in 
  * 				{@link Controllable} definiert sind)
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.7
@@ -53,16 +53,16 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Textfelder des gekapselten Controllables enthält */
+	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Textfelder des gekapselten Controllables enth\u00E4lt */
 	// TODO JavaDoc EN
 	protected Map<String, TextField> textFieldMap;
 	
-	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Buttons des gekapselten Controllables enthält */
+	/** <!-- $LANGUAGE=DE -->	{@code Map}, die alle Buttons des gekapselten Controllables enth\u00E4lt */
 	// TODO JavaDoc EN
 	protected Map<String, Button> buttonMap;
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * {@code Map}, die alle Nodes des gekapselten Controllables enthält, die eine Funktion erhalten 
+	 * {@code Map}, die alle Nodes des gekapselten Controllables enth\u00E4lt, die eine Funktion erhalten 
 	 * und weder eine Instanz von Button noch von Textfeld sind */
 	// TODO JavaDoc EN
 	protected Map<String, Node> nodeMap;
@@ -81,13 +81,13 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Kapselt das übergebene Controllable und initialisiert die Maps mit den Bedienelementen mit Referenzen
-	 * auf die zugehörigen Maps des Controllables.
+	 * Kapselt das \u00FCbergebene Controllable und initialisiert die Maps mit den Bedienelementen mit Referenzen
+	 * auf die zugeh\u00F6rigen Maps des Controllables.
 	 * <p><b>
 	 * Nach der Initialisierung der allgemeinen Attribute wird die Methode {@link #initControls()} aufgerufen.
 	 * </b></p>
 	 * 
-	 * @param controllable	Controllable, das mit diesem Controller eine Funktion erhält
+	 * @param controllable	Controllable, das mit diesem Controller eine Funktion erh\u00E4lt
 	 */
 	// TODO JavaDoc EN
 	protected ControllerBase(T controllable) {
@@ -109,7 +109,7 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Initialisiert alle benötigten Bedienelemente mit Referenzen aus den zur Verfügung stehenden Maps.
+	 * Initialisiert alle ben\u00F6tigten Bedienelemente mit Referenzen aus den zur Verf\u00FCgung stehenden Maps.
 	 */
 	// TODO JavaDoc EN
 	protected abstract void initControls();
@@ -125,8 +125,8 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 
 	/**  <!-- $LANGUAGE=DE -->
 	 * Simuliert den Druck der Taste auf einer Tastatur mit dem spezifischen {@code keycode} und feuert nacheinander die KeyEvents 
-	 * {@link KeyEvent#KEY_PRESSED}, {@link KeyEvent#KEY_TYPED} und {@link KeyEvent#KEY_RELEASED} an den gewählten Empfänger 
-	 * {@code target}. Wenn {@code target} den Wert {@code null} hat, werden die Events an die übergebene Scene {@code scene} 
+	 * {@link KeyEvent#KEY_PRESSED}, {@link KeyEvent#KEY_TYPED} und {@link KeyEvent#KEY_RELEASED} an den gew\u00E4hlten Empf\u00E4nger 
+	 * {@code target}. Wenn {@code target} den Wert {@code null} hat, werden die Events an die \u00FCbergebene Scene {@code scene} 
 	 * weitergeleitet. Sind sowohl {@code target} als auch {@code scene} {@code null}, werden die Events an die Scene von 
 	 * {@linkplain #controllable} weitergeleitet, sofern {@linkplain #controllable} die Schnittstelle {@link Viewable} implementiert.
 	 * <p><b>
@@ -140,11 +140,11 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	 * @param scene			Scene, die die KeyEvents konsumiert, wenn {@code target} den Wert {@code null} hat. Darf {@code null} sein
 	 * @param character		Zeichen oder Zeichenkette, die mit dem Event verbunden wird
 	 * @param text			String, der den KeyCode beschreibt
-	 * @param keycode		KeyCode, der die Taste repräsentiert
-	 * @param shiftDown		true, wenn {@code "Shift"} gedrückt ist
-	 * @param controlDown	true, wenn {@code "Strg"} gedrückt ist
-	 * @param altDown		true, wenn {@code "Alt"} gedrückt ist
-	 * @param metaDown		true, wenn die {@code "Meta-"}Taste gedrückt wurde (Command-Taste auf macOS bzw. Windows-Taste auf Windows)
+	 * @param keycode		KeyCode, der die Taste repr\u00E4sentiert
+	 * @param shiftDown		true, wenn {@code "Shift"} gedr\u00FCckt ist
+	 * @param controlDown	true, wenn {@code "Strg"} gedr\u00FCckt ist
+	 * @param altDown		true, wenn {@code "Alt"} gedr\u00FCckt ist
+	 * @param metaDown		true, wenn die {@code "Meta-"}Taste gedr\u00FCckt wurde (Command-Taste auf macOS bzw. Windows-Taste auf Windows)
 	 * 
 	 * @since Bitchanger 0.1.4
 	 * 
@@ -181,7 +181,7 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**  <!-- $LANGUAGE=DE -->
-	 * Verhält sich wie {@link #simulateKeyEvents(Button, Node, Scene, String, String, KeyCode, boolean, boolean, boolean, boolean)},
+	 * Verh\u00E4lt sich wie {@link #simulateKeyEvents(Button, Node, Scene, String, String, KeyCode, boolean, boolean, boolean, boolean)},
 	 * bis auf dass die Parameter shiftDown, controlDown, altDown und metaDown alle den Wert {@code false} haben.
 	 *  
 	 * @param source		Quelle des Events, darf {@code null} sein
@@ -189,7 +189,7 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	 * @param scene			Scene, die die KeyEvents konsumiert, wenn {@code target} den Wert {@code null} hat. Darf {@code null} sein
 	 * @param character		Zeichen oder Zeichenkette, die mit dem Event verbunden wird
 	 * @param text			String, der den KeyCode beschreibt
-	 * @param keycode		KeyCode, der die Taste repräsentiert
+	 * @param keycode		KeyCode, der die Taste repr\u00E4sentiert
 	 * 
 	 * @see #simulateKeyEvents(Button, Node, Scene, String, String, KeyCode, boolean, boolean, boolean, boolean)
 	 */

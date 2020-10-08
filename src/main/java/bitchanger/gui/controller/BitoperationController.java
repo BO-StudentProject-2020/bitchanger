@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -36,9 +36,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
- * Controller, der die Funktion für eine {@linkplain CalculatorView} bereitstellt.
+ * Controller, der die Funktion f\u00FCr eine {@linkplain CalculatorView} bereitstellt.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7
@@ -54,45 +54,45 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-	/** <!-- $LANGUAGE=DE -->	 ComboBox für die Anzahl der Bits */
+	/** <!-- $LANGUAGE=DE -->	 ComboBox f\u00FCr die Anzahl der Bits */
 	// TODO JavaDoc EN
 	private ComboBox<BitLength> bitLength;
 	
-	/** <!-- $LANGUAGE=DE -->	 Merker für die Anzeige der Tastaturmatrix */
+	/** <!-- $LANGUAGE=DE -->	 Merker f\u00FCr die Anzeige der Tastaturmatrix */
 	// TODO JavaDoc EN
 	private boolean isShowingKeyboard;
 	
 // Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische UND */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische UND */
 	// TODO JavaDoc EN
 	private Button andBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische ODER */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische ODER */
 	// TODO JavaDoc EN
 	private Button orBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische NICHT */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische NICHT */
 	// TODO JavaDoc EN
 	private Button notBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische NAND */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische NAND */
 	// TODO JavaDoc EN
 	private Button nandBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische NOR */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische NOR */
 	// TODO JavaDoc EN
 	private Button norBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für das logische Exklusiv-ODER */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische Exklusiv-ODER */
 	// TODO JavaDoc EN
 	private Button xorBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für Linksshift */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr Linksshift */
 	// TODO JavaDoc EN
 	private Button shiftLeftBtn;
 	
-	/**	<!-- $LANGUAGE=DE -->	Button für Rechtsshift */
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr Rechtsshift */
 	// TODO JavaDoc EN
 	private Button shiftRightBtn;
 	
@@ -114,7 +114,7 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
+	 * Konstruiert einen neuen Controller f\u00FCr eine ConverterView und verkn\u00FCpft die ben\u00F6tigten Attribute mit
 	 * Referenzen auf die Bedienelemente aus der ConverterView.
 	 * 
 	 * @param view ConverterView, an die dieser Controller gebunden wird
@@ -349,7 +349,7 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 	
 // Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt die Actions für alle Buttons
+	 * Setzt die Actions f\u00FCr alle Buttons
 	 * 
 	 * @see #setAlphaNumBindings()
 	 * @see #setClearAction()
@@ -535,7 +535,7 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 				// Warnung und Löschen aller Eingaben beim verkleinern der Bitlänge
 				if (!isCleared && newValue.getNumberOfBits() < oldValue.getNumberOfBits()) {
 					boolean warningDeactivated = Preferences.getPrefs().bitLengthDeleteWarningDeactivatedProperty().get();
-					Optional<ButtonType> warningResult = FXUtils.showDeactivatableDialog(AlertType.WARNING, "Warnung", "Achtung", "Beim Verkleinern der Bitlänge gehen alle bisherigen Eingaben verloren!", Preferences.getPrefs().bitLengthDeleteWarningDeactivatedProperty(), ButtonType.CANCEL, ButtonType.OK);
+					Optional<ButtonType> warningResult = FXUtils.showDeactivatableDialog(AlertType.WARNING, "Warnung", "Achtung", "Beim Verkleinern der Bitl\u00E4nge gehen alle bisherigen Eingaben verloren!", Preferences.getPrefs().bitLengthDeleteWarningDeactivatedProperty(), ButtonType.CANCEL, ButtonType.OK);
 					
 					if(warningDeactivated || (warningResult.isPresent() && warningResult.get().equals(ButtonType.OK))) {
 						value1.set(0);
@@ -570,7 +570,7 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		boolean isUnsigned = Preferences.getPrefs().useUnsignedBitOperationProperty().get();
 		
 		if(is64Bit && isUnsigned) {
-			String message = "Bei vorzeichenlosen Bitoperationen ist die Bitlänge auf maximal 63 Bit begrenzt.";
+			String message = "Bei vorzeichenlosen Bitoperationen ist die Bitl\u00E4nge auf maximal 63 Bit begrenzt.";
 			FXUtils.showDeactivatableDialog(AlertType.INFORMATION, "Hinweis", "Achtung", message, Preferences.getPrefs().unsignedBitLengthWarningDeactivatedProperty());
 		}
 	}
@@ -584,7 +584,7 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		try {
 			calculate();
 		} catch (NumberOverflowException noe) {
-			noe.setDescription("Das Ergebnis der Berechnung verlässt den zugelassenen Zahlenbereich.");
+			noe.setDescription("Das Ergebnis der Berechnung verl\u00E4sst den zugelassenen Zahlenbereich.");
 			FXUtils.showNumberOverflowWarning(noe);
 			return;
 		} catch (Exception e) {

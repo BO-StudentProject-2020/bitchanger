@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -25,19 +25,19 @@ import javafx.scene.layout.Pane;
 
 /**	<!-- $LANGUAGE=DE -->
  * 
- * Basis-Klasse für alle View-Klassen, die das Interface {@code Viewable} implementieren und mit einem
+ * Basis-Klasse f\u00FCr alle View-Klassen, die das Interface {@code Viewable} implementieren und mit einem
  * Controller eine Funktion erhalten.
  * <p>
  * Die grundlegenden Methoden der Schnittstellen {@code Viewable} und {@code Controllable} sind bereits implementiert.
- * Die dazugehörigen Attribute sind mit protected geschützt, damit diese direkt in Unterklassen verwendet werden können.
+ * Die dazugeh\u00F6rigen Attribute sind mit protected gesch\u00FCtzt, damit diese direkt in Unterklassen verwendet werden k\u00F6nnen.
  * </p>
  * <p>
- * Es werden abstrakte Methoden definiert, die zur Erstellung des Scenegraphens benötigt werden.
+ * Es werden abstrakte Methoden definiert, die zur Erstellung des Scenegraphens ben\u00F6tigt werden.
  * </p>
  * 
  * @param <T> Typ des Wurzelknotens im Scenegraphen
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.8
@@ -54,7 +54,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 
 // protected	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE --> Szene, die von der View repräsentiert wird */
+	/** <!-- $LANGUAGE=DE --> Szene, die von der View repr\u00E4sentiert wird */
 	// TODO JavaDoc EN
 	protected final Scene scene;
 	
@@ -63,7 +63,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	protected final T root;
 	
 	/** <!-- $LANGUAGE=DE --> 
-	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
+	 * Controller, der die Funktion zu den Bedienelementen hinzuf\u00FCgt. 
 	 */
 	// TODO JavaDoc EN
 	protected Controller controller;
@@ -72,19 +72,19 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	// TODO JavaDoc EN
 	protected MenuBar menubar;
 	
-	/** <!-- $LANGUAGE=DE --> Property für die maximale Höhe der Buttons in dieser View */
+	/** <!-- $LANGUAGE=DE --> Property f\u00FCr die maximale H\u00F6he der Buttons in dieser View */
 	// TODO JavaDoc EN
 	protected final DoubleProperty maxHeightProperty;
 
-	/** <!-- $LANGUAGE=DE --> Property für die minimale Höhe der Buttons in dieser View */
+	/** <!-- $LANGUAGE=DE --> Property f\u00FCr die minimale H\u00F6he der Buttons in dieser View */
 	// TODO JavaDoc EN
 	protected final DoubleProperty minHeightProperty;
 
-	/** <!-- $LANGUAGE=DE --> Property für die maximale Breite der Buttons in dieser View */
+	/** <!-- $LANGUAGE=DE --> Property f\u00FCr die maximale Breite der Buttons in dieser View */
 	// TODO JavaDoc EN
 	protected final DoubleProperty maxWidthProperty;
 
-	/** <!-- $LANGUAGE=DE --> Property für die minimale Breite der Buttons in dieser View */
+	/** <!-- $LANGUAGE=DE --> Property f\u00FCr die minimale Breite der Buttons in dieser View */
 	// TODO JavaDoc EN
 	protected final DoubleProperty minWidthProperty;
 	
@@ -92,20 +92,20 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	/** <!-- $LANGUAGE=DE -->
-	 * {@code Map}, in die alle vom Controller benötigten Textfelder der View 
-	 * mit einem eindeutigen Schlüssel abgelegt werden */
+	 * {@code Map}, in die alle vom Controller ben\u00F6tigten Textfelder der View 
+	 * mit einem eindeutigen Schl\u00FCssel abgelegt werden */
 	// TODO JavaDoc EN
 	private final Map<String, TextField> tfMap;	// Hiermit koennen die entsprechenden TFs direkt gesucht werden -> hilfreich fuer Actions!
 	
 	/** <!-- $LANGUAGE=DE --> 
-	 * {@code Map}, in die alle vom Controller benötigten Buttons der View mit 
-	 * einem eindeutigen Schlüssel abgelegt werden */
+	 * {@code Map}, in die alle vom Controller ben\u00F6tigten Buttons der View mit 
+	 * einem eindeutigen Schl\u00FCssel abgelegt werden */
 	// TODO JavaDoc EN
 	private final Map<String, Button> btnMap;
 	
 	/** <!-- $LANGUAGE=DE --> 
-	 * {@code Map}, in die alle vom Controller benötigten Elemente der View mit einem 
-	 * eindeutigen Schlüssel abgelegt werden, die keine Buttons oder Textfelder sind */
+	 * {@code Map}, in die alle vom Controller ben\u00F6tigten Elemente der View mit einem 
+	 * eindeutigen Schl\u00FCssel abgelegt werden, die keine Buttons oder Textfelder sind */
 	// TODO JavaDoc EN
 	private final Map<String, Node> nodeMap;
 	
@@ -119,11 +119,11 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
+	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem \u00FCbergebenen Wurzelknoten {@code root} kapselt.
 	 * <p>
 	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und {@link #createScenegraph()} 
 	 * aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss wird mit Hilfe eines Controllers die Funktion der Bedienelemente 
-	 * hinzugefügt, wenn ein passender Controller registriert wurde.
+	 * hinzugef\u00FCgt, wenn ein passender Controller registriert wurde.
 	 * </p>
 	 * 
 	 * @param root	Wurzelknoten des Scenegraphen
@@ -140,11 +140,11 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem übergebenen Wurzelknoten {@code root} kapselt.
+	 * Erzeugt eine neue View, die eine neue {@code Scene} mit dem \u00FCbergebenen Wurzelknoten {@code root} kapselt.
 	 * <p>
 	 * Nach der Initialisierung der Attribute werden nacheinander die Methoden {@link #init()} und ggf. {@link #buildScenegraph()} 
 	 * aufgerufen, um den Scenegraphen zu konstruieren und im Anschluss wird mit Hilfe eines Controllers die Funktion der Bedienelemente 
-	 * hinzugefügt, wenn ein passender Controller registriert wurde.
+	 * hinzugef\u00FCgt, wenn ein passender Controller registriert wurde.
 	 * </p>
 	 * 
 	 * @param root				Wurzelknoten des Scenegraphen
@@ -220,7 +220,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	 * 
 	 * <p><b>
 	 * Wenn der Wurzelknoten dieser View eine Instanz von BorderPane ist, wird
-	 * die übergebene MenuBar in Top gelegt, ansonsten wird nur die alte MenuBar
+	 * die \u00FCbergebene MenuBar in Top gelegt, ansonsten wird nur die alte MenuBar
 	 * entfernt.
 	 * </b></p>
 	 */
@@ -295,7 +295,7 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	 * Initialisierungsmethode. 
 	 * <b> Diese Methode wird als erstes vom Konstruktor aufgerufen, nachdem die Attribute initialisiert wurden. </b>
 	 * <p>
-	 * Unterklassen können diese Methode überschreiben, um Attribute vor der Konstruktion des Scenegraphen zu initialisieren.
+	 * Unterklassen k\u00F6nnen diese Methode \u00FCberschreiben, um Attribute vor der Konstruktion des Scenegraphen zu initialisieren.
 	 * </p>
 	 * <p>
 	 * Die Implementierung der Methode in dieser Klasse hat keine Anweisungen.
@@ -338,8 +338,8 @@ public abstract class ViewBase<T extends Parent> implements Viewable {
 	/** <!-- $LANGUAGE=DE -->
 	 * Methode, die den Scenegraphen konstruiert. <b> Diese Methode wird aufgerufen, nachdem die init-Methode beendet wurde. </b>
 	 * <p>
-	 * In dieser Methode müssen alle Bedien- und Oberflächenelemente zum Scenegraphen hinzugefügt werden. Alle Elemente, die 
-	 * auch im Controller benötigt werden, müssen zu der entsprechenden Map hinzugefügt werden: 
+	 * In dieser Methode m\u00FCssen alle Bedien- und Oberfl\u00E4chenelemente zum Scenegraphen hinzugef\u00FCgt werden. Alle Elemente, die 
+	 * auch im Controller ben\u00F6tigt werden, m\u00FCssen zu der entsprechenden Map hinzugef\u00FCgt werden: 
 	 * {@link #btnMap}, {@link #tfMap}, {@link #nodeMap}
 	 * </p>
 	 */

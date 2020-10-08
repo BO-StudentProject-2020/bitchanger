@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -17,12 +17,12 @@ import bitchanger.util.ArrayUtils;
 
 
 /**	<!-- $LANGUAGE=DE -->
- * View, die die Scene für die Umwandlung zwischen dezimal Zahlen und der IEEE-Norm enthält.
+ * View, die die Scene f\u00FCr die Umwandlung zwischen dezimal Zahlen und der IEEE-Norm enth\u00E4lt.
  * <p><b>
- * Für diese View-Klasse wird der Controller {@link IEEEController} registriert.
+ * F\u00FCr diese View-Klasse wird der Controller {@link IEEEController} registriert.
  * </b></p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
  * @version 0.1.7
@@ -38,15 +38,15 @@ public class IEEEView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE -->	Array, das die Beschriftungen für die Labels vor den Textfeldern definiert */
+	/** <!-- $LANGUAGE=DE -->	Array, das die Beschriftungen f\u00FCr die Labels vor den Textfeldern definiert */
 	// TODO JavaDoc EN
 	private static final String[] LABEL_TEXTS = {"DEC", "IEEE"};
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit das Textfeld f\u00FCr die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
 	// TODO JavaDoc EN
 	private static final String TF_DEC_KEY = "dec-TF";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit das Textfeld f\u00FCr die IEEE Darstellung in der Map {@code tfMap} gespeichert wird */
 	// TODO JavaDoc EN
 	private static final String TF_IEEE_KEY = "ieee-TF";
 	
@@ -78,7 +78,7 @@ public class IEEEView extends AlphaNumGridView {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue IEEEView mit vollständigem Scenegraphen und initialisiert die Funktionen
+	 * Erzeugt eine neue IEEEView mit vollst\u00E4ndigem Scenegraphen und initialisiert die Funktionen
 	 * der Bedienelemente mit einem {@link IEEEController}.
 	 */
 	// TODO JavaDoc EN
@@ -98,9 +98,9 @@ public class IEEEView extends AlphaNumGridView {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem das Textfeld f\u00FCr die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String tfDecKey() {
@@ -108,9 +108,9 @@ public class IEEEView extends AlphaNumGridView {
 	}
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem das Textfeld f\u00FCr die IEEE Darstellung in der Map {@code tfMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem das Textfeld für die IEEE Darstellung in der Map {@code tfMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die IEEE Darstellung in der Map {@code tfMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String tfIEEEKey() {

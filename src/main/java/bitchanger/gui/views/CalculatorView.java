@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -22,12 +22,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
- * View, die die Scene für die Berechnungen von verschiedenen Zahlensystemen enthält.
+ * View, die die Scene f\u00FCr die Berechnungen von verschiedenen Zahlensystemen enth\u00E4lt.
  * <p><b>
- * Für diese View-Klasse wird der Controller {@link CalculatorController} registriert.
+ * F\u00FCr diese View-Klasse wird der Controller {@link CalculatorController} registriert.
  * </b></p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.6
  * @version 0.1.7
@@ -111,9 +111,9 @@ public class CalculatorView extends CalculationViewBase {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button zum Dividieren in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button zum Dividieren in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button zum Dividieren in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button zum Dividieren in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String divideBtnKey() {
@@ -123,9 +123,9 @@ public class CalculatorView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button zum Multiplizieren in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button zum Multiplizieren in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button zum Multiplizieren in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button zum Multiplizieren in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String multiplyBtnKey() {
@@ -135,9 +135,9 @@ public class CalculatorView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button zum Subtrahieren in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button zum Subtrahieren in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button zum Subtrahieren in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button zum Subtrahieren in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String subtractBtnKey() {
@@ -147,9 +147,9 @@ public class CalculatorView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Button zum Addieren in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button zum Addieren in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Button zum Addieren in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Button zum Addieren in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String addBtnKey() {
@@ -159,9 +159,9 @@ public class CalculatorView extends CalculationViewBase {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort zurück, mit dem der Modulo-Button in der Map {@code btnMap} gespeichert wird
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Modulo-Button in der Map {@code btnMap} gespeichert wird
 	 * 
-	 * @return	Schlüsselwort, mit dem der Modulo-Button in der Map {@code btnMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Modulo-Button in der Map {@code btnMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String moduloBtnKey() {

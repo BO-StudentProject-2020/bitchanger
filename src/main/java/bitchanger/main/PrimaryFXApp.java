@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -37,10 +37,10 @@ import javafx.stage.WindowEvent;
  * Hauptfenster der Applikation mit javaFX
  * <p>
  * Das Fenster bietet verschiedene Szenen zum Rechnen und Umwandeln von verschiedenen Zahlensystemen.
- * Über eine Menüleiste kann zwischen den Szenen gewechselt werden, sowie die Programm-Einstellungen geöffnet werden.
+ * \u00DCber eine Men\u00FCleiste kann zwischen den Szenen gewechselt werden, sowie die Programm-Einstellungen ge\u00F6ffnet werden.
  * </p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  *
  * @since Bitchanger 0.1.0
  * @version 0.1.8
@@ -71,19 +71,19 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die ConverterView zugegriffen werden kann */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem \u00FCber {@link #getViewable(String)} auf die ConverterView zugegriffen werden kann */
 	// TODO JavaDoc EN
 	public static final String CONVERTER_VIEW_KEY = "converter-view";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die IEEEView zugegriffen werden kann */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem \u00FCber {@link #getViewable(String)} auf die IEEEView zugegriffen werden kann */
 	// TODO JavaDoc EN
 	public static final String IEEE_VIEW_KEY = "ieee-view";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem \u00FCber {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
 	// TODO JavaDoc EN
 	public static final String CALCULATOR_VIEW_KEY = "calculator-view";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit dem über {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem \u00FCber {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
 	// TODO JavaDoc EN
 	public static final String BITOPERATIONS_VIEW_KEY = "bitoperations-view";
 	
@@ -101,9 +101,9 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Startet die Anwendung und öffnet das Applikationsfenster.
+	 * Startet die Anwendung und \u00F6ffnet das Applikationsfenster.
 	 * 
-	 * @param args	Argumente, die beim Programmstart übergeben werden. Die Argumente werden an die Methode {@code launch} weitergegeben und ansonsten ignoriert.
+	 * @param args	Argumente, die beim Programmstart \u00FCbergeben werden. Die Argumente werden an die Methode {@code launch} weitergegeben und ansonsten ignoriert.
 	 * 
 	 * @see Application#launch(String...)
 	 */
@@ -136,23 +136,23 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE --> Property für die aktuell im Fenster dargestellte View */
+	/** <!-- $LANGUAGE=DE --> Property f\u00FCr die aktuell im Fenster dargestellte View */
 	/* <!-- $LANGUAGE=EN --> Property of the currently displayed View */
 	private final ObjectProperty<Viewable> currentViewProperty;
 	
-	/** <!-- $LANGUAGE=DE --> View für die Umwandlung von Zahlensystemen */
+	/** <!-- $LANGUAGE=DE --> View f\u00FCr die Umwandlung von Zahlensystemen */
 	/* <!-- $LANGUAGE=EN --> View for converting of numeral systems */
 	private Viewable converterView;
 	
-	/** <!-- $LANGUAGE=DE --> View für die Umwandlung mit der IEEE-Norm */
+	/** <!-- $LANGUAGE=DE --> View f\u00FCr die Umwandlung mit der IEEE-Norm */
 	/* <!-- $LANGUAGE=EN --> View for conversion with the IEEE standard */
 	private Viewable ieeeView;
 	
-	/** <!-- $LANGUAGE=DE --> View für das Rechnen mit Zahlensystemen */
+	/** <!-- $LANGUAGE=DE --> View f\u00FCr das Rechnen mit Zahlensystemen */
 	/* <!-- $LANGUAGE=EN --> View for calculating with number systems */
 	private Viewable calculatorView;
 	
-	/** <!-- $LANGUAGE=DE --> View für Bitoperationen mit Zahlensystemen */
+	/** <!-- $LANGUAGE=DE --> View f\u00FCr Bitoperationen mit Zahlensystemen */
 	/* <!-- $LANGUAGE=EN --> View for bitwise operations with number systems */
 	private Viewable bitoperationsView;
 	
@@ -160,7 +160,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	/* <!-- $LANGUAGE=EN --> Main application window */
 	private Stage primaryStage;
 	
-	/** <!-- $LANGUAGE=DE --> Höhe des Fensterrahmens */
+	/** <!-- $LANGUAGE=DE --> H\u00F6he des Fensterrahmens */
 	/* <!-- $LANGUAGE=EN --> Height of the window frame */
 	private double emptyStageHeigth;
 	
@@ -177,7 +177,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-	/** <!-- $LANGUAGE=DE -->	Erzeugt eine neue PrimaryFXApp für den Bitchanger */
+	/** <!-- $LANGUAGE=DE -->	Erzeugt eine neue PrimaryFXApp f\u00FCr den Bitchanger */
 	/* <!-- $LANGUAGE=EN -->	Construct a new PrimaryFXApp for the Bitchanger */
 	public PrimaryFXApp() {
 		super();
@@ -238,21 +238,21 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 // Start	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Diese Methode erstellt den Inhalt für das PrimaryFXApp und öffnet dieses.
+	 * Diese Methode erstellt den Inhalt f\u00FCr das PrimaryFXApp und \u00F6ffnet dieses.
 	 * <p>
-	 * - Es wird eine Menübar erstellt, die in jeder Szene die Steuerung des Fensters erlaubt.
+	 * - Es wird eine Men\u00FCbar erstellt, die in jeder Szene die Steuerung des Fensters erlaubt.
 	 * </p>
 	 * <p>
-	 * - Die verschiedenen Views für die unterschiedlichen Oberflächen werden erzeugt.
+	 * - Die verschiedenen Views f\u00FCr die unterschiedlichen Oberfl\u00E4chen werden erzeugt.
 	 * </p>
 	 * <p>
-	 * - Die zuletzt geöffnete Szene wird geladen.
+	 * - Die zuletzt ge\u00F6ffnete Szene wird geladen.
 	 * </p>
 	 * <p>
-	 * - Das in den Einstellungen ausgewählte Stylesheet wird geladen.
+	 * - Das in den Einstellungen ausgew\u00E4hlte Stylesheet wird geladen.
 	 * </p>
 	 * <p>
-	 * - Das Fenster wird formatiert und geöffnet.
+	 * - Das Fenster wird formatiert und ge\u00F6ffnet.
 	 * </p>
 	 * 
 	 * <b> Diese Methode wird erst beendet, wenn das PrimaryFXApp geschlossen wurde </b>
@@ -284,7 +284,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
-		primaryStage.setFullScreenExitHint("Drücken Sie F11, um den Vollbildmodus zu beenden.");
+		primaryStage.setFullScreenExitHint("Dr\u00FCcken Sie F11, um den Vollbildmodus zu beenden.");
 		
 		computeStageFrameSize();
 
@@ -365,7 +365,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 // Layout	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Passt die minimale und die maximale Größe des Fensters an die Größe der aktuellen Szene ({@code currentView}) an
+	 * Passt die minimale und die maximale Gr\u00F6ße des Fensters an die Gr\u00F6ße der aktuellen Szene ({@code currentView}) an
 	 * 
 	 * @see Viewable#getMinHeigth()
 	 * @see Viewable#getMaxHeigth()

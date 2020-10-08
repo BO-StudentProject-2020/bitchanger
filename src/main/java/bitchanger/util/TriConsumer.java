@@ -2,20 +2,20 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
 package bitchanger.util;
 
 /** <!-- $LANGUAGE=DE -->
- * Repräsentiert eine Operation, die drei Übergabeparameter akzeptiert und keine Rückgabe hat.
+ * Repr\u00E4sentiert eine Operation, die drei \u00DCbergabeparameter akzeptiert und keine R\u00FCckgabe hat.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  *
- * @param <T>	Typ des ersten Übergabeparameters
- * @param <U>	Typ des zweiten Übergabeparameters
- * @param <V>	Typ des dritten Übergabeparameters
+ * @param <T>	Typ des ersten \u00DCbergabeparameters
+ * @param <U>	Typ des zweiten \u00DCbergabeparameters
+ * @param <V>	Typ des dritten \u00DCbergabeparameters
  */
 /* <!-- $LANGUAGE=EN -->
  * Represents an operation that accepts three input arguments and returns no result.
@@ -30,11 +30,11 @@ package bitchanger.util;
 public interface TriConsumer<T, U, V> {
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Führt diese Operation mit den übergebenen Argumenten aus.
+	 * F\u00FChrt diese Operation mit den \u00FCbergebenen Argumenten aus.
 	 * 
-	 * @param t	erster Übergabeparameter
-	 * @param u	zweiter Übergabeparameter
-	 * @param v	dritter Übergabeparameter
+	 * @param t	erster \u00DCbergabeparameter
+	 * @param u	zweiter \u00DCbergabeparameter
+	 * @param v	dritter \u00DCbergabeparameter
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Performs this operation on the given arguments.

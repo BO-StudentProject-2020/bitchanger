@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -34,21 +34,21 @@ import javafx.scene.layout.Priority;
 
 /**	<!-- $LANGUAGE=DE -->
  * AlphaNumKeys stellt ein Tastaturlayout als 4x5 Matrix bereit. Am linken Rand befinden sich sechs "Alpha-Buttons", die 
- * zur Eingabe von Buchstaben bestimmt sind. Rechts daneben steht ein 3x3 Nummernfeld zur Verfügung, um Zahlen einzugeben.
- * Die untere Zeile enthält einen Button zum Umschalten in die Alphabet-Ansicht, in der das Alphabet auf allen Alpha- und
+ * zur Eingabe von Buchstaben bestimmt sind. Rechts daneben steht ein 3x3 Nummernfeld zur Verf\u00FCgung, um Zahlen einzugeben.
+ * Die untere Zeile enth\u00E4lt einen Button zum Umschalten in die Alphabet-Ansicht, in der das Alphabet auf allen Alpha- und
  * Nummern-Buttons abgebildet wird. Zudem gibt es zwei Buttons, mit denen durch die Buchstaben der Tastatur gescrollt werden
- * kann. Daneben befindet sich ein Button zum invertieren des Vorzeichens einer Zahl, sowie ein Button für die Zahl Null im
+ * kann. Daneben befindet sich ein Button zum invertieren des Vorzeichens einer Zahl, sowie ein Button f\u00FCr die Zahl Null im
  * Nummernfeld-Modus und ein Button zur Eingabe eines Kommas.
  * 
  * <p>
- * Die Funktion erhält die Tastaturmatrix durch einen {@link AlphaNumKeysController}.
+ * Die Funktion erh\u00E4lt die Tastaturmatrix durch einen {@link AlphaNumKeysController}.
  * </p>
  * <p>
  * Alle alphanumerischen Buttons sind Instanzen von {@link ValueButton} und alle weiteren Buttons sind Instanzen von
- * {@link UnfocusedButton}, um den Fokus nicht auf die Tastatur zu lenken und weitere Funktionen zur Verfügung zu stellen.
+ * {@link UnfocusedButton}, um den Fokus nicht auf die Tastatur zu lenken und weitere Funktionen zur Verf\u00FCgung zu stellen.
  * </p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.7
@@ -67,43 +67,43 @@ public class AlphaNumKeys implements Controllable {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Vorzeichenwechsel */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort f\u00FCr den Button zum Vorzeichenwechsel */
 	// TODO JavaDoc EN
 	public static final String SIGN_BTN_KEY = "signBtn";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button, der die Null repräsentiert */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort f\u00FCr den Button, der die Null repr\u00E4sentiert */
 	// TODO JavaDoc EN
 	public static final String ZERO_BTN_KEY = "num_0";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Komma-Button */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort f\u00FCr den Komma-Button */
 	// TODO JavaDoc EN
 	public static final String COMMA_BTN_KEY = "commaBtn";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Umschalten des Tastaturlayouts */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort f\u00FCr den Button zum Umschalten des Tastaturlayouts */
 	// TODO JavaDoc EN
 	public static final String KEYBOARD_BTN_KEY = "keyboardBtn";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Weiterscrollen durch die Tastatur */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort f\u00FCr den Button zum Weiterscrollen durch die Tastatur */
 	// TODO JavaDoc EN
 	public static final String NEXT_BTN_KEY = "nextBtn";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort für den Button zum Rückwärtsscrollen durch die Tastatur */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort f\u00FCr den Button zum R\u00FCckw\u00E4rtsscrollen durch die Tastatur */
 	// TODO JavaDoc EN
 	public static final String PREVIOUS_BTN_KEY = "previousBtn";
 
-	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Buchstaben-Buttons definiert */
+	/** <!-- $LANGUAGE=DE -->	Array, das die Schl\u00FCsselw\u00F6rter f\u00FCr die Buchstaben-Buttons definiert */
 	// TODO JavaDoc EN
 	public static final String[] ALPHA_KEYS = {"alpha_0", "alpha_1", "alpha_2", "alpha_3", "alpha_4", "alpha_5"};
 
-	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter für die Zahlen-Buttons definiert */
+	/** <!-- $LANGUAGE=DE -->	Array, das die Schl\u00FCsselw\u00F6rter f\u00FCr die Zahlen-Buttons definiert */
 	// TODO JavaDoc EN
 	public static final String[] NUM_KEYS = {"num_7", "num_8", "num_9", "num_4", "num_5", "num_6", "num_1", "num_2", "num_3"};
 	
-	/** <!-- $LANGUAGE=DE -->	Konstante, die die Anzahl der Zeilen dieser Tastaturmatrix enthält */
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die Anzahl der Zeilen dieser Tastaturmatrix enth\u00E4lt */
 	// TODO JavaDoc EN
 	public static final int ROW_COUNT = 4;
 	
-	/** <!-- $LANGUAGE=DE -->	Konstante, die die Anzahl der Spalten dieser Tastaturmatrix enthält */
+	/** <!-- $LANGUAGE=DE -->	Konstante, die die Anzahl der Spalten dieser Tastaturmatrix enth\u00E4lt */
 	// TODO JavaDoc EN
 	public static final int COLUMN_COUNT = 5;
 	
@@ -139,17 +139,17 @@ public class AlphaNumKeys implements Controllable {
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE -->	Property für den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons */
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons */
 	// TODO JavaDoc EN
 	private final DoubleProperty spacingProperty;
 
-	/** <!-- $LANGUAGE=DE -->	Liste, die alle Buttons der Tastatur-Matrix enthält */
+	/** <!-- $LANGUAGE=DE -->	Liste, die alle Buttons der Tastatur-Matrix enth\u00E4lt */
 	// TODO JavaDoc EN
 	private final ArrayList<Node> buttonList;
 	
 	/** <!-- $LANGUAGE=DE --> 
-	 * {@code Map}, in die alle vom Controller benötigten Buttons mit 
-	 * einem eindeutigen Schlüssel abgelegt werden */
+	 * {@code Map}, in die alle vom Controller ben\u00F6tigten Buttons mit 
+	 * einem eindeutigen Schl\u00FCssel abgelegt werden */
 	// TODO JavaDoc EN
 	private final HashMap<String, Button> buttonMap;
 	
@@ -157,11 +157,11 @@ public class AlphaNumKeys implements Controllable {
 	// TODO JavaDoc EN
 	private Button keyboardBtn;
 	
-	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur zurück gescrollt werden kann */
+	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur zur\u00FCck gescrollt werden kann */
 	// TODO JavaDoc EN
 	private Button previousBtn;
 	
-	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur vorwärts gescrollt werden kann */
+	/** <!-- $LANGUAGE=DE -->	Button, mit dem durch die Tastatur vorw\u00E4rts gescrollt werden kann */
 	// TODO JavaDoc EN
 	private Button nextBtn;
 	
@@ -182,7 +182,7 @@ public class AlphaNumKeys implements Controllable {
 	private int firstColumn;
 	
 	/** <!-- $LANGUAGE=DE --> 
-	 * Controller, der die Funktion zu den Bedienelementen hinzufügt. 
+	 * Controller, der die Funktion zu den Bedienelementen hinzuf\u00FCgt. 
 	 * <b> Es ist nur einmalig erlaubt einen Controller zuzuweisen! </b> */
 	// TODO JavaDoc EN
 	private final Controller controller;
@@ -197,7 +197,7 @@ public class AlphaNumKeys implements Controllable {
 	
 	
 	/** <!-- $LANGUAGE=DE --> 
-	 * Erstellt alle Buttons für das Tastaturlayout und setzt die Constraints für die Positionierung in einer GridPane.
+	 * Erstellt alle Buttons f\u00FCr das Tastaturlayout und setzt die Constraints f\u00FCr die Positionierung in einer GridPane.
 	 * Zudem werden alle Bedienelemente durch einen {@link AlphaNumKeysController} mit der entsprechenden Funktion belegt, 
 	 * um Tastatureingaben zu simulieren.
 	 * <p>
@@ -209,7 +209,7 @@ public class AlphaNumKeys implements Controllable {
 	 * @param firstColumn	Erste Spalte, in der die Buttons in einer GridPane positioniert werden
 	 * @param spacing		Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons, sollte dem Wert von dem 
 	 * 						Abstand in der GridPane entsprechen. Die {@code spacingProperty} wird mit diesem Wert initialisiert.
-	 * @param scene			Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
+	 * @param scene			Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erh\u00E4lt
 	 */
 	// TODO JavaDoc EN
 	public AlphaNumKeys(int firstRow, int firstColumn, double spacing, Scene scene) {
@@ -233,7 +233,7 @@ public class AlphaNumKeys implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE --> 
-	 * Erstellt alle Buttons für das Tastaturlayout und setzt die Constraints für die Positionierung in einer GridPane.
+	 * Erstellt alle Buttons f\u00FCr das Tastaturlayout und setzt die Constraints f\u00FCr die Positionierung in einer GridPane.
 	 * Zudem werden alle Bedienelemente durch einen {@link AlphaNumKeysController} mit der entsprechenden Funktion belegt, 
 	 * um Tastatureingaben zu simulieren.
 	 * <p>
@@ -244,7 +244,7 @@ public class AlphaNumKeys implements Controllable {
 	 * @param firstRow			Erste Zeile, in der die Buttons in einer GridPane positioniert werden
 	 * @param firstColumn		Erste Spalte, in der die Buttons in einer GridPane positioniert werden
 	 * @param spacingProperty	Property, an die die {@code spacingProperty} gebunden wird
-	 * @param scene				Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erhält
+	 * @param scene				Scene, an die der Controller gebunden wird und die alle simulierten KeyEvents erh\u00E4lt
 	 */
 	// TODO JavaDoc EN
 	public AlphaNumKeys(int firstRow, int firstColumn, ObservableValue<Number> spacingProperty, Scene scene) {
@@ -287,7 +287,7 @@ public class AlphaNumKeys implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die HBox mit den Buttons, mit denen durch die Tastatur gescrollt werden kann, zurück
+	 * Gibt die HBox mit den Buttons, mit denen durch die Tastatur gescrollt werden kann, zur\u00FCck
 	 * 
 	 * @return HBox mit den Buttons, mit denen durch die Tastatur gescrollt werden kann
 	 */
@@ -299,7 +299,7 @@ public class AlphaNumKeys implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Liste mit allen Nodes der Tastatur-Matrix zurück. Alle Elemente sind in der Reihenfolge
+	 * Gibt die Liste mit allen Nodes der Tastatur-Matrix zur\u00FCck. Alle Elemente sind in der Reihenfolge
 	 * angeordnet, wie sie Zeilenweise in der Tabelle positioniert sind.
 	 * 
 	 * @return Liste mit allen Nodes der Tastatur-Matrix
@@ -312,9 +312,9 @@ public class AlphaNumKeys implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property für den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons zurück.
+	 * Gibt die Property f\u00FCr den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons zur\u00FCck.
 	 * 
-	 * @return	Property für den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons
+	 * @return	Property f\u00FCr den Abstand der Buttons previousBtn und nextBtn in der HBox arrowButtons
 	 */
 	// TODO JavaDoc EN
 	public DoubleProperty spacingProperty() {
@@ -331,13 +331,13 @@ public class AlphaNumKeys implements Controllable {
 
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Fügt den nächsten Button zur Liste {@link #buttonList} und zur Map {@link #buttonMap} hinzu
+	 * F\u00FCgt den n\u00E4chsten Button zur Liste {@link #buttonList} und zur Map {@link #buttonMap} hinzu
 	 * und setzt die Constraints zur Positionierung in einer GridPane.
 	 * 
-	 * @param button	Node, die hinzugefügt und positioniert wird
+	 * @param button	Node, die hinzugef\u00FCgt und positioniert wird
 	 * @param column	Spalte in der die Node positioniert wird
 	 * @param row		Zeile in der die Node positioniert wird
-	 * @param key		Schlüsselwort, mit dem der Button in der Map abgelegt wird
+	 * @param key		Schl\u00FCsselwort, mit dem der Button in der Map abgelegt wird
 	 */
 	// TODO JavaDoc EN
 	private void addButton(Node button, int column, int row, String key) {
@@ -351,10 +351,10 @@ public class AlphaNumKeys implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Fügt den nächsten Button zur Liste {@link #buttonList} hinzu
+	 * F\u00FCgt den n\u00E4chsten Button zur Liste {@link #buttonList} hinzu
 	 * und setzt die Constraints zur Positionierung in einer GridPane.
 	 * 
-	 * @param button	Node, die hinzugefügt und positioniert wird
+	 * @param button	Node, die hinzugef\u00FCgt und positioniert wird
 	 * @param column	Spalte in der die Node positioniert wird
 	 * @param row		Zeile in der die Node positioniert wird
 	 */
@@ -437,7 +437,7 @@ public class AlphaNumKeys implements Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Erstellt die Steuer-Buttons in der untersten Zeile des Tastaturlayouts, fügt diese der Map {@link #buttonMap}
+	 * Erstellt die Steuer-Buttons in der untersten Zeile des Tastaturlayouts, f\u00FCgt diese der Map {@link #buttonMap}
 	 * hinzu und setzt die Constraint zur Positionierung in einer GridPane.
 	 */
 	// TODO JavaDoc EN
