@@ -353,7 +353,94 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** {@inheritDoc} */
 	@Override
 	public void setIEEE(String ieee, IEEEStandard standard) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-		// TODO IEEE Implementieren
+ieee = ieee.replaceAll(" ", "");
+		
+		//Vorzeichen und Standart
+		boolean negIeee = ieee.startsWith("1");
+		boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
+		boolean single = standard.equals(IEEEStandard.IEEE_754_2008_b32);
+		
+		StringBuffer sbIeee = new StringBuffer(ieee);
+		
+		//Mit 0en auf 16 Bit bzw. 32 Bit auffüllen
+		while(sbIeee.length() <= standard.getBitLength())
+			sbIeee.append("0");
+		
+		//Vorzeichen löschen
+		sbIeee.deleteCharAt(0);
+		
+		//Exponent
+		StringBuffer sbIeeeExp = new StringBuffer (sbIeee.toString());
+		
+		//Für Umwandlung von Bin auf Dez muss 0 vorne angehägt werden (sonst wird immer negative zahl erkannt!!)
+		String exponentString = "0";
+		
+		String ieeeDecString = "";
+		
+		double exponentDouble = 0;	
+		
+		if (half) {
+			
+			//Exponent ausrechnen
+			exponentString += (sbIeeeExp.delete(5, sbIeeeExp.length())).toString();
+			exponentDouble = ConvertingNumbers.baseToDec(2, exponentString)-15;
+			
+			
+			//Mantisse in die Form 1, ... bringen
+			sbIeee.delete(0, 5);
+			sbIeee.insert(0, "01");					
+
+		}
+		
+		if (single) {
+			
+			//Exponent ausrechnen
+			exponentString += (sbIeeeExp.delete(8, sbIeeeExp.length())).toString();
+			exponentDouble = ConvertingNumbers.baseToDec(2, exponentString)-127;
+			
+	
+
+			
+			//Mantisse in die Form 1, ... bringen
+			sbIeee.delete(0, 8);
+			sbIeee.insert(0, "01");	
+
+		}
+		
+		if (exponentDouble >=0) {
+		
+			//Nullen auffüllen, um Komma zu verschieben bei positiven Exponent
+			while (sbIeee.length() <= exponentDouble+2) {
+				
+				sbIeee.append("0");
+			
+			}
+			
+			//+2 weil 01 in sbIeee hinzugefügt werden muss (0 damit keine negative zahl entsteht, 1 für die Darstellung
+			sbIeee.insert((int)exponentDouble+2, Preferences.getPrefs().getComma());
+			
+		}else {
+			//Nullen auffüllen, um Komma zu verschieben bei negativen exponent
+			for (int i = 0; i < Math.abs(exponentDouble)-1; i++) {
+				
+				sbIeee.insert(0, "0");
+				
+			}
+			System.out.println(sbIeee.toString());
+			sbIeee.insert(1, Preferences.getPrefs().getComma());
+		}
+		
+		
+		System.out.println(exponentDouble);
+		System.out.println(exponentString);
+		System.out.println(sbIeee.toString());
+			
+		ieeeDecString = ConvertingNumbers.baseToDecString(2, sbIeee.toString());
+		
+		if (negIeee) 
+			ieeeDecString = "-"+ieeeDecString;
+		System.out.println(ieeeDecString);
+		setDec(ieeeDecString);
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
