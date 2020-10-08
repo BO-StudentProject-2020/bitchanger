@@ -219,7 +219,7 @@ public class ConvertingNumbers {
 		if(isNegativeBin) {
 			
 			// Abfrage auf illegales Zeichen (COMMA-Abfrage bei negativen Binärzahlen) im Binärfeld
-			// TODO Comma aus Preferences hinzufügen, wie - es wird eine CharSequence benötigt? Außerdem Exception hinzufügen!
+			// TODO Exception hinzufügen!
 			boolean illegalCommaBin = value.contains(String.valueOf(Preferences.getPrefs().getComma()));
 			
 			if(illegalCommaBin) {
@@ -361,7 +361,7 @@ public class ConvertingNumbers {
 		if(isNegativeBin) {
 			
 			// Abfrage auf illegales Zeichen (COMMA-Abfrage bei negativen Binärzahlen) im Binärfeld
-			// TODO Comma aus Preferences hinzufügen, wie - es wird eine CharSequence benötigt? Außerdem Exception hinzufügen!
+			// TODO Exception hinzufügen!
 			boolean illegalCommaBin = value.contains(String.valueOf(Preferences.getPrefs().getComma()));
 			
 			if(illegalCommaBin) {
@@ -731,8 +731,10 @@ public class ConvertingNumbers {
 		return integerPart.reverse().toString() + fractionalPart.toString();
 	}
 	
-	
-	
+//	public static String decToIeee()
+//	
+//	
+//	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
