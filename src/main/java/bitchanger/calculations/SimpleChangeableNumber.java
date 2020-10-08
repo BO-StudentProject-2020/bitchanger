@@ -534,6 +534,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		//TODO zu große und zu kleine Zahlen abfangen
 		//TODO maximal länge überprüfen lang.maxValueOf
 		//TODO Double in long casten und dann in String -> damit E14 etc weg geht long.toString (.valueof (long) noch davor
+		//TODO \u221E
+		//TODO NumberOverflowException, wenn wert überschritten wird
 		
 		//... bei ausgewählter "abgeschnittene Nachkommastellen Kennzeichnen" entfernen
 		binIeeeString = binIeeeString.replace("...", "");
@@ -594,7 +596,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 				exponent = exponent + 15;
 				
 			}
-			//TODO NumberOverflowException, wenn wert überschritten wird
+			
 			
 			exponentString = ConvertingNumbers.decToBase(2, String.valueOf(exponent));
 			StringBuilder sbExponent = new StringBuilder (exponentString);
