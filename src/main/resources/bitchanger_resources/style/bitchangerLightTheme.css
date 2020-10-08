@@ -1,55 +1,41 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+ * 
+ */
+ 
 .root {
-	-fx-background: #fefefe;
-	-fx-border: lightgrey;
+	-fx-background: ivory;
+	-fx-menu-background-color: ivory;
+	
+	-fx-control-inner-background: white;
+	
+	-fx-button-background-color:   #E8C495;
+	-fx-button-pressed-color: #B85B1A;
+	-fx-combo-box-background-color: blanchedalmond;
+	
+	
 	-fx-text: black;
+	-fx-text-input-fill: #0000C0;
+	-fx-button-text-fill: black;
+	-fx-text-box-border: azure;
+	
+	
+	-fx-cell-border-color: navy;
+	
+	-fx-hover-base: chocolate;
+	-fx-accent: chocolate;
+	
 	
 	-fx-background-color: -fx-background;
 }
 
-.label {
-	-fx-text-fill: -fx-text;
-}
 
 
 
-.text-input {
-	-fx-text-fill: mediumblue;
-	-fx-font-weight: bold;
-}
 
 
-/*******************************************************************************
- *                                                                             *
- * Spinner                                                                     *
- *                                                                             *
- ******************************************************************************/
 
-.spinner {
-    -fx-background-color: -fx-shadow-highlight-color, -fx-text-box-border, -fx-control-inner-background;
-}
-
-.spinner:focused,
-.spinner:contains-focus {
-    -fx-background-color: -fx-focus-color, -fx-text-box-border, -fx-control-inner-background;
-}
-
-.spinner > .text-field {
-    -fx-background-color: -fx-text-box-border, -fx-control-inner-background;
-}
-
-.spinner .increment-arrow-button {
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
-}
-
-.spinner .decrement-arrow-button {
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
-}
-
-.spinner .increment-arrow-button .increment-arrow {
-    -fx-background-color: black, black;
-}
-
-.spinner .decrement-arrow-button .decrement-arrow {
-    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-}
 

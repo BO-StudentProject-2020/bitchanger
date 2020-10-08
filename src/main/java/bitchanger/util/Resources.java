@@ -62,6 +62,9 @@ public class Resources {
 	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr das allgemeine Layout oder {@code null}, wenn das CSS nicht gefunden wurde */
 	public static final String LAYOUT_CSS = getResourceAsExternalForm("/style/bitchangerLayout.css");
 
+	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr das allgemeine Layout oder {@code null}, wenn das CSS nicht gefunden wurde */
+	public static final String ALERT_LAYOUT_CSS = getResourceAsExternalForm("/style/alertLayout.css");
+	
 	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr die helle Darstellung oder {@code null}, wenn das CSS nicht gefunden wurde */
 	public static final String LIGHT_CSS = getResourceAsExternalForm("/style/bitchangerLightTheme.css");
 	

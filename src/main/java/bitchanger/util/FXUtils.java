@@ -21,6 +21,7 @@ import org.w3c.dom.NodeList;
 
 import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.controls.SVGIcon;
+import bitchanger.preferences.Preferences;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -341,6 +342,8 @@ public class FXUtils {
 		dialog.setHeaderText("\u00DCberlauf");
 		dialog.setContentText(noe.getDescription());
 		dialog.getDialogPane().setExpandableContent(infoLabel);
+		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
+		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
 		
 		return dialog.showAndWait();
 	}
@@ -352,6 +355,9 @@ public class FXUtils {
 		Alert dialog = new Alert(dialogType, message, buttonTypes);
 		if(title != null) dialog.setTitle(title);
 		if(headerText != null) dialog.setHeaderText(headerText);
+		
+		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
+		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
 		
 		return dialog.showAndWait();
 	}
@@ -392,6 +398,9 @@ public class FXUtils {
 		
 		if(title != null) dialog.setTitle(title);
 		if(headerText != null) dialog.setHeaderText(headerText);
+		
+		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
+		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
 		
 		return dialog.showAndWait();
 	}

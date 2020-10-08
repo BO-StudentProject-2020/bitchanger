@@ -525,11 +525,18 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 	// TODO JavaDoc
 	private void setBindingsAndListeners() {
 		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
-		Preferences.getPrefs().bitLengthProperty().bind(bitLength.getSelectionModel().selectedItemProperty());
+		bitLength.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<BitLength>() {
+			@Override
+			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+				Preferences.getPrefs().bitLengthProperty().set(newValue);
+			}
+		});
 		
 		Preferences.getPrefs().bitLengthProperty().addListener(new ChangeListener<BitLength>() {
 			@Override
 			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+				bitLength.getSelectionModel().select(newValue);
+				
 				checkUnsignedBitLength();
 
 				// Warnung und Löschen aller Eingaben beim verkleinern der Bitlänge
