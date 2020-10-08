@@ -245,7 +245,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		if(Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
 			if (Preferences.getPrefs().bitLengthProperty().get().equals(BitLength._64_BIT) && Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
 				// bei unsigned maximal 63 Bit möglich!
-				val = (long) this.asDouble() & 0xEFFFFFFFFFFFFFFFl;
+				val = (long) this.asDouble() & 0x7FFFFFFFFFFFFFFFl;
 			} else {
 				val = (long) this.asDouble() & Preferences.getPrefs().bitLengthProperty().get().getBitmask();
 			}
