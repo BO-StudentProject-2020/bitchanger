@@ -462,8 +462,188 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** {@inheritDoc} */
 	@Override
 	public String toIEEEString(IEEEStandard standard) {
-		// TODO IEEE Implementieren
-		return null;
+boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
+		
+		int indexCommaVorNorm;
+		int indexCommaNachNorm;
+		int exponent = 0;
+		
+		//Leerzeichen zwischen dreierpäckchen löschen
+		String decValueOhne = decValue.replaceAll(" ", "");
+		
+		//Vorzeichenbehandlung des übergebenen Strings
+		String vorzeichen = "0";
+		boolean isNegative = decValueOhne.startsWith("-");	
+		if(isNegative) {
+			vorzeichen = "1";
+			decValueOhne = decValueOhne.replaceFirst("-", "");
+	
+		}
+		
+		String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne);
+		//TODO String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne, Preferences.getPrefs().getComma(), );
+		//TODO zu große und zu kleine Zahlen abfangen
+		//TODO maximal länge überprüfen lang.maxValueOf
+		//TODO Double in long casten und dann in String -> damit E14 etc weg geht long.toString (.valueof (long) noch davor
+		//TODO \u221E
+		//TODO NumberOverflowException, wenn wert überschritten wird
+		
+		//... bei ausgewählter "abgeschnittene Nachkommastellen Kennzeichnen" entfernen
+		binIeeeString = binIeeeString.replace("...", "");
+		String exponentString;
+		
+		//Wenn kein Komma enthalten ist, dann wird ein ,0 am Ende hinzugefügt!
+		if(!binIeeeString.contains(Character.toString(Preferences.getPrefs().getComma()))) {
+			
+			binIeeeString = binIeeeString + Character.toString(Preferences.getPrefs().getComma()) + "0";
+		
+		}
+		
+		StringBuilder sbBinIeeeString = new StringBuilder (binIeeeString);
+		
+		//Komma umwandeln in . anstatt , -> für abfrage in if Bedingung
+		decValueOhne.replace(Preferences.getPrefs().getComma(), '.');
+		
+		if(half) {
+			
+			if(Double.parseDouble(decValueOhne) < 1) {
+				
+				//Stelle des Kommas vor Normierung und Stelle des Kommas nach Normierung -> für Berechnung Exponent
+				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
+				indexCommaNachNorm = sbBinIeeeString.indexOf("1");
+				
+				//löschen von 0,
+				sbBinIeeeString.deleteCharAt(0);
+				sbBinIeeeString.deleteCharAt(0);
+				sbBinIeeeString.deleteCharAt(0);
+				
+				while(sbBinIeeeString.charAt(0) == '0') {
+					
+					sbBinIeeeString.deleteCharAt(0);
+					
+				}
+				
+				//erste 1 entfernen
+				sbBinIeeeString.deleteCharAt(0);
+				
+				exponent = indexCommaVorNorm - indexCommaNachNorm + 15;
+				
+			}else {
+				//0 am Anfang der Binärzahl entfernen
+				sbBinIeeeString.deleteCharAt(0);
+				//Index des Kommas aufnehmen
+				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
+				//Komma an dieser Stelle löschen
+				sbBinIeeeString.deleteCharAt(indexCommaVorNorm);
+				//Komma an Stelle 1 setzen, damit 1, usw. entsteht
+				sbBinIeeeString.insert(1, Preferences.getPrefs().getComma());
+
+				//löschen von 1, -> Mantisse
+				sbBinIeeeString.deleteCharAt(0);
+				sbBinIeeeString.deleteCharAt(0);
+	
+				//Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
+				exponent = indexCommaVorNorm - 1;
+				exponent = exponent + 15;
+				
+			}
+			
+			
+			exponentString = ConvertingNumbers.decToBase(2, String.valueOf(exponent));
+			StringBuilder sbExponent = new StringBuilder (exponentString);
+			sbExponent.deleteCharAt(0);
+
+			//Exponent auf 5 Zeichen auffüllen
+			while (sbExponent.length() < 5) {
+				
+				sbExponent.insert(0, "0");
+				
+			}
+			
+			//Mantisse auf 11 Zeichen auffüllen
+			while (sbBinIeeeString.length() < 11) {
+				
+				
+				sbBinIeeeString.append("0");
+				
+			}
+
+			return vorzeichen + " " + sbExponent.toString() + " " + sbBinIeeeString.toString();
+			
+			
+		}else {
+			
+			if(Double.parseDouble(decValueOhne) < 1) {
+				
+				//Stelle des Kommas vor Normierung und Stelle des Kommas nach Normierung -> für Berechnung Exponent
+				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
+				indexCommaNachNorm = sbBinIeeeString.indexOf("1");
+
+				//löschen von 00,
+				sbBinIeeeString.deleteCharAt(0);
+				sbBinIeeeString.deleteCharAt(0);
+				sbBinIeeeString.deleteCharAt(0);
+				
+				while(sbBinIeeeString.charAt(0) == '0') {
+					
+					sbBinIeeeString.deleteCharAt(0);
+					
+				}
+
+				//erste 1 entfernen
+				sbBinIeeeString.deleteCharAt(0);
+				
+				exponent = indexCommaVorNorm - indexCommaNachNorm + 127;
+				
+			}else {
+				
+				//0 am Anfang der Binärzahl entfernen
+				sbBinIeeeString.deleteCharAt(0);
+				//Index des Kommas aufnehmen
+				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
+				//Komma an dieser Stelle löschen
+				sbBinIeeeString.deleteCharAt(indexCommaVorNorm);
+				//Komma an Stelle 1 setzen, damit 1, usw. entsteht
+				sbBinIeeeString.insert(1, Preferences.getPrefs().getComma());
+				
+				//löschen von 1, -> Mantisse
+				sbBinIeeeString.deleteCharAt(0);
+				sbBinIeeeString.deleteCharAt(0);
+				
+				//Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
+				exponent = indexCommaVorNorm - 1;
+				exponent = exponent + 127;
+					
+			}
+			exponentString = ConvertingNumbers.decToBase(2, String.valueOf(exponent));
+			StringBuilder sbExponent = new StringBuilder (exponentString);
+			sbExponent.deleteCharAt(0);
+			
+			//Exponent auf 8 Zeichen auffüllen
+			while (sbExponent.length() < 8) {
+				
+				sbExponent.insert(0, "0");
+				
+			}
+			
+			//Mantisse auf 23 Zeichen auffüllen
+			while (sbBinIeeeString.length() < 23) {
+				
+				
+				sbBinIeeeString.append("0");
+				
+			}
+			
+			//Mantisse auf 23 Zeichen kürzen
+			while(sbBinIeeeString.length() > 23) {
+				
+				sbBinIeeeString.deleteCharAt(sbBinIeeeString.length()-1);
+				
+			}
+			
+			return vorzeichen + " " + sbExponent.toString() + " " + sbBinIeeeString.toString();
+		}
+		
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
