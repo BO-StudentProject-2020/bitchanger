@@ -7,32 +7,33 @@
  */
  
 .root {
-	-fx-background: white;
-	-fx-menu-background-color: white;
+	-fx-background: ivory;
+	-fx-menu-background-color: ivory;
 	
-	-fx-control-inner-background: aliceblue;
+	-fx-control-inner-background: white;
 	
-	-fx-button-background-color: lightgrey;
-	-fx-button-pressed-color: skyblue;
-	-fx-combo-box-background-color: aliceblue;
+	-fx-button-background-color: #E8C495;
+	-fx-button-pressed-color: #B85B1A;
+	-fx-combo-box-background-color: blanchedalmond;
 	
 	-fx-body-color: -fx-button-background-color;
-	-fx-text-box-border: silver;
-	-fx-outer-border: silver;
-	-fx-inner-border: silver;
-	-fx-shadow-highlight-color: gainsboro;
+	-fx-text-box-border: bisque;
+	-fx-outer-border: chocolate;
+	-fx-inner-border: chocolate;
+	-fx-shadow-highlight-color: bisque;
 	
 	
-	-fx-text: #20304f;
-	-fx-text-input-fill: navy;
+	-fx-text: black;
+	-fx-text-input-fill: #0000C0;
 	-fx-button-text-fill: black;
 	-fx-text-box-border: azure;
-	-fx-icon-color: black;
+	-fx-icon-color: -fx-text;
 	
-	-fx-cell-border-color: steelblue;
 	
-	-fx-hover-base: powderblue;
-	-fx-accent: powderblue;
+	-fx-cell-border-color: navy;
+	
+	-fx-hover-base: chocolate;
+	-fx-accent: chocolate;
 	
 	
 	-fx-background-color: -fx-background;

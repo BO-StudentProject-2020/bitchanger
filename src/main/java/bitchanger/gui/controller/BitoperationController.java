@@ -41,7 +41,7 @@ import javafx.scene.layout.GridPane;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 // TODO JavaDoc EN
@@ -525,17 +525,30 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 	// TODO JavaDoc
 	private void setBindingsAndListeners() {
 		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
-		bitLength.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<BitLength>() {
-			@Override
-			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
-				Preferences.getPrefs().bitLengthProperty().set(newValue);
-			}
-		});
 		
 		Preferences.getPrefs().bitLengthProperty().addListener(new ChangeListener<BitLength>() {
 			@Override
 			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
 				bitLength.getSelectionModel().select(newValue);
+			}
+		});
+		
+		bitLength.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<BitLength>() {
+			@Override
+			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+				if(Preferences.getPrefs().bitLengthProperty().get().equals(newValue)) {
+					// Einstellungen wurden zurückgesetzt -> keine weiteren Warnungen anzeigen
+					value1.set(0);
+					value2.set(0);
+					result.set(0);
+					operation = Operation.UNDEFINED;
+					lastOperation = Operation.UNDEFINED;
+					clearBtn.fire();
+					clearBtn.fire();
+					return;
+				}
+				
+				Preferences.getPrefs().bitLengthProperty().set(newValue);
 				
 				checkUnsignedBitLength();
 
@@ -548,6 +561,8 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 						value1.set(0);
 						value2.set(0);
 						result.set(0);
+						operation = Operation.UNDEFINED;
+						lastOperation = Operation.UNDEFINED;
 						clearBtn.fire();
 						clearBtn.fire();
 					} else {
@@ -567,6 +582,9 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 				}
 			}
 		});
+		
+		this.baseProperty.set(Preferences.getPrefs().bitOpertionBaseProperty().get());
+		this.baseProperty.bindBidirectional(Preferences.getPrefs().bitOpertionBaseProperty());
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*

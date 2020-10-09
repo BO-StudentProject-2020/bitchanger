@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -26,7 +27,7 @@ import bitchanger.util.Resources;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  * 
  */
 /* <!-- $LANGUAGE=EN -->
@@ -35,7 +36,7 @@ import bitchanger.util.Resources;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  * 
  */
 public class BitchangerLauncher {
@@ -63,11 +64,17 @@ public class BitchangerLauncher {
 	 * 
 	 */
 	public static void main(String[] args) {
-		// Der Lauchner startet nur die Main-Methode vom PrimaryFXApp
-		/* Dies ist notwendig, da ohne den Aufruf mit diesem Launcher der Classpath auf die javafx Runtime
-		 * ueberprueft wird und die Anwendung mit einer Exception abgebrochen wird
-		 */
-		boolean relocateErr = false;
+		// Error-Stream setzen
+		boolean relocateErr;
+		URL codeLocation = Resources.class.getProtectionDomain().getCodeSource().getLocation();
+		
+		if(codeLocation.toString().endsWith(".jar")) {
+			// Programm wird in jar-Datei ausgeführt
+			relocateErr = true;
+		} else {
+			// Programm wird nicht in einer jar-Datei ausgeführt (z.B. Aufruf aus IDE)
+			relocateErr = false;
+		}
 		
 		File errorFile = null;
 		PrintStream errStream = null;
@@ -81,10 +88,13 @@ public class BitchangerLauncher {
 			} 
 		}
 		
+		// Hauptfenster ausführen und aus Schließen warten
 		PrimaryFXApp.launchFXApplication(args);
 		
+		// aktuelle Einstellungen speichern
 		Preferences.storeCustom();
 		
+		// Error-Datei speichern oder löschen
 		if (relocateErr) {
 			closeErrorStream(errStream);
 			deleteEmptyErrorFile(errorFile);
@@ -130,7 +140,7 @@ public class BitchangerLauncher {
 			if(!errorFile.getParentFile().exists()) {
 				errorFile.getParentFile().mkdirs();
 			}
-			errStream = new PrintStream(new BufferedOutputStream(new FileOutputStream(errorFile)));
+			errStream = new PrintStream(new BufferedOutputStream(new FileOutputStream(errorFile)), true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			errStream = null;

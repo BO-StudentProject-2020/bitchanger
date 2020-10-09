@@ -66,10 +66,13 @@ public class Resources {
 	public static final String ALERT_LAYOUT_CSS = getResourceAsExternalForm("/style/alertLayout.css");
 	
 	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr die helle Darstellung oder {@code null}, wenn das CSS nicht gefunden wurde */
-	public static final String LIGHT_CSS = getResourceAsExternalForm("/style/bitchangerLightTheme.css");
+	public static final String LIGHT_THEME_CSS = getResourceAsExternalForm("/style/bitchangerLightTheme.css");
+	
+	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr die gef\u00E4rbte Darstellung oder {@code null}, wenn das CSS nicht gefunden wurde */
+	public static final String COLOR_THEME_CSS = getResourceAsExternalForm("/style/bitchangerColorTheme.css");
 	
 	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr die dunkle Darstellung oder {@code null}, wenn das CSS nicht gefunden wurde */
-	public static final String DARK_CSS = getResourceAsExternalForm("/style/bitchangerDarkTheme.css");
+	public static final String DARK_THEME_CSS = getResourceAsExternalForm("/style/bitchangerDarkTheme.css");
 
 	
 	
@@ -332,6 +335,9 @@ public class Resources {
 
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons einer Farbpalette oder {@code null}, wenn das Icon nicht gefunden wurde */
+	public static final File PAINT_ICON = getResourceAsFile("/graphic/svg/iconmonstr-paintbrush-7.svg");
 	
 	/** <!-- $LANGUAGE=DE -->	Speicherort des gef\u00FCllten Pinsel Icons oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File PAINT_BRUSH_FILLED_ICON = getResourceAsFile("/graphic/svg/iconmonstr-paintbrush-3.svg");

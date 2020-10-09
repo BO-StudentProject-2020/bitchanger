@@ -74,7 +74,8 @@ public class IconFactory {
 	 */
 	private static void setSVGStyle(SVGIcon icon, SVGPath lightSVG, SVGPath darkSVG, Style style) {
 		switch(style) {
-			case LIGHT:
+			case LIGHT: /* fall through */
+			case COLOR:
 				icon.setSVG(lightSVG);
 				break;
 			case DARK:

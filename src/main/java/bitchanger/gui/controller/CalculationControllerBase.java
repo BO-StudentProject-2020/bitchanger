@@ -41,7 +41,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 // TODO JavaDoc EN
@@ -354,9 +354,12 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	 */
 	private void setInitialState() {
 		textField.requestFocus();
-		// TODO letzten Stand merken
+		
 		octBtn.fire();
 		decBtn.fire();
+		
+		this.operation = Operation.UNDEFINED;
+		this.lastOperation = Operation.UNDEFINED;
 	}
 	
 	
@@ -501,6 +504,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 				else {
 					equalsLabel.setText("");
 					clearCalcLabels();
+					operation = Operation.UNDEFINED;
 					lastOperation = Operation.UNDEFINED;
 					isCleared = true;
 				}
@@ -568,7 +572,13 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 			@Override
 			public void handle(ActionEvent event) {
 				isCleared = false;
-				setFirstValue(o, firstValueText);
+				
+				if (!operation.isUndefined() && firstValueText.getValue().equals("")) {
+					operation = o;
+					operationLabel.setText(o.getSymbol());
+				} else {
+					setFirstValue(o, firstValueText);
+				}
 			}
 		});
 	}
@@ -620,6 +630,8 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 						parseValue(value2);
 					} catch (NumberOverflowException noe) {
 						FXUtils.showNumberOverflowWarning(noe);
+						return;
+					} catch (Exception e) {
 						return;
 					}
 				}

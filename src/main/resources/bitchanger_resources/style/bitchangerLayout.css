@@ -28,16 +28,19 @@
 
 
 #UNSELECTED_BASE_BUTTON {
+	-fx-font-weight: normal;
 	-fx-background-color: -fx-background;
 }
 
 #UNSELECTED_BASE_BUTTON:hover {
+	-fx-font-weight: normal;
 	-fx-background-color: -fx-hover-base;
 }
 
 
 #SELECTED_BASE_BUTTON,
 #SELECTED_BASE_BUTTON:hover{
+	-fx-font-weight: normal;
 	-fx-background-color: -fx-button-background-color;
 }
 
@@ -82,12 +85,12 @@
  ******************************************************************************/
 
 .unfocused-button {
-	-fx-text-fill: black;
+	-fx-text-fill: -fx-button-text-fill;
 	-fx-background-color: -fx-button-background-color;
 }
 
 .button {
-	-fx-font-size: 18;
+	-fx-font-size: 25;
 	-fx-font-weight: bold;
 	-fx-text-fill: -fx-button-text-fill;
 }
@@ -305,7 +308,7 @@
  ******************************************************************************/
 
 .svg-icon {
-	-fx-fill: -fx-text;
+	-fx-fill: -fx-icon-color;
 }
 
 

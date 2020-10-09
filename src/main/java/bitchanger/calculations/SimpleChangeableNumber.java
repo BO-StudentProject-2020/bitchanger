@@ -304,7 +304,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
 		}
 		
-		this.setDec(String.valueOf(decValue));
+		// Unterteilen in ganzen und gebrochenen Anteil wegen Exponenten-Darstellung von double bei großen Zahlen
+		String integerPart = String.valueOf((long)decValue);
+		String fractionalPart = String.valueOf(decValue % 1.0);
+		fractionalPart = fractionalPart.substring(fractionalPart.indexOf("."));
+		
+		this.setDec(integerPart + fractionalPart);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	

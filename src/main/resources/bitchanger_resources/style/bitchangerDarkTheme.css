@@ -16,11 +16,18 @@
 	-fx-button-pressed-color: #00006F;
 	-fx-combo-box-background-color: white;
 	
+	-fx-body-color: -fx-button-background-color;
+	-fx-text-box-border: #606060;
+	-fx-outer-border: #606060;
+	-fx-inner-border: #606060;
+	-fx-shadow-highlight-color: #606060;
+	
 	
 	-fx-text: cornsilk;
 	-fx-text-input-fill: navy;
 	-fx-button-text-fill: cornsilk;
 	-fx-text-box-border: dimgray;
+	-fx-icon-color: -fx-text;
 	
 	
 	-fx-cell-border-color: white;
