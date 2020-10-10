@@ -946,12 +946,14 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			grid.getRowConstraints().add(createRowConstraints(ConstraintType.WHITESPACE_ROW));
 		}
 		
-		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
-		try {
-			grid.getRowConstraints().remove(rowIndex);
-		} catch (Exception e) {
-			/* ignore */
-			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+		if (rowIndex < grid.getRowConstraints().size()) {
+			// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
+			try {
+				grid.getRowConstraints().remove(rowIndex);
+			} catch (Exception e) {
+				/* ignore */
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			} 
 		}
 		
 		// Constraints hinzufügen
@@ -1050,12 +1052,14 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			grid.getColumnConstraints().add(new ColumnConstraints());
 		}
 		
-		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
-		try {
-			grid.getColumnConstraints().remove(columnIndex);
-		} catch (Exception e) {
-			/* ignore */
-			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+		if (columnIndex < grid.getColumnConstraints().size()) {
+			// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
+			try {
+				grid.getColumnConstraints().remove(columnIndex);
+			} catch (Exception e) {
+				/* ignore */
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			} 
 		}
 		
 		// Constraints hinzufügen
