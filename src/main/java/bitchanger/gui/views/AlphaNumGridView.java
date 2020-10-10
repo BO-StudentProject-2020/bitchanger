@@ -16,6 +16,8 @@ import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.controls.SVGIcon;
 import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.gui.controls.ValueField;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
 import bitchanger.util.IconFactory;
@@ -947,7 +949,10 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
 		try {
 			grid.getRowConstraints().remove(rowIndex);
-		} catch (Exception e) { /* ignore */ }
+		} catch (Exception e) {
+			/* ignore */
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+		}
 		
 		// Constraints hinzufügen
 		grid.getRowConstraints().add(rowIndex, rowc);
@@ -1048,7 +1053,10 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
 		try {
 			grid.getColumnConstraints().remove(columnIndex);
-		} catch (Exception e) { /* ignore */ }
+		} catch (Exception e) {
+			/* ignore */
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+		}
 		
 		// Constraints hinzufügen
 		grid.getColumnConstraints().add(columnIndex, column);

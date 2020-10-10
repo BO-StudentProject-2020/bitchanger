@@ -10,6 +10,8 @@ package bitchanger.util;
 
 import java.io.File;
 import bitchanger.gui.controls.SVGIcon;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import bitchanger.preferences.Style;
 import javafx.beans.value.ChangeListener;
@@ -22,7 +24,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.8
  *
  */
 public class IconFactory {
@@ -57,6 +59,7 @@ public class IconFactory {
 			return icon;
 		} 
 		catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 			return null;
 		}

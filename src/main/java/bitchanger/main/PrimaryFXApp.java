@@ -16,6 +16,7 @@ import bitchanger.gui.views.CalculatorView;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.Resources;
@@ -435,6 +436,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 						view.getScene().getStylesheets().remove(oldStylesheet);
 					} catch (Exception e) {
 						// ignore
+						BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
 					}
 					
 					view.getScene().getStylesheets().add(newStylesheet);

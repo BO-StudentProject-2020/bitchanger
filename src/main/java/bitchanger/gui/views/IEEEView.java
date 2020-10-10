@@ -13,6 +13,8 @@ import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.IEEEController;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.controls.IEEEMenuBar;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.util.ArrayUtils;
 
 
@@ -25,7 +27,7 @@ import bitchanger.util.ArrayUtils;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.7
+ * @version 0.1.8
  * 
  * @see IEEEController
  */
@@ -132,6 +134,7 @@ public class IEEEView extends AlphaNumGridView {
 		try {
 			return new IEEEMenuBar(controllableApp);
 		} catch (NullPointerException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
 			return generateMenuBar();
 		}
 	}

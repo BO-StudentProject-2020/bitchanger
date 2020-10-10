@@ -21,7 +21,9 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import bitchanger.main.BitchangerLauncher;
 import bitchanger.main.PrimaryFXApp;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 
 /** <!-- $LANGUAGE=DE -->
  * Enth\u00E4lt alle ben\u00F6tigten Ressourcen, wie Pfade zu den CSS Dateien oder den Icons
@@ -29,7 +31,7 @@ import bitchanger.main.PrimaryFXApp;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 public class Resources {
@@ -549,6 +551,7 @@ public class Resources {
 				}
 				
 			} catch(Exception e) {
+				BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 				e.printStackTrace();
 			}
 		}
@@ -571,9 +574,12 @@ public class Resources {
 		try {
 			 url = Resources.class.getResource("/bitchanger_resources" + name).toExternalForm();
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);
+			
 			try {
 				url = getResourceAsFile(name).toURI().toURL().toExternalForm();
 			} catch (MalformedURLException e1) {
+				BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e1);
 				url = null;
 			}
 		}
@@ -598,6 +604,7 @@ public class Resources {
 			file = new File(RESOURCES_ROOT, File.separator + "resources-" + PrimaryFXApp.VERSION + File.separator + name);
             
         } catch (Exception e){
+        	BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
             e.printStackTrace();
             file = null;
         }
@@ -613,7 +620,10 @@ public class Resources {
 			
 			try {
 				Files.createDirectories(target.getParent());
-			} catch (Exception e) { /* ignore */ }
+			} catch (Exception e) {
+				/* ignore */
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			}
 			
 			if(codeLocation.toString().endsWith(".jar")) {
 				// Programm wird in jar-Datei ausgeführt
@@ -626,6 +636,7 @@ public class Resources {
 			}
 			
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 		}
 	}
@@ -649,6 +660,7 @@ public class Resources {
 					Files.copy(jarfile.getInputStream(entry), entryTarget);
 				}
 			} catch (Exception e) {
+				BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 				e.printStackTrace();
 			}
 		}
@@ -693,6 +705,7 @@ public class Resources {
 					InputStream in = Resources.class.getResourceAsStream(resourceName + "/" + file.getName());
 					Files.copy(in, newTarget.toPath());
 				} catch (Exception e) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 					e.printStackTrace();
 				}
 			}

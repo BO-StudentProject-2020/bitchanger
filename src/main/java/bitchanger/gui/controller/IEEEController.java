@@ -17,6 +17,8 @@ import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.IEEEView;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
@@ -41,7 +43,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.7
+ * @version 0.1.8
  * 
  */
 public class IEEEController extends ControllerBase<IEEEView> {
@@ -258,12 +260,16 @@ public class IEEEController extends ControllerBase<IEEEView> {
 					try {
 						value.setDec(newValue);
 					} catch (NumberOverflowException noe) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
 						FXUtils.showNumberOverflowWarning(noe);
 						value.reset();
 					} catch (Exception e) {
 						value.reset();
 						if (! (e instanceof NoSuchElementException)) { // NoSuchElementException tritt auf, wenn Nachkommateil fehlt (wegen Scanner)
+							BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
 							e.printStackTrace();
+						} else {
+							BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
 						}
 					}
 					
@@ -307,12 +313,16 @@ public class IEEEController extends ControllerBase<IEEEView> {
 		try {
 			value.setIEEE(newValue, Preferences.getPrefs().ieeeStandardProperty().get());
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
 			FXUtils.showNumberOverflowWarning(noe);
 			value.reset();
 		} catch (Exception e) {
 			value.reset();
 			if (! (e instanceof NoSuchElementException)) { // NoSuchElementException tritt auf, wenn Nachkommateil fehlt (wegen Scanner)
+				BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM);
 				e.printStackTrace();
+			} else {
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
 			}
 		}
 		

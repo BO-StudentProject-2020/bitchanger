@@ -8,13 +8,16 @@
 
 package bitchanger.preferences.writableProperty;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+
 /** <!-- $LANGUAGE=DE -->
  * 
  * 
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 // TODO JavaDoc
@@ -79,6 +82,7 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 		try {
 			cl = (Class<? extends T>) Class.forName(data);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 			return;
 		}

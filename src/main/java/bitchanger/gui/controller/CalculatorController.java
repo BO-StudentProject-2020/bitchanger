@@ -11,6 +11,8 @@ package bitchanger.gui.controller;
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.views.CalculatorView;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import javafx.beans.binding.StringExpression;
 import javafx.scene.control.Button;
@@ -170,10 +172,16 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 		try {
 			value.setValue(textField.getText(), baseProperty.get());
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			throw noe;
 		} catch (IllegalArgumentException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);
+			
 			value.set(0);
 		} catch (NullPointerException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
+			
 			e.printStackTrace();
 		}
 	}
@@ -216,8 +224,12 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 					break;
 			}
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			throw noe;
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
 			throw e;
 		}
 	}

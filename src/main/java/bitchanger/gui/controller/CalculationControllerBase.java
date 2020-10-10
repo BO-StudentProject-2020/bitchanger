@@ -16,6 +16,8 @@ import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.CalculationViewBase;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
 import javafx.beans.binding.StringExpression;
@@ -594,6 +596,8 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		try {
 			parseValue(value1);
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			FXUtils.showNumberOverflowWarning(noe);
 			return;
 		}
@@ -623,15 +627,21 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 					try {
 						value1.set(result.asDouble());
 					} catch (Exception e) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+						
 						return;
 					}
 				} else {
 					try {
 						parseValue(value2);
 					} catch (NumberOverflowException noe) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+						
 						FXUtils.showNumberOverflowWarning(noe);
 						return;
 					} catch (Exception e) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+						
 						return;
 					}
 				}
@@ -639,10 +649,14 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 				try {
 					calculate();
 				} catch (NumberOverflowException noe) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+					
 					noe.setDescription("Das Ergebnis der Berechnung verl\u00E4sst den zugelassenen Zahlenbereich.");
 					FXUtils.showNumberOverflowWarning(noe);
 					return;
 				} catch (Exception e) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
+					
 					e.printStackTrace();
 					return;
 				}
@@ -742,10 +756,14 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		try {
 			num.setValue(textField.getText(), oldBase.intValue());
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			num.reset();
 			noe.setDescription("Die eingegebene Zahl lag außerhalb des erlaubten Wertebereiches und wurde zur\u00FCckgesetzt.");
 			FXUtils.showNumberOverflowWarning(noe);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);
+			
 			num.reset();
 		}
 		

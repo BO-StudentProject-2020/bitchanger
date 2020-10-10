@@ -16,6 +16,8 @@ import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.FXUtils;
 import javafx.beans.binding.StringExpression;
@@ -242,10 +244,14 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 			value.setValue(input.toString(), baseProperty.get());
 			
 		} catch (NumberFormatException | NullPointerException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
 			e.printStackTrace();
 			clearBtn.fire();
 			clearBtn.fire();
 		} catch (IllegalArgumentException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
 			value.set(0);
 		}
 		
@@ -314,8 +320,12 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 					break;
 			}
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			throw noe;
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
+			
 			throw e;
 		}
 	}
@@ -609,10 +619,14 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		try {
 			calculate();
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			noe.setDescription("Das Ergebnis der Berechnung verl\u00E4sst den zugelassenen Zahlenbereich.");
 			FXUtils.showNumberOverflowWarning(noe);
 			return;
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
+			
 			e.printStackTrace();
 			return;
 		}

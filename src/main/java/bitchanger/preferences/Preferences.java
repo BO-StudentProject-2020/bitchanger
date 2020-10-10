@@ -27,6 +27,8 @@ import bitchanger.calculations.BitLength;
 import bitchanger.calculations.IEEEStandard;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.Viewable;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.writableProperty.WritableBooleanProperty;
 import bitchanger.preferences.writableProperty.WritableClassProperty;
 import bitchanger.preferences.writableProperty.WritableEnumProperty;
@@ -253,6 +255,7 @@ public class Preferences {
 		try {
 			this.load(file);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM);
 			e.printStackTrace();
 		}
 	}
@@ -540,6 +543,7 @@ public class Preferences {
 			this.stylesheetProperty.set(url);
 			this.styleProperty.set(Style.UNKNOWN);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 			return false;
 		}
@@ -633,6 +637,7 @@ public class Preferences {
 			this.setStylesheet(styleProperty.get());
 			
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM);
 			e.printStackTrace();
 		}
 	}
@@ -676,6 +681,7 @@ public class Preferences {
 			transformer.transform(source, result);
 			
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 		}
 	}
@@ -707,6 +713,7 @@ public class Preferences {
 					Element propertyTag = property.getXMLTag(doc);
 					prefTag.appendChild(propertyTag);
 				} catch (Exception e) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 					e.printStackTrace();
 				}
 			}

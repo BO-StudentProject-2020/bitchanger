@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Scanner;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
 
@@ -603,11 +605,14 @@ public class ConvertingNumbers {
 		try {
 			integerPart = Long.parseLong(separated[0]);
 		} catch (NumberFormatException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
 			if (!separated[0].equals("")) {
 				if(calcPath != null) {
 					calcPath.clear();
 					calcPath.add(new ConversionStep("Keine Umwandlung m\u00F6glich, da der erlaubte Wertebereich verlassen wurde!"));
 				}
+				
 				throw new NumberOverflowException("for Number " + decValue, "Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE, e);
 			} else {
 				throw e;

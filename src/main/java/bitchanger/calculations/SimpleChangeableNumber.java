@@ -10,6 +10,8 @@ package bitchanger.calculations;
 
 import java.util.Objects;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -210,9 +212,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		this.decValue = ConvertingNumbers.splitInBlocks(Objects.requireNonNull(decValue), 3);
 		this.hexValue = ConvertingNumbers.decToBaseBlocks(16, this.decValue, Preferences.getPrefs().getComma(), 4);
 		this.octalValue = ConvertingNumbers.decToBaseBlocks(8, this.decValue, Preferences.getPrefs().getComma(), 3);
+		
 		try {
 			this.binValue = ConvertingNumbers.decToBaseBlocks(2, this.decValue, Preferences.getPrefs().getComma(), 4);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			
 			this.binValue = "";
 		}
 		
@@ -232,6 +237,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 				stringProperty.set(toBaseString(baseProperty.get()));
 			}
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			
 			stringProperty.set("");
 		}
 	}
@@ -426,6 +433,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			int blockSize = (base == 2 || base == 16) ? 4 : 3; 
 			return ConvertingNumbers.decToBaseBlocks(base, decValue, Preferences.getPrefs().getComma(), blockSize);
 		} catch (IllegalArgumentException illArg) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, illArg);
+			
 			// Auf falsche Basis prüfen
 			if(base < ConvertingNumbers.MIN_BASE || base > ConvertingNumbers.MAX_BASE) {
 				throw illArg;
@@ -435,6 +444,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			return "";
 		} catch (Exception e) {
 			// Sollte nicht auftreten
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
+			
 			throw e;
 		}
 	}

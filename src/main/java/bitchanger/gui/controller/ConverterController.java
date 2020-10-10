@@ -20,6 +20,8 @@ import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.CalcPathView;
 import bitchanger.gui.views.ConverterView;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
@@ -246,6 +248,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		try {
 			calcPathHelp = (Label) this.nodeMap.get(controllable.calcPathHelpKey());
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
 			e.printStackTrace();
 		}
 	}
@@ -430,9 +433,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 					try {
 						valueConsumer.accept(newValue);;
 					} catch (NumberOverflowException noe) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
 						value.reset();
 						FXUtils.showNumberOverflowWarning(noe);
 					} catch (Exception e) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
 						value.reset();
 					}
 					setTexts(setHex, setDec, setOct, setBin, setAny);
@@ -461,6 +466,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 					try {
 						value.setValue(newValue, anyBase.getValue());
 					} catch (Exception e) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM);
+						
 						value.reset();
 						e.printStackTrace();
 					}
@@ -506,6 +513,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 				try {
 					value.setDec(value.toDecString());
 				} catch (Exception e) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM);
+					
 					value.reset();
 					e.printStackTrace();
 				}
@@ -705,7 +714,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 				Preferences.getPrefs().stylesheetProperty().addListener(new ChangeListener<String>() {
 					@Override
 					public void changed(ObservableValue<? extends String> observable, String oldStylesheet, String newStylesheet) {
-						try { cpv.getScene().getStylesheets().remove(oldStylesheet); } catch(Exception e) { /* ignore */ }
+						try {
+							cpv.getScene().getStylesheets().remove(oldStylesheet);
+						} catch(Exception e) {
+							/* ignore */
+							BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+						}
 						cpv.getScene().getStylesheets().add(newStylesheet);
 					}
 				});
@@ -714,7 +728,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 				stage.setTitle("Bitchanger - Rechenweg f\u00FCr Umwandlungen");
 				try {
 					stage.getIcons().add(new Image(Resources.BITCHANGER_LOGO_PNG.toURI().toURL().toExternalForm()));
-				} catch (MalformedURLException e) { /* ignore */ }
+				} catch (MalformedURLException e) { 
+					/* ignore */
+					BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+				}
+				
 				stage.setScene(cpv.getScene());
 				stage.setHeight(700);
 				stage.setWidth(1000);
