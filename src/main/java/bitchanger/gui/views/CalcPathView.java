@@ -357,7 +357,6 @@ public class CalcPathView extends ViewBase<BorderPane> {
 		
 		TablePane hornerTable = new TablePane();
 		
-		// TODO Liste mit Stellenwertigkeiten
 		hornerTable.add(new StyleableLabel("Basis = " + horner.getBase(), true), 0, 1);
 		hornerTable.add(new StyleableLabel(String.valueOf(horner.getCoefficients().get(0)), true), 1, 0);
 		hornerTable.add(new StyleableLabel(String.valueOf(horner.getSums().get(0)), true), 1, 2);

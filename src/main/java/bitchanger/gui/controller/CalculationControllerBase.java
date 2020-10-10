@@ -389,7 +389,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert die Basis, wenn sich die valueProperty von {@link #anyBase} \u00E4ndert.
-	 * Sorgt außerdem daf\u00FCr, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
+	 * Sorgt au\u00DFerdem daf\u00FCr, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
 	 * Inkrement- und Dekrement-Buttons wieder an {@link #textField} abgibt.
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -759,7 +759,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
 			
 			num.reset();
-			noe.setDescription("Die eingegebene Zahl lag außerhalb des erlaubten Wertebereiches und wurde zur\u00FCckgesetzt.");
+			noe.setDescription("Die eingegebene Zahl lag au\u00DFerhalb des erlaubten Wertebereiches und wurde zur\u00FCckgesetzt.");
 			FXUtils.showNumberOverflowWarning(noe);
 		} catch (Exception e) {
 			BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);

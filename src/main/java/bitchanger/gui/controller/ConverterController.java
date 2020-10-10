@@ -529,7 +529,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 // Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert die Basis von {@link #tfAny}, wenn sich die valueProperty von {@link #anyBase} \u00E4ndert.
-	 * Sorgt außerdem daf\u00FCr, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
+	 * Sorgt au\u00DFerdem daf\u00FCr, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
 	 * Inkrement- und Dekrement-Buttons wieder an {@link #focusedTF} abgibt.
 	 */
 	/*	<!-- $LANGUAGE=EN -->

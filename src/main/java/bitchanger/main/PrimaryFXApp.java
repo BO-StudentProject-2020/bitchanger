@@ -366,7 +366,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 // Layout	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Passt die minimale und die maximale Gr\u00F6ße des Fensters an die Gr\u00F6ße der aktuellen Szene ({@code currentView}) an
+	 * Passt die minimale und die maximale Gr\u00F6\u00DFe des Fensters an die Gr\u00F6\u00DFe der aktuellen Szene ({@code currentView}) an
 	 * 
 	 * @see Viewable#getMinHeigth()
 	 * @see Viewable#getMaxHeigth()

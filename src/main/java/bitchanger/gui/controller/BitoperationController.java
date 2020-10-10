@@ -261,7 +261,7 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		long minValue = Preferences.getPrefs().useUnsignedBitOperationProperty().get() ? bitLength.minUnsignedValue() : bitLength.minValue();
 		
 		if(value.asDouble() > maxValue) {
-			throw new NumberOverflowException("Number " + value.asDouble() + " is too large. Maximum is " + maxValue, "Die eingegebene Zahl ist zu groß!", maxValue, minValue);
+			throw new NumberOverflowException("Number " + value.asDouble() + " is too large. Maximum is " + maxValue, "Die eingegebene Zahl ist zu gro\u00DF!", maxValue, minValue);
 		}
 		else if(value.asDouble() < minValue) {
 			throw new NumberOverflowException("Number " + value.asDouble() + " is too small. Minimum is " + minValue, "Die eingegebene Zahl ist zu klein!", maxValue, minValue);

@@ -38,7 +38,7 @@ public class Resources {
 	
 	// TODO JavaDoc EN
 	
-	/** <!-- $LANGUAGE=DE -->	Speicherort der Benutzereinstellungen beim letzten Schließen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
+	/** <!-- $LANGUAGE=DE -->	Speicherort der Benutzereinstellungen beim letzten Schlie\u00DFen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
 	public static final File RESOURCES_ROOT;
 	
 	static {
@@ -80,7 +80,7 @@ public class Resources {
 	
 // Preferences	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE -->	Speicherort der Benutzereinstellungen beim letzten Schließen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
+	/** <!-- $LANGUAGE=DE -->	Speicherort der Benutzereinstellungen beim letzten Schlie\u00DFen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
 	public static final File CUSTOM_PREFERENCES = getResourceAsFile("/preferences/CustomSettings.prefs");
 	
 	/** <!-- $LANGUAGE=DE -->	Speicherort der Standardeinstellungen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
@@ -272,10 +272,10 @@ public class Resources {
 	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons mit \u00F6ffnender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File KEYBORD_OPEN_ICON = getResourceAsFile("/graphic/svg/iconmonstr-keyboard-6.svg");
 	
-	/** <!-- $LANGUAGE=DE -->	Speicherort des gef\u00FCllten Icons mit schließender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
+	/** <!-- $LANGUAGE=DE -->	Speicherort des gef\u00FCllten Icons mit schlie\u00DFender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File KEYBORD_CLOSE_FILLED_ICON = getResourceAsFile("/graphic/svg/iconmonstr-keyboard-7.svg");
 	
-	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons mit schließender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
+	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons mit schlie\u00DFender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File KEYBORD_CLOSE_ICON = getResourceAsFile("/graphic/svg/iconmonstr-keyboard-8.svg");
 	
 	

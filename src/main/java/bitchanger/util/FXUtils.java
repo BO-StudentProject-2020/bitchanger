@@ -185,10 +185,10 @@ public class FXUtils {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die maximale Gr\u00F6ße aller Controls in einem Iterable auf den Wert {@code maxSize}.
+	 * Setzt die maximale Gr\u00F6\u00DFe aller Controls in einem Iterable auf den Wert {@code maxSize}.
 	 * 
 	 * @param nodes		Sammlung aller anzupassenden Controls, die auch in Layout-Containern liegen d\u00FCrfen
-	 * @param maxSize	Maximale Gr\u00F6ße der Controls
+	 * @param maxSize	Maximale Gr\u00F6\u00DFe der Controls
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the maximum size of all controls inside an Iterable to the value of {@code maxSize}.
@@ -333,7 +333,7 @@ public class FXUtils {
 	// TODO JavaDoc @since Bitchanger 0.1.7
 	public static Optional<ButtonType> showNumberOverflowWarning(NumberOverflowException noe) {
 		StringBuffer infoText = new StringBuffer();
-		infoText.append("Die gr\u00F6ßte erlaubte Zahl ist ");
+		infoText.append("Die gr\u00F6\u00DFte erlaubte Zahl ist ");
 		infoText.append(String.valueOf((long) noe.getMaxSupportetNumber()));
 		infoText.append(" und die kleinste erlaubte Zahl ist ");
 		infoText.append(String.valueOf((long) noe.getMinSupportetNumber()));

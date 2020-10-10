@@ -24,7 +24,7 @@ import javafx.beans.value.ObservableValue;
 /**	<!-- $LANGUAGE=DE -->
  * Die Klasse SimpleChangeableNumber bietet eine vollst\u00E4ndige Implementierung von {@link ChangeableNumber}.
  * <p>
- * Jede Instanz dieser Klasse schließt einen Wert ein, der aus beliebigen Zahlensystemen gesetzt und in
+ * Jede Instanz dieser Klasse schlie\u00DFt einen Wert ein, der aus beliebigen Zahlensystemen gesetzt und in
  * verschiedene Zahlensysteme umgewandelt werden kann. Die String-Darstellungen in den verschiedenen
  * Zahlensystemen enthalten <b>keine Pr\u00E4fixe</b>, die auf die Basis hinweisen.
  * </p>

@@ -43,63 +43,6 @@ public class BitchangerLauncher {
 	
 	private static boolean debug;
 	
-	// TODO JavaDoc since 0.1.8
-	public static enum ErrorLevel {
-		CRITICAL,
-		MEDIUM,
-		LOW,
-		IGNORE;
-		
-		private boolean isUsed;
-		
-		
-		private ErrorLevel() {
-			this.isUsed = true;
-		}
-		
-		public void setUsed(boolean use) {
-			this.isUsed = use;
-		}
-		
-		public boolean isUsed() {
-			return this.isUsed;
-		}
-	}
-	
-	// TODO JavaDoc since 0.1.8
-	public static void printDebugErr(ErrorLevel priority) {
-		printDebugErr(priority, null);
-	}
-	
-	// TODO JavaDoc since 0.1.8
-	public static void printDebugErr(ErrorLevel priority, Exception e) {
-		if (!debug || ! priority.isUsed()) {
-			return;
-		}
-		
-		StackTraceElement[] calls = Thread.currentThread().getStackTrace();
-		
-		int i = 0;
-		while(calls[i].getClassName() != BitchangerLauncher.class.getName()) {
-			i++;
-		}
-		
-		StackTraceElement caller = calls[i + 1];
-		
-		StringBuilder errStr = new StringBuilder();
-		errStr.append("\n\n### ");
-		errStr.append(priority.name());
-		errStr.append(" ### ");
-		errStr.append(caller.getClassName());
-		errStr.append(" : ");
-		errStr.append(caller.getLineNumber());
-		errStr.append(" ##############################################\n");
-		
-		System.err.println(errStr.toString());
-		
-		if(e != null) e.printStackTrace();
-	}
-	
 	// TODO Update JavaDoc
 	
 	/** <!-- $LANGUAGE=DE -->
@@ -163,6 +106,43 @@ public class BitchangerLauncher {
 			deleteEmptyErrorFile(errorFile);
 		}
 	}
+	
+	
+	
+	// TODO JavaDoc since 0.1.8
+	public static void printDebugErr(ErrorLevel priority) {
+		printDebugErr(priority, null);
+	}
+	
+	// TODO JavaDoc since 0.1.8
+	public static void printDebugErr(ErrorLevel priority, Exception e) {
+		if (!debug || ! priority.isUsed()) {
+			return;
+		}
+		
+		StackTraceElement[] calls = Thread.currentThread().getStackTrace();
+		
+		int i = 0;
+		while(calls[i].getClassName() != BitchangerLauncher.class.getName()) {
+			i++;
+		}
+		
+		StackTraceElement caller = calls[i + 1];
+		
+		StringBuilder errStr = new StringBuilder();
+		errStr.append("\n\n### ");
+		errStr.append(priority.name());
+		errStr.append(" ### ");
+		errStr.append(caller.getClassName());
+		errStr.append(" : ");
+		errStr.append(caller.getLineNumber());
+		errStr.append(" ##############################################\n");
+		
+		System.err.println(errStr.toString());
+		
+		if(e != null) e.printStackTrace();
+	}
+	
 
 	// TODO JavaDoc since 0.1.8
 	private static void parseArgs(String[] args) {
@@ -213,7 +193,7 @@ public class BitchangerLauncher {
 					}
 				} catch (Exception e) {
 					System.out.println("syntax error: " + args[i]);
-					System.out.println("use option -h or -help to see available options");
+					System.out.println("use option -h or -help to see available options\n");
 					
 					System.exit(1);
 				}
@@ -278,5 +258,38 @@ public class BitchangerLauncher {
 		}
 		return errStream;
 	}
+	
+	
+	
+
+	// TODO JavaDoc since 0.1.8
+	public static enum ErrorLevel {
+		CRITICAL,
+		MEDIUM,
+		LOW,
+		IGNORE;
+		
+		private boolean isUsed;
+		
+		
+		private ErrorLevel() {
+			this.isUsed = true;
+		}
+		
+		public void setUsed(boolean use) {
+			this.isUsed = use;
+		}
+		
+		public boolean isUsed() {
+			return this.isUsed;
+		}
+	}
 
 }
+
+
+
+
+
+
+
