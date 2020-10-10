@@ -10,6 +10,7 @@ package bitchanger.gui.controls;
 
 import bitchanger.main.PrimaryFXApp;
 import bitchanger.preferences.Preferences;
+import bitchanger.util.Resources;
 import javafx.scene.control.Alert;
 
 //TODO JavaDoc erstellen
@@ -18,7 +19,7 @@ import javafx.scene.control.Alert;
  * @author Tim M\u00FChle
  *
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.8
  * 
  */
 public class InformationDialog extends Alert {
@@ -41,6 +42,7 @@ public class InformationDialog extends Alert {
 	public InformationDialog(InformationType informationType) {
 		super(AlertType.INFORMATION);
 		
+		this.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
 		this.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
 		
 		switch(informationType) {
@@ -75,9 +77,10 @@ public class InformationDialog extends Alert {
 		this.setContentText("Bei dem Programm Bitchanger handelt es sich um einen Zahlenrechner, der mathematische Berechnungen, "
 				+ "Bitoperationen und Zahlenumwandlungen von Zahlen mit der Basis 2 bis 36 durchf\u00FChren kann. "
 				+ "Es werden negative Zahlen, Nachkommastellen und die IEEE-Norm (16- und 32-Bit) unterst\u00FCtzt.\n\n"
-				+ "Der Bitchanger ist als Entwicklungsprojekt im Elektrotechnik Studium an der Hochschule Bochum entstanden "
-				+ "und wurde von Tim M\u00FChle und Moritz Wolter im Auftrag von unter Aufsicht Prof. Dr. rer. nat. Katrin Brabender "
+				+ "Der Bitchanger ist als Entwicklungsprojekt an der Hochschule Bochum entstanden "
+				+ "und wurde von Tim M\u00FChle und Moritz Wolter im Auftrag von Prof. Dr. rer. nat. Katrin Brabender "
 				+ "und Herrn Andreas Koch f\u00FCr das AID-Labor der Hochschule Bochum entwickelt.\n\n"
+				// TODO Lizenzhinweis einfügen
 				+ "Der Bitchanger ist als Lehrmittel f\u00FCr die Hochschule Bochum gedacht und eine kommerzielle Nutzung ist untersagt.\n\n"
 				+ "");
 		
@@ -88,18 +91,11 @@ public class InformationDialog extends Alert {
 
 	// TODO JavaDoc erstellen
 	private void createVersionDialog() {
-		this.setTitle("Version");
+		this.setTitle("Bitchanger Info");
+		this.setHeaderText("Version: " + PrimaryFXApp.VERSION);
+		this.setContentText("Copyright \u00A9 2020 - Tim M\u00FChle und Moritz Wolter");
 		
-		this.setHeaderText("Bitchanger Version:");
-		
-		StringBuffer content = new StringBuffer();
-		
-		content.append(PrimaryFXApp.VERSION);
-		content.append("\n\n");
-		content.append("Copyright (c) 2020 - Tim M\u00FChle und Moritz Wolter");
-		
-		this.setContentText(content.toString());
-
+		this.getDialogPane().setMinWidth(400);
 	}
 	
 	

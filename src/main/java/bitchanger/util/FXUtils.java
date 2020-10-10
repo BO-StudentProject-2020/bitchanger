@@ -344,6 +344,7 @@ public class FXUtils {
 		dialog.getDialogPane().setExpandableContent(infoLabel);
 		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
 		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+		dialog.setResizable(true);
 		
 		return dialog.showAndWait();
 	}
@@ -358,6 +359,7 @@ public class FXUtils {
 		
 		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
 		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+		dialog.setResizable(true);
 		
 		return dialog.showAndWait();
 	}
@@ -401,6 +403,7 @@ public class FXUtils {
 		
 		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
 		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+		dialog.setResizable(true);
 		
 		return dialog.showAndWait();
 	}
