@@ -1,55 +1,51 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+ * 
+ */
+ 
 .root {
-	-fx-background: #fefefe;
-	-fx-border: lightgrey;
-	-fx-text: black;
+	-fx-background: white;
+	-fx-menu-background-color: white;
+	
+	-fx-control-inner-background: aliceblue;
+	
+	-fx-button-background-color: lightgrey;
+	-fx-button-pressed-color: skyblue;
+	-fx-combo-box-background-color: aliceblue;
+	
+	-fx-body-color: -fx-button-background-color;
+	-fx-text-box-border: silver;
+	-fx-outer-border: silver;
+	-fx-inner-border: silver;
+	-fx-shadow-highlight-color: gainsboro;
+	
+	
+	-fx-text: #20304f;
+	-fx-text-input-fill: navy;
+	-fx-button-text-fill: black;
+	-fx-text-box-border: azure;
+	-fx-icon-color: black;
+	
+	-fx-cell-border-color: steelblue;
+	
+	-fx-hover-base: powderblue;
+	-fx-accent: powderblue;
+	
 	
 	-fx-background-color: -fx-background;
 }
 
-.label {
-	-fx-text-fill: -fx-text;
+
+.check-box > .box,
+.check-box:hover > .box {
+	-fx-border-color: -fx-outer-border;
+	-fx-border-width: 3px;
+	-fx-border-radius: 2;
 }
 
 
 
-.text-input {
-	-fx-text-fill: mediumblue;
-	-fx-font-weight: bold;
-}
-
-
-/*******************************************************************************
- *                                                                             *
- * Spinner                                                                     *
- *                                                                             *
- ******************************************************************************/
-
-.spinner {
-    -fx-background-color: -fx-shadow-highlight-color, -fx-text-box-border, -fx-control-inner-background;
-}
-
-.spinner:focused,
-.spinner:contains-focus {
-    -fx-background-color: -fx-focus-color, -fx-text-box-border, -fx-control-inner-background;
-}
-
-.spinner > .text-field {
-    -fx-background-color: -fx-text-box-border, -fx-control-inner-background;
-}
-
-.spinner .increment-arrow-button {
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
-}
-
-.spinner .decrement-arrow-button {
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
-}
-
-.spinner .increment-arrow-button .increment-arrow {
-    -fx-background-color: black, black;
-}
-
-.spinner .decrement-arrow-button .decrement-arrow {
-    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-}
 

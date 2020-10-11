@@ -1,0 +1,52 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+ * 
+ */
+ 
+.root {
+	-fx-background: ivory;
+	-fx-menu-background-color: ivory;
+	
+	-fx-control-inner-background: white;
+	
+	-fx-button-background-color: #E8C495;
+	-fx-button-pressed-color: #B85B1A;
+	-fx-combo-box-background-color: blanchedalmond;
+	
+	-fx-body-color: -fx-button-background-color;
+	-fx-text-box-border: bisque;
+	-fx-outer-border: chocolate;
+	-fx-inner-border: chocolate;
+	-fx-shadow-highlight-color: bisque;
+	
+	
+	-fx-text: black;
+	-fx-text-input-fill: #0000C0;
+	-fx-button-text-fill: black;
+	-fx-text-box-border: azure;
+	-fx-icon-color: -fx-text;
+	
+	
+	-fx-cell-border-color: navy;
+	
+	-fx-hover-base: chocolate;
+	-fx-accent: chocolate;
+	
+	
+	-fx-background-color: -fx-background;
+}
+
+
+.check-box > .box,
+.check-box:hover > .box {
+	-fx-border-color: -fx-outer-border;
+	-fx-border-width: 3px;
+	-fx-border-radius: 2;
+}
+
+
+
+

@@ -2,12 +2,13 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
 package bitchanger.gui.controller;
 
+import java.net.MalformedURLException;
 import java.util.function.Consumer;
 
 import bitchanger.calculations.ChangeableNumber;
@@ -17,10 +18,14 @@ import bitchanger.calculations.SimpleChangeableNumber;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
+import bitchanger.gui.views.CalcPathView;
 import bitchanger.gui.views.ConverterView;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
+import bitchanger.util.Resources;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -30,18 +35,25 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**	<!-- $LANGUAGE=DE -->
- * Controller, der die Funktion für eine {@linkplain ConverterView} bereitstellt.
+ * Controller, der die Funktion f\u00FCr eine {@linkplain ConverterView} bereitstellt.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -50,7 +62,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 public class ConverterController extends ControllerBase<ConverterView> {
@@ -65,7 +77,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/*	<!-- $LANGUAGE=EN -->	Number which gets converted into any numeral system */
 	private ChangeableNumber value;
 	
-	/**	<!-- $LANGUAGE=DE -->	Spinner für die auswählbare, beliebige Basis */
+	/**	<!-- $LANGUAGE=DE -->	Spinner f\u00FCr die ausw\u00E4hlbare, beliebige Basis */
 	/*	<!-- $LANGUAGE=EN -->	Spinner for the eligible base */
 	private BaseSpinner anyBase;
 	
@@ -76,23 +88,23 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	
 // TextFields	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/**	<!-- $LANGUAGE=DE -->	Textfeld für die hexadezimale Darstellung */
+	/**	<!-- $LANGUAGE=DE -->	Textfeld f\u00FCr die hexadezimale Darstellung */
 	/*	<!-- $LANGUAGE=EN -->	Text field for the hexadecimal representation */
 	private ValueField tfHex;
 	
-	/**	<!-- $LANGUAGE=DE -->	Textfeld für die dezimale Darstellung */
+	/**	<!-- $LANGUAGE=DE -->	Textfeld f\u00FCr die dezimale Darstellung */
 	/*	<!-- $LANGUAGE=EN -->	Text field for the decimal representation */
 	private ValueField tfDec;
 	
-	/**	<!-- $LANGUAGE=DE -->	Textfeld für die binäre Darstellung */
+	/**	<!-- $LANGUAGE=DE -->	Textfeld f\u00FCr die bin\u00E4re Darstellung */
 	/*	<!-- $LANGUAGE=EN -->	Text field for the binary representation */
 	private ValueField tfBin;
 	
-	/**	<!-- $LANGUAGE=DE -->	Textfeld für die oktale Darstellung */
+	/**	<!-- $LANGUAGE=DE -->	Textfeld f\u00FCr die oktale Darstellung */
 	/*	<!-- $LANGUAGE=EN -->	Text field for the octal representation */
 	private ValueField tfOct;
 	
-	/**	<!-- $LANGUAGE=DE -->	Textfeld für die Darstellung zu einer wählbaren Basis */
+	/**	<!-- $LANGUAGE=DE -->	Textfeld f\u00FCr die Darstellung zu einer w\u00E4hlbaren Basis */
 	/*	<!-- $LANGUAGE=EN -->	Text field for the representation of a number of any base*/
 	private ValueField tfAny;
 	
@@ -104,7 +116,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 // Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Button zum Löschen und Zurücksetzen von {@link #value}
+	 * Button zum L\u00F6schen und Zur\u00FCcksetzen von {@link #value}
 	 * 
 	 * @see ChangeableNumber#reset()
 	 */
@@ -126,6 +138,10 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	/**	<!-- $LANGUAGE=DE -->	Button, mit dem das Vorzeichen der Zahl gewechselt werden kann */
 	/*	<!-- $LANGUAGE=EN -->	Button that action is to change the sign of the number */
 	private Button signBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button, mit dem ein neues Fenster ge\u00F6ffnet wird, das den Rechenweg anzeigt */
+	/*	<!-- $LANGUAGE=EN -->	Button that action is to show a new Window for explaining the calculation path */
+	private Label calcPathHelp;
 
 	
 	
@@ -137,7 +153,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
+	 * Konstruiert einen neuen Controller f\u00FCr eine ConverterView und verkn\u00FCpft die ben\u00F6tigten Attribute mit
 	 * Referenzen auf die Bedienelemente aus der ConverterView.
 	 * 
 	 * @param view ConverterView, an die dieser Controller gebunden wird
@@ -210,7 +226,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Sucht die benötigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
+	 * Sucht die ben\u00F6tigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Searches the necessary references to the buttons of the buttonMap and stores these in the attributes
@@ -228,12 +244,19 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		for (int i = 0; i < 10; i++) {
 			alphaNumButtons[i + 6] = this.buttonMap.get("num_" + i);
 		}
+		
+		try {
+			calcPathHelp = (Label) this.nodeMap.get(controllable.calcPathHelpKey());
+		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
+			e.printStackTrace();
+		}
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Sucht die benötigten Referenzen zu den Textfeldern aus der textFieldMap, speichert diese in den Attributen und setzt die Basis der einzelnen Textfelder.
+	 * Sucht die ben\u00F6tigten Referenzen zu den Textfeldern aus der textFieldMap, speichert diese in den Attributen und setzt die Basis der einzelnen Textfelder.
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Searches the necessary references to the text fields of the buttonMap, stores these in the attributes and sets the base of each text field.
@@ -255,11 +278,11 @@ public class ConverterController extends ControllerBase<ConverterView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Prüft, ob die übergebene Node einer der Pfeil-Buttons zum Scrollen in einem Spinner ist.
-	 * Dies ist der Fall, wenn die StyleClass den String "arrow-button" enthält.
+	 * Pr\u00FCft, ob die \u00FCbergebene Node einer der Pfeil-Buttons zum Scrollen in einem Spinner ist.
+	 * Dies ist der Fall, wenn die StyleClass den String "arrow-button" enth\u00E4lt.
 	 * 
-	 * @param n	Testkandidat für einen Pfeil-Button
-	 * @return	{@code true}, wenn die StyleClass von n den String "arrow-button" enthält, {@code false} andernfalls
+	 * @param n	Testkandidat f\u00FCr einen Pfeil-Button
+	 * @return	{@code true}, wenn die StyleClass von n den String "arrow-button" enth\u00E4lt, {@code false} andernfalls
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Checks if the committed node is one of the button, which is used to scroll the spinner.
@@ -301,7 +324,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	
 // TextFields	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt Listener für die Textfelder, um die Eingabe direkt in alle anderen Zahlensysteme umzuwandeln.
+	 * Setzt Listener f\u00FCr die Textfelder, um die Eingabe direkt in alle anderen Zahlensysteme umzuwandeln.
 	 * Zudem wird das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes aktualisiert und {@link #baseProperty}
 	 * mit der Basis des Textfelds verbunden.
 	 * 
@@ -337,8 +360,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Aktualisiert die Texte der gewählten Textfelder mit dem aktuellen Wert von {@link #value} in der
-	 * zum Textfeld gehörenden Darstellung.
+	 * Aktualisiert die Texte der gew\u00E4hlten Textfelder mit dem aktuellen Wert von {@link #value} in der
+	 * zum Textfeld geh\u00F6renden Darstellung.
 	 * 
 	 * @param setHex	true, wenn der Text von {@link #tfHex} gesetzt werden soll
 	 * @param setDec	true, wenn der Text von {@link #tfDec} gesetzt werden soll
@@ -377,9 +400,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Listener für das Textfeld {@code #tf}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * Setzt den Listener f\u00FCr das Textfeld {@code #tf}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
-	 * @param tf		Textfeld, das einen Listener für das {@code textProperty} erhält
+	 * @param tf		Textfeld, das einen Listener f\u00FCr das {@code textProperty} erh\u00E4lt
 	 * @param valueConsumer	Methode, die die Eingabe verarbeitet
 	 * @param setHex	true, wenn der Text von {@link #tfHex} gesetzt werden soll
 	 * @param setDec	true, wenn der Text von {@link #tfDec} gesetzt werden soll
@@ -410,11 +433,12 @@ public class ConverterController extends ControllerBase<ConverterView> {
 					try {
 						valueConsumer.accept(newValue);;
 					} catch (NumberOverflowException noe) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
 						value.reset();
 						FXUtils.showNumberOverflowWarning(noe);
 					} catch (Exception e) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
 						value.reset();
-						e.printStackTrace();
 					}
 					setTexts(setHex, setDec, setOct, setBin, setAny);
 				}
@@ -425,7 +449,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Listener für {@link #tfAny}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
+	 * Setzt den Listener f\u00FCr {@link #tfAny}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
 	 */
@@ -442,6 +466,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 					try {
 						value.setValue(newValue, anyBase.getValue());
 					} catch (Exception e) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM);
+						
 						value.reset();
 						e.printStackTrace();
 					}
@@ -468,6 +494,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 				public void handle(MouseEvent event) {
 					focusedTF = tf;
 					baseProperty.bind(tf.getBaseProperty());
+					
+					// Hilfelabel für Rechenweg neben neuem Textfeld positionieren
+					GridPane.setRowIndex(calcPathHelp, GridPane.getRowIndex(focusedTF));
 				}
 			});
 		}
@@ -484,6 +513,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 				try {
 					value.setDec(value.toDecString());
 				} catch (Exception e) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM);
+					
 					value.reset();
 					e.printStackTrace();
 				}
@@ -497,8 +528,8 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	
 // Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
-	 * Aktualisiert die Basis von {@link #tfAny}, wenn sich die valueProperty von {@link #anyBase} ändert.
-	 * Sorgt außerdem dafür, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
+	 * Aktualisiert die Basis von {@link #tfAny}, wenn sich die valueProperty von {@link #anyBase} \u00E4ndert.
+	 * Sorgt au\u00DFerdem daf\u00FCr, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
 	 * Inkrement- und Dekrement-Buttons wieder an {@link #focusedTF} abgibt.
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -530,9 +561,9 @@ public class ConverterController extends ControllerBase<ConverterView> {
 
 	/**	<!-- $LANGUAGE=DE -->
 	 * Fokussiert das Textfeld {@link #focusedTF}.
-	 * Diese Methode wird als Referenz für einen EventHandler verwendet.
+	 * Diese Methode wird als Referenz f\u00FCr einen EventHandler verwendet.
 	 * 
-	 * @param e	Event, das den EventHanler auslöst
+	 * @param e	Event, das den EventHanler ausl\u00F6st
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Focuses the text field {@link #focusedTF}.
@@ -547,7 +578,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	
 // Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt die Actions für alle Buttons
+	 * Setzt die Actions f\u00FCr alle Buttons
 	 * 
 	 * @see #setAlphaNumBindings()
 	 * @see #setClearAction()
@@ -567,8 +598,10 @@ public class ConverterController extends ControllerBase<ConverterView> {
 		setClearAction();
 		setBackspaceAction();
 		setSignAction();
+		
+		setCalcPathHelpAction();
 	}
-	
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
@@ -588,7 +621,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt {@link #value} bei Klick auf den Clear-Button zurück und aktualisiert alle Textfelder.
+	 * Setzt {@link #value} bei Klick auf den Clear-Button zur\u00FCck und aktualisiert alle Textfelder.
 	 * 
 	 * @see ChangeableNumber#reset()
 	 * @see #setTexts(boolean, boolean, boolean, boolean, boolean)
@@ -612,7 +645,7 @@ public class ConverterController extends ControllerBase<ConverterView> {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Lässt den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
+	 * L\u00E4sst den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Simulates the backspace button an the keyboard.
@@ -663,6 +696,76 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			}
 		});
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since 0.1.8
+	private void setCalcPathHelpAction() {
+		calcPathHelp.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				// Neues Fenster mit CalcPathView anzeigen
+				CalcPathView cpv = new CalcPathView(focusedTF.getText(), baseProperty.get(),
+						baseProperty.get() == 10 ? 2 : 10);
+				
+				cpv.getScene().getStylesheets().add(Resources.LAYOUT_CSS);
+				cpv.getScene().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+				
+				Preferences.getPrefs().stylesheetProperty().addListener(new ChangeListener<String>() {
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldStylesheet, String newStylesheet) {
+						try {
+							cpv.getScene().getStylesheets().remove(oldStylesheet);
+						} catch(Exception e) {
+							/* ignore */
+							BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+						}
+						cpv.getScene().getStylesheets().add(newStylesheet);
+					}
+				});
+				
+				Stage stage = new Stage(StageStyle.DECORATED);
+				stage.setTitle("Bitchanger - Rechenweg f\u00FCr Umwandlungen");
+				try {
+					stage.getIcons().add(new Image(Resources.BITCHANGER_LOGO_PNG.toURI().toURL().toExternalForm()));
+				} catch (MalformedURLException e) { 
+					/* ignore */
+					BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+				}
+				
+				stage.setScene(cpv.getScene());
+				stage.setHeight(700);
+				stage.setWidth(1000);
+				
+				// Fenster verkleinern, falls größer als Bildschirm
+				stage.setOnShown(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent event) {
+						if(stage.getHeight() > Screen.getPrimary().getVisualBounds().getHeight()) {
+							stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+							stage.centerOnScreen();
+						}
+						
+						if(stage.getWidth() > Screen.getPrimary().getVisualBounds().getWidth()) {
+							stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+							stage.centerOnScreen();
+						}
+					}
+				});
+				
+				stage.show();
+				
+				// Fenster automatisch schließen
+				controllable.getScene().getWindow().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent event) {
+						stage.close();
+					}
+				});
+			}
+		});
+	}
+
 
 }
 

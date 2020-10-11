@@ -2,7 +2,11 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+<<<<<<< HEAD
  * Entwickelt für das AID-Labor der Hochschule Bochum
+=======
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+>>>>>>> master
  * 
  */
 
@@ -16,6 +20,11 @@ import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.CalculationViewBase;
+<<<<<<< HEAD
+=======
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+>>>>>>> master
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
 import javafx.beans.binding.StringExpression;
@@ -36,12 +45,21 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
  * Controller, der einige Grundfunktionen für eine {@linkplain CalculationViewBase} bereitstellt.
  * 
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7
+=======
+ * Controller, der einige Grundfunktionen f\u00FCr eine {@linkplain CalculationViewBase} bereitstellt.
+ * 
+ * @author Tim M\u00FChle
+ * 
+ * @since Bitchanger 0.1.7
+ * @version 0.1.8
+>>>>>>> master
  *
  */
 // TODO JavaDoc EN
@@ -67,6 +85,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/*	<!-- $LANGUAGE=EN -->	Last result */
 	protected final ChangeableNumber result;
 	
+<<<<<<< HEAD
 	/** <!-- $LANGUAGE=DE -->	Merker für die Anzeige eines Rechenergebnisses im Textfeld */
 	// TODO JavaDoc EN
 	protected boolean isShowingResult;
@@ -80,6 +99,21 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	protected Operation operation;
 	
 	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die zuletzt ausgeführt wurde */
+=======
+	/** <!-- $LANGUAGE=DE -->	Merker f\u00FCr die Anzeige eines Rechenergebnisses im Textfeld */
+	// TODO JavaDoc EN
+	protected boolean isShowingResult;
+	
+	/** <!-- $LANGUAGE=DE --> 	Merker f\u00FCr das l\u00F6schen von {@link #lastOperation} beim zweiten Klick auf den Button {@link #clearBtn} */
+	// TODO JavaDoc EN
+	protected boolean isCleared;
+	
+	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die ausgef\u00FChrt werden soll */
+	// TODO: JavaDoc EN
+	protected Operation operation;
+	
+	/** <!-- $LANGUAGE=DE -->	Rechenoperation, die zuletzt ausgef\u00FChrt wurde */
+>>>>>>> master
 	// TODO: JavaDoc EN
 	protected Operation lastOperation;
 	
@@ -87,6 +121,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/*	<!-- $LANGUAGE=EN -->	Property to adjust the base of the currently focused text field */
 	protected final IntegerProperty baseProperty;
 	
+<<<<<<< HEAD
 	/**	<!-- $LANGUAGE=DE -->	Textfeld für die Eingabe */
 	/*	<!-- $LANGUAGE=EN -->	Textfield for input */
 	protected final ValueField textField;
@@ -104,6 +139,25 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	protected final Label secondValueLabel;
 
 	/** <!-- $LANGUAGE=DE -->	Label für das Gleichheitszeichen */
+=======
+	/**	<!-- $LANGUAGE=DE -->	Textfeld f\u00FCr die Eingabe */
+	/*	<!-- $LANGUAGE=EN -->	Textfield for input */
+	protected final ValueField textField;
+	
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr den ersten Wert */
+	// TODO JavaDoc EN
+	protected final Label firstValueLabel;
+
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr die Rechenoperation */
+	// TODO JavaDoc EN
+	protected final Label operationLabel;
+
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr den zweiten Wert */
+	// TODO JavaDoc EN
+	protected final Label secondValueLabel;
+
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr das Gleichheitszeichen */
+>>>>>>> master
 	// TODO JavaDoc EN
 	protected final Label equalsLabel;
 
@@ -115,7 +169,11 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	// TODO JavaDoc EN
 	protected final Button signBtn;
 	
+<<<<<<< HEAD
 	/**	<!-- $LANGUAGE=DE --> 	Button zum Löschen und Zurücksetzen */
+=======
+	/**	<!-- $LANGUAGE=DE --> 	Button zum L\u00F6schen und Zur\u00FCcksetzen */
+>>>>>>> master
 	/*	<!-- $LANGUAGE=EN --> 	Button to clear the values */
 	protected Button clearBtn;
 	
@@ -123,11 +181,19 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	
 // private	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
+<<<<<<< HEAD
 	/**	<!-- $LANGUAGE=DE -->	Spinner für die auswählbare, beliebige Basis */
 	/*	<!-- $LANGUAGE=EN -->	Spinner for the eligible base */
 	private BaseSpinner anyBase;
 	
 	/** <!-- $LANGUAGE=DE -->	Label für die Basis des Ergebnisses */
+=======
+	/**	<!-- $LANGUAGE=DE -->	Spinner f\u00FCr die ausw\u00E4hlbare, beliebige Basis */
+	/*	<!-- $LANGUAGE=EN -->	Spinner for the eligible base */
+	private BaseSpinner anyBase;
+	
+	/** <!-- $LANGUAGE=DE -->	Label f\u00FCr die Basis des Ergebnisses */
+>>>>>>> master
 	// TODO JavaDoc EN
 	private Label baseLabel;
 	
@@ -139,6 +205,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	/*	<!-- $LANGUAGE=EN -->	alphanumeric keys to simulate a keyboard */
 	private Button[] alphaNumButtons;
 	
+<<<<<<< HEAD
 	/**	<!-- $LANGUAGE=DE -->	Button für das Hexadezimalsystem */
 	// TODO JavaDoc EN
 	private Button hexBtn;
@@ -152,6 +219,21 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	private Button octBtn;
 	
 	/**	<!-- $LANGUAGE=DE -->	Button für das Binärsystem */
+=======
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das Hexadezimalsystem */
+	// TODO JavaDoc EN
+	private Button hexBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das Dezimalsystem */
+	// TODO JavaDoc EN
+	private Button decBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das Oktalsystem */
+	// TODO JavaDoc EN
+	private Button octBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das Bin\u00E4rsystem */
+>>>>>>> master
 	// TODO JavaDoc EN
 	private Button binBtn;
 	
@@ -165,7 +247,11 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 
 	
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
+=======
+	 * Konstruiert einen neuen Controller f\u00FCr eine ConverterView und verkn\u00FCpft die ben\u00F6tigten Attribute mit
+>>>>>>> master
 	 * Referenzen auf die Bedienelemente aus der ConverterView.
 	 * 
 	 * @param view ConverterView, an die dieser Controller gebunden wird
@@ -294,7 +380,11 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 
 	
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Sucht die benötigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
+=======
+	 * Sucht die ben\u00F6tigten Referenzen zu den Buttons aus der buttonMap und speichert diese in den Attributen
+>>>>>>> master
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Searches the necessary references to the buttons of the buttonMap and stores these in the attributes
@@ -321,11 +411,19 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Prüft, ob die übergebene Node einer der Pfeil-Buttons zum Scrollen in einem Spinner ist.
 	 * Dies ist der Fall, wenn die StyleClass den String "arrow-button" enthält.
 	 * 
 	 * @param n	Testkandidat für einen Pfeil-Button
 	 * @return	{@code true}, wenn die StyleClass von n den String "arrow-button" enthält, {@code false} andernfalls
+=======
+	 * Pr\u00FCft, ob die \u00FCbergebene Node einer der Pfeil-Buttons zum Scrollen in einem Spinner ist.
+	 * Dies ist der Fall, wenn die StyleClass den String "arrow-button" enth\u00E4lt.
+	 * 
+	 * @param n	Testkandidat f\u00FCr einen Pfeil-Button
+	 * @return	{@code true}, wenn die StyleClass von n den String "arrow-button" enth\u00E4lt, {@code false} andernfalls
+>>>>>>> master
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Checks if the committed node is one of the button, which is used to scroll the spinner.
@@ -354,9 +452,18 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	 */
 	private void setInitialState() {
 		textField.requestFocus();
+<<<<<<< HEAD
 		// TODO letzten Stand merken
 		octBtn.fire();
 		decBtn.fire();
+=======
+		
+		octBtn.fire();
+		decBtn.fire();
+		
+		this.operation = Operation.UNDEFINED;
+		this.lastOperation = Operation.UNDEFINED;
+>>>>>>> master
 	}
 	
 	
@@ -383,8 +490,13 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	
 // Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Aktualisiert die Basis, wenn sich die valueProperty von {@link #anyBase} ändert.
 	 * Sorgt außerdem dafür, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
+=======
+	 * Aktualisiert die Basis, wenn sich die valueProperty von {@link #anyBase} \u00E4ndert.
+	 * Sorgt au\u00DFerdem daf\u00FCr, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
+>>>>>>> master
 	 * Inkrement- und Dekrement-Buttons wieder an {@link #textField} abgibt.
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -415,10 +527,17 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Fokussiert das Textfeld für die Eingabe.
 	 * Diese Methode wird als Referenz für einen EventHandler verwendet.
 	 * 
 	 * @param e	Event, das den EventHanler auslöst
+=======
+	 * Fokussiert das Textfeld f\u00FCr die Eingabe.
+	 * Diese Methode wird als Referenz f\u00FCr einen EventHandler verwendet.
+	 * 
+	 * @param e	Event, das den EventHanler ausl\u00F6st
+>>>>>>> master
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Focuses the input text field.
@@ -433,7 +552,11 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	
 // Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Setzt die Actions für alle Buttons
+=======
+	 * Setzt die Actions f\u00FCr alle Buttons
+>>>>>>> master
 	 * 
 	 * @see #setAlphaNumBindings()
 	 * @see #setClearAction()
@@ -501,6 +624,10 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 				else {
 					equalsLabel.setText("");
 					clearCalcLabels();
+<<<<<<< HEAD
+=======
+					operation = Operation.UNDEFINED;
+>>>>>>> master
 					lastOperation = Operation.UNDEFINED;
 					isCleared = true;
 				}
@@ -513,7 +640,11 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Lässt den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
+=======
+	 * L\u00E4sst den Backspace-Button die Backspace-Taste auf der Tastatur simulieren.
+>>>>>>> master
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Simulates the backspace button an the keyboard.
@@ -568,7 +699,17 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 			@Override
 			public void handle(ActionEvent event) {
 				isCleared = false;
+<<<<<<< HEAD
 				setFirstValue(o, firstValueText);
+=======
+				
+				if (!operation.isUndefined() && firstValueText.getValue().equals("")) {
+					operation = o;
+					operationLabel.setText(o.getSymbol());
+				} else {
+					setFirstValue(o, firstValueText);
+				}
+>>>>>>> master
 			}
 		});
 	}
@@ -584,6 +725,11 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		try {
 			parseValue(value1);
 		} catch (NumberOverflowException noe) {
+<<<<<<< HEAD
+=======
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
+>>>>>>> master
 			FXUtils.showNumberOverflowWarning(noe);
 			return;
 		}
@@ -613,24 +759,51 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 					try {
 						value1.set(result.asDouble());
 					} catch (Exception e) {
+<<<<<<< HEAD
+=======
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+						
+>>>>>>> master
 						return;
 					}
 				} else {
 					try {
 						parseValue(value2);
 					} catch (NumberOverflowException noe) {
+<<<<<<< HEAD
 						FXUtils.showNumberOverflowWarning(noe);
 						return;
+=======
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+						
+						FXUtils.showNumberOverflowWarning(noe);
+						return;
+					} catch (Exception e) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+						
+						return;
+>>>>>>> master
 					}
 				}
 				
 				try {
 					calculate();
 				} catch (NumberOverflowException noe) {
+<<<<<<< HEAD
 					noe.setDescription("Das Ergebnis der Berechnung verlässt den zugelassenen Zahlenbereich.");
 					FXUtils.showNumberOverflowWarning(noe);
 					return;
 				} catch (Exception e) {
+=======
+					BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+					
+					noe.setDescription("Das Ergebnis der Berechnung verl\u00E4sst den zugelassenen Zahlenbereich.");
+					FXUtils.showNumberOverflowWarning(noe);
+					return;
+				} catch (Exception e) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
+					
+>>>>>>> master
 					e.printStackTrace();
 					return;
 				}
@@ -730,10 +903,21 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		try {
 			num.setValue(textField.getText(), oldBase.intValue());
 		} catch (NumberOverflowException noe) {
+<<<<<<< HEAD
 			num.reset();
 			noe.setDescription("Die eingegebene Zahl lag außerhalb des erlaubten Wertebereiches und wurde zurückgesetzt.");
 			FXUtils.showNumberOverflowWarning(noe);
 		} catch (Exception e) {
+=======
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
+			num.reset();
+			noe.setDescription("Die eingegebene Zahl lag au\u00DFerhalb des erlaubten Wertebereiches und wurde zur\u00FCckgesetzt.");
+			FXUtils.showNumberOverflowWarning(noe);
+		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);
+			
+>>>>>>> master
 			num.reset();
 		}
 		

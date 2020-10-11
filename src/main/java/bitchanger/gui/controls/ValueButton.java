@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -16,12 +16,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 
 /**	<!-- $LANGUAGE=DE -->
- * UnfocusedButton mit einer zusätzlichen Property für die Einstellung einer Basis.
- * Wenn der Wert, den dieser Button repräsentiert, nicht zu der eingestellten Basis passt,
- * deaktiviert sich dieser Button selbst. Ändert sich die Basis wieder so, dass der Wert
- * wieder gültig ist, wird dieser Button automatisch aktiviert.
+ * UnfocusedButton mit einer zus\u00E4tzlichen Property f\u00FCr die Einstellung einer Basis.
+ * Wenn der Wert, den dieser Button repr\u00E4sentiert, nicht zu der eingestellten Basis passt,
+ * deaktiviert sich dieser Button selbst. \u00C4ndert sich die Basis wieder so, dass der Wert
+ * wieder g\u00FCltig ist, wird dieser Button automatisch aktiviert.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -33,7 +33,7 @@ import javafx.scene.Node;
  * this button disables itself. If the base is changing and the value agrees to it,
  * this button gets activated automatically.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -49,7 +49,7 @@ public class ValueButton extends UnfocusedButton{
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	/** <!-- $LANGUAGE=DE -->	Property, über das die Basis des aktuellen Zahlensystems eingestellt wird */
+	/** <!-- $LANGUAGE=DE -->	Property, \u00FCber das die Basis des aktuellen Zahlensystems eingestellt wird */
 	/* <!-- $LANGUAGE=EN -->	Property that is used to adjust the base of the current numeral system */
 	private final IntegerProperty baseProperty;
 	
@@ -77,8 +77,8 @@ public class ValueButton extends UnfocusedButton{
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem spezifischen String und einem Icon als Beschriftung
 	 *
-	 * @param text		Text für die Beschriftung dieses Buttons
-	 * @param graphic	Icon für die Beschriftung dieses Buttons
+	 * @param text		Text f\u00FCr die Beschriftung dieses Buttons
+	 * @param graphic	Icon f\u00FCr die Beschriftung dieses Buttons
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Creates a ValueButton with a specific string and an icon as caption
@@ -101,7 +101,7 @@ public class ValueButton extends UnfocusedButton{
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen ValueButton mit einem spezifischen String als Beschriftung
 	 *
-	 * @param text		Text für die Beschriftung dieses Buttons
+	 * @param text		Text f\u00FCr die Beschriftung dieses Buttons
 	  */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Creates a ValueButton with a specific string as caption
@@ -122,7 +122,7 @@ public class ValueButton extends UnfocusedButton{
 
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Wert für die Basis
+	 * Setzt den Wert f\u00FCr die Basis
 	 * 
 	 * @param base neue Basis
 	 */
@@ -138,7 +138,7 @@ public class ValueButton extends UnfocusedButton{
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt den Wert der {@link #baseProperty} zurück
+	 * Gibt den Wert der {@link #baseProperty} zur\u00FCck
 	 * 
 	 * @return baseProperty dieses ValueButtons
 	 */
@@ -182,7 +182,7 @@ public class ValueButton extends UnfocusedButton{
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Überprüft die textProperty und aktiviert bzw. deaktiviert diesen Button, wenn der neue Text
+	 * \u00DCberpr\u00FCft die textProperty und aktiviert bzw. deaktiviert diesen Button, wenn der neue Text
 	 * zur baseProperty passt bzw. nicht passt
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -206,7 +206,7 @@ public class ValueButton extends UnfocusedButton{
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Überprüft die baseProperty und aktiviert bzw. deaktiviert diesen Button, wenn der Text
+	 * \u00DCberpr\u00FCft die baseProperty und aktiviert bzw. deaktiviert diesen Button, wenn der Text
 	 * zum neuen Wert der baseProperty passt bzw. nicht passt
 	 */
 	/*	<!-- $LANGUAGE=EN -->

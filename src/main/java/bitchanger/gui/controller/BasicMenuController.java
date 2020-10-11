@@ -2,11 +2,13 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
 package bitchanger.gui.controller;
+
+import java.util.Optional;
 
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.controls.InformationDialog;
@@ -15,12 +17,15 @@ import bitchanger.gui.views.Viewable;
 import bitchanger.main.PrimaryFXApp;
 import bitchanger.preferences.Preferences;
 import bitchanger.preferences.Style;
+import bitchanger.util.FXUtils;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -32,7 +37,7 @@ import javafx.stage.Stage;
 //TODO JavaDoc
 /**	<!-- $LANGUAGE=DE -->
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
  * @version 0.1.7
@@ -67,6 +72,9 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 
 	// TODO JavaDoc
 	protected MenuItem styleLight;
+	
+	// TODO JavaDoc
+	protected MenuItem styleColor;
 
 	// TODO JavaDoc
 	protected MenuItem styleDark;
@@ -124,6 +132,7 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		this.options = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.OPTIONS_MENU_KEY);
 		this.styleMenu = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_MENU_KEY);
 		this.styleLight = this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_LIGHT_ITEM_KEY);
+		this.styleColor = this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_COLOR_ITEM_KEY);
 		this.styleDark = this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_STYLE_DARK_ITEM_KEY);
 		this.moveToScreen = (Menu) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_MOVE_TO_SCREEN_ITEM_KEY);
 		this.showFullscreen = (CheckMenuItem) this.controllable.getMenuItemMap().get(BasicMenuBar.VIEW_SHOW_FULLSCREEN_ITEM_KEY);
@@ -195,6 +204,13 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 			}
 		});
 		
+		styleColor.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Preferences.getPrefs().setStylesheet(Style.COLOR);
+			}
+		});
+		
 		styleDark.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -256,7 +272,12 @@ public class BasicMenuController extends ControllerBase<BasicMenuBar> {
 		this.resetPreferences.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Preferences.loadDefault();
+				String message = "Alle Einstellungen werden zur\u00FCckgesetzt, dies kann nicht mehr r\u00FCckg\u00E4ngig gemacht werden!\n\nSollen alle Einstellungen zur\u00FCckgesetzt werden?";
+				Optional<ButtonType> result = FXUtils.showDialog(AlertType.WARNING, "Warnung", "Achtung", message, ButtonType.CANCEL, ButtonType.YES);
+				
+				if (result.isPresent() && result.get().equals(ButtonType.YES)) {
+					Preferences.loadDefault();
+				}
 			}
 		});
 	}

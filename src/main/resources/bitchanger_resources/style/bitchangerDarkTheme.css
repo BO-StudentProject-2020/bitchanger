@@ -1,171 +1,47 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+ * 
+ */
+ 
 .root {
 	-fx-background: #404040;
-	-fx-background-color: -fx-background;
-	-fx-text-box-border: dimgray;
+	-fx-menu-background-color: #404040;
+	
 	-fx-control-inner-background: darkgray;
+	
+	-fx-button-background-color: gray;
+	-fx-button-pressed-color: #00006F;
+	-fx-combo-box-background-color: white;
+	
+	-fx-body-color: -fx-button-background-color;
+	-fx-text-box-border: #606060;
+	-fx-outer-border: #606060;
+	-fx-inner-border: #606060;
+	-fx-shadow-highlight-color: #606060;
+	
+	
+	-fx-text: cornsilk;
+	-fx-text-input-fill: navy;
+	-fx-button-text-fill: cornsilk;
+	-fx-text-box-border: dimgray;
+	-fx-icon-color: -fx-text;
+	
+	
+	-fx-cell-border-color: white;
 	
 	-fx-hover-base: midnightblue;
 	-fx-accent: midnightblue;
 	
-	-fx-text: cornsilk;
-}
-
-#UNSELECTED_BASE_BUTTON {
+	
 	-fx-background-color: -fx-background;
 }
 
-#UNSELECTED_BASE_BUTTON:hover {
-	-fx-background-color: -fx-hover-base;
-}
-
-#SELECTED_BASE_BUTTON {
-	-fx-background-color: gray;
-}
-
-#SELECTED_BASE_BUTTON:hover {
-	-fx-background-color: gray;
-}
-
-.svg-icon {
-	-fx-fill: -fx-text;
-}
-
-.label {
-	-fx-text-fill: -fx-text;
-}
-
-.unfocused-button {
-	-fx-text-fill: black;
-	-fx-background-color: gray;
-}
 
 
-.menu-bar {
-	-fx-background-color: #404040;
-	-fx-control-inner-background: #404040;
-}
 
-.menu-item {
-	-fx-background-color: #404040;
-}
-
-.menu-item:focused, 
-.menu-item:focused > .label, 
-.menu:focused,
-.menu:focused > .label, 
-.menu-item:hover, 
-.menu-item:hover > .label,
-.menu:hover, 
-.menu:hover > .label,
-.menu:showing,
-.menu:showing > .label,
-.menu-item:showing,
-.menu-item:showing > .label {
-	-fx-background-color: -fx-hover-base;
-}
-
-.menu-item .label, .menu .label {
-	-fx-font-size: 16px;
-	-fx-background-color: #404040;
-}
-
-.dialog-pane:header .header-panel .label {
-	-fx-font-weight: bold;
-}
-
-.dialog-pane > .content {
-	-fx-text-alignment: justify;
-	-fx-text-fill: black;
-	-fx-font-size: 16px;
-}
-
-.text-field {
-	-fx-font-weight: bold;
-}
-
-.text-input {
-	-fx-text-fill: navy;
-	-fx-font-weight: bold;
-}
-
-.combo-box {
-	-fx-font-size: 18px;
-	-fx-background-color: white;
-/* 	-fx-text-fill: black; */
-}
-
-.button {
-	-fx-font-size: 18;
-	-fx-font-weight: bold;
-}
-
-.button:pressed {
-  -fx-background-color: brown;
-}
-
-.button:disabled {
-}
-
-.text-field:focused {
-}
-
-
-.button:hover,
-.toggle-button:hover,
-.radio-button:hover > .radio,
-.check-box:hover > .box,
-.split-menu-button > .label:hover,
-.split-menu-button > .arrow-button:hover,
-.slider .thumb:hover,
-.scroll-bar > .thumb:hover,
-.scroll-bar > .increment-button:hover, 
-.scroll-bar > .decrement-button:hover,
-.choice-box:hover,
-.color-picker.split-button > .arrow-button:hover,
-.color-picker.split-button > .color-picker-label:hover,
-.combo-box-base:hover,
-.combo-box-base:editable > .arrow-button:hover,
-.spinner .increment-arrow-button:hover,
-.spinner .decrement-arrow-button:hover,
-.tab-pane > .tab-header-area > .control-buttons-tab > .container > .tab-down-button:hover {
-    -fx-background-color: -fx-hover-base;
-}
-
-
-/*******************************************************************************
- *                                                                             *
- * Spinner                                                                     *
- *                                                                             *
- ******************************************************************************/
-
-.spinner {
-    -fx-background-color: -fx-shadow-highlight-color, -fx-text-box-border, -fx-control-inner-background;
-}
-
-.spinner:focused,
-.spinner:contains-focus {
-    -fx-background-color: -fx-focus-color, -fx-text-box-border, -fx-control-inner-background;
-}
-
-.spinner > .text-field {
-    -fx-background-color: -fx-text-box-border, -fx-control-inner-background;
-}
-
-.spinner .increment-arrow-button {
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
-}
-
-.spinner .decrement-arrow-button {
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
-}
-
-.spinner .increment-arrow-button .increment-arrow {
-    -fx-background-color: black, black;
-}
-
-.spinner .decrement-arrow-button .decrement-arrow {
-    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
-}
 
 
 

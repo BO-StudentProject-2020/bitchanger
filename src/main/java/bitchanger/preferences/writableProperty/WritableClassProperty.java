@@ -2,12 +2,17 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+<<<<<<< HEAD
  * Entwickelt für das AID-Labor der Hochschule Bochum
+=======
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+>>>>>>> master
  * 
  */
 
 package bitchanger.preferences.writableProperty;
 
+<<<<<<< HEAD
 /** <!-- $LANGUAGE=DE -->
  * 
  * 
@@ -15,6 +20,18 @@ package bitchanger.preferences.writableProperty;
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7
+=======
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+
+/** <!-- $LANGUAGE=DE -->
+ * 
+ * 
+ * @author Tim M\u00FChle
+ * 
+ * @since Bitchanger 0.1.7
+ * @version 0.1.8
+>>>>>>> master
  *
  */
 // TODO JavaDoc
@@ -79,6 +96,10 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 		try {
 			cl = (Class<? extends T>) Class.forName(data);
 		} catch (Exception e) {
+<<<<<<< HEAD
+=======
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
+>>>>>>> master
 			e.printStackTrace();
 			return;
 		}

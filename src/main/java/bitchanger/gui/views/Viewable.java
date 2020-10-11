@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -12,15 +12,17 @@ import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controls.BasicMenuBar;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 
 /**	<!-- $LANGUAGE=DE -->
- * Die Schnittstelle {@code Viewable} definiert die Basis für eine View.
+ * Die Schnittstelle {@code Viewable} definiert die Basis f\u00FCr eine View.
  * <p>
  * Eine View ist in einem JavaFX-Fenster (javafx.stage.Stage) darstellbar. Dazu kapselt die View eine {@code Scene}, die
- * in einer Stage präsentiert werden kann. 
+ * in einer Stage pr\u00E4sentiert werden kann. 
  * </p>
  * <p> <b> 
  * Der Scenegraph wird von der View konstruiert, dabei wird in der View nur das
@@ -30,10 +32,10 @@ import javafx.scene.control.MenuBar;
  * Jeder View kann ein Controller zugeordnet werden, um den Bedienelementen im Scenegraph eine Funktion zu geben.
  * </b> </p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  * 
  * @see Controllable
  * @see Controller
@@ -55,7 +57,7 @@ import javafx.scene.control.MenuBar;
  * @author Tim
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  * 
  * @see Controllable
  * @see Controller
@@ -82,6 +84,7 @@ public interface Viewable extends Controllable {
 		try {
 			return new BasicMenuBar(controllableApp);
 		} catch (NullPointerException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
 			return generateMenuBar();
 		}
 	}
@@ -96,9 +99,9 @@ public interface Viewable extends Controllable {
 	
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die repräsentierte {@code Scene} zurück
+	 * Gibt die repr\u00E4sentierte {@code Scene} zur\u00FCck
 	 * 
-	 * @return von der View repräsentierte {@code Scene}
+	 * @return von der View repr\u00E4sentierte {@code Scene}
 	 * 
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -112,9 +115,9 @@ public interface Viewable extends Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die Property für maximale Höhe der View zurück
+	 * Gibt die Property f\u00FCr maximale H\u00F6he der View zur\u00FCck
 	 * 
-	 * @return Property für die maximale Höhe der View
+	 * @return Property f\u00FCr die maximale H\u00F6he der View
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -130,9 +133,9 @@ public interface Viewable extends Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die Property für maximale Breite der View zurück
+	 * Gibt die Property f\u00FCr maximale Breite der View zur\u00FCck
 	 * 
-	 * @return Property für die maximale Breite der View
+	 * @return Property f\u00FCr die maximale Breite der View
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -148,9 +151,9 @@ public interface Viewable extends Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die Property für minimale Höhe der View zurück
+	 * Gibt die Property f\u00FCr minimale H\u00F6he der View zur\u00FCck
 	 * 
-	 * @return Property für die minimale Höhe der View
+	 * @return Property f\u00FCr die minimale H\u00F6he der View
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -166,9 +169,9 @@ public interface Viewable extends Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die Property für minimale Breite der View zurück
+	 * Gibt die Property f\u00FCr minimale Breite der View zur\u00FCck
 	 * 
-	 * @return Property für die minimale Breite der View
+	 * @return Property f\u00FCr die minimale Breite der View
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -184,7 +187,7 @@ public interface Viewable extends Controllable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt die übergebene MenuBar in den Scenegraph der View. Eine eventuell vorhandene MenuBar
+	 * Setzt die \u00FCbergebene MenuBar in den Scenegraph der View. Eine eventuell vorhandene MenuBar
 	 * wird zuvor aus dem Scenegraph entfernt und ersetzt. Ist das Argument {@code null} wird nur
 	 * versucht die bereits vorhandene MenuBar aus dem Scenegraphen zu entfernen.
 	 * 

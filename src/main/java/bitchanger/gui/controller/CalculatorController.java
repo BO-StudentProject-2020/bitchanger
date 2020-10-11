@@ -2,7 +2,11 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+<<<<<<< HEAD
  * Entwickelt für das AID-Labor der Hochschule Bochum
+=======
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+>>>>>>> master
  * 
  */
 
@@ -11,6 +15,12 @@ package bitchanger.gui.controller;
 import bitchanger.calculations.ChangeableNumber;
 import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.views.CalculatorView;
+<<<<<<< HEAD
+=======
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+import bitchanger.preferences.Preferences;
+>>>>>>> master
 import javafx.beans.binding.StringExpression;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCharacterCombination;
@@ -19,12 +29,21 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 
 /**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
  * Controller, der die Funktion für eine {@linkplain CalculatorView} bereitstellt.
  * 
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7
+=======
+ * Controller, der die Funktion f\u00FCr eine {@linkplain CalculatorView} bereitstellt.
+ * 
+ * @author Tim M\u00FChle
+ * 
+ * @since Bitchanger 0.1.7
+ * @version 0.1.8
+>>>>>>> master
  *
  */
 // TODO JavaDoc EN
@@ -54,7 +73,11 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 	// TODO JavaDoc EN
 	private Button addBtn;
 	
+<<<<<<< HEAD
 	/**	<!-- $LANGUAGE=DE -->	Button für die Modulo-Operation */
+=======
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr die Modulo-Operation */
+>>>>>>> master
 	// TODO JavaDoc EN
 	private Button moduloBtn;
 	
@@ -68,7 +91,11 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 
 	
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
+=======
+	 * Konstruiert einen neuen Controller f\u00FCr eine ConverterView und verkn\u00FCpft die ben\u00F6tigten Attribute mit
+>>>>>>> master
 	 * Referenzen auf die Bedienelemente aus der ConverterView.
 	 * 
 	 * @param view ConverterView, an die dieser Controller gebunden wird
@@ -124,6 +151,12 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 		
 		setArithmeticActions();
 		consumeKeyEvents();
+<<<<<<< HEAD
+=======
+		
+		this.baseProperty.set(Preferences.getPrefs().calculationBaseProperty().get());
+		this.baseProperty.bindBidirectional(Preferences.getPrefs().calculationBaseProperty());
+>>>>>>> master
 	}
 	
 	
@@ -166,10 +199,23 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 		try {
 			value.setValue(textField.getText(), baseProperty.get());
 		} catch (NumberOverflowException noe) {
+<<<<<<< HEAD
 			throw noe;
 		} catch (IllegalArgumentException e) {
 			value.set(0);
 		} catch (NullPointerException e) {
+=======
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
+			throw noe;
+		} catch (IllegalArgumentException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);
+			
+			value.set(0);
+		} catch (NullPointerException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
+			
+>>>>>>> master
 			e.printStackTrace();
 		}
 	}
@@ -212,8 +258,17 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 					break;
 			}
 		} catch (NumberOverflowException noe) {
+<<<<<<< HEAD
 			throw noe;
 		} catch (Exception e) {
+=======
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
+			throw noe;
+		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
+>>>>>>> master
 			throw e;
 		}
 	}
@@ -253,7 +308,11 @@ public class CalculatorController extends CalculationControllerBase<CalculatorVi
 		addAccelerator(subBtn, new KeyCodeCombination(KeyCode.SUBTRACT), new KeyCodeCombination(KeyCode.MINUS));
 		addAccelerator(multiplyBtn, new KeyCodeCombination(KeyCode.MULTIPLY), new KeyCodeCombination(KeyCode.STAR));
 		addAccelerator(divideBtn, new KeyCodeCombination(KeyCode.DIVIDE), new KeyCodeCombination(KeyCode.SLASH));
+<<<<<<< HEAD
 		addAccelerator(moduloBtn, new KeyCharacterCombination("%", KeyCombination.SHIFT_DOWN));
+=======
+		addAccelerator(moduloBtn, new KeyCharacterCombination("%", KeyCombination.SHIFT_DOWN), new KeyCodeCombination(KeyCode.DIVIDE, KeyCombination.SHIFT_DOWN));
+>>>>>>> master
 	}
 
 }

@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -18,9 +18,9 @@ import javafx.scene.control.Button;
 import javafx.scene.shape.Rectangle;
 
 /**	<!-- $LANGUAGE=DE -->
- * Button, der beim Klick nicht den Fokus erhält und als Grundform ein Rechteck ohne abgerundete Ecken besitzt.
+ * Button, der beim Klick nicht den Fokus erh\u00E4lt und als Grundform ein Rechteck ohne abgerundete Ecken besitzt.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -29,7 +29,7 @@ import javafx.scene.shape.Rectangle;
 /*	<!-- $LANGUAGE=EN -->
  * Button that does not get focus by clicking and has a rectangle without rounded corners as basic form.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
  * @version 0.1.4
@@ -86,8 +86,8 @@ public class UnfocusedButton extends Button{
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen UnfocusedButton mit einem spezifischen String und einem Icon als Beschriftung
 	 *
-	 * @param text		Text für die Beschriftung dieses Buttons
-	 * @param graphic	Icon für die Beschriftung dieses Buttons
+	 * @param text		Text f\u00FCr die Beschriftung dieses Buttons
+	 * @param graphic	Icon f\u00FCr die Beschriftung dieses Buttons
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Creates an UnfocusedButton with a specific string and an icon as label
@@ -121,7 +121,7 @@ public class UnfocusedButton extends Button{
 	/**	<!-- $LANGUAGE=DE -->
 	 * Erstellt einen UnfocusedButton mit einem spezifischen String als Beschriftung
 	 * 
-	 * @param text	Text für die Beschriftung dieses Buttons
+	 * @param text	Text f\u00FCr die Beschriftung dieses Buttons
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Creates an UnfocusedButton with a specific string as label
@@ -142,7 +142,7 @@ public class UnfocusedButton extends Button{
 
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Schaltet den Fokus für diesen Button aus und setzt als Grundform dieses Buttons ein Rechteck ohne abgerundete Ecken ein.
+	 * Schaltet den Fokus f\u00FCr diesen Button aus und setzt als Grundform dieses Buttons ein Rechteck ohne abgerundete Ecken ein.
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Disables the focus for this button and sets rectangle without rounded corners as basic form for this button.

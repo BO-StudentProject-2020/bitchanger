@@ -11,5 +11,7 @@
         <unsignedBitoperations>true</unsignedBitoperations>
         <deactivateUnsignedBitLenthWarning>false</deactivateUnsignedBitLenthWarning>
         <deactivateBitLengthDeleteWarning>false</deactivateBitLengthDeleteWarning>
+        <bitOperationBase>10</bitOperationBase>
+        <calculationBase>10</calculationBase>
     </preferences>
 </bitchanger>

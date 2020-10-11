@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -21,6 +21,9 @@ import org.w3c.dom.NodeList;
 
 import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.controls.SVGIcon;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+import bitchanger.preferences.Preferences;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -41,21 +44,21 @@ import javafx.scene.shape.FillRule;
 import javafx.scene.shape.SVGPath;
 
 /** <!-- $LANGUAGE=DE -->
- * Utility-Klasse zur allgemeinen Verarbeitung von Objekten, die zur Oberfläche gehören.
+ * Utility-Klasse zur allgemeinen Verarbeitung von Objekten, die zur Oberfl\u00E4che geh\u00F6ren.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 /* <!-- $LANGUAGE=EN -->
  * Utility class to handle objects whose belong to the user interface.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 public class FXUtils {
@@ -63,14 +66,14 @@ public class FXUtils {
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die Constrains der Nodes in einer Schlange, um diese in einer GridPane zu positionieren.
 	 * <p>
-	 * Die erste Node wird an die Position gesetzt, die über die Parameter und {@code firstColumn},
+	 * Die erste Node wird an die Position gesetzt, die \u00FCber die Parameter und {@code firstColumn},
 	 * {@code firstRow} und {@code columnOffset} definiert ist. Die Matrix wird auf die Anzahl von 
 	 * Spalten verteilt, die mit {@code columnCount} festgelegt ist und die Zeile automatisch umgebrochen.
 	 * Die Constraints werden solange gesetzt, wie es Elemente in der Queue gibt.
 	 * </p>
 	 * <p><b>
-	 * Die Nodes dürfen auch mehr als eine Spalte in der GridPane einnehmen. Die Spalte der darauffolgenden 
-	 * Node wird entsprechend inkrementiert, um keine Elemente zu überlagern.
+	 * Die Nodes d\u00FCrfen auch mehr als eine Spalte in der GridPane einnehmen. Die Spalte der darauffolgenden 
+	 * Node wird entsprechend inkrementiert, um keine Elemente zu \u00FCberlagern.
 	 * </b></p>
 	 * 
 	 * @param <T>			Der Typ, den die Elemente in der Schlange zur Laufzeit haben
@@ -115,13 +118,13 @@ public class FXUtils {
 	/** <!-- $LANGUAGE=DE -->
 	 * Arbeitet Nodes in einer Schlange als Tabelle ab.
 	 * <p>
-	 * Für jede Node in der Schlange wir die Spalte inkrementiert. Wird die maximale Spaltenanzahl überschritten,
+	 * F\u00FCr jede Node in der Schlange wir die Spalte inkrementiert. Wird die maximale Spaltenanzahl \u00FCberschritten,
 	 * wird die Zeile inkrementiert und die Spalte auf den Startwert gesetzt. Die Node wird mit den Werten der Zeile
-	 * und Spalte an den TriConsumer übergeben, um diese Daten zu verarbeiten.
+	 * und Spalte an den TriConsumer \u00FCbergeben, um diese Daten zu verarbeiten.
 	 * </p>
 	 * <p><b>
-	 * Die Nodes dürfen auch mehr als eine Spalte in der GridPane einnehmen. Die Spalte der darauffolgenden 
-	 * Node wird entsprechend inkrementiert, um keine Elemente zu überlagern.
+	 * Die Nodes d\u00FCrfen auch mehr als eine Spalte in der GridPane einnehmen. Die Spalte der darauffolgenden 
+	 * Node wird entsprechend inkrementiert, um keine Elemente zu \u00FCberlagern.
 	 * </b></p>
 	 * 
 	 * @param <T>			Der Typ, den die Elemente in der Schlange zur Laufzeit haben
@@ -182,10 +185,10 @@ public class FXUtils {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die maximale Größe aller Controls in einem Iterable auf den Wert {@code maxSize}.
+	 * Setzt die maximale Gr\u00F6\u00DFe aller Controls in einem Iterable auf den Wert {@code maxSize}.
 	 * 
-	 * @param nodes		Sammlung aller anzupassenden Controls, die auch in Layout-Containern liegen dürfen
-	 * @param maxSize	Maximale Größe der Controls
+	 * @param nodes		Sammlung aller anzupassenden Controls, die auch in Layout-Containern liegen d\u00FCrfen
+	 * @param maxSize	Maximale Gr\u00F6\u00DFe der Controls
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the maximum size of all controls inside an Iterable to the value of {@code maxSize}.
@@ -203,11 +206,11 @@ public class FXUtils {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Setzt die maximale Breite aller Controls in einem Iterable auf den Wert {@code maxWidth} und 
-	 * die maximale Höhe auf den Wert {@code maxHeight}.
+	 * die maximale H\u00F6he auf den Wert {@code maxHeight}.
 	 * 
-	 * @param nodes		Sammlung aller anzupassenden Controls, die auch in Layout-Containern liegen dürfen
+	 * @param nodes		Sammlung aller anzupassenden Controls, die auch in Layout-Containern liegen d\u00FCrfen
 	 * @param maxWidth	maximale Breite aller Controls
-	 * @param maxHeight	maximale Höhe aller Controls
+	 * @param maxHeight	maximale H\u00F6he aller Controls
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the maximum width of all controls inside an Iterable to the value of {@code maxWidth} and 
@@ -235,8 +238,8 @@ public class FXUtils {
 	
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Lädt ein Icon im svg-Format aus der übergebenen Datei und erstellt aus der Datei ein SVGPath Objekt,
-	 * das dem Scenegraph in javaFX hinzugefügt werden kann.
+	 * L\u00E4dt ein Icon im svg-Format aus der \u00FCbergebenen Datei und erstellt aus der Datei ein SVGPath Objekt,
+	 * das dem Scenegraph in javaFX hinzugef\u00FCgt w\u00FCrden kann.
 	 * 
 	 * @param svgFile	Icon als svg-Datei
 	 * @return			Eingelesenes Icon als SVGPath oder {@code null}, wenn die Datei nicht eingelesen werden konnte
@@ -276,6 +279,7 @@ public class FXUtils {
 			return svgPath;
 			
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 			return null;
 		}
@@ -329,7 +333,7 @@ public class FXUtils {
 	// TODO JavaDoc @since Bitchanger 0.1.7
 	public static Optional<ButtonType> showNumberOverflowWarning(NumberOverflowException noe) {
 		StringBuffer infoText = new StringBuffer();
-		infoText.append("Die größte erlaubte Zahl ist ");
+		infoText.append("Die gr\u00F6\u00DFte erlaubte Zahl ist ");
 		infoText.append(String.valueOf((long) noe.getMaxSupportetNumber()));
 		infoText.append(" und die kleinste erlaubte Zahl ist ");
 		infoText.append(String.valueOf((long) noe.getMinSupportetNumber()));
@@ -338,9 +342,12 @@ public class FXUtils {
 		infoLabel.setWrapText(true);
 		
 		Alert dialog = new Alert(Alert.AlertType.WARNING);
-		dialog.setHeaderText("Überlauf");
+		dialog.setHeaderText("\u00DCberlauf");
 		dialog.setContentText(noe.getDescription());
 		dialog.getDialogPane().setExpandableContent(infoLabel);
+		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
+		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+		dialog.setResizable(true);
 		
 		return dialog.showAndWait();
 	}
@@ -352,6 +359,10 @@ public class FXUtils {
 		Alert dialog = new Alert(dialogType, message, buttonTypes);
 		if(title != null) dialog.setTitle(title);
 		if(headerText != null) dialog.setHeaderText(headerText);
+		
+		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
+		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+		dialog.setResizable(true);
 		
 		return dialog.showAndWait();
 	}
@@ -392,6 +403,10 @@ public class FXUtils {
 		
 		if(title != null) dialog.setTitle(title);
 		if(headerText != null) dialog.setHeaderText(headerText);
+		
+		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
+		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+		dialog.setResizable(true);
 		
 		return dialog.showAndWait();
 	}

@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -12,9 +12,9 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 /** <!-- $LANGUAGE=DE -->
- * Klasse, die Werkzeug-Methoden für Arrays enthält.
+ * Klasse, die Werkzeug-Methoden f\u00FCr Arrays enth\u00E4lt.
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
  * @version 0.1.7
@@ -23,11 +23,11 @@ import java.util.Queue;
 public class ArrayUtils {
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Wandelt eine Aufzählung von Objekten in ein Array um und gibt dieses zurück.
+	 * Wandelt eine Aufz\u00E4hlung von Objekten in ein Array um und gibt dieses zur\u00FCck.
 	 * 
-	 * @param <T>		Typ der Objekte und des zurückgegebenen Arrays
+	 * @param <T>		Typ der Objekte und des zur\u00FCckgegebenen Arrays
 	 * @param values	Objekte, aus denen das Array gebildet wird
-	 * @return			Array aus den übergebenen Objekten
+	 * @return			Array aus den \u00FCbergebenen Objekten
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the given Objects to an Array

@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -14,18 +14,29 @@ import bitchanger.gui.controller.ConverterController;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.controls.ConverterMenuBar;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+import bitchanger.util.FXUtils;
+import bitchanger.util.IconFactory;
+import bitchanger.util.Resources;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
- * View, die die Scene für die Umwandlung von Zahlensystemen enthält.
+ * View, die die Scene f\u00FCr die Umwandlung von Zahlensystemen enth\u00E4lt.
  * <p><b>
- * Für diese View-Klasse wird der Controller {@link ConverterController} registriert.
+ * F\u00FCr diese View-Klasse wird der Controller {@link ConverterController} registriert.
  * </b></p>
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  * 
  * @see ConverterController
  */
@@ -38,31 +49,31 @@ public class ConverterView extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit das Textfeld f\u00FCr die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird */
 	// TODO JavaDoc EN
 	public static final String TF_HEX_KEY = "hexTF";
 	
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit das Textfeld f\u00FCr die dezimale Darstellung in der Map {@code tfMap} gespeichert wird */
 	// TODO JavaDoc EN
 	public static final String TF_DEC_KEY = "decTF";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die oktale Darstellung in der Map {@code tfMap} gespeichert wird */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit das Textfeld f\u00FCr die oktale Darstellung in der Map {@code tfMap} gespeichert wird */
 	// TODO JavaDoc EN
 	public static final String TF_OCT_KEY = "octTF";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die binäre Darstellung in der Map {@code tfMap} gespeichert wird */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit das Textfeld f\u00FCr die bin\u00E4re Darstellung in der Map {@code tfMap} gespeichert wird */
 	// TODO JavaDoc EN
 	public static final String TF_BIN_KEY = "binTF";
 
-	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld für die Darstellung zu einer wählbaren Basis in der Map {@code tfMap} gespeichert wird */
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit das Textfeld f\u00FCr die Darstellung zu einer w\u00E4hlbaren Basis in der Map {@code tfMap} gespeichert wird */
 	// TODO JavaDoc EN
 	public static final String TF_ANY_KEY = "anyTF";
 
-	/** <!-- $LANGUAGE=DE -->	Array, das die Schlüsselwörter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden */
+	/** <!-- $LANGUAGE=DE -->	Array, das die Schl\u00FCsselw\u00F6rter definiert, mit denen die Textfelder in der Map {@code tfMap} gespeichert werden */
 	// TODO JavaDoc EN
 	public static final String[] TF_KEYS = {TF_HEX_KEY , TF_DEC_KEY, TF_OCT_KEY, TF_BIN_KEY, TF_ANY_KEY};
 	
-	/** <!-- $LANGUAGE=DE -->	Array, das die Beschriftungen für die Labels vor den Textfeldern definiert */
+	/** <!-- $LANGUAGE=DE -->	Array, das die Beschriftungen f\u00FCr die Labels vor den Textfeldern definiert */
 	// TODO JavaDoc EN
 	private static final String[] LABEL_TEXTS = {"HEX", "DEC", "OCT", "BIN"};
 	
@@ -93,7 +104,7 @@ public class ConverterView extends AlphaNumGridView {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ConverterView mit vollständigem Scenegraphen und initialisiert die Funktionen
+	 * Erzeugt eine neue ConverterView mit vollst\u00E4ndigem Scenegraphen und initialisiert die Funktionen
 	 * der Bedienelemente mit einem {@link ConverterController}.
 	 */
 	// TODO JavaDoc EN
@@ -113,9 +124,9 @@ public class ConverterView extends AlphaNumGridView {
 
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort, mit dem das Textfeld für die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird zurück.
+	 * Gibt das Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird zur\u00FCck.
 	 * 
-	 * @return	Schlüsselwort, mit dem das Textfeld für die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die hexadezimale Darstellung in der Map {@code tfMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String tfHexKey() {
@@ -125,9 +136,9 @@ public class ConverterView extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird zurück.
+	 * Gibt das Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die dezimale Darstellung in der Map {@code tfMap} gespeichert wird zur\u00FCck.
 	 * 
-	 * @return	Schlüsselwort, mit dem das Textfeld für die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die dezimale Darstellung in der Map {@code tfMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String tfDecKey() {
@@ -137,9 +148,9 @@ public class ConverterView extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort, mit dem das Textfeld für die oktale Darstellung in der Map {@code tfMap} gespeichert wird zurück.
+	 * Gibt das Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die oktale Darstellung in der Map {@code tfMap} gespeichert wird zur\u00FCck.
 	 * 
-	 * @return	Schlüsselwort, mit dem das Textfeld für die oktale Darstellung in der Map {@code tfMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die oktale Darstellung in der Map {@code tfMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String tfOctKey() {
@@ -149,9 +160,9 @@ public class ConverterView extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort, mit dem das Textfeld für die binäre Darstellung in der Map {@code tfMap} gespeichert wird zurück.
+	 * Gibt das Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die bin\u00E4re Darstellung in der Map {@code tfMap} gespeichert wird zur\u00FCck.
 	 * 
-	 * @return	Schlüsselwort, mit dem das Textfeld für die binäre Darstellung in der Map {@code tfMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die bin\u00E4re Darstellung in der Map {@code tfMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String tfBinKey() {
@@ -161,9 +172,9 @@ public class ConverterView extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort, mit dem das Textfeld für die Darstellung zu einer wählbaren Basis in der Map {@code tfMap} gespeichert wird zurück.
+	 * Gibt das Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die Darstellung zu einer w\u00E4hlbaren Basis in der Map {@code tfMap} gespeichert wird zur\u00FCck.
 	 * 
-	 * @return	Schlüsselwort, mit dem das Textfeld für die Darstellung zu einer wählbaren Basis in der Map {@code tfMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem das Textfeld f\u00FCr die Darstellung zu einer w\u00E4hlbaren Basis in der Map {@code tfMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String tfAnyKey() {
@@ -173,13 +184,25 @@ public class ConverterView extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt das Schlüsselwort, mit dem der Spinner für die beliebige Basis in der Map {@code tfMap} gespeichert wird zurück.
+	 * Gibt das Schl\u00FCsselwort, mit dem der Spinner f\u00FCr die beliebige Basis in der Map {@code nodeMap} gespeichert wird zur\u00FCck.
 	 * 
-	 * @return	Schlüsselwort, mit dem der Spinner für die beliebige Basis in der Map {@code nodeMap} gespeichert wird
+	 * @return	Schl\u00FCsselwort, mit dem der Spinner f\u00FCr die beliebige Basis in der Map {@code nodeMap} gespeichert wird
 	 */
 	// TODO JavaDoc EN
 	public final String baseSpinnerKey() {
 		return "baseSpinner";
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schl\u00FCsselwort, mit dem das Label zur Anzeige des Rechenweges in der Map {@code nodeMap} gespeichert wird zur\u00FCck.
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem das Label zur Anzeige des Rechenweges in der Map {@code nodeMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String calcPathHelpKey() {
+		return "calc-path-btn";
 	}
 	
 	
@@ -197,6 +220,7 @@ public class ConverterView extends AlphaNumGridView {
 		try {
 			return new ConverterMenuBar(controllableApp);
 		} catch (NullPointerException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
 			return generateMenuBar();
 		}
 	}
@@ -215,7 +239,16 @@ public class ConverterView extends AlphaNumGridView {
 	@Override
 	protected void createScenegraph() {
 		super.createScenegraph();
+		
 		createAnyBase();
+		createCalcPathBtn();
+		
+		ColumnConstraints lastRow = new ColumnConstraints();
+		lastRow.minWidthProperty().bind(firstColumnWidthProperty);
+		lastRow.maxWidthProperty().bind(firstColumnWidthProperty);
+		
+		addColumnConstraint(center, center.getColumnCount() - 1, lastRow);
+		this.paddingRigthProperty.bind(paddingLeftProperty);
 	}
 	
 
@@ -228,7 +261,7 @@ public class ConverterView extends AlphaNumGridView {
 
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Fügt einen {@link BaseSpinner} zur Auswahl einer beliebigen (gültigen) Basis zur GridPane
+	 * F\u00FCgt einen {@link BaseSpinner} zur Auswahl einer beliebigen (g\u00FCltigen) Basis zur GridPane
 	 * {@link AlphaNumGridView#center} hinzu und speichert diesen in der Map {@code nodeMap}.
 	 */
 	// TODO JavaDoc EN
@@ -239,6 +272,29 @@ public class ConverterView extends AlphaNumGridView {
 		center.add(baseSpinner, 0, LABEL_TEXTS.length);
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc 0.1.8
+	private void createCalcPathBtn() {
+		Label calcPathBtn = new Label();
+		FXUtils.setIconOrText(calcPathBtn, IconFactory.styleBindIcon(Resources.LIGHT_BULB_2_ICON, Resources.LIGHT_BULB_2_FILLED_ICON), "Rechenweg");
+		
+		calcPathBtn.setTooltip(new Tooltip("Hilfe zum Rechenweg anzeigen"));
+		calcPathBtn.maxHeightProperty().bind(btnMaxHeigthProperty);
+		calcPathBtn.minHeightProperty().bind(btnMinHeigthProperty);
+		calcPathBtn.maxWidthProperty().bind(btnMaxWidthProperty);
+		calcPathBtn.minWidthProperty().bind(btnMinWidthProperty);
+		calcPathBtn.setPadding(new Insets(0, 5, 0, 5));
+		
+		getNodeMap().put(calcPathHelpKey(), calcPathBtn);
+		
+		TextField tfDec = getTextFieldMap().get(TF_DEC_KEY);
+		GridPane.setConstraints(calcPathBtn, GridPane.getColumnIndex(tfDec) + GridPane.getColumnSpan(tfDec), GridPane.getRowIndex(tfDec));
+		
+		center.getChildren().add(calcPathBtn);
+	}
+
+
 	
 
 }

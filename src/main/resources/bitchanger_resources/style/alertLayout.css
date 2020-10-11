@@ -1,0 +1,103 @@
+/*
+ * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
+ * 
+ * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+ * 
+ */
+ 
+.root {
+	-fx-font-size: 18px;
+}
+
+
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Button                                                                      *
+ *                                                                             *
+ ******************************************************************************/
+
+.button {
+	-fx-font-size: 16;
+	-fx-font-weight: bold;
+	-fx-text-fill: -fx-button-text-fill;
+}
+
+.button:pressed {
+  -fx-background-color: -fx-button-pressed-color;
+}
+
+.button:hover {
+    -fx-background-color: -fx-hover-base;
+}
+
+
+
+
+/*******************************************************************************
+ *                                                                             *
+ * CheckBox                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+
+.check-box,
+.check-box:hover {
+	-fx-font-size: 16;
+	-fx-text-fill: -fx-text;
+}
+
+.check-box > .box,
+.check-box:hover > .box {
+	-fx-text-fill: -fx-text;
+	-fx-background-color: white;
+}
+
+
+
+
+/*******************************************************************************
+ *                                                                             *
+ * DialogPane                                                                  *
+ *                                                                             *
+ ******************************************************************************/
+
+.dialog-pane:header > .header-panel > .label {
+	-fx-font-weight: bold;
+}
+
+.dialog-pane > .content {
+	-fx-text-alignment: justify;
+	-fx-text-fill: -fx-text;
+	-fx-font-size: 16px;
+}
+
+.dialog-pane > .button-bar > .container {
+	-fx-padding: 1.8em 0.833em 0.833em 0.833em;
+}
+
+.dialog-pane > .button-bar > .container > .details-button {
+	-fx-text-fill: -fx-button-text-fill;
+}
+
+
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Label                                                                       *
+ *                                                                             *
+ ******************************************************************************/
+
+.label {
+	-fx-text-fill: -fx-text;
+}
+
+
+
+
+
+
+
+

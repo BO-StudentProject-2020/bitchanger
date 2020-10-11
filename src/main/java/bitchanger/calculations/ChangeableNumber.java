@@ -2,12 +2,14 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
 package bitchanger.calculations;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 
@@ -15,10 +17,10 @@ import javafx.beans.property.ReadOnlyStringProperty;
  * Schnittstelle, die Methoden definiert, um eine Zahl aus einem beliebigen Zahlensystem
  * in beliebige andere Zahlensysteme umzuwandeln
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -45,6 +47,8 @@ public interface ChangeableNumber {
 			String value = this.toDecString().replace(" ", "").replace(",", ".").replace(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR, "");
 			return Double.parseDouble(value);
 		} catch(Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
 			return Double.NaN;
 		}
 	}
@@ -72,7 +76,7 @@ public interface ChangeableNumber {
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines hexadezimalen Strings
 	 * 
-	 * @param hexValue	Neuer Wert, den diese Klasse repräsentiert, als hexadezimaler String
+	 * @param hexValue	Neuer Wert, den diese Klasse repr\u00E4sentiert, als hexadezimaler String
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code hexValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code hexValue} keine Zahl zur Basis 16 ist
@@ -96,7 +100,7 @@ public interface ChangeableNumber {
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines dezimalen Strings
 	 * 
-	 * @param decValue	Neuer Wert, den diese Klasse repräsentiert, als dezimaler String
+	 * @param decValue	Neuer Wert, den diese Klasse repr\u00E4sentiert, als dezimaler String
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
@@ -120,7 +124,7 @@ public interface ChangeableNumber {
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines oktalen Strings
 	 * 
-	 * @param octValue	Neuer Wert, den diese Klasse repräsentiert, als oktaler String
+	 * @param octValue	Neuer Wert, den diese Klasse repr\u00E4sentiert, als oktaler String
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code octValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code octValue} keine Zahl zur Basis 8 ist
@@ -141,9 +145,9 @@ public interface ChangeableNumber {
 	
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines binären Strings
+	 * Setzt den Wert dieser {@code ChangeableNumber} auf den Wert eines bin\u00E4ren Strings
 	 * 
-	 * @param binValue	Neuer Wert, den diese Klasse repräsentiert, als binärer String
+	 * @param binValue	Neuer Wert, den diese Klasse repr\u00E4sentiert, als bin\u00E4rer String
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code binValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code binValue} keine Zahl zur Basis 2 ist
@@ -167,12 +171,12 @@ public interface ChangeableNumber {
 	/**	<!-- $LANGUAGE=DE -->
 	 * Setzt den Wert dieser {@code ChangeableNumber} auf einen Wert in einem beliebigen Zahlensystem
 	 * 
-	 * @param value			Neuer Wert, den diese Klasse repräsentiert, in der String-Darstellung
+	 * @param value			Neuer Wert, den diese Klasse repr\u00E4sentiert, in der String-Darstellung
 	 * @param baseOfValue	Basis des Zahlensystems von {@code value}
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code value} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis 2 ist
-	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code baseOfValue} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link ConvertingNumbers#isValueToBase(int base, String value)}
+	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code baseOfValue} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link ConvertingNumbers#isValueToBase(int base, String value)}
 	 *
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -191,9 +195,9 @@ public interface ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Wert dieser {@code ChangeableNumber} auf den übergebenen Wert in der spezifischen IEEE-Norm (16 Bit oder 32 Bit)
+	 * Setzt den Wert dieser {@code ChangeableNumber} auf den \u00FCbergebenen Wert in der spezifischen IEEE-Norm (16 Bit oder 32 Bit)
 	 * 
-	 * @param ieee			Neuer Wert, den diese Klasse repräsentiert, in der String-Darstellung
+	 * @param ieee			Neuer Wert, den diese Klasse repr\u00E4sentiert, in der String-Darstellung
 	 * @param standard		Standard der verwendeten IEEE-Norm von {@code ieee}
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code ieee} {@code null} ist
@@ -220,8 +224,8 @@ public interface ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den eingeschlossenen Wert zurück. <b> Der vorherige Wert wird gelöscht! Wird nach dieser Methode
-	 * eine der toString-Methoden aufgerufen, wird ein leerer String zurückgegeben. </b>
+	 * Setzt den eingeschlossenen Wert zur\u00FCck. <b> Der vorherige Wert wird gel\u00F6scht! Wird nach dieser Methode
+	 * eine der toString-Methoden aufgerufen, wird ein leerer String zur\u00FCckgegeben. </b>
 	 * <p>
 	 * Mit einer der set-Methoden kann der eingeschlossene Wert wieder neu gesetzt werden.
 	 * </p>
@@ -245,9 +249,9 @@ public interface ChangeableNumber {
 
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als hexadezimalen String zurück.
+	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als hexadezimalen String zur\u00FCck.
 	 * <p>
-	 * Der String wird nicht als hexadezimal gekennzeichnet, es wird also <b>nicht</b> das Präfix {@code 0x} vorangestellt!
+	 * Der String wird nicht als hexadezimal gekennzeichnet, es wird also <b>nicht</b> das Pr\u00E4fix {@code 0x} vorangestellt!
 	 * </p>
 	 * 
 	 * @return hexadezimale String-Darstellung dieser {@code ChangeableNumber}
@@ -265,7 +269,7 @@ public interface ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als dezimalen String zurück.
+	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als dezimalen String zur\u00FCck.
 	 * 
 	 * @return dezimale String-Darstellung dieser {@code ChangeableNumber}
 	 */
@@ -279,9 +283,9 @@ public interface ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als oktalen String zurück.
+	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als oktalen String zur\u00FCck.
 	 * <p>
-	 * Der String wird nicht als oktal gekennzeichnet, es wird also <b>kein</b> Präfix vorangestellt!
+	 * Der String wird nicht als oktal gekennzeichnet, es wird also <b>kein</b> Pr\u00E4fix vorangestellt!
 	 * </p>
 	 * 
 	 * @return oktale String-Darstellung dieser {@code ChangeableNumber}
@@ -299,12 +303,12 @@ public interface ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als binären String zurück.
+	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als bin\u00E4ren String zur\u00FCck.
 	 * <p>
-	 * Der String wird nicht als binär gekennzeichnet, es wird also <b>nicht</b> das Präfix {@code 0b} vorangestellt!
+	 * Der String wird nicht als bin\u00E4r gekennzeichnet, es wird also <b>nicht</b> das Pr\u00E4fix {@code 0b} vorangestellt!
 	 * </p>
 	 * 
-	 * @return binäre String-Darstellung dieser {@code ChangeableNumber}
+	 * @return bin\u00E4re String-Darstellung dieser {@code ChangeableNumber}
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Returns the string representation of this {@code ChangeableNumber} as a binary string.
@@ -319,16 +323,16 @@ public interface ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} zu einer beliebigen Basis zurück.
+	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} zu einer beliebigen Basis zur\u00FCck.
 	 * <p>
-	 * Der String wird <b>nicht</b> durch ein Präfix gekennzeichnet!
+	 * Der String wird <b>nicht</b> durch ein Pr\u00E4fix gekennzeichnet!
 	 * </p>
 	 * 
 	 * @param base	Basis des Zahlensystems, in dem diese {@code ChangeableNumber} dargestellt werden soll
 	 * 
-	 * @return	String-Darstellung dieser {@code ChangeableNumber} zur übergebenen Basis
+	 * @return	String-Darstellung dieser {@code ChangeableNumber} zur \u00FCbergebenen Basis
 	 * 
-	 * @throws IllegalArgumentException		wenn {@code base} den Wertebereich [2, 36] verlässt &#160; - &#160; <b>see</b> {@link ConvertingNumbers#isValueToBase(int, String)}
+	 * @throws IllegalArgumentException		wenn {@code base} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link ConvertingNumbers#isValueToBase(int, String)}
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Returns the string representation of this {@code ChangeableNumber} to any base.
@@ -347,7 +351,7 @@ public interface ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als IEEE String zurück.
+	 * Gibt die String-Darstellung dieser {@code ChangeableNumber} als IEEE String zur\u00FCck.
 	 * 
 	 * @param standard	IEEE-Norm, die zur Umwandlung verwendet werden soll
 	 * 

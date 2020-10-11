@@ -11,7 +11,7 @@ rem ---- Benoetigte Informationen in Variablen speichern -----------------------
 rem Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 set NAME=Bitchanger
 set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-if not defined VERSION set VERSION=0.1.7
+if not defined VERSION set VERSION=0.1.8
 set VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
 rem set COPYRIGHT = ""
 rem set LICENSE_FILE = ""
@@ -39,7 +39,7 @@ echo Installer fuer Windows werden erzeugt.
 echo.
 
 rem ---- exe ----
-echo %NAME%-%VERSION%-Win-Install.exe wird erstellt
+echo %NAME%-%VERSION%-win-install.exe wird erstellt
 echo.
 @echo on
 jpackage ^
@@ -51,6 +51,7 @@ jpackage ^
 --input %INPUT%\jpackage ^
 --dest %OUT% ^
 --main-jar %MAIN_JAR% ^
+--icon .\Logo\%NAME%.ico ^
 --win-dir-chooser ^
 --win-shortcut ^
 --win-menu ^
@@ -58,13 +59,13 @@ jpackage ^
 
 @echo off
 
-ren "%OUT%\%NAME%-%VERSION%.exe" "%NAME%-%VERSION%-Win-Install.exe"
+ren "%OUT%\%NAME%-%VERSION%.exe" "%NAME%-%VERSION%-win-install.exe"
  
 echo.
 echo.
 
 rem ---- msi ----
-echo %NAME%-%VERSION%-Win-Install.msi wird erstellt
+echo %NAME%-%VERSION%-win-install.msi wird erstellt
 echo.
 @echo on
 
@@ -77,6 +78,7 @@ jpackage ^
 --input %INPUT%\jpackage ^
 --dest %OUT% ^
 --main-jar %MAIN_JAR% ^
+--icon .\Logo\%NAME%.ico ^
 --win-dir-chooser ^
 --win-shortcut ^
 --win-menu ^
@@ -84,7 +86,7 @@ jpackage ^
 
 @echo off
 
-ren "%OUT%\%NAME%-%VERSION%.msi" "%NAME%-%VERSION%-Win-Install.msi"
+ren "%OUT%\%NAME%-%VERSION%.msi" "%NAME%-%VERSION%-win-install.msi"
 
 echo.
 echo.

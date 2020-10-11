@@ -2,7 +2,11 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+<<<<<<< HEAD
  * Entwickelt für das AID-Labor der Hochschule Bochum
+=======
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+>>>>>>> master
  * 
  */
 
@@ -16,6 +20,11 @@ import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
+<<<<<<< HEAD
+=======
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+>>>>>>> master
 import bitchanger.preferences.Preferences;
 import bitchanger.util.FXUtils;
 import javafx.beans.binding.StringExpression;
@@ -36,12 +45,21 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
 /**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
  * Controller, der die Funktion für eine {@linkplain CalculatorView} bereitstellt.
  * 
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7
+=======
+ * Controller, der die Funktion f\u00FCr eine {@linkplain CalculatorView} bereitstellt.
+ * 
+ * @author Tim M\u00FChle
+ * 
+ * @since Bitchanger 0.1.7
+ * @version 0.1.8
+>>>>>>> master
  *
  */
 // TODO JavaDoc EN
@@ -54,16 +72,25 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
+<<<<<<< HEAD
 	/** <!-- $LANGUAGE=DE -->	 ComboBox für die Anzahl der Bits */
 	// TODO JavaDoc EN
 	private ComboBox<BitLength> bitLength;
 	
 	/** <!-- $LANGUAGE=DE -->	 Merker für die Anzeige der Tastaturmatrix */
+=======
+	/** <!-- $LANGUAGE=DE -->	 ComboBox f\u00FCr die Anzahl der Bits */
+	// TODO JavaDoc EN
+	private ComboBox<BitLength> bitLength;
+	
+	/** <!-- $LANGUAGE=DE -->	 Merker f\u00FCr die Anzeige der Tastaturmatrix */
+>>>>>>> master
 	// TODO JavaDoc EN
 	private boolean isShowingKeyboard;
 	
 // Buttons	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+<<<<<<< HEAD
 	/**	<!-- $LANGUAGE=DE -->	Button für das logische UND */
 	// TODO JavaDoc EN
 	private Button andBtn;
@@ -93,6 +120,37 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 	private Button shiftLeftBtn;
 	
 	/**	<!-- $LANGUAGE=DE -->	Button für Rechtsshift */
+=======
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische UND */
+	// TODO JavaDoc EN
+	private Button andBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische ODER */
+	// TODO JavaDoc EN
+	private Button orBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische NICHT */
+	// TODO JavaDoc EN
+	private Button notBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische NAND */
+	// TODO JavaDoc EN
+	private Button nandBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische NOR */
+	// TODO JavaDoc EN
+	private Button norBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr das logische Exklusiv-ODER */
+	// TODO JavaDoc EN
+	private Button xorBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr Linksshift */
+	// TODO JavaDoc EN
+	private Button shiftLeftBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button f\u00FCr Rechtsshift */
+>>>>>>> master
 	// TODO JavaDoc EN
 	private Button shiftRightBtn;
 	
@@ -114,7 +172,11 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 
 	
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Konstruiert einen neuen Controller für eine ConverterView und verknüpft die benötigten Attribute mit
+=======
+	 * Konstruiert einen neuen Controller f\u00FCr eine ConverterView und verkn\u00FCpft die ben\u00F6tigten Attribute mit
+>>>>>>> master
 	 * Referenzen auf die Bedienelemente aus der ConverterView.
 	 * 
 	 * @param view ConverterView, an die dieser Controller gebunden wird
@@ -242,10 +304,20 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 			value.setValue(input.toString(), baseProperty.get());
 			
 		} catch (NumberFormatException | NullPointerException e) {
+<<<<<<< HEAD
+=======
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
+>>>>>>> master
 			e.printStackTrace();
 			clearBtn.fire();
 			clearBtn.fire();
 		} catch (IllegalArgumentException e) {
+<<<<<<< HEAD
+=======
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
+>>>>>>> master
 			value.set(0);
 		}
 		
@@ -255,7 +327,11 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		long minValue = Preferences.getPrefs().useUnsignedBitOperationProperty().get() ? bitLength.minUnsignedValue() : bitLength.minValue();
 		
 		if(value.asDouble() > maxValue) {
+<<<<<<< HEAD
 			throw new NumberOverflowException("Number " + value.asDouble() + " is too large. Maximum is " + maxValue, "Die eingegebene Zahl ist zu groß!", maxValue, minValue);
+=======
+			throw new NumberOverflowException("Number " + value.asDouble() + " is too large. Maximum is " + maxValue, "Die eingegebene Zahl ist zu gro\u00DF!", maxValue, minValue);
+>>>>>>> master
 		}
 		else if(value.asDouble() < minValue) {
 			throw new NumberOverflowException("Number " + value.asDouble() + " is too small. Minimum is " + minValue, "Die eingegebene Zahl ist zu klein!", maxValue, minValue);
@@ -314,8 +390,17 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 					break;
 			}
 		} catch (NumberOverflowException noe) {
+<<<<<<< HEAD
 			throw noe;
 		} catch (Exception e) {
+=======
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
+			throw noe;
+		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
+			
+>>>>>>> master
 			throw e;
 		}
 	}
@@ -349,7 +434,11 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 	
 // Buttons	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Setzt die Actions für alle Buttons
+=======
+	 * Setzt die Actions f\u00FCr alle Buttons
+>>>>>>> master
 	 * 
 	 * @see #setAlphaNumBindings()
 	 * @see #setClearAction()
@@ -525,22 +614,58 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 	// TODO JavaDoc
 	private void setBindingsAndListeners() {
 		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
+<<<<<<< HEAD
 		Preferences.getPrefs().bitLengthProperty().bind(bitLength.getSelectionModel().selectedItemProperty());
+=======
+>>>>>>> master
 		
 		Preferences.getPrefs().bitLengthProperty().addListener(new ChangeListener<BitLength>() {
 			@Override
 			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+<<<<<<< HEAD
+=======
+				bitLength.getSelectionModel().select(newValue);
+			}
+		});
+		
+		bitLength.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<BitLength>() {
+			@Override
+			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+				if(Preferences.getPrefs().bitLengthProperty().get().equals(newValue)) {
+					// Einstellungen wurden zurückgesetzt -> keine weiteren Warnungen anzeigen
+					value1.set(0);
+					value2.set(0);
+					result.set(0);
+					operation = Operation.UNDEFINED;
+					lastOperation = Operation.UNDEFINED;
+					clearBtn.fire();
+					clearBtn.fire();
+					return;
+				}
+				
+				Preferences.getPrefs().bitLengthProperty().set(newValue);
+				
+>>>>>>> master
 				checkUnsignedBitLength();
 
 				// Warnung und Löschen aller Eingaben beim verkleinern der Bitlänge
 				if (!isCleared && newValue.getNumberOfBits() < oldValue.getNumberOfBits()) {
 					boolean warningDeactivated = Preferences.getPrefs().bitLengthDeleteWarningDeactivatedProperty().get();
+<<<<<<< HEAD
 					Optional<ButtonType> warningResult = FXUtils.showDeactivatableDialog(AlertType.WARNING, "Warnung", "Achtung", "Beim Verkleinern der Bitlänge gehen alle bisherigen Eingaben verloren!", Preferences.getPrefs().bitLengthDeleteWarningDeactivatedProperty(), ButtonType.CANCEL, ButtonType.OK);
+=======
+					Optional<ButtonType> warningResult = FXUtils.showDeactivatableDialog(AlertType.WARNING, "Warnung", "Achtung", "Beim Verkleinern der Bitl\u00E4nge gehen alle bisherigen Eingaben verloren!", Preferences.getPrefs().bitLengthDeleteWarningDeactivatedProperty(), ButtonType.CANCEL, ButtonType.OK);
+>>>>>>> master
 					
 					if(warningDeactivated || (warningResult.isPresent() && warningResult.get().equals(ButtonType.OK))) {
 						value1.set(0);
 						value2.set(0);
 						result.set(0);
+<<<<<<< HEAD
+=======
+						operation = Operation.UNDEFINED;
+						lastOperation = Operation.UNDEFINED;
+>>>>>>> master
 						clearBtn.fire();
 						clearBtn.fire();
 					} else {
@@ -560,6 +685,12 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 				}
 			}
 		});
+<<<<<<< HEAD
+=======
+		
+		this.baseProperty.set(Preferences.getPrefs().bitOpertionBaseProperty().get());
+		this.baseProperty.bindBidirectional(Preferences.getPrefs().bitOpertionBaseProperty());
+>>>>>>> master
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -570,7 +701,11 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		boolean isUnsigned = Preferences.getPrefs().useUnsignedBitOperationProperty().get();
 		
 		if(is64Bit && isUnsigned) {
+<<<<<<< HEAD
 			String message = "Bei vorzeichenlosen Bitoperationen ist die Bitlänge auf maximal 63 Bit begrenzt.";
+=======
+			String message = "Bei vorzeichenlosen Bitoperationen ist die Bitl\u00E4nge auf maximal 63 Bit begrenzt.";
+>>>>>>> master
 			FXUtils.showDeactivatableDialog(AlertType.INFORMATION, "Hinweis", "Achtung", message, Preferences.getPrefs().unsignedBitLengthWarningDeactivatedProperty());
 		}
 	}
@@ -584,10 +719,21 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		try {
 			calculate();
 		} catch (NumberOverflowException noe) {
+<<<<<<< HEAD
 			noe.setDescription("Das Ergebnis der Berechnung verlässt den zugelassenen Zahlenbereich.");
 			FXUtils.showNumberOverflowWarning(noe);
 			return;
 		} catch (Exception e) {
+=======
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
+			noe.setDescription("Das Ergebnis der Berechnung verl\u00E4sst den zugelassenen Zahlenbereich.");
+			FXUtils.showNumberOverflowWarning(noe);
+			return;
+		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
+			
+>>>>>>> master
 			e.printStackTrace();
 			return;
 		}

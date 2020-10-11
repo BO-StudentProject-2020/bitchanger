@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -10,6 +10,8 @@ package bitchanger.calculations;
 
 import java.util.Objects;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -20,25 +22,25 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 /**	<!-- $LANGUAGE=DE -->
- * Die Klasse SimpleChangeableNumber bietet eine vollständige Implementierung von {@link ChangeableNumber}.
+ * Die Klasse SimpleChangeableNumber bietet eine vollst\u00E4ndige Implementierung von {@link ChangeableNumber}.
  * <p>
- * Jede Instanz dieser Klasse schließt einen Wert ein, der aus beliebigen Zahlensystemen gesetzt und in
+ * Jede Instanz dieser Klasse schlie\u00DFt einen Wert ein, der aus beliebigen Zahlensystemen gesetzt und in
  * verschiedene Zahlensysteme umgewandelt werden kann. Die String-Darstellungen in den verschiedenen
- * Zahlensystemen enthalten <b>keine Präfixe</b>, die auf die Basis hinweisen.
+ * Zahlensystemen enthalten <b>keine Pr\u00E4fixe</b>, die auf die Basis hinweisen.
  * </p>
  * <p>
- * Die String Darstellungen der Zahlensysteme werden für bessere Lesbarkeit in Blöcke unterteilt.
- * Beim Hexadezimal- und Binärsystem sind die Blöcke vier Zeichen lang, in allen anderen Zahlensystemen
- * haben die Blöcke eine Länge von drei Zeichen.
+ * Die String Darstellungen der Zahlensysteme werden f\u00FCr bessere Lesbarkeit in Bl\u00F6cke unterteilt.
+ * Beim Hexadezimal- und Bin\u00E4rsystem sind die Bl\u00F6cke vier Zeichen lang, in allen anderen Zahlensystemen
+ * haben die Bl\u00F6cke eine L\u00E4nge von drei Zeichen.
  * </p>
  * 
  * @see ChangeableNumber
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -60,7 +62,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 public class SimpleChangeableNumber implements ChangeableNumber {
@@ -72,7 +74,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der binären String-Darstellung */
+	/** <!-- $LANGUAGE=DE --> eingeschlossener Wert in der bin\u00E4ren String-Darstellung */
 	/* <!-- $LANGUAGE=EN --> wrapped value as binary String representation */
 	private String binValue;
 	
@@ -119,7 +121,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue Instanz, die den übergebenen dezimal-Wert repräsentiert
+	 * Erzeugt eine neue Instanz, die den \u00FCbergebenen dezimal-Wert repr\u00E4sentiert
 	 * 
 	 * @param decValue	Wert, der von diesem Objekt eingeschlossen werden soll
 	 * 
@@ -185,10 +187,10 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt den eingeschlossenen Wert dieser {@code SimpleChangeableNumber} auf den übergebenen dezimal-Wert.
-	 * Die String-Darstellungen für das Hexadezimal-, Oktal- und Binärsystem werden berechnet und in den Attributen gespeichert.
+	 * Setzt den eingeschlossenen Wert dieser {@code SimpleChangeableNumber} auf den \u00FCbergebenen dezimal-Wert.
+	 * Die String-Darstellungen f\u00FCr das Hexadezimal-, Oktal- und Bin\u00E4rsystem werden berechnet und in den Attributen gespeichert.
 	 * 
-	 * @param decValue	neuer Wert, den diese {@code SimpleChangeableNumber} repräsentiert
+	 * @param decValue	neuer Wert, den diese {@code SimpleChangeableNumber} repr\u00E4sentiert
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
@@ -210,9 +212,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		this.decValue = ConvertingNumbers.splitInBlocks(Objects.requireNonNull(decValue), 3);
 		this.hexValue = ConvertingNumbers.decToBaseBlocks(16, this.decValue, Preferences.getPrefs().getComma(), 4);
 		this.octalValue = ConvertingNumbers.decToBaseBlocks(8, this.decValue, Preferences.getPrefs().getComma(), 3);
+		
 		try {
 			this.binValue = ConvertingNumbers.decToBaseBlocks(2, this.decValue, Preferences.getPrefs().getComma(), 4);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			
 			this.binValue = "";
 		}
 		
@@ -232,6 +237,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 				stringProperty.set(toBaseString(baseProperty.get()));
 			}
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			
 			stringProperty.set("");
 		}
 	}
@@ -245,7 +252,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		if(Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
 			if (Preferences.getPrefs().bitLengthProperty().get().equals(BitLength._64_BIT) && Preferences.getPrefs().useUnsignedBitOperationProperty().get()) {
 				// bei unsigned maximal 63 Bit möglich!
-				val = (long) this.asDouble() & 0xEFFFFFFFFFFFFFFFl;
+				val = (long) this.asDouble() & 0x7FFFFFFFFFFFFFFFl;
 			} else {
 				val = (long) this.asDouble() & Preferences.getPrefs().bitLengthProperty().get().getBitmask();
 			}
@@ -304,7 +311,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
 		}
 		
-		this.setDec(String.valueOf(decValue));
+		// Unterteilen in ganzen und gebrochenen Anteil wegen Exponenten-Darstellung von double bei großen Zahlen
+		String integerPart = String.valueOf((long)decValue);
+		String fractionalPart = String.valueOf(decValue % 1.0);
+		fractionalPart = fractionalPart.substring(fractionalPart.indexOf("."));
+		
+		this.setDec(integerPart + fractionalPart);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -421,6 +433,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			int blockSize = (base == 2 || base == 16) ? 4 : 3; 
 			return ConvertingNumbers.decToBaseBlocks(base, decValue, Preferences.getPrefs().getComma(), blockSize);
 		} catch (IllegalArgumentException illArg) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, illArg);
+			
 			// Auf falsche Basis prüfen
 			if(base < ConvertingNumbers.MIN_BASE || base > ConvertingNumbers.MAX_BASE) {
 				throw illArg;
@@ -430,6 +444,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			return "";
 		} catch (Exception e) {
 			// Sollte nicht auftreten
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
+			
 			throw e;
 		}
 	}
@@ -437,10 +453,10 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt einen {@code String} zurück, der die hexadezimale, dezimale, oktale und
-	 * binäre Darstellung des eingeschlossenen Wertes enthält.
+	 * Gibt einen {@code String} zur\u00FCck, der die hexadezimale, dezimale, oktale und
+	 * bin\u00E4re Darstellung des eingeschlossenen Wertes enth\u00E4lt.
 	 * 
-	 * @return	String bestehend aus der hexadezimalen, dezimalen, oktalen und binären String-Darstellung des eingeschlossenen
+	 * @return	String bestehend aus der hexadezimalen, dezimalen, oktalen und bin\u00E4ren String-Darstellung des eingeschlossenen
 	 * 			Wertes, hintereinander aufgelistet
 	 */
 	/* <!-- $LANGUAGE=EN -->

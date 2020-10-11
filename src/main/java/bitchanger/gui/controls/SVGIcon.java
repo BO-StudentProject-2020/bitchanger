@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -16,6 +16,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.shape.SVGPath;
 
 
+/** <!-- $LANGUAGE=DE -->
+ * 
+ * 
+ * @author Tim M\u00FChle
+ * 
+ * @since Bitchanger 0.1.4
+ * @version 0.1.4
+ *
+ */
 // TODO JavaDoc
 public class SVGIcon extends SVGPath {
 

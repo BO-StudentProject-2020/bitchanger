@@ -2,7 +2,7 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
- * Entwickelt für das AID-Labor der Hochschule Bochum
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
  * 
  */
 
@@ -10,6 +10,8 @@ package bitchanger.util;
 
 import java.io.File;
 import bitchanger.gui.controls.SVGIcon;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import bitchanger.preferences.Style;
 import javafx.beans.value.ChangeListener;
@@ -17,12 +19,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.shape.SVGPath;
 
 /** <!-- $LANGUAGE=DE -->
- * Factory Klasse für das Erstellen von SVGIcons
+ * Factory Klasse f\u00FCr das Erstellen von SVGIcons
  * 
- * @author Tim Mühle
+ * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.6
+ * @version 0.1.8
  *
  */
 public class IconFactory {
@@ -31,10 +33,10 @@ public class IconFactory {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues SVGIcon, das je nach eingestelltem Style in {@link Preferences#styleProperty()} der svg-Datei
-	 * lightIconFile oder darkIconFile entspricht und sich automatisch bei Änderung des Styles anpasst.
+	 * lightIconFile oder darkIconFile entspricht und sich automatisch bei \u00C4nderung des Styles anpasst.
 	 * 
-	 * @param lightIconFile	svg-Datei für den Style {@link Style#LIGHT}
-	 * @param darkIconFile	svg-Datei für den Style {@link Style#DARK}
+	 * @param lightIconFile	svg-Datei f\u00FCr den Style {@link Style#LIGHT}
+	 * @param darkIconFile	svg-Datei f\u00FCr den Style {@link Style#DARK}
 	 * 
 	 * @return	neues SVGIcon, generiert aus den Files lightIconFile und darkIconFile oder {@code null}, wenn die Dateien nicht gelesen werden konnten
 	 */
@@ -57,6 +59,7 @@ public class IconFactory {
 			return icon;
 		} 
 		catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 			return null;
 		}
@@ -68,13 +71,14 @@ public class IconFactory {
 	 * Setzt den SVG-Pfad des SVGIcon icon auf den Pfad von lightSVG oder darkSVG, basierend auf dem Style style.
 	 * 
 	 * @param icon		SVGIcon, dessen SVG-Pfad neu gesetzt wird
-	 * @param lightSVG	SVGPath für den Fall {@link Style#LIGHT}
-	 * @param darkSVG	SVGPath für den Fall {@link Style#DARK}
-	 * @param style		Style, der über den SCG-Pfad entscheidet
+	 * @param lightSVG	SVGPath f\u00FCr den Fall {@link Style#LIGHT}
+	 * @param darkSVG	SVGPath f\u00FCr den Fall {@link Style#DARK}
+	 * @param style		Style, der \u00FCber den SCG-Pfad entscheidet
 	 */
 	private static void setSVGStyle(SVGIcon icon, SVGPath lightSVG, SVGPath darkSVG, Style style) {
 		switch(style) {
-			case LIGHT:
+			case LIGHT: /* fall through */
+			case COLOR:
 				icon.setSVG(lightSVG);
 				break;
 			case DARK:

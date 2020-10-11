@@ -2,7 +2,11 @@
  * Copyright (c) 2020 - Tim Muehle und Moritz Wolter
  * 
  * Entwicklungsprojekt im Auftrag von Professorin K. Brabender und Herrn A. Koch
+<<<<<<< HEAD
  * Entwickelt für das AID-Labor der Hochschule Bochum
+=======
+ * Entwickelt fuer das AID-Labor der Hochschule Bochum
+>>>>>>> master
  * 
  */
 
@@ -13,6 +17,11 @@ import java.util.ArrayDeque;
 import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.UnfocusedButton;
+<<<<<<< HEAD
+=======
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+>>>>>>> master
 import bitchanger.util.FXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -32,10 +41,17 @@ import javafx.scene.layout.VBox;
 /**	<!-- $LANGUAGE=DE -->
  * 
  * 
+<<<<<<< HEAD
  * @author Tim Mühle
  * 
  * @since Bitchanger 0.1.7
  * @version 0.1.7
+=======
+ * @author Tim M\u00FChle
+ * 
+ * @since Bitchanger 0.1.7
+ * @version 0.1.8
+>>>>>>> master
  * 
  */
 //TODO JavaDoc
@@ -47,7 +63,11 @@ public class CalculationViewBase extends AlphaNumGridView {
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
+<<<<<<< HEAD
 	/** <!-- $LANGUAGE=DE -->	Schlüsselwort, mit das Textfeld in der Map {@code tfMap} gespeichert wird */
+=======
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit das Textfeld in der Map {@code tfMap} gespeichert wird */
+>>>>>>> master
 	// TODO JavaDoc EN
 	private static final String TF_KEY = "textField";
 	
@@ -160,9 +180,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 	
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem das Textfeld in der Map {@code tfMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem das Textfeld in der Map {@code tfMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem das Textfeld in der Map {@code tfMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem das Textfeld in der Map {@code tfMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String tfKey() {
@@ -172,9 +198,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem der Gleichheits-Button in der Map {@code btnMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem der Gleichheits-Button in der Map {@code btnMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Gleichheits-Button in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem der Gleichheits-Button in der Map {@code btnMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String equalsBtnKey() {
@@ -184,9 +216,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem der Button für das Hexadezimalsystem in der Map {@code btnMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem der Button für das Hexadezimalsystem in der Map {@code btnMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr das Hexadezimalsystem in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr das Hexadezimalsystem in der Map {@code btnMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String hexBtnKey() {
@@ -196,9 +234,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem der Button für das Dezimalsystem in der Map {@code btnMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem der Button für das Dezimalsystem in der Map {@code btnMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr das Dezimalsystem in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr das Dezimalsystem in der Map {@code btnMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String decBtnKey() {
@@ -208,9 +252,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem der Button für das Oktalsystem in der Map {@code btnMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem der Button für das Oktalsystem in der Map {@code btnMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr das Oktalsystem in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr das Oktalsystem in der Map {@code btnMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String octBtnKey() {
@@ -220,9 +270,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem der Button für das Binärsystem in der Map {@code btnMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem der Button für das Binärsystem in der Map {@code btnMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr das Bin\u00E4rsystem in der Map {@code btnMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem der Button f\u00FCr das Bin\u00E4rsystem in der Map {@code btnMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String binBtnKey() {
@@ -232,9 +288,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem der BaseSpinner für das beliebige Zahlensystem in der Map {@code nodeMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem der BaseSpinner für das beliebige Zahlensystem in der Map {@code nodeMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der BaseSpinner f\u00FCr das beliebige Zahlensystem in der Map {@code nodeMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem der BaseSpinner f\u00FCr das beliebige Zahlensystem in der Map {@code nodeMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String baseSpinnerKey() {
@@ -245,9 +307,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem das Label zur Anzeige der Basis in der Map {@code nodeMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem das Label zur Anzeige der Basis in der Map {@code nodeMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem das Label zur Anzeige der Basis in der Map {@code nodeMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem das Label zur Anzeige der Basis in der Map {@code nodeMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String baseLabelKey() {
@@ -257,9 +325,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem das Label für den ersten Wert in der Map {@code nodeMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem das Label für den ersten Wert in der Map {@code nodeMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem das Label f\u00FCr den ersten Wert in der Map {@code nodeMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem das Label f\u00FCr den ersten Wert in der Map {@code nodeMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String firstValueLabelKey() {
@@ -269,9 +343,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem das Label für den Operator in der Map {@code nodeMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem das Label für den Operator in der Map {@code nodeMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem das Label f\u00FCr den Operator in der Map {@code nodeMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem das Label f\u00FCr den Operator in der Map {@code nodeMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String operationLabelKey() {
@@ -281,9 +361,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem das Label für den zweiten Wert in der Map {@code nodeMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem das Label für den zweiten Wert in der Map {@code nodeMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem das Label f\u00FCr den zweiten Wert in der Map {@code nodeMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem das Label f\u00FCr den zweiten Wert in der Map {@code nodeMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String secondValueLabelKey() {
@@ -293,9 +379,15 @@ public class CalculationViewBase extends AlphaNumGridView {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/** <!-- $LANGUAGE=DE -->
+<<<<<<< HEAD
 	 * Gibt das Schlüsselwort zurück, mit dem das Label für das Gleichheitszeichen in der Map {@code nodeMap} gespeichert wird
 	 * 
 	 * @return	Schlüsselwort, mit dem das Label für das Gleichheitszeichen in der Map {@code nodeMap} gespeichert wird
+=======
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem das Label f\u00FCr das Gleichheitszeichen in der Map {@code nodeMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem das Label f\u00FCr das Gleichheitszeichen in der Map {@code nodeMap} gespeichert wird
+>>>>>>> master
 	 */
 	// TODO JavaDoc EN
 	public final String equalsLabelKey() {
@@ -462,7 +554,14 @@ public class CalculationViewBase extends AlphaNumGridView {
 			GridPane.setConstraints(equalsLabel, GridPane.getColumnIndex(this.getNodeMap().get(this.baseLabelKey())), GridPane.getRowIndex(this.getNodeMap().get(this.baseLabelKey())) - 1);
 			GridPane.setValignment(equalsLabel, VPos.BOTTOM);
 			center.getChildren().add(equalsLabel);
+<<<<<<< HEAD
 		} catch (Exception e) { /* ignore */ }
+=======
+		} catch (Exception e) {
+			/* ignore */
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+		}
+>>>>>>> master
 		
 		VBox box = new VBox(firstValBox, secondValBox);
 		box.setSpacing(this.vgapProperty.get());
@@ -493,7 +592,14 @@ public class CalculationViewBase extends AlphaNumGridView {
 			Label equalsLabel = (Label) this.getNodeMap().get(equalsLabelKey());
 			center.getChildren().remove(equalsLabel);
 			secondValBox.getChildren().add(equalsLabel);
+<<<<<<< HEAD
 		} catch (Exception e) { /* Ignore */ }
+=======
+		} catch (Exception e) {
+			/* Ignore */
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+		}
+>>>>>>> master
 		
 		HBox box = new HBox(firstValBox, secondValBox);
 		formatHBox(box);
