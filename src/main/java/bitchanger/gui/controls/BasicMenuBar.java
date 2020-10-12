@@ -105,6 +105,10 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Hell" is associated in the Map {@link #menuItemMap} */
 	public static final String VIEW_STYLE_LIGHT_ITEM_KEY = "view-style-ligth-item";
 	
+	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Hell" in der Map {@link #menuItemMap} abgelegt ist */
+	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Hell" is associated in the Map {@link #menuItemMap} */
+	public static final String VIEW_STYLE_COLOR_ITEM_KEY = "view-style-color-item";
+	
 	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem das MenuItem "Dunkel" in der Map {@link #menuItemMap} abgelegt ist */
 	/* <!-- $LANGUAGE=EN -->	Key with which the MenuItem "Dunkel" is associated in the Map {@link #menuItemMap} */
 	public static final String VIEW_STYLE_DARK_ITEM_KEY = "view-style-dark-item";
@@ -358,12 +362,14 @@ public class BasicMenuBar extends MenuBar implements Controllable {
 		
 		Menu styleMenu = new Menu("Stil", IconFactory.ofSVGFile(Resources.PAINT_BRUSH_WINDOW_ICON));
 		MenuItem styleLight = new MenuItem("Hell", IconFactory.ofSVGFile(Resources.SUN_ICON));
+		MenuItem styleColor = new MenuItem("Color", IconFactory.ofSVGFile(Resources.PAINT_ICON));
 		MenuItem styleDark = new MenuItem("Dunkel", IconFactory.ofSVGFile(Resources.SUN_FILLED_ICON));
 		
-		styleMenu.getItems().addAll(styleLight, styleDark);
+		styleMenu.getItems().addAll(styleLight, styleColor, styleDark);
 		
 		menuItemMap.put(VIEW_STYLE_MENU_KEY, styleMenu);
 		menuItemMap.put(VIEW_STYLE_LIGHT_ITEM_KEY, styleLight);
+		menuItemMap.put(VIEW_STYLE_COLOR_ITEM_KEY, styleColor);
 		menuItemMap.put(VIEW_STYLE_DARK_ITEM_KEY, styleDark);
 		
 		Menu moveToScreen = new Menu("Auf Monitor bewegen", IconFactory.styleBindIcon(Resources.MONITOR_ICON, Resources.MONITOR_FILLED_ICON));

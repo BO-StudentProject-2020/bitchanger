@@ -8,6 +8,8 @@
 
 package bitchanger.gui.controls;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
@@ -65,7 +67,10 @@ public class StyleableLabel extends Label {
 			this.isBold = b;
 			try {
 				this.getStyleClass().remove(BOLD_STYLE_CLASS);
-			} catch (Exception e) { /* ignore */ }
+			} catch (Exception e) {
+				/* ignore */
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			}
 		}
 	}
 	
@@ -81,7 +86,10 @@ public class StyleableLabel extends Label {
 			this.isHeading = b;
 			try {
 				this.getStyleClass().remove(HEADING_STYLE_CLASS);
-			} catch (Exception e) { /* ignore */ }
+			} catch (Exception e) {
+				/* ignore */
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			}
 		}
 	}
 	

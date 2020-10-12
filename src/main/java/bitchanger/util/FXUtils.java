@@ -21,6 +21,9 @@ import org.w3c.dom.NodeList;
 
 import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.controls.SVGIcon;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+import bitchanger.preferences.Preferences;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -46,7 +49,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 /* <!-- $LANGUAGE=EN -->
@@ -55,7 +58,7 @@ import javafx.scene.shape.SVGPath;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 public class FXUtils {
@@ -182,10 +185,10 @@ public class FXUtils {
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Setzt die maximale Gr\u00F6ße aller Controls in einem Iterable auf den Wert {@code maxSize}.
+	 * Setzt die maximale Gr\u00F6\u00DFe aller Controls in einem Iterable auf den Wert {@code maxSize}.
 	 * 
 	 * @param nodes		Sammlung aller anzupassenden Controls, die auch in Layout-Containern liegen d\u00FCrfen
-	 * @param maxSize	Maximale Gr\u00F6ße der Controls
+	 * @param maxSize	Maximale Gr\u00F6\u00DFe der Controls
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Sets the maximum size of all controls inside an Iterable to the value of {@code maxSize}.
@@ -276,6 +279,7 @@ public class FXUtils {
 			return svgPath;
 			
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 			return null;
 		}
@@ -329,7 +333,7 @@ public class FXUtils {
 	// TODO JavaDoc @since Bitchanger 0.1.7
 	public static Optional<ButtonType> showNumberOverflowWarning(NumberOverflowException noe) {
 		StringBuffer infoText = new StringBuffer();
-		infoText.append("Die gr\u00F6ßte erlaubte Zahl ist ");
+		infoText.append("Die gr\u00F6\u00DFte erlaubte Zahl ist ");
 		infoText.append(String.valueOf((long) noe.getMaxSupportetNumber()));
 		infoText.append(" und die kleinste erlaubte Zahl ist ");
 		infoText.append(String.valueOf((long) noe.getMinSupportetNumber()));
@@ -341,6 +345,9 @@ public class FXUtils {
 		dialog.setHeaderText("\u00DCberlauf");
 		dialog.setContentText(noe.getDescription());
 		dialog.getDialogPane().setExpandableContent(infoLabel);
+		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
+		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+		dialog.setResizable(true);
 		
 		return dialog.showAndWait();
 	}
@@ -352,6 +359,10 @@ public class FXUtils {
 		Alert dialog = new Alert(dialogType, message, buttonTypes);
 		if(title != null) dialog.setTitle(title);
 		if(headerText != null) dialog.setHeaderText(headerText);
+		
+		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
+		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+		dialog.setResizable(true);
 		
 		return dialog.showAndWait();
 	}
@@ -392,6 +403,10 @@ public class FXUtils {
 		
 		if(title != null) dialog.setTitle(title);
 		if(headerText != null) dialog.setHeaderText(headerText);
+		
+		dialog.getDialogPane().getStylesheets().add(Resources.ALERT_LAYOUT_CSS);
+		dialog.getDialogPane().getStylesheets().add(Preferences.getPrefs().stylesheetProperty().get());
+		dialog.setResizable(true);
 		
 		return dialog.showAndWait();
 	}

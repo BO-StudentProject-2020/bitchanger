@@ -13,6 +13,8 @@ import java.util.ArrayDeque;
 import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.UnfocusedButton;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.util.FXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -35,7 +37,7 @@ import javafx.scene.layout.VBox;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 0.1.7
+ * @version 0.1.8
  * 
  */
 //TODO JavaDoc
@@ -462,7 +464,10 @@ public class CalculationViewBase extends AlphaNumGridView {
 			GridPane.setConstraints(equalsLabel, GridPane.getColumnIndex(this.getNodeMap().get(this.baseLabelKey())), GridPane.getRowIndex(this.getNodeMap().get(this.baseLabelKey())) - 1);
 			GridPane.setValignment(equalsLabel, VPos.BOTTOM);
 			center.getChildren().add(equalsLabel);
-		} catch (Exception e) { /* ignore */ }
+		} catch (Exception e) {
+			/* ignore */
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+		}
 		
 		VBox box = new VBox(firstValBox, secondValBox);
 		box.setSpacing(this.vgapProperty.get());
@@ -493,7 +498,10 @@ public class CalculationViewBase extends AlphaNumGridView {
 			Label equalsLabel = (Label) this.getNodeMap().get(equalsLabelKey());
 			center.getChildren().remove(equalsLabel);
 			secondValBox.getChildren().add(equalsLabel);
-		} catch (Exception e) { /* Ignore */ }
+		} catch (Exception e) {
+			/* Ignore */
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+		}
 		
 		HBox box = new HBox(firstValBox, secondValBox);
 		formatHBox(box);

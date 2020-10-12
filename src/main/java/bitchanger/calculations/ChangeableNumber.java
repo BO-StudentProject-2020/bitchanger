@@ -8,6 +8,8 @@
 
 package bitchanger.calculations;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 
@@ -18,7 +20,7 @@ import javafx.beans.property.ReadOnlyStringProperty;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -45,6 +47,8 @@ public interface ChangeableNumber {
 			String value = this.toDecString().replace(" ", "").replace(",", ".").replace(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR, "");
 			return Double.parseDouble(value);
 		} catch(Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
 			return Double.NaN;
 		}
 	}

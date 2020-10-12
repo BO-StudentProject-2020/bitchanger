@@ -27,11 +27,15 @@ import bitchanger.calculations.BitLength;
 import bitchanger.calculations.IEEEStandard;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.Viewable;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.writableProperty.WritableBooleanProperty;
 import bitchanger.preferences.writableProperty.WritableClassProperty;
 import bitchanger.preferences.writableProperty.WritableEnumProperty;
+import bitchanger.preferences.writableProperty.WritableIntegerProperty;
 import bitchanger.util.Resources;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -49,7 +53,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  */
 /* <!-- $LANGUAGE=EN -->
  * Preferences is the global collection for all possible settings that can be selected for the bitchanger.
@@ -62,7 +66,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  */
 public class Preferences {
 	
@@ -189,6 +193,14 @@ public class Preferences {
 	/* <!-- $LANGUAGE=EN -->	Property for deactivating the warning alert that appears when bitLengthProperty is set to a lower bit length */
 	private final WritableBooleanProperty bitLengthDeleteWarningDeactivatedProperty;
 	
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr die eingestellte Basis in den Bitoperationen */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected base in BitoperationView */
+	private final WritableIntegerProperty bitOpertionBaseProperty;
+	
+	/** <!-- $LANGUAGE=DE -->	Property f\u00FCr die eingestellte Basis in den Berechnungen */
+	/* <!-- $LANGUAGE=EN -->	Property for the selected base in CalculatorView */
+	private final WritableIntegerProperty calculationBaseProperty;
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -237,10 +249,13 @@ public class Preferences {
 		this.useUnsignedBitOperationProperty = new WritableBooleanProperty(true, "unsignedBitoperations");
 		this.unsignedBitLengthWarningDeactivatedProperty = new WritableBooleanProperty(false, "deactivateUnsignedBitLenthWarning");
 		this.bitLengthDeleteWarningDeactivatedProperty = new WritableBooleanProperty(false, "deactivateBitLengthDeleteWarning");
+		this.bitOpertionBaseProperty = new WritableIntegerProperty(10, "bitOperationBase");
+		this.calculationBaseProperty = new WritableIntegerProperty(10, "calculationBase");
 		
 		try {
 			this.load(file);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM);
 			e.printStackTrace();
 		}
 	}
@@ -427,6 +442,20 @@ public class Preferences {
 	public BooleanProperty bitLengthDeleteWarningDeactivatedProperty() {
 		return this.bitLengthDeleteWarningDeactivatedProperty;
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.8
+	public IntegerProperty bitOpertionBaseProperty() {
+		return this.bitOpertionBaseProperty;
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 0.1.8
+	public IntegerProperty calculationBaseProperty() {
+		return this.calculationBaseProperty;
+	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 		
@@ -514,6 +543,7 @@ public class Preferences {
 			this.stylesheetProperty.set(url);
 			this.styleProperty.set(Style.UNKNOWN);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 			return false;
 		}
@@ -544,10 +574,13 @@ public class Preferences {
 	public boolean setStylesheet(Style style) {
 		switch(style) {
 		case LIGHT:
-			this.stylesheetProperty.set(Resources.LIGHT_CSS);
+			this.stylesheetProperty.set(Resources.LIGHT_THEME_CSS);
+			break;
+		case COLOR:
+			this.stylesheetProperty.set(Resources.COLOR_THEME_CSS);
 			break;
 		case DARK:
-			this.stylesheetProperty.set(Resources.DARK_CSS);
+			this.stylesheetProperty.set(Resources.DARK_THEME_CSS);
 			break;
 		default:
 			return false;
@@ -604,6 +637,7 @@ public class Preferences {
 			this.setStylesheet(styleProperty.get());
 			
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM);
 			e.printStackTrace();
 		}
 	}
@@ -647,6 +681,7 @@ public class Preferences {
 			transformer.transform(source, result);
 			
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 		}
 	}
@@ -678,6 +713,7 @@ public class Preferences {
 					Element propertyTag = property.getXMLTag(doc);
 					prefTag.appendChild(propertyTag);
 				} catch (Exception e) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 					e.printStackTrace();
 				}
 			}

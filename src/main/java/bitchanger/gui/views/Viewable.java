@@ -12,6 +12,8 @@ import bitchanger.gui.controller.Controllable;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controls.BasicMenuBar;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -33,7 +35,7 @@ import javafx.scene.control.MenuBar;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  * 
  * @see Controllable
  * @see Controller
@@ -55,7 +57,7 @@ import javafx.scene.control.MenuBar;
  * @author Tim
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  * 
  * @see Controllable
  * @see Controller
@@ -82,6 +84,7 @@ public interface Viewable extends Controllable {
 		try {
 			return new BasicMenuBar(controllableApp);
 		} catch (NullPointerException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
 			return generateMenuBar();
 		}
 	}

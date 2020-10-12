@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Scanner;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Comma;
 import bitchanger.preferences.Preferences;
 
@@ -20,9 +22,9 @@ import bitchanger.preferences.Preferences;
  * <p>
  * Die Methoden dieser Klasse k\u00F6nnen sowohl ganze Zahlen als auch Kommazahlen mit positiven oder negativen Wert umwandeln.
  * Es werden beliebige Zahlensysteme von der Basis 2 bis zur Basis 36 unterst\u00FCtzt, was dem Zeichenvorrat 0-9 und A-Z entspricht.
- * In der String-Darstellung k\u00F6nnen Zahlen mit Ziffern, Großbuchstaben und Kleinbuchstaben an die Methoden dieser Klasse
- * \u00FCbergeben werden, allerdings enthalten die R\u00FCckgaben in der String-Darstellung aller Methoden ausschließlich Zahlen 
- * und Großbuchstaben.
+ * In der String-Darstellung k\u00F6nnen Zahlen mit Ziffern, Gro\u00DFbuchstaben und Kleinbuchstaben an die Methoden dieser Klasse
+ * \u00FCbergeben werden, allerdings enthalten die R\u00FCckgaben in der String-Darstellung aller Methoden ausschlie\u00DFlich Zahlen 
+ * und Gro\u00DFbuchstaben.
  * </p>
  * <p>
  * Das Komma-Zeichen kann mit der Klasse {@code Preferences} auf Deutsch (,) oder Englisch (.) eingestellt werden.
@@ -70,7 +72,7 @@ public class ConvertingNumbers {
 	/*	<!-- $LANGUAGE=EN --> Constant for the lowest possible base **/
 	public static final int MIN_BASE = 2;
 	
-	/** <!-- $LANGUAGE=DE --> Eine Konstante f\u00FCr die gr\u00F6ßtm\u00F6gliche Basis bei einem Zeichenvorrat von 0-9 und A-Z **/
+	/** <!-- $LANGUAGE=DE --> Eine Konstante f\u00FCr die gr\u00F6\u00DFtm\u00F6gliche Basis bei einem Zeichenvorrat von 0-9 und A-Z **/
 	/*	<!-- $LANGUAGE=EN --> Constant for the highest possible base of 36 characters given through 0-9 and A-Z **/
 	public static final int MAX_BASE = 36;
 	
@@ -100,7 +102,7 @@ public class ConvertingNumbers {
 	 * Leerzeichen k\u00F6nnen als Tausender-Trennung verwendet werden und werden von dieser Methode ebenfalls ignoriert.
 	 * 
 	 * @param value	zu pr\u00FCfende Zahl repr\u00E4sentiert als {@code String}
-	 * @param base	geforderte Basis von {@code value} - erlaubt sind nur Werte von 2 bis 36 (einschließlich)
+	 * @param base	geforderte Basis von {@code value} - erlaubt sind nur Werte von 2 bis 36 (einschlie\u00DFlich)
 	 * 
 	 * @return 	{@code true}, wenn {@code value} eine Zahl zur geforderten Basis {@code base} 
 	 * 			repr\u00E4sentiert, andernfalls wird {@code false} zur\u00FCckgegeben
@@ -180,12 +182,12 @@ public class ConvertingNumbers {
 	 * @param base	die spezifische Basis des \u00FCbergebenen Wertes {@code value}
 	 * @param value	der Zahlenwert, der umgewandelt werden soll, in der String-Darstellung
 	 * 
-	 * @return	Wert der Zahl im Zehnersystem in der String-Darstellung mit dem standardm\u00E4ßig eingestellten Komma
+	 * @return	Wert der Zahl im Zehnersystem in der String-Darstellung mit dem standardm\u00E4\u00DFig eingestellten Komma
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code value} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
 	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6\u00DFer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
@@ -220,7 +222,7 @@ public class ConvertingNumbers {
 	 * @throws NullPointerException			wenn der Parameter {@code value} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
 	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
-	 * @throws NumberOverflowException		wenn der ganzzahlige Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws NumberOverflowException		wenn der ganzzahlige Wert von {@code value} gr\u00F6\u00DFer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
@@ -256,7 +258,7 @@ public class ConvertingNumbers {
 	 * @throws NullPointerException			wenn der Parameter {@code value} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
 	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
-	 * @throws NumberOverflowException		wenn der ganzzahlige Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws NumberOverflowException		wenn der ganzzahlige Wert von {@code value} gr\u00F6\u00DFer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
@@ -393,12 +395,12 @@ public class ConvertingNumbers {
 	 * @param newBase	Basis des neuen Zahlensystems, in das die Zahl {@code decValue} umgewandelt werden soll
 	 * @param decValue	Wert der Zahl im Zehnersystem in der String-Darstellung
 	 * 
-	 * @return 	umgewandelte Zahl zur \u00FCbergebenen Basis in der String-Darstellung mit dem standardm\u00E4ßig eingestellten Komma
+	 * @return 	umgewandelte Zahl zur \u00FCbergebenen Basis in der String-Darstellung mit dem standardm\u00E4\u00DFig eingestellten Komma
 	 * 
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
 	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6\u00DFer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 */
@@ -445,7 +447,7 @@ public class ConvertingNumbers {
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
 	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6\u00DFer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 */
@@ -495,7 +497,7 @@ public class ConvertingNumbers {
 	 * @throws NumberFormatException			wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
 	 * @throws IllegalArgumentException			wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * @throws UnsupportedOperationException 	wenn {@code decValue} negativ ist und Nachkommastellen enth\u00E4lt und gleichzeitig {@code newBase} zwei ist 
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6\u00DFer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 */
@@ -547,7 +549,7 @@ public class ConvertingNumbers {
 	 * @throws NumberFormatException			wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
 	 * @throws IllegalArgumentException			wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
 	 * @throws UnsupportedOperationException 	wenn {@code decValue} negativ ist und Nachkommastellen enth\u00E4lt und gleichzeitig {@code newBase} zwei ist 
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6\u00DFer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 */
@@ -581,7 +583,7 @@ public class ConvertingNumbers {
 		if(newBase < MIN_BASE || newBase > MAX_BASE) {
 			if(calcPath != null) {
 				calcPath.clear();
-				calcPath.add(new ConversionStep("Keine Umwandlung m\u00F6glich, da die Basis zu groß oder zu klein ist! Die minimale Basis ist " + MIN_BASE + " und die maximale Basis ist " + MAX_BASE));
+				calcPath.add(new ConversionStep("Keine Umwandlung m\u00F6glich, da die Basis zu gro\u00DF oder zu klein ist! Die minimale Basis ist " + MIN_BASE + " und die maximale Basis ist " + MAX_BASE));
 			}
 			
 			throw new IllegalArgumentException("Out of Bounds for base = " + newBase + " (base must be within " + MIN_BASE + " and " + MAX_BASE + ")");
@@ -603,11 +605,14 @@ public class ConvertingNumbers {
 		try {
 			integerPart = Long.parseLong(separated[0]);
 		} catch (NumberFormatException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
 			if (!separated[0].equals("")) {
 				if(calcPath != null) {
 					calcPath.clear();
 					calcPath.add(new ConversionStep("Keine Umwandlung m\u00F6glich, da der erlaubte Wertebereich verlassen wurde!"));
 				}
+				
 				throw new NumberOverflowException("for Number " + decValue, "Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE, e);
 			} else {
 				throw e;
@@ -736,7 +741,7 @@ public class ConvertingNumbers {
 	 * @throws NullPointerException			wenn der Parameter {@code decValue} {@code null} ist
 	 * @throws NumberFormatException		wenn der Parameter {@code decValue} keine Zahl zur Basis 10 ist
 	 * @throws IllegalArgumentException		wenn {@code decValue} ein leerer String ist oder wenn {@code newBase} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int, String)}
-	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6ßer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * @throws NumberOverflowException		wenn der Wert von {@code value} gr\u00F6\u00DFer oder kleiner ist als +/- {@link Long#MAX_VALUE}
 	 * 
 	 * @see Preferences
 	 * @see #decToBase(int, String, char)
@@ -1322,7 +1327,7 @@ public class ConvertingNumbers {
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Schneidet den \u00FCbergebenen String so zu, dass dieser nicht mehr den Indikator f\u00FCr abgeschnittene Nachkommastellen
-	 * und keine Leerzeichen enth\u00E4lt und wandelt alle Buchstaben in Großbuchstaben um.
+	 * und keine Leerzeichen enth\u00E4lt und wandelt alle Buchstaben in Gro\u00DFbuchstaben um.
 	 * 
 	 * @param value String, der formatiert werden soll
 	 * @return	zugeschnittener String

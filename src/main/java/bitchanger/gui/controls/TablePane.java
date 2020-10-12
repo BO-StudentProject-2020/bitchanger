@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.MapChangeListener;
@@ -314,6 +316,7 @@ public class TablePane extends GridPane {
 		try {
 			pos = Pos.valueOf(vpos.name() + "_" + hpos.toString());
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
 			pos = Pos.CENTER;
 		}
 		
@@ -459,7 +462,13 @@ public class TablePane extends GridPane {
 		public StackCell() {
 			super();
 			
-			try { this.getStyleClass().remove("stack-pane"); } catch (Exception e) { /* ignore */ }
+			try {
+				this.getStyleClass().remove("stack-pane");
+			} catch (Exception e) {
+				/* ignore */
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			}
+			
 			this.getStyleClass().add("stack-cell");
 			
 			this.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -470,3 +479,9 @@ public class TablePane extends GridPane {
 	
 	
 }
+
+
+
+
+
+

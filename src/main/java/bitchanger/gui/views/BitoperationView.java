@@ -18,6 +18,8 @@ import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.controls.BitoperationMenuBar;
 import bitchanger.gui.controls.UnfocusedButton;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.util.FXUtils;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -32,7 +34,7 @@ import javafx.scene.layout.GridPane;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 0.1.7
+ * @version 0.1.8
  * 
  * @see BitoperationController
  */
@@ -241,6 +243,7 @@ public class BitoperationView extends CalculationViewBase {
 		try {
 			return new BitoperationMenuBar(controllableApp);
 		} catch (NullPointerException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
 			return generateMenuBar();
 		}
 	}

@@ -21,7 +21,9 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import bitchanger.main.BitchangerLauncher;
 import bitchanger.main.PrimaryFXApp;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 
 /** <!-- $LANGUAGE=DE -->
  * Enth\u00E4lt alle ben\u00F6tigten Ressourcen, wie Pfade zu den CSS Dateien oder den Icons
@@ -29,14 +31,14 @@ import bitchanger.main.PrimaryFXApp;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 public class Resources {
 	
 	// TODO JavaDoc EN
 	
-	/** <!-- $LANGUAGE=DE -->	Speicherort der Benutzereinstellungen beim letzten Schließen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
+	/** <!-- $LANGUAGE=DE -->	Speicherort der Benutzereinstellungen beim letzten Schlie\u00DFen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
 	public static final File RESOURCES_ROOT;
 	
 	static {
@@ -62,17 +64,23 @@ public class Resources {
 	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr das allgemeine Layout oder {@code null}, wenn das CSS nicht gefunden wurde */
 	public static final String LAYOUT_CSS = getResourceAsExternalForm("/style/bitchangerLayout.css");
 
+	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr das allgemeine Layout oder {@code null}, wenn das CSS nicht gefunden wurde */
+	public static final String ALERT_LAYOUT_CSS = getResourceAsExternalForm("/style/alertLayout.css");
+	
 	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr die helle Darstellung oder {@code null}, wenn das CSS nicht gefunden wurde */
-	public static final String LIGHT_CSS = getResourceAsExternalForm("/style/bitchangerLightTheme.css");
+	public static final String LIGHT_THEME_CSS = getResourceAsExternalForm("/style/bitchangerLightTheme.css");
+	
+	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr die gef\u00E4rbte Darstellung oder {@code null}, wenn das CSS nicht gefunden wurde */
+	public static final String COLOR_THEME_CSS = getResourceAsExternalForm("/style/bitchangerColorTheme.css");
 	
 	/** <!-- $LANGUAGE=DE -->	Pfad zum Stylesheet f\u00FCr die dunkle Darstellung oder {@code null}, wenn das CSS nicht gefunden wurde */
-	public static final String DARK_CSS = getResourceAsExternalForm("/style/bitchangerDarkTheme.css");
+	public static final String DARK_THEME_CSS = getResourceAsExternalForm("/style/bitchangerDarkTheme.css");
 
 	
 	
 // Preferences	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-	/** <!-- $LANGUAGE=DE -->	Speicherort der Benutzereinstellungen beim letzten Schließen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
+	/** <!-- $LANGUAGE=DE -->	Speicherort der Benutzereinstellungen beim letzten Schlie\u00DFen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
 	public static final File CUSTOM_PREFERENCES = getResourceAsFile("/preferences/CustomSettings.prefs");
 	
 	/** <!-- $LANGUAGE=DE -->	Speicherort der Standardeinstellungen des Programms oder {@code null}, wenn die Datei nicht gefunden wurde */
@@ -264,10 +272,10 @@ public class Resources {
 	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons mit \u00F6ffnender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File KEYBORD_OPEN_ICON = getResourceAsFile("/graphic/svg/iconmonstr-keyboard-6.svg");
 	
-	/** <!-- $LANGUAGE=DE -->	Speicherort des gef\u00FCllten Icons mit schließender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
+	/** <!-- $LANGUAGE=DE -->	Speicherort des gef\u00FCllten Icons mit schlie\u00DFender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File KEYBORD_CLOSE_FILLED_ICON = getResourceAsFile("/graphic/svg/iconmonstr-keyboard-7.svg");
 	
-	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons mit schließender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
+	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons mit schlie\u00DFender Tastatur oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File KEYBORD_CLOSE_ICON = getResourceAsFile("/graphic/svg/iconmonstr-keyboard-8.svg");
 	
 	
@@ -329,6 +337,9 @@ public class Resources {
 
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	/** <!-- $LANGUAGE=DE -->	Speicherort des Icons einer Farbpalette oder {@code null}, wenn das Icon nicht gefunden wurde */
+	public static final File PAINT_ICON = getResourceAsFile("/graphic/svg/iconmonstr-paintbrush-7.svg");
 	
 	/** <!-- $LANGUAGE=DE -->	Speicherort des gef\u00FCllten Pinsel Icons oder {@code null}, wenn das Icon nicht gefunden wurde */
 	public static final File PAINT_BRUSH_FILLED_ICON = getResourceAsFile("/graphic/svg/iconmonstr-paintbrush-3.svg");
@@ -540,6 +551,7 @@ public class Resources {
 				}
 				
 			} catch(Exception e) {
+				BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 				e.printStackTrace();
 			}
 		}
@@ -562,9 +574,12 @@ public class Resources {
 		try {
 			 url = Resources.class.getResource("/bitchanger_resources" + name).toExternalForm();
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);
+			
 			try {
 				url = getResourceAsFile(name).toURI().toURL().toExternalForm();
 			} catch (MalformedURLException e1) {
+				BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e1);
 				url = null;
 			}
 		}
@@ -589,6 +604,7 @@ public class Resources {
 			file = new File(RESOURCES_ROOT, File.separator + "resources-" + PrimaryFXApp.VERSION + File.separator + name);
             
         } catch (Exception e){
+        	BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
             e.printStackTrace();
             file = null;
         }
@@ -604,7 +620,10 @@ public class Resources {
 			
 			try {
 				Files.createDirectories(target.getParent());
-			} catch (Exception e) { /* ignore */ }
+			} catch (Exception e) {
+				/* ignore */
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			}
 			
 			if(codeLocation.toString().endsWith(".jar")) {
 				// Programm wird in jar-Datei ausgeführt
@@ -617,6 +636,7 @@ public class Resources {
 			}
 			
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 		}
 	}
@@ -640,6 +660,7 @@ public class Resources {
 					Files.copy(jarfile.getInputStream(entry), entryTarget);
 				}
 			} catch (Exception e) {
+				BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 				e.printStackTrace();
 			}
 		}
@@ -684,6 +705,7 @@ public class Resources {
 					InputStream in = Resources.class.getResourceAsStream(resourceName + "/" + file.getName());
 					Files.copy(in, newTarget.toPath());
 				} catch (Exception e) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 					e.printStackTrace();
 				}
 			}

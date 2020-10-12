@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
+
 /**	<!-- $LANGUAGE=DE -->
  * Schnittstelle, die einen Controller beschreibt.
  * Ein Controller wird mit einer View oder einem Control verbunden und gibt den Bedienelementen der View eine Funktion.
@@ -203,6 +206,7 @@ public interface Controller {
 			return constructor.newInstance(constructorArgs);
 		} 
 		catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
 			return getConstructorForArgs(controllerClass, argClasses, constructorArgs);
 		}
 	}
@@ -229,6 +233,7 @@ public interface Controller {
 			}
 			
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
 			e.printStackTrace();
 		}
 		

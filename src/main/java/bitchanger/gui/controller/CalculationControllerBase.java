@@ -16,6 +16,8 @@ import bitchanger.gui.controls.BaseSpinner;
 import bitchanger.gui.controls.ValueButton;
 import bitchanger.gui.controls.ValueField;
 import bitchanger.gui.views.CalculationViewBase;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
 import javafx.beans.binding.StringExpression;
@@ -41,7 +43,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 // TODO JavaDoc EN
@@ -354,9 +356,12 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 	 */
 	private void setInitialState() {
 		textField.requestFocus();
-		// TODO letzten Stand merken
+		
 		octBtn.fire();
 		decBtn.fire();
+		
+		this.operation = Operation.UNDEFINED;
+		this.lastOperation = Operation.UNDEFINED;
 	}
 	
 	
@@ -384,7 +389,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 // Spinner	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<	<<
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert die Basis, wenn sich die valueProperty von {@link #anyBase} \u00E4ndert.
-	 * Sorgt außerdem daf\u00FCr, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
+	 * Sorgt au\u00DFerdem daf\u00FCr, dass anyBase den Fokus nach der Eingabe einer Basis im Editor oder mit den 
 	 * Inkrement- und Dekrement-Buttons wieder an {@link #textField} abgibt.
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -501,6 +506,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 				else {
 					equalsLabel.setText("");
 					clearCalcLabels();
+					operation = Operation.UNDEFINED;
 					lastOperation = Operation.UNDEFINED;
 					isCleared = true;
 				}
@@ -568,7 +574,13 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 			@Override
 			public void handle(ActionEvent event) {
 				isCleared = false;
-				setFirstValue(o, firstValueText);
+				
+				if (!operation.isUndefined() && firstValueText.getValue().equals("")) {
+					operation = o;
+					operationLabel.setText(o.getSymbol());
+				} else {
+					setFirstValue(o, firstValueText);
+				}
 			}
 		});
 	}
@@ -584,6 +596,8 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		try {
 			parseValue(value1);
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			FXUtils.showNumberOverflowWarning(noe);
 			return;
 		}
@@ -613,13 +627,21 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 					try {
 						value1.set(result.asDouble());
 					} catch (Exception e) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+						
 						return;
 					}
 				} else {
 					try {
 						parseValue(value2);
 					} catch (NumberOverflowException noe) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+						
 						FXUtils.showNumberOverflowWarning(noe);
+						return;
+					} catch (Exception e) {
+						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+						
 						return;
 					}
 				}
@@ -627,10 +649,14 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 				try {
 					calculate();
 				} catch (NumberOverflowException noe) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+					
 					noe.setDescription("Das Ergebnis der Berechnung verl\u00E4sst den zugelassenen Zahlenbereich.");
 					FXUtils.showNumberOverflowWarning(noe);
 					return;
 				} catch (Exception e) {
+					BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
+					
 					e.printStackTrace();
 					return;
 				}
@@ -730,10 +756,14 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 		try {
 			num.setValue(textField.getText(), oldBase.intValue());
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			num.reset();
-			noe.setDescription("Die eingegebene Zahl lag außerhalb des erlaubten Wertebereiches und wurde zur\u00FCckgesetzt.");
+			noe.setDescription("Die eingegebene Zahl lag au\u00DFerhalb des erlaubten Wertebereiches und wurde zur\u00FCckgesetzt.");
 			FXUtils.showNumberOverflowWarning(noe);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);
+			
 			num.reset();
 		}
 		

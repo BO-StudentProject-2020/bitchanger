@@ -9,6 +9,8 @@
 package bitchanger.gui.controls;
 
 import bitchanger.calculations.ConvertingNumbers;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.Spinner;
@@ -28,7 +30,7 @@ import javafx.scene.input.KeyEvent;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.2
- * @version 0.1.4
+ * @version 0.1.8
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -42,7 +44,7 @@ import javafx.scene.input.KeyEvent;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.2
- * @version 0.1.4
+ * @version 0.1.8
  *
  */
 public class BaseSpinner extends Spinner<Integer>{
@@ -128,6 +130,7 @@ public class BaseSpinner extends Spinner<Integer>{
 		try {
 			wert = Integer.parseInt(this.getEditor().getText());
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
 			return false;
 		}
 		

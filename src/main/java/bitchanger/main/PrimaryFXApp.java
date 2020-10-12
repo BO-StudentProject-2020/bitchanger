@@ -16,6 +16,7 @@ import bitchanger.gui.views.CalculatorView;
 import bitchanger.gui.views.ConverterView;
 import bitchanger.gui.views.IEEEView;
 import bitchanger.gui.views.Viewable;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.Resources;
@@ -58,7 +59,7 @@ import javafx.stage.WindowEvent;
  * @author Tim Muehle
  *
  * @since Bitchanger 0.1.0
- * @version 0.1.8
+ * @version 0.1.9
  * 
  * @see ConverterView
  * @see ConverterController
@@ -89,7 +90,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	
 	/** <!-- $LANGUAGE=DE -->	Aktuelle Version des Bitchangers */
 	// TODO JavaDoc EN
-	public static final String VERSION = "0.1.8";
+	public static final String VERSION = "0.1.9";
 
 	
 	
@@ -365,7 +366,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 // Layout	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Passt die minimale und die maximale Gr\u00F6ße des Fensters an die Gr\u00F6ße der aktuellen Szene ({@code currentView}) an
+	 * Passt die minimale und die maximale Gr\u00F6\u00DFe des Fensters an die Gr\u00F6\u00DFe der aktuellen Szene ({@code currentView}) an
 	 * 
 	 * @see Viewable#getMinHeigth()
 	 * @see Viewable#getMaxHeigth()
@@ -435,6 +436,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 						view.getScene().getStylesheets().remove(oldStylesheet);
 					} catch (Exception e) {
 						// ignore
+						BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
 					}
 					
 					view.getScene().getStylesheets().add(newStylesheet);

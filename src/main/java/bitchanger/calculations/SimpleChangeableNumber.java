@@ -10,6 +10,8 @@ package bitchanger.calculations;
 
 import java.util.Objects;
 
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -22,7 +24,7 @@ import javafx.beans.value.ObservableValue;
 /**	<!-- $LANGUAGE=DE -->
  * Die Klasse SimpleChangeableNumber bietet eine vollst\u00E4ndige Implementierung von {@link ChangeableNumber}.
  * <p>
- * Jede Instanz dieser Klasse schließt einen Wert ein, der aus beliebigen Zahlensystemen gesetzt und in
+ * Jede Instanz dieser Klasse schlie\u00DFt einen Wert ein, der aus beliebigen Zahlensystemen gesetzt und in
  * verschiedene Zahlensysteme umgewandelt werden kann. Die String-Darstellungen in den verschiedenen
  * Zahlensystemen enthalten <b>keine Pr\u00E4fixe</b>, die auf die Basis hinweisen.
  * </p>
@@ -210,9 +212,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		this.decValue = ConvertingNumbers.splitInBlocks(Objects.requireNonNull(decValue), 3);
 		this.hexValue = ConvertingNumbers.decToBaseBlocks(16, this.decValue, Preferences.getPrefs().getComma(), 4);
 		this.octalValue = ConvertingNumbers.decToBaseBlocks(8, this.decValue, Preferences.getPrefs().getComma(), 3);
+		
 		try {
 			this.binValue = ConvertingNumbers.decToBaseBlocks(2, this.decValue, Preferences.getPrefs().getComma(), 4);
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			
 			this.binValue = "";
 		}
 		
@@ -232,6 +237,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 				stringProperty.set(toBaseString(baseProperty.get()));
 			}
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			
 			stringProperty.set("");
 		}
 	}
@@ -304,7 +311,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
 		}
 		
-		this.setDec(String.valueOf(decValue));
+		// Unterteilen in ganzen und gebrochenen Anteil wegen Exponenten-Darstellung von double bei großen Zahlen
+		String integerPart = String.valueOf((long)decValue);
+		String fractionalPart = String.valueOf(decValue % 1.0);
+		fractionalPart = fractionalPart.substring(fractionalPart.indexOf("."));
+		
+		this.setDec(integerPart + fractionalPart);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -501,6 +513,8 @@ ieee = ieee.replaceAll(" ", "");
 			int blockSize = (base == 2 || base == 16) ? 4 : 3; 
 			return ConvertingNumbers.decToBaseBlocks(base, decValue, Preferences.getPrefs().getComma(), blockSize);
 		} catch (IllegalArgumentException illArg) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, illArg);
+			
 			// Auf falsche Basis prüfen
 			if(base < ConvertingNumbers.MIN_BASE || base > ConvertingNumbers.MAX_BASE) {
 				throw illArg;
@@ -510,6 +524,8 @@ ieee = ieee.replaceAll(" ", "");
 			return "";
 		} catch (Exception e) {
 			// Sollte nicht auftreten
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
+			
 			throw e;
 		}
 	}

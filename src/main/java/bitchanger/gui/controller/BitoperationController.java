@@ -16,6 +16,8 @@ import bitchanger.calculations.NumberOverflowException;
 import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.views.BitoperationView;
 import bitchanger.gui.views.CalculatorView;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.FXUtils;
 import javafx.beans.binding.StringExpression;
@@ -41,7 +43,7 @@ import javafx.scene.layout.GridPane;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 // TODO JavaDoc EN
@@ -242,10 +244,14 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 			value.setValue(input.toString(), baseProperty.get());
 			
 		} catch (NumberFormatException | NullPointerException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
 			e.printStackTrace();
 			clearBtn.fire();
 			clearBtn.fire();
 		} catch (IllegalArgumentException e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			
 			value.set(0);
 		}
 		
@@ -255,7 +261,7 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		long minValue = Preferences.getPrefs().useUnsignedBitOperationProperty().get() ? bitLength.minUnsignedValue() : bitLength.minValue();
 		
 		if(value.asDouble() > maxValue) {
-			throw new NumberOverflowException("Number " + value.asDouble() + " is too large. Maximum is " + maxValue, "Die eingegebene Zahl ist zu groß!", maxValue, minValue);
+			throw new NumberOverflowException("Number " + value.asDouble() + " is too large. Maximum is " + maxValue, "Die eingegebene Zahl ist zu gro\u00DF!", maxValue, minValue);
 		}
 		else if(value.asDouble() < minValue) {
 			throw new NumberOverflowException("Number " + value.asDouble() + " is too small. Minimum is " + minValue, "Die eingegebene Zahl ist zu klein!", maxValue, minValue);
@@ -314,8 +320,12 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 					break;
 			}
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			throw noe;
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL, e);
+			
 			throw e;
 		}
 	}
@@ -525,11 +535,31 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 	// TODO JavaDoc
 	private void setBindingsAndListeners() {
 		bitLength.getSelectionModel().select(Preferences.getPrefs().bitLengthProperty().get());
-		Preferences.getPrefs().bitLengthProperty().bind(bitLength.getSelectionModel().selectedItemProperty());
 		
 		Preferences.getPrefs().bitLengthProperty().addListener(new ChangeListener<BitLength>() {
 			@Override
 			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+				bitLength.getSelectionModel().select(newValue);
+			}
+		});
+		
+		bitLength.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<BitLength>() {
+			@Override
+			public void changed(ObservableValue<? extends BitLength> observable, BitLength oldValue, BitLength newValue) {
+				if(Preferences.getPrefs().bitLengthProperty().get().equals(newValue)) {
+					// Einstellungen wurden zurückgesetzt -> keine weiteren Warnungen anzeigen
+					value1.set(0);
+					value2.set(0);
+					result.set(0);
+					operation = Operation.UNDEFINED;
+					lastOperation = Operation.UNDEFINED;
+					clearBtn.fire();
+					clearBtn.fire();
+					return;
+				}
+				
+				Preferences.getPrefs().bitLengthProperty().set(newValue);
+				
 				checkUnsignedBitLength();
 
 				// Warnung und Löschen aller Eingaben beim verkleinern der Bitlänge
@@ -541,6 +571,8 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 						value1.set(0);
 						value2.set(0);
 						result.set(0);
+						operation = Operation.UNDEFINED;
+						lastOperation = Operation.UNDEFINED;
 						clearBtn.fire();
 						clearBtn.fire();
 					} else {
@@ -560,6 +592,9 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 				}
 			}
 		});
+		
+		this.baseProperty.set(Preferences.getPrefs().bitOpertionBaseProperty().get());
+		this.baseProperty.bindBidirectional(Preferences.getPrefs().bitOpertionBaseProperty());
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -584,10 +619,14 @@ public class BitoperationController extends CalculationControllerBase<Bitoperati
 		try {
 			calculate();
 		} catch (NumberOverflowException noe) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
+			
 			noe.setDescription("Das Ergebnis der Berechnung verl\u00E4sst den zugelassenen Zahlenbereich.");
 			FXUtils.showNumberOverflowWarning(noe);
 			return;
 		} catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.CRITICAL);
+			
 			e.printStackTrace();
 			return;
 		}

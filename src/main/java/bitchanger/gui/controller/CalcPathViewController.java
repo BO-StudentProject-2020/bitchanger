@@ -13,6 +13,8 @@ import java.util.ArrayDeque;
 import bitchanger.calculations.ConversionStep;
 import bitchanger.calculations.ConvertingNumbers;
 import bitchanger.gui.views.CalcPathView;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.preferences.Preferences;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -89,6 +91,8 @@ public class CalcPathViewController extends ControllerBase<CalcPathView> {
 			calcPath.add(new ConversionStep("Das Ergebnis ist:  " + output, true));
 		}
 		catch (Exception e) {
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			
 			output = "";
 		}
 		

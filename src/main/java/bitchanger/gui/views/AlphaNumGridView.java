@@ -16,6 +16,8 @@ import bitchanger.gui.controls.AlphaNumKeys;
 import bitchanger.gui.controls.SVGIcon;
 import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.gui.controls.ValueField;
+import bitchanger.main.BitchangerLauncher;
+import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.FXUtils;
 import bitchanger.util.IconFactory;
@@ -175,7 +177,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	// TODO JavaDoc EN
 	protected final DoubleProperty whiteSpaceHeigthProperty;
 
-	/** <!-- $LANGUAGE=DE --> Property f\u00FCr die Breite der ersten Spalte mit den Labels enth\u00E4lt. Wird ben\u00F6tigt, um symmetrisch Weißraum auf der rechten Seite hinzuzuf\u00FCgen. */
+	/** <!-- $LANGUAGE=DE --> Property f\u00FCr die Breite der ersten Spalte mit den Labels enth\u00E4lt. Wird ben\u00F6tigt, um symmetrisch Wei\u00DFraum auf der rechten Seite hinzuzuf\u00FCgen. */
 	// TODO JavaDoc EN
 	protected final DoubleProperty firstColumnWidthProperty;
 
@@ -326,12 +328,12 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param labelTexts		Beschriftungen f\u00FCr die Labels vor den Textfeldern
 	 * @param tfKeys			Schl\u00FCsselw\u00F6rter, mit denen die generierten Textfelder in der Map {@code tfMap} gespeichert werden
 	 * @param tfHeight			H\u00F6he, die f\u00FCr alle Textfelder in den Properties {@link #tfMaxHeightProperty} und {@link #tfMinHeightProperty} eingestellt wird
-	 * @param btnMaxSize		Gr\u00F6ße, die f\u00FCr alle Buttons in den Properties {@link #btnMaxHeigthProperty} und {@link #btnMaxWidthProperty} eingestellt wird
-	 * @param btnMinSize		Gr\u00F6ße, die f\u00FCr alle Buttons in den Properties {@link #btnMinHeigthProperty} und {@link #btnMinWidthProperty} eingestellt wird
+	 * @param btnMaxSize		Gr\u00F6\u00DFe, die f\u00FCr alle Buttons in den Properties {@link #btnMaxHeigthProperty} und {@link #btnMaxWidthProperty} eingestellt wird
+	 * @param btnMinSize		Gr\u00F6\u00DFe, die f\u00FCr alle Buttons in den Properties {@link #btnMinHeigthProperty} und {@link #btnMinWidthProperty} eingestellt wird
 	 * @param whiteSpaceHeigth	H\u00F6he, die f\u00FCr die Property {@link #whiteSpaceHeigthProperty} eingestellt wird
 	 * @param firstColumnWidth	Breite, die f\u00FCr die Property {@link #firstColumnWidthProperty} eingestellt wird
-	 * @param paddingTopRigthBottomLeft		Gr\u00F6ße, die f\u00FCr die Properties {@link #paddingTopProperty}, {@link #paddingRigthProperty}, {@link #paddingBottomProperty} und {@link #paddingLeftProperty} eingestellt wird
-	 * @param spacing			Gr\u00F6ße, die f\u00FCr die Properties {@link #btnSpacingProperty}, {@link #hgapProperty} und {@link #vgapProperty} eingestellt wird
+	 * @param paddingTopRigthBottomLeft		Gr\u00F6\u00DFe, die f\u00FCr die Properties {@link #paddingTopProperty}, {@link #paddingRigthProperty}, {@link #paddingBottomProperty} und {@link #paddingLeftProperty} eingestellt wird
+	 * @param spacing			Gr\u00F6\u00DFe, die f\u00FCr die Properties {@link #btnSpacingProperty}, {@link #hgapProperty} und {@link #vgapProperty} eingestellt wird
 	 */
 	// TODO JavaDoc EN
 	public AlphaNumGridView(int firstLabelRow, int labelColumn, int firstTFRow, int tfColumn, int firstKeyBtnRow, 
@@ -366,13 +368,13 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param btnMinWidth		Breite, die f\u00FCr alle Buttons in der Property {@link #btnMinWidthProperty} eingestellt wird
 	 * @param whiteSpaceHeigth	H\u00F6he, die f\u00FCr die Property {@link #whiteSpaceHeigthProperty} eingestellt wird
 	 * @param firstColumnWidth	Breite, die f\u00FCr die Property {@link #firstColumnWidthProperty} eingestellt wird
-	 * @param paddingTop		Gr\u00F6ße, die f\u00FCr die Property {@link #paddingTopProperty} eingestellt wird
-	 * @param paddingRigth		Gr\u00F6ße, die f\u00FCr die Property {@link #paddingRigthProperty} eingestellt wird
-	 * @param paddingBottom		Gr\u00F6ße, die f\u00FCr die Property {@link #paddingBottomProperty} eingestellt wird
-	 * @param paddingLeft		Gr\u00F6ße, die f\u00FCr die Property {@link #paddingLeftProperty} eingestellt wird
-	 * @param btnSpacing		Gr\u00F6ße, die f\u00FCr die Property {@link #btnSpacingProperty} eingestellt wird
-	 * @param hgap				Gr\u00F6ße, die f\u00FCr die Property {@link #hgapProperty} eingestellt wird
-	 * @param vgap				Gr\u00F6ße, die f\u00FCr die Property {@link #vgapProperty} eingestellt wird
+	 * @param paddingTop		Gr\u00F6\u00DFe, die f\u00FCr die Property {@link #paddingTopProperty} eingestellt wird
+	 * @param paddingRigth		Gr\u00F6\u00DFe, die f\u00FCr die Property {@link #paddingRigthProperty} eingestellt wird
+	 * @param paddingBottom		Gr\u00F6\u00DFe, die f\u00FCr die Property {@link #paddingBottomProperty} eingestellt wird
+	 * @param paddingLeft		Gr\u00F6\u00DFe, die f\u00FCr die Property {@link #paddingLeftProperty} eingestellt wird
+	 * @param btnSpacing		Gr\u00F6\u00DFe, die f\u00FCr die Property {@link #btnSpacingProperty} eingestellt wird
+	 * @param hgap				Gr\u00F6\u00DFe, die f\u00FCr die Property {@link #hgapProperty} eingestellt wird
+	 * @param vgap				Gr\u00F6\u00DFe, die f\u00FCr die Property {@link #vgapProperty} eingestellt wird
 	 */
 	// TODO JavaDoc EN
 	public AlphaNumGridView(int firstLabelRow, int labelColumn, int firstTFRow, int tfColumn, int firstKeyBtnRow, int firstKeyBtnColumn,
@@ -804,7 +806,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * Setzt alle {@code RowConstraints} f\u00FCr center.
 	 * <p>
 	 * Es werden die H\u00F6he f\u00FCr Zeilen mit Textfeldern, Buttons und Whitespace eingestellt. Zudem werden die Anordnung 
-	 * und das Gr\u00F6ßenwachstum f\u00FCr die Zeilen der GridPane eingestellt.
+	 * und das Gr\u00F6\u00DFenwachstum f\u00FCr die Zeilen der GridPane eingestellt.
 	 * </p>
 	 */
 	// TODO JavaDoc EN
@@ -827,7 +829,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue RowConstraints f\u00FCr die Zeile mit dem Index {@code rowIndex}, die an den ConstraintType angepasst sind.
-	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
+	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Wei\u00DFraum befindet, um Valignment und Vgrow
 	 * anzupassen und die Properties maxHeightProperty und minHeightProperty mit den passenden Properties dieser AlphaNumGridView
 	 * bidirektional zu verbinden. Ist die \u00FCbergebene GridPane das Attribut {@link #buttonGrid}, wird die Zeilenh\u00F6he Prozentual angepasst.
 	 * 
@@ -851,14 +853,14 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue RowConstraints f\u00FCr die Zeile mit dem Index {@code rowIndex}, die an den ConstraintType angepasst sind.
-	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
+	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Wei\u00DFraum befindet, um Valignment und Vgrow
 	 * anzupassen und die Properties maxHeightProperty und minHeightProperty mit den passenden Properties dieser AlphaNumGridView
 	 * bidirektional zu verbinden.
 	 * 
 	 * @param grid		GridPane, der sie RowConstraints hinzugef\u00FCgt werden
 	 * @param rowIndex	Index der Zeile, f\u00FCr die neue RowConstraints hinzugef\u00FCgt werden
 	 * @param type		Typ der Zeile
-	 * @param usePercentHeigth	{@code true}, wenn die Zeilenh\u00F6he gleichm\u00E4ßig prozentual verteilt werden soll, sonst {@code false}
+	 * @param usePercentHeigth	{@code true}, wenn die Zeilenh\u00F6he gleichm\u00E4\u00DFig prozentual verteilt werden soll, sonst {@code false}
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -883,7 +885,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 
 	/** <!-- $LANGUAGE=DE -->
 	 * Erstellt neue RowConstraints, die an den ConstraintType angepasst sind.
-	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Weißraum befindet, um Valignment und Vgrow
+	 * Der ConstraintType bestimmt, ob sich in der Zeile Textfelder, Buttons oder Wei\u00DFraum befindet, um Valignment und Vgrow
 	 * anzupassen und die Properties maxHeightProperty und minHeightProperty mit den passenden Properties dieser AlphaNumGridView
 	 * zu verbinden.
 	 * 
@@ -944,10 +946,15 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			grid.getRowConstraints().add(createRowConstraints(ConstraintType.WHITESPACE_ROW));
 		}
 		
-		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
-		try {
-			grid.getRowConstraints().remove(rowIndex);
-		} catch (Exception e) { /* ignore */ }
+		if (rowIndex < grid.getRowConstraints().size()) {
+			// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
+			try {
+				grid.getRowConstraints().remove(rowIndex);
+			} catch (Exception e) {
+				/* ignore */
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			} 
+		}
 		
 		// Constraints hinzufügen
 		grid.getRowConstraints().add(rowIndex, rowc);
@@ -988,7 +995,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 	 * @param grid			GridPane, der sie ColumnConstraints hinzugef\u00FCgt werden
 	 * @param columnIndex	Index der Spalte, f\u00FCr die neue RowConstraints hinzugef\u00FCgt werden
 	 * @param type			Typ der Spalte
-	 * @param usePercentWidth	{@code true}, wenn die Spaltenbreite gleichm\u00E4ßig prozentual verteilt werden soll, sonst {@code false}
+	 * @param usePercentWidth	{@code true}, wenn die Spaltenbreite gleichm\u00E4\u00DFig prozentual verteilt werden soll, sonst {@code false}
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -1045,10 +1052,15 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 			grid.getColumnConstraints().add(new ColumnConstraints());
 		}
 		
-		// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
-		try {
-			grid.getColumnConstraints().remove(columnIndex);
-		} catch (Exception e) { /* ignore */ }
+		if (columnIndex < grid.getColumnConstraints().size()) {
+			// Alte Constraints entfernen, um nicht alle Constraints zu verschieben
+			try {
+				grid.getColumnConstraints().remove(columnIndex);
+			} catch (Exception e) {
+				/* ignore */
+				BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
+			} 
+		}
 		
 		// Constraints hinzufügen
 		grid.getColumnConstraints().add(columnIndex, column);
@@ -1331,7 +1343,7 @@ public class AlphaNumGridView extends ViewBase<BorderPane> {
 		// TODO JavaDoc EN
 		BUTTON_ROW,
 		
-		/** <!-- $LANGUAGE=DE -->	Konstante f\u00FCr eine Zeile, die Weißraum enth\u00E4lt */
+		/** <!-- $LANGUAGE=DE -->	Konstante f\u00FCr eine Zeile, die Wei\u00DFraum enth\u00E4lt */
 		// TODO JavaDoc EN
 		WHITESPACE_ROW,
 		
