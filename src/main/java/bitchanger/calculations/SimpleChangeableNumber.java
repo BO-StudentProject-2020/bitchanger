@@ -383,7 +383,7 @@ ieee = ieee.replaceAll(" ", "");
 			
 			//Exponent ausrechnen
 			exponentString += (sbIeeeExp.delete(5, sbIeeeExp.length())).toString();
-			exponentDouble = ConvertingNumbers.baseToDec(2, exponentString)-15;
+			exponentDouble = Double.parseDouble(ConvertingNumbers.baseToDecString(2, exponentString).replace(',', '.'))-15;
 			
 			
 			//Mantisse in die Form 1, ... bringen
@@ -396,7 +396,7 @@ ieee = ieee.replaceAll(" ", "");
 			
 			//Exponent ausrechnen
 			exponentString += (sbIeeeExp.delete(8, sbIeeeExp.length())).toString();
-			exponentDouble = ConvertingNumbers.baseToDec(2, exponentString)-127;
+			exponentDouble = Double.parseDouble(ConvertingNumbers.baseToDecString(2, exponentString).replace(',', '.'))-127;
 			
 	
 
@@ -426,20 +426,13 @@ ieee = ieee.replaceAll(" ", "");
 				sbIeee.insert(0, "0");
 				
 			}
-			System.out.println(sbIeee.toString());
 			sbIeee.insert(1, Preferences.getPrefs().getComma());
 		}
-		
-		
-		System.out.println(exponentDouble);
-		System.out.println(exponentString);
-		System.out.println(sbIeee.toString());
-			
+
 		ieeeDecString = ConvertingNumbers.baseToDecString(2, sbIeee.toString());
 		
 		if (negIeee) 
 			ieeeDecString = "-"+ieeeDecString;
-		System.out.println(ieeeDecString);
 		setDec(ieeeDecString);
 	}
 	
@@ -567,13 +560,16 @@ boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
 	
 		}
 		
-		String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne);
-		//TODO String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne, Preferences.getPrefs().getComma(), );
+		//TODO String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne) und dann für zahlen <1 Nachkommastellen übergeben mit indexOf1 + 32 bzw. 16
+		String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne, Preferences.getPrefs().getComma(), 100);
+		
+		
 		//TODO zu große und zu kleine Zahlen abfangen
-		//TODO maximal länge überprüfen lang.maxValueOf
+		//TODO maximalen Wert überprüfen lang.maxValueOf
 		//TODO Double in long casten und dann in String -> damit E14 etc weg geht long.toString (.valueof (long) noch davor
 		//TODO \u221E
 		//TODO NumberOverflowException, wenn wert überschritten wird
+		//TODO Wenn komma eingegeben wird, dann sofort eine Null dahinter hinzufügen, damit kein emptyString kommt!
 		
 		//... bei ausgewählter "abgeschnittene Nachkommastellen Kennzeichnen" entfernen
 		binIeeeString = binIeeeString.replace("...", "");
@@ -589,7 +585,7 @@ boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
 		StringBuilder sbBinIeeeString = new StringBuilder (binIeeeString);
 		
 		//Komma umwandeln in . anstatt , -> für abfrage in if Bedingung
-		decValueOhne.replace(Preferences.getPrefs().getComma(), '.');
+		decValueOhne = decValueOhne.replace(Preferences.getPrefs().getComma(), '.');
 		
 		if(half) {
 			
@@ -600,7 +596,6 @@ boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
 				indexCommaNachNorm = sbBinIeeeString.indexOf("1");
 				
 				//löschen von 0,
-				sbBinIeeeString.deleteCharAt(0);
 				sbBinIeeeString.deleteCharAt(0);
 				sbBinIeeeString.deleteCharAt(0);
 				
@@ -666,8 +661,7 @@ boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
 				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
 				indexCommaNachNorm = sbBinIeeeString.indexOf("1");
 
-				//löschen von 00,
-				sbBinIeeeString.deleteCharAt(0);
+				//löschen von 0,
 				sbBinIeeeString.deleteCharAt(0);
 				sbBinIeeeString.deleteCharAt(0);
 				
