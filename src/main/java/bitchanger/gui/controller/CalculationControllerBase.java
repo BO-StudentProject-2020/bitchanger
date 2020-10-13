@@ -762,7 +762,7 @@ public abstract class CalculationControllerBase<T extends CalculationViewBase> e
 			noe.setDescription("Die eingegebene Zahl lag au\u00DFerhalb des erlaubten Wertebereiches und wurde zur\u00FCckgesetzt.");
 			FXUtils.showNumberOverflowWarning(noe);
 		} catch (Exception e) {
-			BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);
+			BitchangerLauncher.printDebugErr(ErrorLevel.IGNORE, e);
 			
 			num.reset();
 		}

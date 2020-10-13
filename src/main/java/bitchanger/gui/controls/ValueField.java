@@ -258,8 +258,16 @@ public class ValueField extends TextField {
 	 * @param newValue		new value
 	 */
 	private void checkText(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-		// Eingabe falscher Zeichen unterbinden (Unendlichzeichen \u221E zulassen)
-		if(! ConvertingNumbers.isValueToBase(getBase(), newValue) && ! newValue.contains("\u221E")) {
+		boolean isNotValueToBase = ! ConvertingNumbers.isValueToBase(getBase(), newValue);
+		
+		// Unendlich(-zeichen) \u221E zulassen
+		boolean isNotInfinity = ! newValue.contains("\u221E") && ! newValue.contains(String.valueOf(Double.POSITIVE_INFINITY));
+		
+		// NaN zulassen
+		boolean isNaN = newValue.equals("NaN");
+		
+		// Eingabe falscher Zeichen unterbinden
+		if(isNotValueToBase && isNotInfinity && !isNaN) {
 			int caretPos = getCaretPosition();
 			setText(oldValue);
 			positionCaret(caretPos-1);
