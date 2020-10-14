@@ -44,6 +44,10 @@
 	-fx-background-color: -fx-button-background-color;
 }
 
+#LABEL_BUTTON:hover {
+	-fx-cursor: hand;
+}
+
 
 
 

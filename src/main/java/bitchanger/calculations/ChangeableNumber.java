@@ -29,7 +29,7 @@ import javafx.beans.property.ReadOnlyStringProperty;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  *
  */
 public interface ChangeableNumber {

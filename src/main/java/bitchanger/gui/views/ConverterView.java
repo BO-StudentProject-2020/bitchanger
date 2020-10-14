@@ -202,7 +202,7 @@ public class ConverterView extends AlphaNumGridView {
 	 */
 	// TODO JavaDoc EN
 	public final String calcPathHelpKey() {
-		return "calc-path-btn";
+		return "calc-path-help";
 	}
 	
 	
@@ -280,6 +280,7 @@ public class ConverterView extends AlphaNumGridView {
 		FXUtils.setIconOrText(calcPathBtn, IconFactory.styleBindIcon(Resources.LIGHT_BULB_2_ICON, Resources.LIGHT_BULB_2_FILLED_ICON), "Rechenweg");
 		
 		calcPathBtn.setTooltip(new Tooltip("Hilfe zum Rechenweg anzeigen"));
+		calcPathBtn.setId("LABEL_BUTTON");	// TODO JavaDoc
 		calcPathBtn.maxHeightProperty().bind(btnMaxHeigthProperty);
 		calcPathBtn.minHeightProperty().bind(btnMinHeigthProperty);
 		calcPathBtn.maxWidthProperty().bind(btnMaxWidthProperty);
