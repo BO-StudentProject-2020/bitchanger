@@ -365,9 +365,9 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** {@inheritDoc} */
 	@Override
 	public void setIEEE(String ieee, IEEEStandard standard) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-	ieee = ieee.replaceAll(" ", "");
+		ieee = ieee.replace(" ", "");
 		
-		//Vorzeichen und Standart
+		//Vorzeichen und Standard
 		boolean negIeee = ieee.startsWith("1");
 		boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
 		boolean single = standard.equals(IEEEStandard.IEEE_754_2008_b32);
@@ -554,6 +554,9 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** {@inheritDoc} */
 	@Override
 	public String toIEEEString(IEEEStandard standard) {
+		if(decValue.equals("")) {
+			return "";
+		}
 		
 		boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
 		
@@ -568,17 +571,17 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		
 		//Vorzeichenbehandlung des übergebenen Strings
 		String vorzeichen = "0";
-		boolean isNegative = decValueOhne.startsWith("-");	
+		boolean isNegative = decValueOhne.startsWith("-");
 		if(isNegative) {
 			vorzeichen = "1";
 			decValueOhne = decValueOhne.replaceFirst("-", "");
 	
 		}
-		//TODO wenn , anstatt . verwendet wird !!
+		
 		//TODO Sonderfälle für höchste und kleinste Zahl hinzufügen / Abfrage für höchste und kleinste Zahl ändern?
 		//TODO zu große und zu kleine Zahlen abfangen set aus SimpleChangeableNumber wird NumberOverflowException geworfen?
 		//Sonderfall +-0
-		if(Double.parseDouble(decValue) == 0) {
+		if(this.asDouble() == 0) {
 			
 			if (half) {
 				
@@ -595,7 +598,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			return vorzeichen + " " + sonderfallExp + " " + sonderfallMan;
 		}
 		//Sonderfall NaN
-		if(decValue.contentEquals("NaN")) {
+		if(decValue.equals("NaN")) {
 			
 			if (half) {
 				

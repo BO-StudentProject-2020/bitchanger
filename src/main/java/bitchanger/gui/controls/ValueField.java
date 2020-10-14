@@ -34,7 +34,7 @@ import javafx.scene.shape.Rectangle;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.6
+ * @version 0.1.9
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -51,7 +51,7 @@ import javafx.scene.shape.Rectangle;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.8
+ * @version 0.1.9
  *
  */
 public class ValueField extends TextField {
