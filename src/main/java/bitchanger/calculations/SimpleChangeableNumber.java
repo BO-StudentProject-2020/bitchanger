@@ -365,6 +365,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** {@inheritDoc} */
 	@Override
 	public void setIEEE(String ieee, IEEEStandard standard) throws NullPointerException, NumberFormatException, IllegalArgumentException {
+		//Leerzeichen entfernen
 		ieee = ieee.replace(" ", "");
 		
 		//Vorzeichen und Standard
@@ -372,17 +373,18 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
 		boolean single = standard.equals(IEEEStandard.IEEE_754_2008_b32);
 		
-		StringBuffer sbIeee = new StringBuffer(ieee);
+		StringBuilder sbIeee = new StringBuilder(ieee);
 		
 		//Mit 0en auf 16 Bit bzw. 32 Bit auffüllen
-		while(sbIeee.length() <= standard.getBitLength())
+		while(sbIeee.length() <= standard.getBitLength()) {
 			sbIeee.append("0");
+		}
 		
 		//Vorzeichen löschen
 		sbIeee.deleteCharAt(0);
 		
 		//Exponent
-		StringBuffer sbIeeeExp = new StringBuffer (sbIeee.toString());
+		StringBuilder sbIeeeExp = new StringBuilder (sbIeee.toString());
 		
 		//Für Umwandlung von Bin auf Dez muss 0 vorne angehägt werden (sonst wird immer negative zahl erkannt!!)
 		String exponentString = "0";
@@ -399,7 +401,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			
 			//Mantisse in die Form 1, ... bringen
 			sbIeee.delete(0, 5);
-			sbIeee.insert(0, "01");					
+			sbIeee.insert(0, "01");	
 
 		}
 		
@@ -436,8 +438,13 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			}
 			sbIeee.insert(1, Preferences.getPrefs().getComma());
 		}
-
+		
 		ieeeDecString = ConvertingNumbers.baseToDecString(2, sbIeee.toString());
+		
+		//Sonderfall für 0
+		if(Double.parseDouble(exponentString) == 0)
+			
+			ieeeDecString = "0";
 		
 		if (negIeee) 
 			ieeeDecString = "-"+ieeeDecString;
@@ -586,7 +593,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			if (half) {
 				
 				sonderfallExp = "00000";
-				sonderfallMan = "00000000000";
+				sonderfallMan = "0000000000";
 				
 				
 			}else {
@@ -597,23 +604,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			
 			return vorzeichen + " " + sonderfallExp + " " + sonderfallMan;
 		}
-		//Sonderfall NaN
-		if(decValue.equals("NaN")) {
-			
-			if (half) {
-				
-				sonderfallExp = "11111";
-				sonderfallMan = "01010101010";
-				
-			}else {
-				
-				sonderfallExp = "11111111";
-				sonderfallMan = "01010101010101010101010";
-			}
-			
-			return vorzeichen + " " + sonderfallExp + " " + sonderfallMan;
-			
-		}
+		
 		
 		//TODO String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne) und dann für zahlen <1 Nachkommastellen übergeben mit indexOf1 + 32 bzw. 16
 		String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne, Preferences.getPrefs().getComma(), 100);
@@ -632,7 +623,29 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		StringBuilder sbBinIeeeString = new StringBuilder (binIeeeString);
 		
 		//Komma umwandeln in . anstatt , -> für abfrage in if Bedingung
-		decValueOhne = decValueOhne.replace(Preferences.getPrefs().getComma(), '.');
+		decValueOhne = decValueOhne.replace(',' , '.');
+		
+		//TODO wenn , anstatt . verwendet wird !!
+		//TODO Sonderfälle für höchste und kleinste Zahl hinzufügen / Abfrage für höchste und kleinste Zahl ändern?
+		//TODO zu große und zu kleine Zahlen abfangen set aus SimpleChangeableNumber wird NumberOverflowException geworfen?
+		
+		//Sonderfall +-0
+		if(this.asDouble() == 0) {
+					
+			if (half) {
+						
+				sonderfallExp = "00000";
+				sonderfallMan = "0000000000";
+						
+						
+			}else {
+						
+				sonderfallExp = "00000000";
+				sonderfallMan = "00000000000000000000000";
+			}
+					
+			return vorzeichen + " " + sonderfallExp + " " + sonderfallMan;
+		}
 		
 		if(half) {
 			
@@ -689,11 +702,18 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 				
 			}
 			
-			//Mantisse auf 11 Zeichen auffüllen
-			while (sbBinIeeeString.length() < 11) {
+			//Mantisse auf 10 Zeichen auffüllen
+			while (sbBinIeeeString.length() < 10) {
 				
 				
 				sbBinIeeeString.append("0");
+				
+			}
+			
+			//Mantisse auf 10 Zeichen kürzen
+			while(sbBinIeeeString.length() > 10) {
+				
+				sbBinIeeeString.deleteCharAt(sbBinIeeeString.length()-1);
 				
 			}
 
@@ -745,8 +765,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			}
 			exponentString = ConvertingNumbers.decToBase(2, String.valueOf(exponent));
 			StringBuilder sbExponent = new StringBuilder (exponentString);
-			sbExponent.deleteCharAt(0);
-			
+			sbExponent.deleteCharAt(0);		
+
 			//Exponent auf 8 Zeichen auffüllen
 			while (sbExponent.length() < 8) {
 				
@@ -768,6 +788,8 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 				sbBinIeeeString.deleteCharAt(sbBinIeeeString.length()-1);
 				
 			}
+			
+			
 			
 			return vorzeichen + " " + sbExponent.toString() + " " + sbBinIeeeString.toString();
 		}
