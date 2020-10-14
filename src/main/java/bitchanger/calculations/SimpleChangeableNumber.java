@@ -651,11 +651,11 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			
 			if(Double.parseDouble(decValueOhne) < 1) {
 				
-				//Stelle des Kommas vor Normierung und Stelle des Kommas nach Normierung -> für Berechnung Exponent
+				// Stelle des Kommas vor Normierung und Stelle des Kommas nach Normierung -> für Berechnung Exponent
 				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
 				indexCommaNachNorm = sbBinIeeeString.indexOf("1");
 				
-				//löschen von 0,
+				// löschen von 0,
 				sbBinIeeeString.deleteCharAt(0);
 				sbBinIeeeString.deleteCharAt(0);
 				
@@ -671,20 +671,20 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 				exponent = indexCommaVorNorm - indexCommaNachNorm + 15;
 				
 			}else {
-				//0 am Anfang der Binärzahl entfernen
+				// 0 am Anfang der Binärzahl entfernen
 				sbBinIeeeString.deleteCharAt(0);
-				//Index des Kommas aufnehmen
+				// Index des Kommas aufnehmen
 				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
-				//Komma an dieser Stelle löschen
+				// Komma an dieser Stelle löschen
 				sbBinIeeeString.deleteCharAt(indexCommaVorNorm);
-				//Komma an Stelle 1 setzen, damit 1, usw. entsteht
+				// Komma an Stelle 1 setzen, damit 1, usw. entsteht
 				sbBinIeeeString.insert(1, Preferences.getPrefs().getComma());
 
-				//löschen von 1, -> Mantisse
+				// löschen von 1, -> Mantisse
 				sbBinIeeeString.deleteCharAt(0);
 				sbBinIeeeString.deleteCharAt(0);
 	
-				//Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
+				// Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
 				exponent = indexCommaVorNorm - 1;
 				exponent = exponent + 15;
 				
@@ -695,14 +695,14 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			StringBuilder sbExponent = new StringBuilder (exponentString);
 			sbExponent.deleteCharAt(0);
 
-			//Exponent auf 5 Zeichen auffüllen
+			// Exponent auf 5 Zeichen auffüllen
 			while (sbExponent.length() < 5) {
 				
 				sbExponent.insert(0, "0");
 				
 			}
 			
-			//Mantisse auf 10 Zeichen auffüllen
+			// Mantisse auf 10 Zeichen auffüllen
 			while (sbBinIeeeString.length() < 10) {
 				
 				
@@ -710,7 +710,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 				
 			}
 			
-			//Mantisse auf 10 Zeichen kürzen
+			// Mantisse auf 10 Zeichen kürzen
 			while(sbBinIeeeString.length() > 10) {
 				
 				sbBinIeeeString.deleteCharAt(sbBinIeeeString.length()-1);
@@ -724,11 +724,11 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			
 			if(Double.parseDouble(decValueOhne) < 1) {
 				
-				//Stelle des Kommas vor Normierung und Stelle des Kommas nach Normierung -> für Berechnung Exponent
+				// Stelle des Kommas vor Normierung und Stelle des Kommas nach Normierung -> für Berechnung Exponent
 				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
 				indexCommaNachNorm = sbBinIeeeString.indexOf("1");
 
-				//löschen von 0,
+				// löschen von 0,
 				sbBinIeeeString.deleteCharAt(0);
 				sbBinIeeeString.deleteCharAt(0);
 				
@@ -738,27 +738,27 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 					
 				}
 
-				//erste 1 entfernen
+				// erste 1 entfernen
 				sbBinIeeeString.deleteCharAt(0);
 				
 				exponent = indexCommaVorNorm - indexCommaNachNorm + 127;
 				
 			}else {
 				
-				//0 am Anfang der Binärzahl entfernen
+				// 0 am Anfang der Binärzahl entfernen
 				sbBinIeeeString.deleteCharAt(0);
-				//Index des Kommas aufnehmen
+				// Index des Kommas aufnehmen
 				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
-				//Komma an dieser Stelle löschen
+				// Komma an dieser Stelle löschen
 				sbBinIeeeString.deleteCharAt(indexCommaVorNorm);
-				//Komma an Stelle 1 setzen, damit 1, usw. entsteht
+				// Komma an Stelle 1 setzen, damit 1, usw. entsteht
 				sbBinIeeeString.insert(1, Preferences.getPrefs().getComma());
 				
-				//löschen von 1, -> Mantisse
+				// löschen von 1, -> Mantisse
 				sbBinIeeeString.deleteCharAt(0);
 				sbBinIeeeString.deleteCharAt(0);
 				
-				//Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
+				// Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
 				exponent = indexCommaVorNorm - 1;
 				exponent = exponent + 127;
 					
@@ -767,14 +767,14 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 			StringBuilder sbExponent = new StringBuilder (exponentString);
 			sbExponent.deleteCharAt(0);		
 
-			//Exponent auf 8 Zeichen auffüllen
+			// Exponent auf 8 Zeichen auffüllen
 			while (sbExponent.length() < 8) {
 				
 				sbExponent.insert(0, "0");
 				
 			}
 			
-			//Mantisse auf 23 Zeichen auffüllen
+			// Mantisse auf 23 Zeichen auffüllen
 			while (sbBinIeeeString.length() < 23) {
 				
 				
@@ -782,7 +782,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 				
 			}
 			
-			//Mantisse auf 23 Zeichen kürzen
+			// Mantisse auf 23 Zeichen kürzen
 			while(sbBinIeeeString.length() > 23) {
 				
 				sbBinIeeeString.deleteCharAt(sbBinIeeeString.length()-1);
