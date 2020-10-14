@@ -40,7 +40,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.8
+ * @version 0.1.9
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -62,7 +62,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.8
+ * @version 0.1.9
  *
  */
 public class SimpleChangeableNumber implements ChangeableNumber {
@@ -365,7 +365,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** {@inheritDoc} */
 	@Override
 	public void setIEEE(String ieee, IEEEStandard standard) throws NullPointerException, NumberFormatException, IllegalArgumentException {
-ieee = ieee.replaceAll(" ", "");
+	ieee = ieee.replaceAll(" ", "");
 		
 		//Vorzeichen und Standart
 		boolean negIeee = ieee.startsWith("1");
@@ -397,7 +397,6 @@ ieee = ieee.replaceAll(" ", "");
 			exponentString += (sbIeeeExp.delete(5, sbIeeeExp.length())).toString();
 			exponentDouble = Double.parseDouble(ConvertingNumbers.baseToDecString(2, exponentString).replace(',', '.'))-15;
 			
-			
 			//Mantisse in die Form 1, ... bringen
 			sbIeee.delete(0, 5);
 			sbIeee.insert(0, "01");					
@@ -409,9 +408,6 @@ ieee = ieee.replaceAll(" ", "");
 			//Exponent ausrechnen
 			exponentString += (sbIeeeExp.delete(8, sbIeeeExp.length())).toString();
 			exponentDouble = Double.parseDouble(ConvertingNumbers.baseToDecString(2, exponentString).replace(',', '.'))-127;
-			
-	
-
 			
 			//Mantisse in die Form 1, ... bringen
 			sbIeee.delete(0, 8);
@@ -558,11 +554,14 @@ ieee = ieee.replaceAll(" ", "");
 	/** {@inheritDoc} */
 	@Override
 	public String toIEEEString(IEEEStandard standard) {
-boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
+		
+		boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
 		
 		int indexCommaVorNorm;
 		int indexCommaNachNorm;
 		int exponent = 0;
+		String sonderfallExp = "";
+		String sonderfallMan = "";
 		
 		//Leerzeichen zwischen dreierpäckchen löschen
 		String decValueOhne = decValue.replaceAll(" ", "");
@@ -575,17 +574,46 @@ boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
 			decValueOhne = decValueOhne.replaceFirst("-", "");
 	
 		}
+		//TODO wenn , anstatt . verwendet wird !!
+		//TODO Sonderfälle für höchste und kleinste Zahl hinzufügen / Abfrage für höchste und kleinste Zahl ändern?
+		//TODO zu große und zu kleine Zahlen abfangen set aus SimpleChangeableNumber wird NumberOverflowException geworfen?
+		//Sonderfall +-0
+		if(Double.parseDouble(decValue) == 0) {
+			
+			if (half) {
+				
+				sonderfallExp = "00000";
+				sonderfallMan = "00000000000";
+				
+				
+			}else {
+				
+				sonderfallExp = "00000000";
+				sonderfallMan = "00000000000000000000000";
+			}
+			
+			return vorzeichen + " " + sonderfallExp + " " + sonderfallMan;
+		}
+		//Sonderfall NaN
+		if(decValue.contentEquals("NaN")) {
+			
+			if (half) {
+				
+				sonderfallExp = "11111";
+				sonderfallMan = "01010101010";
+				
+			}else {
+				
+				sonderfallExp = "11111111";
+				sonderfallMan = "01010101010101010101010";
+			}
+			
+			return vorzeichen + " " + sonderfallExp + " " + sonderfallMan;
+			
+		}
 		
 		//TODO String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne) und dann für zahlen <1 Nachkommastellen übergeben mit indexOf1 + 32 bzw. 16
 		String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne, Preferences.getPrefs().getComma(), 100);
-		
-		
-		//TODO zu große und zu kleine Zahlen abfangen
-		//TODO maximalen Wert überprüfen lang.maxValueOf
-		//TODO Double in long casten und dann in String -> damit E14 etc weg geht long.toString (.valueof (long) noch davor
-		//TODO \u221E
-		//TODO NumberOverflowException, wenn wert überschritten wird
-		//TODO Wenn komma eingegeben wird, dann sofort eine Null dahinter hinzufügen, damit kein emptyString kommt!
 		
 		//... bei ausgewählter "abgeschnittene Nachkommastellen Kennzeichnen" entfernen
 		binIeeeString = binIeeeString.replace("...", "");
