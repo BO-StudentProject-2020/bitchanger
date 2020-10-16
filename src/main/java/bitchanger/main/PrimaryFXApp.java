@@ -44,7 +44,7 @@ import javafx.stage.WindowEvent;
  * @author Tim M\u00FChle
  *
  * @since Bitchanger 0.1.0
- * @version 0.1.8
+ * @version 1.0.0
  * 
  * @see ConverterView
  * @see ConverterController
@@ -59,7 +59,7 @@ import javafx.stage.WindowEvent;
  * @author Tim Muehle
  *
  * @since Bitchanger 0.1.0
- * @version 0.1.9
+ * @version 1.0.0
  * 
  * @see ConverterView
  * @see ConverterController
@@ -90,7 +90,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	
 	/** <!-- $LANGUAGE=DE -->	Aktuelle Version des Bitchangers */
 	// TODO JavaDoc EN
-	public static final String VERSION = "0.1.9";
+	public static final String VERSION = "1.0.0";
 
 	
 	

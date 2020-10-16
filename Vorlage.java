@@ -12,8 +12,8 @@
  * 
  * @author Tim M\u00FChle
  * 
- * @since Bitchanger 0.1.9
- * @version 0.1.9
+ * @since Bitchanger 1.0.0
+ * @version 1.0.0
  *
  */
  
