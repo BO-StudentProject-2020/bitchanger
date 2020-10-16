@@ -354,7 +354,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 				
 				IEEEStandard ieee = Preferences.getPrefs().ieeeStandardProperty().get();
 				
-				value.insert(ieee.getExponentLength() + 1, " ");
+				value.insert(ieee.getExpLength() + 1, " ");
 				value.insert(1, " ");
 				
 				tfIEEE.setText(value.toString());

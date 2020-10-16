@@ -40,7 +40,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.9
+ * @version 1.0.0
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -306,9 +306,28 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** {@inheritDoc} */
 	@Override
 	public void set(double decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException {
+		// Sonderfälle
+		if (Double.isNaN(decValue)) {
+			this.setDec(ChangeableNumber.NaN);
+			return;
+		} else if (decValue == Double.POSITIVE_INFINITY) {
+			this.setDec(ChangeableNumber.POSITIVE_INFINITY);
+			return;
+		} else if (decValue == Double.NEGATIVE_INFINITY) {
+			this.setDec(ChangeableNumber.NEGATIVE_INFINITY);
+			return;
+		}
+		
 		if(decValue > Long.MAX_VALUE || decValue < -Long.MAX_VALUE) {
 			throw new NumberOverflowException("for Number " + decValue, 
 					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
+		}
+		
+		String vz = "";
+		// TODO negative 0
+		if(decValue < 0 || (Double.doubleToLongBits(decValue) >> 63) == 1) {
+			vz = "-";
+			decValue = Math.abs(decValue);
 		}
 		
 		// Unterteilen in ganzen und gebrochenen Anteil wegen Exponenten-Darstellung von double bei großen Zahlen
@@ -316,7 +335,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		String fractionalPart = String.valueOf(decValue % 1.0);
 		fractionalPart = fractionalPart.substring(fractionalPart.indexOf("."));
 		
-		this.setDec(integerPart + fractionalPart);
+		this.setDec(vz + integerPart + fractionalPart);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -368,87 +387,39 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		//Leerzeichen entfernen
 		ieee = ieee.replace(" ", "");
 		
-		//Vorzeichen und Standard
-		boolean negIeee = ieee.startsWith("1");
-		boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
-		boolean single = standard.equals(IEEEStandard.IEEE_754_2008_b32);
+		long ieeeBits = Long.parseLong(ieee, 2);			// binären String in long umwandeln
 		
-		StringBuilder sbIeee = new StringBuilder(ieee);
+		int expMask = (1<<standard.getExpLength()) - 1;		// bei 32-Bit: 0xff
+		int mantMask = (1<<standard.getMantLength()) - 1;	// bei 32-Bit: 0x7fffff
 		
-		//Mit 0en auf 16 Bit bzw. 32 Bit auffüllen
-		while(sbIeee.length() <= standard.getBitLength()) {
-			sbIeee.append("0");
+		byte vz = (byte) ((ieeeBits >> standard.getBitLength() - 1) == 0 ? 1 : -1);	// Vorzeichen
+		long exp = (ieeeBits >> standard.getMantLength()) & expMask;				// Exponent
+		long m = (ieeeBits & mantMask);												// Mantisse
+		
+		
+		if (exp == 0 && m == 0) {
+			set(vz * 0.0);
+			return;
 		}
 		
-		//Vorzeichen löschen
-		sbIeee.deleteCharAt(0);
 		
-		//Exponent
-		StringBuilder sbIeeeExp = new StringBuilder (sbIeee.toString());
+		// feste 1 vor der Mantisse hinzufügen
+		m |= (1<<standard.getMantLength());
 		
-		//Für Umwandlung von Bin auf Dez muss 0 vorne angehägt werden (sonst wird immer negative zahl erkannt!!)
-		String exponentString = "0";
+		double dec;
 		
-		String ieeeDecString = "";
-		
-		double exponentDouble = 0;	
-		
-		if (half) {
-			
-			//Exponent ausrechnen
-			exponentString += (sbIeeeExp.delete(5, sbIeeeExp.length())).toString();
-			exponentDouble = Double.parseDouble(ConvertingNumbers.baseToDecString(2, exponentString).replace(',', '.'))-15;
-			
-			//Mantisse in die Form 1, ... bringen
-			sbIeee.delete(0, 5);
-			sbIeee.insert(0, "01");	
-
+		// Berechnen
+		if(exp == expMask && (m & mantMask) == 0) {
+			dec = vz * Double.POSITIVE_INFINITY;	// exp = Maximum; Mantisse = 0 => +/- Infinity
+		} else if (exp == expMask) {
+			dec = Double.NaN;						// exp = Maximum; Mantisse != 0 => NaN
+		} else {
+			exp = exp - standard.getExpOffset() - standard.getMantLength();
+			dec = vz * m * Math.pow(2, exp);
 		}
 		
-		if (single) {
-			
-			//Exponent ausrechnen
-			exponentString += (sbIeeeExp.delete(8, sbIeeeExp.length())).toString();
-			exponentDouble = Double.parseDouble(ConvertingNumbers.baseToDecString(2, exponentString).replace(',', '.'))-127;
-			
-			//Mantisse in die Form 1, ... bringen
-			sbIeee.delete(0, 8);
-			sbIeee.insert(0, "01");	
-
-		}
-		
-		if (exponentDouble >=0) {
-		
-			//Nullen auffüllen, um Komma zu verschieben bei positiven Exponent
-			while (sbIeee.length() <= exponentDouble+2) {
-				
-				sbIeee.append("0");
-			
-			}
-			
-			//+2 weil 01 in sbIeee hinzugefügt werden muss (0 damit keine negative zahl entsteht, 1 für die Darstellung
-			sbIeee.insert((int)exponentDouble+2, Preferences.getPrefs().getComma());
-			
-		}else {
-			//Nullen auffüllen, um Komma zu verschieben bei negativen exponent
-			for (int i = 0; i < Math.abs(exponentDouble)-1; i++) {
-				
-				sbIeee.insert(0, "0");
-				
-			}
-			sbIeee.insert(1, Preferences.getPrefs().getComma());
-		}
-		
-		ieeeDecString = ConvertingNumbers.baseToDecString(2, sbIeee.toString());
-		
-		//Sonderfall für 0
-		if(Double.parseDouble(exponentString) == 0)
-			
-			ieeeDecString = "0";
-		
-		if (negIeee) 
-			ieeeDecString = "-"+ieeeDecString;
-		setDec(ieeeDecString);
+		// Zahl setzen
+		set(dec);
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
@@ -561,239 +532,111 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** {@inheritDoc} */
 	@Override
 	public String toIEEEString(IEEEStandard standard) {
+		// TODO Sonderfälle
 		if(decValue.equals("")) {
+			return "";
+		} else if(decValue.equals(ChangeableNumber.POSITIVE_INFINITY)) {
+			return "";
+		} else if(decValue.equals(ChangeableNumber.NEGATIVE_INFINITY)) {
+			return "";
+		}  else if(decValue.equals(ChangeableNumber.NaN)) {
+			return "";
+		} else if (this.asDouble() == 0.0) {
 			return "";
 		}
 		
-		boolean half = standard.equals(IEEEStandard.IEEE_754_2008_b16);
+		// Leerzeichen löschen
+		String decStr = decValue.replace(" ", "");
 		
-		int indexCommaVorNorm;
-		int indexCommaNachNorm;
-		int exponent = 0;
-		String sonderfallExp = "";
-		String sonderfallMan = "";
 		
-		//Leerzeichen zwischen dreierpäckchen löschen
-		String decValueOhne = decValue.replaceAll(" ", "");
-		
-		//Vorzeichenbehandlung des übergebenen Strings
 		String vorzeichen = "0";
-		boolean isNegative = decValueOhne.startsWith("-");
+		boolean isNegative = decStr.startsWith("-");
 		if(isNegative) {
 			vorzeichen = "1";
-			decValueOhne = decValueOhne.replaceFirst("-", "");
-	
+			decStr = decStr.replaceFirst("-", "");
 		}
 		
-		//TODO Sonderfälle für höchste und kleinste Zahl hinzufügen / Abfrage für höchste und kleinste Zahl ändern?
-		//TODO zu große und zu kleine Zahlen abfangen set aus SimpleChangeableNumber wird NumberOverflowException geworfen?
-		//Sonderfall +-0
-		if(this.asDouble() == 0) {
+		// TODO auslagern in Methoden
+		StringBuilder ieeeBuilder = new StringBuilder();
+		int precision = standard.getMantLength();
+		
+		while(standard.getMantLength() >= ieeeBuilder.length() - ieeeBuilder.indexOf("1")) {
+			ieeeBuilder.setLength(0);
+			ieeeBuilder.append(ConvertingNumbers.decToBase(2, decStr, Preferences.getPrefs().getComma(), precision + 4));
 			
-			if (half) {
+			boolean hasComma = ieeeBuilder.toString().contains(String.valueOf(Preferences.getPrefs().getComma()));
+			if (hasComma) {
+				String fractional = ieeeBuilder.substring(ieeeBuilder.indexOf(String.valueOf(Preferences.getPrefs().getComma())) + 1);
+				boolean isPrecise = fractional.length() < precision;
 				
-				sonderfallExp = "00000";
-				sonderfallMan = "0000000000";
-				
-				
-			}else {
-				
-				sonderfallExp = "00000000";
-				sonderfallMan = "00000000000000000000000";
-			}
-			
-			return vorzeichen + " " + sonderfallExp + " " + sonderfallMan;
-		}
-		
-		
-		//TODO String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne) und dann für zahlen <1 Nachkommastellen übergeben mit indexOf1 + 32 bzw. 16
-		String binIeeeString = ConvertingNumbers.decToBase(2, decValueOhne, Preferences.getPrefs().getComma(), 100);
-		
-		//... bei ausgewählter "abgeschnittene Nachkommastellen Kennzeichnen" entfernen
-		binIeeeString = binIeeeString.replace("...", "");
-		String exponentString;
-		
-		//Wenn kein Komma enthalten ist, dann wird ein ,0 am Ende hinzugefügt!
-		if(!binIeeeString.contains(Character.toString(Preferences.getPrefs().getComma()))) {
-			
-			binIeeeString = binIeeeString + Character.toString(Preferences.getPrefs().getComma()) + "0";
-		
-		}
-		
-		StringBuilder sbBinIeeeString = new StringBuilder (binIeeeString);
-		
-		//Komma umwandeln in . anstatt , -> für abfrage in if Bedingung
-		decValueOhne = decValueOhne.replace(',' , '.');
-		
-		//TODO wenn , anstatt . verwendet wird !!
-		//TODO Sonderfälle für höchste und kleinste Zahl hinzufügen / Abfrage für höchste und kleinste Zahl ändern?
-		//TODO zu große und zu kleine Zahlen abfangen set aus SimpleChangeableNumber wird NumberOverflowException geworfen?
-		
-		//Sonderfall +-0
-		if(this.asDouble() == 0) {
-					
-			if (half) {
-						
-				sonderfallExp = "00000";
-				sonderfallMan = "0000000000";
-						
-						
-			}else {
-						
-				sonderfallExp = "00000000";
-				sonderfallMan = "00000000000000000000000";
-			}
-					
-			return vorzeichen + " " + sonderfallExp + " " + sonderfallMan;
-		}
-		
-		if(half) {
-			
-			if(Double.parseDouble(decValueOhne) < 1) {
-				
-				// Stelle des Kommas vor Normierung und Stelle des Kommas nach Normierung -> für Berechnung Exponent
-				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
-				indexCommaNachNorm = sbBinIeeeString.indexOf("1");
-				
-				// löschen von 0,
-				sbBinIeeeString.deleteCharAt(0);
-				sbBinIeeeString.deleteCharAt(0);
-				
-				while(sbBinIeeeString.charAt(0) == '0') {
-					
-					sbBinIeeeString.deleteCharAt(0);
-					
+				while(isPrecise && standard.getMantLength() >= ieeeBuilder.length() - ieeeBuilder.indexOf("1")) {
+					ieeeBuilder.append('0');
 				}
 				
-				//erste 1 entfernen
-				sbBinIeeeString.deleteCharAt(0);
-				
-				exponent = indexCommaVorNorm - indexCommaNachNorm + 15;
-				
-			}else {
-				// 0 am Anfang der Binärzahl entfernen
-				sbBinIeeeString.deleteCharAt(0);
-				// Index des Kommas aufnehmen
-				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
-				// Komma an dieser Stelle löschen
-				sbBinIeeeString.deleteCharAt(indexCommaVorNorm);
-				// Komma an Stelle 1 setzen, damit 1, usw. entsteht
-				sbBinIeeeString.insert(1, Preferences.getPrefs().getComma());
-
-				// löschen von 1, -> Mantisse
-				sbBinIeeeString.deleteCharAt(0);
-				sbBinIeeeString.deleteCharAt(0);
-	
-				// Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
-				exponent = indexCommaVorNorm - 1;
-				exponent = exponent + 15;
-				
+				break;
 			}
 			
 			
-			exponentString = ConvertingNumbers.decToBase(2, String.valueOf(exponent));
-			StringBuilder sbExponent = new StringBuilder (exponentString);
-			sbExponent.deleteCharAt(0);
-
-			// Exponent auf 5 Zeichen auffüllen
-			while (sbExponent.length() < 5) {
-				
-				sbExponent.insert(0, "0");
-				
+			precision += standard.getMantLength() * 2;
+			
+			if (Math.abs(this.asDouble()) >= 1) {
+				break;
 			}
+		}
+		
+		if(!ieeeBuilder.toString().contains(String.valueOf(Preferences.getPrefs().getComma()))) {
+			ieeeBuilder.append(Preferences.getPrefs().getComma()).append('0');
+		}
+		
+		
+		int exponent;
+		String mantisse;
+		
+		if (Math.abs(this.asDouble()) < 1) {
+			int indexCommaVorNorm = ieeeBuilder.indexOf(Character.toString(Preferences.getPrefs().getComma()));
+			int indexCommaNachNorm = ieeeBuilder.indexOf("1");
+			
+			exponent  = indexCommaVorNorm - indexCommaNachNorm + standard.getExpOffset();
+			mantisse = ieeeBuilder.substring(indexCommaNachNorm + 1, indexCommaNachNorm + standard.getMantLength() + 1);
+		} else {
+			ieeeBuilder.deleteCharAt(0);	// 0 am Anfang der Binärzahl entfernen
+			
+			// Index des Kommas aufnehmen
+			int indexCommaVorNorm = ieeeBuilder.indexOf(Character.toString(Preferences.getPrefs().getComma()));
+			
+			// Komma an dieser Stelle löschen
+			ieeeBuilder.deleteCharAt(indexCommaVorNorm);
+			
+			// Komma an Stelle 1 setzen, damit 1, usw. entsteht
+			ieeeBuilder.insert(1, Preferences.getPrefs().getComma());
+
+			// löschen von 1, -> Mantisse
+			ieeeBuilder.deleteCharAt(0);
+			ieeeBuilder.deleteCharAt(0);
 			
 			// Mantisse auf 10 Zeichen auffüllen
-			while (sbBinIeeeString.length() < 10) {
-				
-				
-				sbBinIeeeString.append("0");
-				
+			while (ieeeBuilder.length() < standard.getMantLength()) {
+				ieeeBuilder.append("0");
 			}
 			
-			// Mantisse auf 10 Zeichen kürzen
-			while(sbBinIeeeString.length() > 10) {
-				
-				sbBinIeeeString.deleteCharAt(sbBinIeeeString.length()-1);
-				
-			}
+			ieeeBuilder.setLength(standard.getMantLength());
+			mantisse = ieeeBuilder.toString();
 
-			return vorzeichen + " " + sbExponent.toString() + " " + sbBinIeeeString.toString();
-			
-			
-		}else {
-			
-			if(Double.parseDouble(decValueOhne) < 1) {
-				
-				// Stelle des Kommas vor Normierung und Stelle des Kommas nach Normierung -> für Berechnung Exponent
-				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
-				indexCommaNachNorm = sbBinIeeeString.indexOf("1");
-
-				// löschen von 0,
-				sbBinIeeeString.deleteCharAt(0);
-				sbBinIeeeString.deleteCharAt(0);
-				
-				while(sbBinIeeeString.charAt(0) == '0') {
-					
-					sbBinIeeeString.deleteCharAt(0);
-					
-				}
-
-				// erste 1 entfernen
-				sbBinIeeeString.deleteCharAt(0);
-				
-				exponent = indexCommaVorNorm - indexCommaNachNorm + 127;
-				
-			}else {
-				
-				// 0 am Anfang der Binärzahl entfernen
-				sbBinIeeeString.deleteCharAt(0);
-				// Index des Kommas aufnehmen
-				indexCommaVorNorm = sbBinIeeeString.indexOf(Character.toString(Preferences.getPrefs().getComma()));
-				// Komma an dieser Stelle löschen
-				sbBinIeeeString.deleteCharAt(indexCommaVorNorm);
-				// Komma an Stelle 1 setzen, damit 1, usw. entsteht
-				sbBinIeeeString.insert(1, Preferences.getPrefs().getComma());
-				
-				// löschen von 1, -> Mantisse
-				sbBinIeeeString.deleteCharAt(0);
-				sbBinIeeeString.deleteCharAt(0);
-				
-				// Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
-				exponent = indexCommaVorNorm - 1;
-				exponent = exponent + 127;
-					
-			}
-			exponentString = ConvertingNumbers.decToBase(2, String.valueOf(exponent));
-			StringBuilder sbExponent = new StringBuilder (exponentString);
-			sbExponent.deleteCharAt(0);		
-
-			// Exponent auf 8 Zeichen auffüllen
-			while (sbExponent.length() < 8) {
-				
-				sbExponent.insert(0, "0");
-				
-			}
-			
-			// Mantisse auf 23 Zeichen auffüllen
-			while (sbBinIeeeString.length() < 23) {
-				
-				
-				sbBinIeeeString.append("0");
-				
-			}
-			
-			// Mantisse auf 23 Zeichen kürzen
-			while(sbBinIeeeString.length() > 23) {
-				
-				sbBinIeeeString.deleteCharAt(sbBinIeeeString.length()-1);
-				
-			}
-			
-			
-			
-			return vorzeichen + " " + sbExponent.toString() + " " + sbBinIeeeString.toString();
+			// Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
+			exponent = indexCommaVorNorm - 1 + standard.getExpOffset();
 		}
 		
+		
+		StringBuilder sbExponent = new StringBuilder(ConvertingNumbers.decToBase(2, String.valueOf(exponent)));
+		sbExponent.deleteCharAt(0);
+
+		// Exponent auf 5 Zeichen auffüllen
+		while (sbExponent.length() < standard.getExpLength()) {
+			sbExponent.insert(0, "0");
+		}
+		
+		
+		return vorzeichen + " " + sbExponent.toString() + " " + mantisse;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		

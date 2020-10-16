@@ -38,7 +38,7 @@ echo ""
 echo "Installer fuer macOS werden erzeugt."
 echo ""
 
-for TYPE in "dmg" "pkg"
+for TYPE in "pkg" #"dmg"
 do
 	echo "${NAME-$VERSION}.${TYPE} wird erstellt"
 	echo ""

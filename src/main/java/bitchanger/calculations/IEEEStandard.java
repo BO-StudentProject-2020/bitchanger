@@ -14,7 +14,7 @@ package bitchanger.calculations;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 0.1.7
+ * @version 1.0.0
  * 
  */
 public enum IEEEStandard {
@@ -26,22 +26,33 @@ public enum IEEEStandard {
 	IEEE_754_2008_b32(32, 8);
 	
 	
-	private int bitLength;
-	private int exponentLength;
+	private final int bitLength;
+	private final int expLength;
+	private final int expOffset;
 	
-	private IEEEStandard(int bitLength, int exponentLength) {
+	private IEEEStandard(int bitLength, int expLength) {
 		this.bitLength = bitLength;
-		this.exponentLength = exponentLength;
+		this.expLength = expLength;
+		this.expOffset = (1 << (expLength - 1)) - 1;
 	}
 	
 	public int getBitLength() {
 		return this.bitLength;
 	}
 	
-	public int getExponentLength() {
-		return this.exponentLength;
+	public int getExpLength() {
+		return this.expLength;
 	}
 	
+	// @since Bitchanger 1.0.0
+	public int getMantLength() {
+		return bitLength - expLength - 1;
+	}
+	
+	// @since Bitchanger 1.0.0
+	public int getExpOffset() {
+		return this.expOffset;
+	}
 }
 
 

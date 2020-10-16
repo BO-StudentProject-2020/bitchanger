@@ -20,7 +20,7 @@ import javafx.beans.property.ReadOnlyStringProperty;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.8
+ * @version 1.0.0
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -29,10 +29,27 @@ import javafx.beans.property.ReadOnlyStringProperty;
  * @author Tim Muehle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.8
+ * @version 1.0.0
  *
  */
 public interface ChangeableNumber {
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
+// 	#	Constants		   																											 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	// TODO JavaDoc @since Bitchanger 1.0.0
+	public static final String NaN = "NaN";
+	
+	// TODO JavaDoc @since Bitchanger 1.0.0
+	public static final String POSITIVE_INFINITY = "\u221E";
+	
+	// TODO JavaDoc @since Bitchanger 1.0.0
+	public static final String NEGATIVE_INFINITY = "-\u221E";
+	
+	
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
@@ -43,12 +60,19 @@ public interface ChangeableNumber {
 
 	// TODO JavaDoc
 	public default double asDouble() {
+		String value = "";
+		
 		try {
-			String value = this.toDecString().replace(" ", "").replace(",", ".").replace(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR, "");
+			value = this.toDecString().replace(" ", "").replace(",", ".").replace(ConvertingNumbers.FRACTIONAL_PRECISION_INDICATOR, "");
 			return Double.parseDouble(value);
 		} catch(Exception e) {
-			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+			if (value.equals(POSITIVE_INFINITY)) {
+				return Double.POSITIVE_INFINITY;
+			} else if (value.equals(NEGATIVE_INFINITY)) {
+				return Double.NEGATIVE_INFINITY;
+			}
 			
+			BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
 			return Double.NaN;
 		}
 	}

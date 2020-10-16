@@ -431,13 +431,13 @@ public class ConverterController extends ControllerBase<ConverterView> {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (tf.isFocused()) {
 					try {
-						valueConsumer.accept(newValue);;
+						valueConsumer.accept(newValue);
 					} catch (NumberOverflowException noe) {
 						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, noe);
 						value.reset();
 						FXUtils.showNumberOverflowWarning(noe);
 					} catch (Exception e) {
-						BitchangerLauncher.printDebugErr(ErrorLevel.MEDIUM, e);
+						BitchangerLauncher.printDebugErr(ErrorLevel.LOW, e);
 						value.reset();
 					}
 					setTexts(setHex, setDec, setOct, setBin, setAny);

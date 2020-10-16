@@ -37,7 +37,7 @@ import bitchanger.preferences.Preferences;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.8
+ * @version 1.0.0
  */
 /* <!-- $LANGUAGE=EN -->
  * The {@code ConvertingNumbers} class contains methods for performing conversions of numbers with different numeral systems.
@@ -58,7 +58,7 @@ import bitchanger.preferences.Preferences;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.8
+ * @version 1.0.0
  */
 public class ConvertingNumbers {
 	
@@ -125,6 +125,10 @@ public class ConvertingNumbers {
 	public static boolean isValueToBase(int base, String value) throws IllegalArgumentException {
 		if(base < MIN_BASE || base > MAX_BASE) {
 			throw new IllegalArgumentException("Out of Bounds for base = " + base + " (base must be within " + MIN_BASE + " and " + MAX_BASE + ")");
+		}
+		
+		if(value.equals(ChangeableNumber.NaN) || value.equals(ChangeableNumber.POSITIVE_INFINITY) || value.equals(ChangeableNumber.NEGATIVE_INFINITY)) {
+			return true;
 		}
 		
 		// Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet, Leerzeichen werden ignoriert
@@ -277,6 +281,13 @@ public class ConvertingNumbers {
 	public static String baseToDecString(int base, String value, char comma, Queue<ConversionStep> calcPath) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException {	
 		// Prüfen, ob value eine Zahl zur gegebenen Basis repräsentiert
 		checkValue(base, value);
+		
+		// Sonderfälle
+		if (value.equals(ChangeableNumber.NaN) || value.equals(ChangeableNumber.POSITIVE_INFINITY) || value.equals(ChangeableNumber.NEGATIVE_INFINITY)) {
+			return value;
+		}
+				
+		// String formatieren
 		value = trimToNumberString(value); // Es wird nur mit Großbuchstaben in Zahlensystemen größer 10 gearbeitet
 		
 		// Bei negativen Zahlen wird das Minuszeichen zuerst entfernt, damit die Zahl wie gewohnt bearbeitet werden kann.
@@ -578,6 +589,13 @@ public class ConvertingNumbers {
 	public static String decToBase(int newBase, String decValue, char comma, int fractionalPrecision, Queue<ConversionStep> calcPath) throws NullPointerException, NumberFormatException, IllegalArgumentException, UnsupportedOperationException, NumberOverflowException {
 		// Prüfen, ob decValue eine Zahl zur Basis 10 repräsentiert
 		checkValue(10, decValue);
+		
+		// Sonderfälle
+		if (decValue.equals(ChangeableNumber.NaN) || decValue.equals(ChangeableNumber.POSITIVE_INFINITY) || decValue.equals(ChangeableNumber.NEGATIVE_INFINITY)) {
+			return decValue;
+		}
+		
+		// String formatieren
 		decValue = trimToNumberString(decValue);
 		
 		if(newBase < MIN_BASE || newBase > MAX_BASE) {
@@ -1267,7 +1285,7 @@ public class ConvertingNumbers {
 			sc.useDelimiter(separator);
 			
 			integerPart = sc.next();
-			fractionalPart = sc.next();	
+			fractionalPart = sc.next();
 			
 			// Delimiter zurücksetzen und leeren, um fehlerhafte Eingaben nicht zu übergehen
 			sc.reset();
