@@ -21,6 +21,7 @@ import bitchanger.preferences.Preferences;
 import bitchanger.util.ArrayUtils;
 import bitchanger.util.Resources;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -44,7 +45,7 @@ import javafx.stage.WindowEvent;
  * @author Tim M\u00FChle
  *
  * @since Bitchanger 0.1.0
- * @version 1.0.0
+ * @version 1.0.1
  * 
  * @see ConverterView
  * @see ConverterController
@@ -59,7 +60,7 @@ import javafx.stage.WindowEvent;
  * @author Tim Muehle
  *
  * @since Bitchanger 0.1.0
- * @version 1.0.0
+ * @version 1.0.1
  * 
  * @see ConverterView
  * @see ConverterController
@@ -90,8 +91,12 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	
 	/** <!-- $LANGUAGE=DE -->	Aktuelle Version des Bitchangers */
 	// TODO JavaDoc EN
-	public static final String VERSION = "1.0.0";
-
+	public static final String VERSION = "1.0.1";
+	
+	/** <!-- $LANGUAGE=DE -->	Aktuelle Instanz dieser Klasse */
+	// TODO JavaDoc EN
+	private static PrimaryFXApp instance;
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -117,6 +122,12 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	 */
 	public static void launchFXApplication(String[] args) {
 		launch(args);
+	}
+	
+	
+	// TODO JavaDoc @since Bitchanger 1.0.1
+	public static HostServices getInstanceHostServices() {
+		return instance.getHostServices();
 	}
 	
 	
@@ -182,6 +193,7 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	/* <!-- $LANGUAGE=EN -->	Construct a new PrimaryFXApp for the Bitchanger */
 	public PrimaryFXApp() {
 		super();
+		instance = this;
 		this.currentViewProperty = new SimpleObjectProperty<Viewable>();
 	}
 	

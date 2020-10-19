@@ -11,7 +11,13 @@ package bitchanger.gui.controls;
 import bitchanger.main.PrimaryFXApp;
 import bitchanger.preferences.Preferences;
 import bitchanger.util.Resources;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 //TODO JavaDoc erstellen
 /** <!-- $LANGUAGE=DE -->
@@ -19,7 +25,7 @@ import javafx.scene.control.Alert;
  * @author Tim M\u00FChle
  *
  * @since Bitchanger 0.1.4
- * @version 0.1.8
+ * @version 1.0.1
  * 
  */
 public class InformationDialog extends Alert {
@@ -68,23 +74,41 @@ public class InformationDialog extends Alert {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 
-	// TODO JavaDoc erstellen
+	// TODO JavaDoc erstellen @version 1.0.1
 	private void createAboutDialog() {
 		this.setTitle("\u00DCber");
 		
 		this.setHeaderText("\u00DCber Bitchanger");
 		
-		this.setContentText("Bei dem Programm Bitchanger handelt es sich um einen Zahlenrechner, der mathematische Berechnungen, "
+		Label infoL = new Label("Bei dem Programm Bitchanger handelt es sich um einen Zahlenrechner, der mathematische Berechnungen, "
 				+ "Bitoperationen und Zahlenumwandlungen von Zahlen mit der Basis 2 bis 36 durchf\u00FChren kann. "
 				+ "Es werden negative Zahlen, Nachkommastellen und die IEEE-Norm (16- und 32-Bit) unterst\u00FCtzt.\n\n"
 				+ "Der Bitchanger ist als Entwicklungsprojekt an der Hochschule Bochum entstanden "
 				+ "und wurde von Tim M\u00FChle und Moritz Wolter im Auftrag von Prof. Dr. rer. nat. Katrin Brabender "
 				+ "und Herrn Andreas Koch f\u00FCr das AID-Labor der Hochschule Bochum entwickelt.\n\n"
-				// TODO Lizenzhinweis einfügen
-				+ "Der Bitchanger ist als Lehrmittel f\u00FCr die Hochschule Bochum gedacht und eine kommerzielle Nutzung ist untersagt.\n\n"
+				+ "Der Bitchanger ist unter der MIT Lizenz ver\u00F6ffentlicht. Der Quellcode und die Dokumentation "
+				+ "stehen unter der folgenden Seite zur Ver\u00FCgung:"
 				+ "");
+		infoL.setWrapText(true);
+		infoL.setTextAlignment(TextAlignment.JUSTIFY);
 		
+		Hyperlink link = new Hyperlink("https://github.com/BO-StudentProject-2020/bitchanger");
+		link.setFocusTraversable(false);
+//		link.setUnderline(true);
+		link.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				PrimaryFXApp.getInstanceHostServices().showDocument("https://github.com/BO-StudentProject-2020/bitchanger");
+			}
+		});
+		
+		VBox content = new VBox(infoL, link);
+		content.setSpacing(5);
+		
+		this.getDialogPane().setContent(content);
 		this.getDialogPane().setMinWidth(700);
+		this.getDialogPane().setPrefWidth(700);
+		this.setResizable(true);
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
