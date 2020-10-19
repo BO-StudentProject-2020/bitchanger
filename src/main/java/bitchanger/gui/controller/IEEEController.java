@@ -11,6 +11,7 @@ package bitchanger.gui.controller;
 import java.util.NoSuchElementException;
 
 import bitchanger.calculations.ChangeableNumber;
+import bitchanger.calculations.ConvertingNumbers;
 import bitchanger.calculations.IEEEStandard;
 import bitchanger.calculations.NumberOverflowException;
 import bitchanger.calculations.SimpleChangeableNumber;
@@ -43,7 +44,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.8
+ * @version 1.0.0
  * 
  */
 public class IEEEController extends ControllerBase<IEEEView> {
@@ -102,6 +103,14 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	/**	<!-- $LANGUAGE=DE -->	Button, mit dem das Vorzeichen der Zahl gewechselt werden kann */
 	/*	<!-- $LANGUAGE=EN -->	Button that action is to change the sign of the number */
 	private Button signBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button zur Eingabe von NaN */
+	/*	<!-- $LANGUAGE=EN -->	Button to input NaN */
+	private Button nanBtn;
+	
+	/**	<!-- $LANGUAGE=DE -->	Button zur Eingabe des Unendlichzeichens */
+	/*	<!-- $LANGUAGE=EN -->	Button to input infinity */
+	private Button infinityBtn;
 
 
 	
@@ -142,6 +151,8 @@ public class IEEEController extends ControllerBase<IEEEView> {
 		this.clearBtn = this.buttonMap.get(controllable.clearBtnKey());
 		this.backspcBtn = this.buttonMap.get(controllable.backspaceBtnKey());
 		this.signBtn = this.buttonMap.get(controllable.signBtnKey());
+		this.nanBtn = this.buttonMap.get(controllable.nanBtnKey());
+		this.infinityBtn = this.buttonMap.get(controllable.infinityBtnKey());
 
 		alphaNumButtons = new Button[16];
 		for (int i = 0; i < 6; i++) {
@@ -235,6 +246,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 		setDecValListener();
 		setIEEEValListener();
 		setIEEEOnAction();
+		clearIEEE();
 
 		setTFSelection();
 		updateIEEEStandard();
@@ -273,7 +285,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 						}
 					}
 					
-					tfIEEE.setText(value.toIEEEString(Preferences.getPrefs().ieeeStandardProperty().get()));
+					tfIEEE.setTextUnchecked(value.toIEEEString(Preferences.getPrefs().ieeeStandardProperty().get()));
 				}
 			}
 		});
@@ -364,6 +376,22 @@ public class IEEEController extends ControllerBase<IEEEView> {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
+	// TODO JavaDoc @since 1.0.0
+	private void clearIEEE() {
+		tfIEEE.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean isFocused) {
+				if (isFocused && !ConvertingNumbers.isValueToBase(2, tfIEEE.getText())) {
+					// Textfelder bei NaN zurücksetzen
+					tfIEEE.clear();
+					tfDec.clear();
+				}
+			}
+		});
+	}
+	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Aktualisiert das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes durch einen Mausklick und 
 	 * verbindet {@link #baseProperty} mit der baseProperty des Textfelds.
@@ -428,6 +456,9 @@ public class IEEEController extends ControllerBase<IEEEView> {
 		setClearAction();
 		setBackspaceAction();
 		setSignAction();
+		setNaNAction();
+		setInfinityAction();
+		disableButtons();
 	}
 	
 //	* 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -471,8 +502,8 @@ public class IEEEController extends ControllerBase<IEEEView> {
 			@Override
 			public void handle(ActionEvent event) {
 				value.reset();
-				tfDec.setText(value.toDecString());
-				tfIEEE.setText(value.toIEEEString(Preferences.getPrefs().ieeeStandardProperty().get()));
+				tfDec.clear();
+				tfIEEE.clear();
 			}
 		});
 	}
@@ -500,7 +531,7 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	}
 	
 //	* 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
+	
 	/**	<!-- $LANGUAGE=DE -->
 	 * Kehrt das Vorzeichen von {@link #value} beim Klick auf den Vorzeichen-Button um und aktualisiert alle Textfelder.
 	 * 
@@ -535,6 +566,43 @@ public class IEEEController extends ControllerBase<IEEEView> {
 				}
 				
 				focusedTF.positionCaret(caretPos);
+			}
+		});
+	}
+
+//	* 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 1.0.0
+	private void setNaNAction() {
+		nanBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				tfDec.setText(ChangeableNumber.NaN);
+			}
+		});
+	}
+	
+//	* 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 1.0.0
+	private void setInfinityAction() {
+		infinityBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				tfDec.setText(ChangeableNumber.POSITIVE_INFINITY);
+			}
+		});
+	}
+	
+//	* 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 1.0.0
+	private void disableButtons() {
+		tfDec.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean tfDecFocused) {
+				nanBtn.setDisable(!tfDecFocused);
+				infinityBtn.setDisable(!tfDecFocused);
 			}
 		});
 	}

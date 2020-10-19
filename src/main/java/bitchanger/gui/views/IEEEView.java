@@ -8,14 +8,20 @@
 
 package bitchanger.gui.views;
 
+import java.util.Queue;
+
+import bitchanger.calculations.ChangeableNumber;
 import bitchanger.gui.controller.ControllableApplication;
 import bitchanger.gui.controller.Controller;
 import bitchanger.gui.controller.IEEEController;
 import bitchanger.gui.controls.BasicMenuBar;
 import bitchanger.gui.controls.IEEEMenuBar;
+import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.main.BitchangerLauncher;
 import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.util.ArrayUtils;
+import bitchanger.util.FXUtils;
+import javafx.scene.Node;
 
 
 /**	<!-- $LANGUAGE=DE -->
@@ -27,7 +33,7 @@ import bitchanger.util.ArrayUtils;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 0.1.8
+ * @version 1.0.0
  * 
  * @see IEEEController
  */
@@ -85,7 +91,9 @@ public class IEEEView extends AlphaNumGridView {
 	 */
 	// TODO JavaDoc EN
 	public IEEEView() {
-		super(0, 0, 0, 1, 6, 1, LABEL_TEXTS, ArrayUtils.arrayOf(TF_DEC_KEY, TF_IEEE_KEY));
+		super(0, 0, 0, 1, 3, 1, LABEL_TEXTS, ArrayUtils.arrayOf(TF_DEC_KEY, TF_IEEE_KEY));
+		
+		this.btnMinWidthProperty.set(70);
 		
 		buildScenegraph();
 	}
@@ -119,6 +127,26 @@ public class IEEEView extends AlphaNumGridView {
 		return IEEEView.TF_IEEE_KEY;
 	}
 	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr NaN in der Map {@code buttonMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem er Button f\u00FCr NaN in der Map {@code buttonMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String nanBtnKey() {
+		return "NaN-btn";
+	}
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt das Schl\u00FCsselwort zur\u00FCck, mit dem der Button f\u00FCr das Unendlichzeichen in der Map {@code buttonMap} gespeichert wird
+	 * 
+	 * @return	Schl\u00FCsselwort, mit dem er Button f\u00FCr das Unendlichzeichen in der Map {@code buttonMap} gespeichert wird
+	 */
+	// TODO JavaDoc EN
+	public final String infinityBtnKey() {
+		return "infinity-btn";
+	}
+	
 	
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -146,7 +174,33 @@ public class IEEEView extends AlphaNumGridView {
 	public BasicMenuBar generateMenuBar() {
 		return new IEEEMenuBar();
 	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
+	/** {@inheritDoc} */
+	@Override
+	protected void createScenegraph() {
+		super.createScenegraph();
+		
+		createAdditionalButtons();
+	}
+
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 1.0.0
+	private void createAdditionalButtons() {
+		UnfocusedButton nanBtn = new UnfocusedButton("NaN");
+		UnfocusedButton infinityBtn = new UnfocusedButton(ChangeableNumber.POSITIVE_INFINITY);
+		
+		getButtonMap().put(nanBtnKey(), nanBtn);
+		getButtonMap().put(infinityBtnKey(), infinityBtn);
+		
+		Queue<Node> nodes = ArrayUtils.queueOf(nanBtn, infinityBtn);
+		FXUtils.setGridConstraints(0, 0, 2, 0, nodes);
+		FXUtils.setMaxSizes(nodes, Double.MAX_VALUE);
+		
+		buttonGrid.getChildren().addAll(nodes);
+	}
 	
 }
 

@@ -62,7 +62,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.9
+ * @version 1.0.0
  *
  */
 public class SimpleChangeableNumber implements ChangeableNumber {
@@ -535,13 +535,17 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		// Sonderfälle
 		if(decValue.equals("")) {
 			return "";
-		} else if(decValue.equals(ChangeableNumber.POSITIVE_INFINITY)) {
+		}
+		else if(decValue.equals(ChangeableNumber.POSITIVE_INFINITY)) {
 			return createIEEEString("0", '1', '0', standard);
-		} else if(decValue.equals(ChangeableNumber.NEGATIVE_INFINITY)) {
+		}
+		else if(decValue.equals(ChangeableNumber.NEGATIVE_INFINITY)) {
 			return createIEEEString("1", '1', '0', standard);
-		}  else if(decValue.equals(ChangeableNumber.NaN)) {
+		}
+		else if(Double.isNaN(this.asDouble())) {
 			return createIEEEString("X", '1', 'X', standard);
-		} else if (this.asDouble() == 0.0) {
+		}
+		else if (this.asDouble() == 0.0) {
 			String vz = ((Double.doubleToRawLongBits(this.asDouble()) & (1<<63)) == 0x8000000000000000L) ? "1" : "0";
 			return createIEEEString(vz, '0', '0', standard);
 		}

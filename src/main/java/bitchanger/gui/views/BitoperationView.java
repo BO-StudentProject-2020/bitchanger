@@ -21,9 +21,12 @@ import bitchanger.gui.controls.UnfocusedButton;
 import bitchanger.main.BitchangerLauncher;
 import bitchanger.main.BitchangerLauncher.ErrorLevel;
 import bitchanger.util.FXUtils;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /**	<!-- $LANGUAGE=DE -->
  * View, die die Scene f\u00FCr die Bitoperationen mit verschiedenen Zahlensystemen enth\u00E4lt.
@@ -34,7 +37,7 @@ import javafx.scene.layout.GridPane;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 0.1.8
+ * @version 1.0.1
  * 
  * @see BitoperationController
  */
@@ -296,19 +299,28 @@ public class BitoperationView extends CalculationViewBase {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
+	// TODO JavaDoc version 1.0.0
 	private void createBitLength() {
 		ComboBox<BitLength> bitLength = new ComboBox<>();
 		bitLength.getItems().addAll(BitLength._8_BIT, BitLength._16_BIT, BitLength._32_BIT, BitLength._64_BIT);
 		
-		bitLength.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		double width = btnMinWidthProperty.get() * 3 + hgapProperty.get() * 3;
+		bitLength.setPrefWidth(width);
+		bitLength.setMinWidth(width);
+		bitLength.setMaxSize(Double.MAX_VALUE, bitLength.getPrefWidth());
 		
-		GridPane.setColumnSpan(bitLength, 3);
-		GridPane.setConstraints(bitLength, AlphaNumKeys.COLUMN_COUNT - 2, 0);
+		bitLength.setFocusTraversable(false);
+		
+		HBox.setHgrow(bitLength, Priority.NEVER);
+		HBox pane = new HBox(bitLength);
+		pane.setAlignment(Pos.CENTER_RIGHT);
+		
+		GridPane.setColumnSpan(pane, 3);
+		GridPane.setConstraints(pane, AlphaNumKeys.COLUMN_COUNT - 2, 0);
 		
 		this.getNodeMap().put(bitLengthKey(), bitLength);
 		
-		buttonGrid.getChildren().add(bitLength);
+		buttonGrid.getChildren().add(pane);
 	}
 
 }

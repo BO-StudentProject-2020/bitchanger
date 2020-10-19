@@ -34,7 +34,7 @@ import javafx.scene.shape.Rectangle;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.9
+ * @version 1.0.0
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -51,7 +51,7 @@ import javafx.scene.shape.Rectangle;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.0
- * @version 0.1.9
+ * @version 1.0.0
  *
  */
 public class ValueField extends TextField {
@@ -71,6 +71,9 @@ public class ValueField extends TextField {
 	/** <!-- $LANGUAGE=DE -->	Hilfsvariable f\u00FCr die letzte bekannte Position im Textfeld */
 	/* <!-- $LANGUAGE=EN -->	Auxiliary variable for the last known position in the text field */
 	private int lastCaretPosition;
+	
+	/** <!-- $LANGUAGE=DE -->	Hilfsvariable, um Text ohne \u00DCberpr\u00FCfung zu setzen */
+	private boolean setUnchecked;
 	
 	
 
@@ -142,6 +145,7 @@ public class ValueField extends TextField {
 		
 		this.baseProperty = new SimpleIntegerProperty(base);
 		this.lastCaretPosition = -1;
+		this.setUnchecked = false;
 		
 		this.textProperty().addListener(this::checkText);
 		this.caretPositionProperty().addListener(this::storeCaretPosition);
@@ -232,6 +236,14 @@ public class ValueField extends TextField {
 		return getSelection().getLength() > 0;
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
+	
+	// TODO JavaDoc @since Bitchanger 1.0.0
+	public void setTextUnchecked(String text) {
+		this.setUnchecked = true;
+		this.setText(text);
+	}
+	
 
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -258,6 +270,11 @@ public class ValueField extends TextField {
 	 * @param newValue		new value
 	 */
 	private void checkText(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		if (setUnchecked) {
+			setUnchecked = false;
+			return;
+		}
+		
 		boolean isNotValueToBase = ! ConvertingNumbers.isValueToBase(getBase(), newValue);
 		
 		// Unendlich(-zeichen) \u221E zulassen
