@@ -79,7 +79,7 @@ do
 	--icon ./Logo/$NAME.png
 
 	echo ""
-	mv "${OUT}/${NAME-$VERSION}.${TYPE}" "${OUT}/${NAME-$VERSION}-rpm-install.${TYPE}"
+	mv "${OUT}/${NAME-$VERSION}-1.x86_64.${TYPE}" "${OUT}/${NAME-$VERSION}-rpm-install.${TYPE}"
 	echo ""
 done
 

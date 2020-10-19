@@ -79,7 +79,7 @@ do
 	--icon ./Logo/$NAME.png
 
 	echo ""
-	mv "${OUT}/${NAME-$VERSION}.${TYPE}" "${OUT}/${NAME-$VERSION}-debian-install.${TYPE}"
+	mv "${OUT}/${NAME-$VERSION}-1_amd64.${TYPE}" "${OUT}/${NAME-$VERSION}-debian-install.${TYPE}"
 	echo ""
 done
 

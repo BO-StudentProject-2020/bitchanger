@@ -323,9 +323,9 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
 		}
 		
+		
 		String vz = "";
-		// TODO negative 0
-		if(decValue < 0 || (Double.doubleToLongBits(decValue) >> 63) == 1) {
+		if(decValue < 0 || (Double.doubleToRawLongBits(decValue) & (1<<63)) == 0x8000000000000000L) {
 			vz = "-";
 			decValue = Math.abs(decValue);
 		}
@@ -532,113 +532,62 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 	/** {@inheritDoc} */
 	@Override
 	public String toIEEEString(IEEEStandard standard) {
-		// TODO Sonderfälle
+		// Sonderfälle
 		if(decValue.equals("")) {
 			return "";
 		} else if(decValue.equals(ChangeableNumber.POSITIVE_INFINITY)) {
-			return "";
+			return createIEEEString("0", '1', '0', standard);
 		} else if(decValue.equals(ChangeableNumber.NEGATIVE_INFINITY)) {
-			return "";
+			return createIEEEString("1", '1', '0', standard);
 		}  else if(decValue.equals(ChangeableNumber.NaN)) {
-			return "";
+			return createIEEEString("X", '1', 'X', standard);
 		} else if (this.asDouble() == 0.0) {
-			return "";
-		}
-		
-		// Leerzeichen löschen
-		String decStr = decValue.replace(" ", "");
-		
-		
-		String vorzeichen = "0";
-		boolean isNegative = decStr.startsWith("-");
-		if(isNegative) {
-			vorzeichen = "1";
-			decStr = decStr.replaceFirst("-", "");
-		}
-		
-		// TODO auslagern in Methoden
-		StringBuilder ieeeBuilder = new StringBuilder();
-		int precision = standard.getMantLength();
-		
-		while(standard.getMantLength() >= ieeeBuilder.length() - ieeeBuilder.indexOf("1")) {
-			ieeeBuilder.setLength(0);
-			ieeeBuilder.append(ConvertingNumbers.decToBase(2, decStr, Preferences.getPrefs().getComma(), precision + 4));
-			
-			boolean hasComma = ieeeBuilder.toString().contains(String.valueOf(Preferences.getPrefs().getComma()));
-			if (hasComma) {
-				String fractional = ieeeBuilder.substring(ieeeBuilder.indexOf(String.valueOf(Preferences.getPrefs().getComma())) + 1);
-				boolean isPrecise = fractional.length() < precision;
-				
-				while(isPrecise && standard.getMantLength() >= ieeeBuilder.length() - ieeeBuilder.indexOf("1")) {
-					ieeeBuilder.append('0');
-				}
-				
-				break;
-			}
-			
-			
-			precision += standard.getMantLength() * 2;
-			
-			if (Math.abs(this.asDouble()) >= 1) {
-				break;
-			}
-		}
-		
-		if(!ieeeBuilder.toString().contains(String.valueOf(Preferences.getPrefs().getComma()))) {
-			ieeeBuilder.append(Preferences.getPrefs().getComma()).append('0');
+			String vz = ((Double.doubleToRawLongBits(this.asDouble()) & (1<<63)) == 0x8000000000000000L) ? "1" : "0";
+			return createIEEEString(vz, '0', '0', standard);
 		}
 		
 		
-		int exponent;
-		String mantisse;
+		long bits = Double.doubleToRawLongBits(this.asDouble());
 		
-		if (Math.abs(this.asDouble()) < 1) {
-			int indexCommaVorNorm = ieeeBuilder.indexOf(Character.toString(Preferences.getPrefs().getComma()));
-			int indexCommaNachNorm = ieeeBuilder.indexOf("1");
-			
-			exponent  = indexCommaVorNorm - indexCommaNachNorm + standard.getExpOffset();
-			mantisse = ieeeBuilder.substring(indexCommaNachNorm + 1, indexCommaNachNorm + standard.getMantLength() + 1);
-		} else {
-			ieeeBuilder.deleteCharAt(0);	// 0 am Anfang der Binärzahl entfernen
-			
-			// Index des Kommas aufnehmen
-			int indexCommaVorNorm = ieeeBuilder.indexOf(Character.toString(Preferences.getPrefs().getComma()));
-			
-			// Komma an dieser Stelle löschen
-			ieeeBuilder.deleteCharAt(indexCommaVorNorm);
-			
-			// Komma an Stelle 1 setzen, damit 1, usw. entsteht
-			ieeeBuilder.insert(1, Preferences.getPrefs().getComma());
-
-			// löschen von 1, -> Mantisse
-			ieeeBuilder.deleteCharAt(0);
-			ieeeBuilder.deleteCharAt(0);
-			
-			// Mantisse auf 10 Zeichen auffüllen
-			while (ieeeBuilder.length() < standard.getMantLength()) {
-				ieeeBuilder.append("0");
-			}
-			
-			ieeeBuilder.setLength(standard.getMantLength());
-			mantisse = ieeeBuilder.toString();
-
-			// Nach Normierung an Stelle 1 -> Exponent dann ausrechnen mit indexCommaVorNorm - 1
-			exponent = indexCommaVorNorm - 1 + standard.getExpOffset();
+		String vz = String.valueOf((bits >> 63) & 1);
+		
+		long exp = ((bits>>52) & 0x7ff) - 1023;
+		exp = exp + standard.getExpOffset();
+		
+		StringBuilder expStr = new StringBuilder(Long.toBinaryString(exp));
+		while (expStr.length() < standard.getExpLength()) {
+			expStr.insert(0, '0');
 		}
 		
-		
-		StringBuilder sbExponent = new StringBuilder(ConvertingNumbers.decToBase(2, String.valueOf(exponent)));
-		sbExponent.deleteCharAt(0);
-
-		// Exponent auf 5 Zeichen auffüllen
-		while (sbExponent.length() < standard.getExpLength()) {
-			sbExponent.insert(0, "0");
+		StringBuilder mantisse = new StringBuilder();
+		for(int i = 51; i >= 0; i--) {
+			mantisse.append((bits>>i) & 1);
 		}
 		
+		char cutChar = mantisse.charAt(standard.getMantLength());
+		mantisse.setCharAt(standard.getMantLength() - 1, cutChar == '1' ? '1' : mantisse.charAt(standard.getMantLength() - 1));	// ggf. aufrunden
+		mantisse.setLength(standard.getMantLength());
 		
-		return vorzeichen + " " + sbExponent.toString() + " " + mantisse;
+		return vz + " " + expStr + " " + mantisse;
 	}
 	
+// 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
+	
+	// TODO JavaDoc @since Bitchanger 1.0.0
+	private String createIEEEString(String vz, char exp, char m, IEEEStandard standard) {
+		StringBuilder expStr = new StringBuilder();
+		while (expStr.length() < standard.getExpLength()) {
+			expStr.append(exp);
+		}
+		
+		StringBuilder mStr = new StringBuilder();
+		while (mStr.length() < standard.getMantLength()) {
+			mStr.append(m);
+		}
+		
+		return vz + " " + expStr + " " + mStr;
+	}
+
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 
 	/** {@inheritDoc} */
