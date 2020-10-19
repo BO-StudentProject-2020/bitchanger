@@ -17,10 +17,10 @@ cd "$(dirname "$0")"	# zum Pfad dieses Skriptes wechseln
 # Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 NAME=Bitchanger
 DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-VERSION=1.0.2
+VERSION=1.0.3
 VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
 # set COPYRIGHT = ""
-LICENSE_FILE = "installer/source/Linux/jpackage/LICENSE.txt"
+LICENSE_FILE="installer/source/Linux/jpackage/LICENSE.txt"
 
 # Einstellungen fuer jpackage:
 MAIN_JAR="bitchanger-$VERSION.jar"
@@ -48,12 +48,12 @@ mkdir -p $OUT
 mkdir -p $INPUT/jpackage
 mkdir -p $INPUT/$VERSION
 
-cp ./LICENSE.txt $LICENSE_FILE
 cp target/bitchanger-$VERSION-jar-with-dependencies.jar $INPUT/$VERSION/bitchanger-$VERSION-jar-with-dependencies.jar
 cp target/bitchanger-$VERSION.jar $INPUT/$VERSION/bitchanger-$VERSION.jar
 
 rm -r -f $INPUT/jpackage/*	# Eingabeordner fuer jpackage leeren
 cp target/bitchanger-$VERSION-jar-with-dependencies.jar $INPUT/jpackage/bitchanger-$VERSION.jar
+cp ./LICENSE.txt ./"${LICENSE_FILE}"
 
 echo JAR-Dateien kopiert
 
@@ -77,11 +77,12 @@ do
 	--dest $OUT \
 	--main-jar "${MAIN_JAR}" \
 	--linux-shortcut \
-	--license-file $LICENSE_FILE \
-	--icon ./Logo/$NAME.png
+	--license-file "${LICENSE_FILE}" \
+	--icon ./Logo/$NAME.png \
+	--linux-rpm-license-type "MIT License"
 
 	echo ""
-	mv "${OUT}/${NAME-$VERSION}-1.x86_64.${TYPE}" "${OUT}/${NAME-$VERSION}-rpm-install.${TYPE}"
+	mv "./${OUT}/bitchanger-${VERSION}-1.x86_64.${TYPE}" "./${OUT}/${NAME}-${VERSION}-rpm-install.${TYPE}"
 	echo ""
 done
 

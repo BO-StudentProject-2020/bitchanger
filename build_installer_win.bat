@@ -11,7 +11,7 @@ rem ---- Benoetigte Informationen in Variablen speichern -----------------------
 rem Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 set NAME=Bitchanger
 set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-if not defined VERSION set VERSION=1.0.2
+if not defined VERSION set VERSION=1.0.3
 set VENDOR="Entwicklungsprojekt_EB2020 by Tim Muehle and Moritz Wolter"
 rem set COPYRIGHT = "Copyrigth 2020 (c) Tim Muehle & Moritz Wolter"
 

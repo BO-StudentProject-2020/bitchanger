@@ -13,10 +13,10 @@ cd "$(dirname "$0")"	# zum Pfad dieses Skriptes wechseln
 # Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 NAME="Bitchanger"
 DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-VERSION="1.0.2"
+VERSION="1.0.3"
 VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
 # set COPYRIGHT = ""
-LICENSE_FILE = "installer/source/Mac/jpackage/LICENSE.txt"
+LICENSE_FILE="installer/source/Mac/jpackage/LICENSE.txt"
 
 # Einstellungen fuer jpackage:
 MAIN_JAR="bitchanger-$VERSION.jar"
@@ -53,11 +53,11 @@ do
 	--dest $OUT \
 	--main-jar "${MAIN_JAR}" \
 	--mac-package-name "${NAME}" \
-	--license-file $LICENSE_FILE \
+	--license-file "${LICENSE_FILE}" \
 	--icon ./Logo/$NAME.icns
 
 	echo ""
-	mv "${OUT}/${NAME-$VERSION}.${TYPE}" "${OUT}/${NAME-$VERSION}-mac-install.${TYPE}"
+	mv "./${OUT}/${NAME}-${VERSION}.${TYPE}" "./${OUT}/${NAME}-${VERSION}-mac-install.${TYPE}"
 	echo ""
 done
 
