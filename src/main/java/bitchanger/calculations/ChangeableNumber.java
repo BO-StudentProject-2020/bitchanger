@@ -381,6 +381,8 @@ public interface ChangeableNumber {
 	 * 
 	 * @return IEEE als String-Darstellung dieser {@code ChangeableNumber}
 	 * 
+	 * @throws ArithmeticException	Wenn diese Zahl nicht in dem IEEE-Standard dargestellt werden kann
+	 * 
 	 * @since Bitchanger 0.1.6
 	 */
 	/*	<!-- $LANGUAGE=EN -->
@@ -390,9 +392,11 @@ public interface ChangeableNumber {
 	 * 
 	 * @return IEEE as String representation of this {@code ChangeableNumber}
 	 * 
+	 * @throws ArithmeticException	if this number cannot be presented by the given ieee standard
+	 * 
 	 * @since Bitchanger 0.1.6
 	 */
-	public abstract String toIEEEString(IEEEStandard standard);
+	public abstract String toIEEEString(IEEEStandard standard) throws ArithmeticException;
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	

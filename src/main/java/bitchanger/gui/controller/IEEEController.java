@@ -44,7 +44,7 @@ import javafx.scene.input.MouseEvent;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.4
- * @version 1.0.0
+ * @version 1.0.2
  * 
  */
 public class IEEEController extends ControllerBase<IEEEView> {
@@ -258,11 +258,13 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	 * Setzt den Listener f\u00FCr {@link #tfDec}, um die Eingabe direkt umzuwandeln und die anderen Textfelder zu aktualisieren.
 	 * 
 	 * @since Bitchanger 0.1.7
+	 * @version 1.0.2
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets the listener for {@link #tfDec}, to convert the input and update the other text fields immediately.
 	 * 
 	 * @since Bitchanger 0.1.7
+	 * @version 1.0.2
 	 */
 	private void setDecValListener() {
 		tfDec.textProperty().addListener(new ChangeListener<String>() {
@@ -285,7 +287,12 @@ public class IEEEController extends ControllerBase<IEEEView> {
 						}
 					}
 					
-					tfIEEE.setTextUnchecked(value.toIEEEString(Preferences.getPrefs().ieeeStandardProperty().get()));
+					try {
+						tfIEEE.setTextUnchecked(value.toIEEEString(Preferences.getPrefs().ieeeStandardProperty().get()));
+					} catch (ArithmeticException e) {
+						tfIEEE.setText("");
+						FXUtils.showDialog(AlertType.ERROR, "Fehler", "Fehler", e.getMessage(), ButtonType.CLOSE);
+					}
 				}
 			}
 		});
@@ -418,12 +425,13 @@ public class IEEEController extends ControllerBase<IEEEView> {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc @since Bitchanger 0.1.7
+	// TODO JavaDoc @since Bitchanger 0.1.7 @version 1.0.2
 	private void updateIEEEStandard() {
 		Preferences.getPrefs().ieeeStandardProperty().addListener(new ChangeListener<IEEEStandard>() {
 			@Override
 			public void changed(ObservableValue<? extends IEEEStandard> observable, IEEEStandard oldValue, IEEEStandard newValue) {
-				tfIEEE.setText(value.toIEEEString(newValue));
+				tfIEEE.clear();
+				tfDec.clear();
 			}
 		});
 	}

@@ -14,7 +14,7 @@ package bitchanger.calculations;
  * @author Tim M\u00FChle
  * 
  * @since Bitchanger 0.1.7
- * @version 1.0.0
+ * @version 1.0.2
  * 
  */
 public enum IEEEStandard {
@@ -42,6 +42,11 @@ public enum IEEEStandard {
 	
 	public int getExpLength() {
 		return this.expLength;
+	}
+	
+	// @since Bitchanger 1.0.2
+	public long maxExp() {
+		return (long) (Math.pow(2, expLength) - 1);
 	}
 	
 	// @since Bitchanger 1.0.0

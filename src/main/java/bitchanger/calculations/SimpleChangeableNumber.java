@@ -40,7 +40,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 1.0.0
+ * @version 1.0.2
  *
  */
 /*	<!-- $LANGUAGE=EN -->
@@ -62,7 +62,7 @@ import javafx.beans.value.ObservableValue;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 1.0.0
+ * @version 1.0.2
  *
  */
 public class SimpleChangeableNumber implements ChangeableNumber {
@@ -303,7 +303,10 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 	
-	/** {@inheritDoc} */
+	/** {@inheritDoc} 
+	 * 
+	 * @version 1.0.2
+	 */
 	@Override
 	public void set(double decValue) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException {
 		// Sonderfälle
@@ -323,19 +326,16 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 					"Die eingegebene Zahl liegt nicht im erlaubten Wertebereich!", Long.MAX_VALUE, -Long.MAX_VALUE);
 		}
 		
-		
+		// Sonderfall -0.0 einschließen
 		String vz = "";
 		if(decValue < 0 || (Double.doubleToRawLongBits(decValue) & (1<<63)) == 0x8000000000000000L) {
 			vz = "-";
 			decValue = Math.abs(decValue);
 		}
 		
-		// Unterteilen in ganzen und gebrochenen Anteil wegen Exponenten-Darstellung von double bei großen Zahlen
-		String integerPart = String.valueOf((long)decValue);
-		String fractionalPart = String.valueOf(decValue % 1.0);
-		fractionalPart = fractionalPart.substring(fractionalPart.indexOf("."));
+		String decStr = ConvertingNumbers.doubleToString(Math.abs(decValue));
 		
-		this.setDec(vz + integerPart + fractionalPart);
+		this.setDec(vz + decStr);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	
@@ -529,9 +529,12 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*		
 	
-	/** {@inheritDoc} */
+	/** {@inheritDoc} 
+	 * 
+	 * @version 1.0.2
+	 */
 	@Override
-	public String toIEEEString(IEEEStandard standard) {
+	public String toIEEEString(IEEEStandard standard) throws ArithmeticException {
 		// Sonderfälle
 		if(decValue.equals("")) {
 			return "";
@@ -557,6 +560,15 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		
 		long exp = ((bits>>52) & 0x7ff) - 1023;
 		exp = exp + standard.getExpOffset();
+		
+		if(exp > standard.maxExp() || exp < 0) {
+			// Fehler, wenn Exponent verlassen
+			throw new ArithmeticException("Diese Zahl kann nicht zur IEEE-Norm mit " + standard.getBitLength() + "-Bit umgewandelt werden, "
+										+ "da der Exponent zu groß oder zu klein ist.\n\n"
+										+ "maximaler Exponent: " + standard.maxExp() + "\n"
+										+ "kleinster Exponent: 0\n"
+										+ "berechneter Exponent: " + exp);
+		}
 		
 		StringBuilder expStr = new StringBuilder(Long.toBinaryString(exp));
 		while (expStr.length() < standard.getExpLength()) {

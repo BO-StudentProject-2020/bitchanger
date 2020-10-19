@@ -9,6 +9,7 @@
 package bitchanger.calculations;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -37,7 +38,7 @@ import bitchanger.preferences.Preferences;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 1.0.0
+ * @version 1.0.2
  */
 /* <!-- $LANGUAGE=EN -->
  * The {@code ConvertingNumbers} class contains methods for performing conversions of numbers with different numeral systems.
@@ -58,7 +59,7 @@ import bitchanger.preferences.Preferences;
  * @author Moritz Wolter
  * 
  * @since Bitchanger 0.1.0
- * @version 1.0.0
+ * @version 1.0.2
  */
 public class ConvertingNumbers {
 	
@@ -175,6 +176,32 @@ public class ConvertingNumbers {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 //  #																																 #
+// 	#	Umwandeln von dezimal in double																								 #
+//  #																																 #
+//  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+
+	
+	// TODO JavaDoc @since 1.0.2
+	public static String doubleToString(double d) {
+		StringBuilder decStr = new StringBuilder(String.format(Locale.ENGLISH, "%.324f", d));
+		while(decStr.charAt(decStr.length() - 1) == '0') {
+			decStr.deleteCharAt(decStr.length() - 1);
+		}
+		
+		if (decStr.charAt(decStr.length() - 1) == '.') {
+			decStr.append('0');
+		}
+		
+		decStr.setCharAt(decStr.indexOf("."), Preferences.getPrefs().getComma());
+		
+		return decStr.toString();
+	}
+	
+	
+	
+	
+//	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
+//  #																																 #
 // 	#	Umwandeln von beliebiger Basis nach dezimal																					 #
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -263,6 +290,8 @@ public class ConvertingNumbers {
 	 * @throws NumberFormatException		wenn der Parameter {@code value} keine Zahl zur Basis {@code base} ist
 	 * @throws IllegalArgumentException		wenn {@code value} ein leerer String ist oder wenn {@code basis} den Wertebereich [2, 36] verl\u00E4sst &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
 	 * @throws NumberOverflowException		wenn der ganzzahlige Wert von {@code value} gr\u00F6\u00DFer oder kleiner ist als +/- {@link Long#MAX_VALUE}
+	 * 
+	 * @version 1.0.2
 	 */
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
@@ -277,6 +306,8 @@ public class ConvertingNumbers {
 	 * @throws NumberFormatException		if the parameter {@code value} is not a number of base {@code base}
 	 * @throws IllegalArgumentException		if {@code value} is an empty string or {@code basis} leaves the range of value [2, 36] &#160; - &#160; <b>see</b> {@link isValueToBase(int base, String value)}
 	 * @throws NumberOverflowException		if integer part of {@code value} is greater or less +/- {@link Long#MAX_VALUE}
+	 * 
+	 * @version 1.0.2
 	 */
 	public static String baseToDecString(int base, String value, char comma, Queue<ConversionStep> calcPath) throws NullPointerException, NumberFormatException, IllegalArgumentException, NumberOverflowException {	
 		// Prüfen, ob value eine Zahl zur gegebenen Basis repräsentiert
@@ -369,11 +400,12 @@ public class ConvertingNumbers {
 			integerPart += 1;
 		}
 		
-		String integerStr = String.valueOf((long)(integerPart));
+		String integerStr = String.valueOf((long)integerPart);
 		
 		if(fractionalPart != 0.0) {
 			// Rückgabe mit Nachkommateil
-			String fractionalStr = String.valueOf(fractionalPart).substring(2);
+			String fractionalStr = doubleToString(fractionalPart).substring(2);
+			
 			String valueStr = integerStr + comma + fractionalStr;
 			
 			if(calcPath != null) calcPath.add(new ConversionStep("Beide Teile zusammenf\u00FCgen: " + splitInBlocks(10, integerStr) + " + " + splitInBlocks(10, "0." +fractionalStr) + " = " + splitInBlocks(10, valueStr), true));
