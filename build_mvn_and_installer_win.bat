@@ -9,7 +9,7 @@ rem Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projek
 set NAME=Bitchanger
 set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
 set VERSION=1.0.2
-set VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
+set VENDOR="Entwicklungsprojekt_EB2020 by Tim Muehle and Moritz Wolter"
 
 set INPUT=installer\source\Windows
 set OUT=installer\%VERSION%\Windows
@@ -27,7 +27,8 @@ call mvn clean install
 rem ---- JARs sichern ----------------------------------------------------------------------------------------------------
 echo JAR-Dateien kopieren
 if not exist %INPUT%\%VERSION% mkdir %INPUT%\%VERSION%
-if exist %INPUT%\jpackage del /Q jpackage	rem Eingabeordner fuer jpackage leeren
+if exist %INPUT%\jpackage del /Q %INPUT%\jpackage	rem Eingabeordner fuer jpackage leeren
+mkdir %INPUT%\jpackage
 @echo on
 copy target\bitchanger-%VERSION%-jar-with-dependencies.jar %INPUT%\%VERSION%\bitchanger-%VERSION%-jar-with-dependencies.jar
 copy target\bitchanger-%VERSION%.jar %INPUT%\%VERSION%\bitchanger-%VERSION%.jar

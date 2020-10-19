@@ -12,15 +12,20 @@ rem Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projek
 set NAME=Bitchanger
 set DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
 if not defined VERSION set VERSION=1.0.2
-set VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
-rem set COPYRIGHT = ""
-rem set LICENSE_FILE = ""
+set VENDOR="Entwicklungsprojekt_EB2020 by Tim Muehle and Moritz Wolter"
+rem set COPYRIGHT = "Copyrigth 2020 (c) Tim Muehle & Moritz Wolter"
+
 
 rem Einstellungen fuer jpackage:
 set MAIN_JAR=bitchanger-%VERSION%.jar
 if not defined INPUT set INPUT=installer\source\Windows
 if not defined OUT set OUT=installer\%VERSION%\Windows
+set LICENSE_FILE=%INPUT%\jpackage\LICENSE.txt
 rem set ICON =
+
+@echo on
+if not exist %LICENSE_FILE% copy .\LICENSE.txt %LICENSE_FILE%
+@echo off
 
 rem Weitere Befehle fuer jpackage:
 rem Installationspfad bei der Installation auswaehlbar: --win-dir-chooser
@@ -52,10 +57,12 @@ jpackage ^
 --dest %OUT% ^
 --main-jar %MAIN_JAR% ^
 --icon .\Logo\%NAME%.ico ^
+--license-file %LICENSE_FILE% ^
 --win-dir-chooser ^
 --win-shortcut ^
 --win-menu ^
---win-menu-group  
+--win-menu-group 
+ 
 
 @echo off
 
@@ -79,10 +86,11 @@ jpackage ^
 --dest %OUT% ^
 --main-jar %MAIN_JAR% ^
 --icon .\Logo\%NAME%.ico ^
+--license-file %LICENSE_FILE% ^
 --win-dir-chooser ^
 --win-shortcut ^
 --win-menu ^
---win-menu-group  
+--win-menu-group 
 
 @echo off
 

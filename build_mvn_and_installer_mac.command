@@ -20,7 +20,7 @@ DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
 VERSION="1.0.2"
 VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
 # set COPYRIGHT = ""
-# set LICENSE_FILE = ""
+LICENSE_FILE = "installer/source/Mac/jpackage/LICENSE.txt"
 
 # Einstellungen fuer jpackage:
 MAIN_JAR="bitchanger-$VERSION.jar"
@@ -49,6 +49,7 @@ mkdir -p $OUT
 mkdir -p $INPUT/jpackage
 mkdir -p $INPUT/$VERSION
 
+cp ./LICENSE.txt $LICENSE_FILE
 cp target/bitchanger-$VERSION-jar-with-dependencies.jar $INPUT/$VERSION/bitchanger-$VERSION-jar-with-dependencies.jar
 cp target/bitchanger-$VERSION.jar $INPUT/$VERSION/bitchanger-$VERSION.jar
 
@@ -76,6 +77,7 @@ do
 	--dest $OUT \
 	--main-jar "${MAIN_JAR}" \
 	--mac-package-name "${NAME}" \
+	--license-file $LICENSE_FILE \
 	--icon ./Logo/$NAME.icns
 
 	echo ""
