@@ -12,7 +12,7 @@ import bitchanger.preferences.XMLWritable;
 import javafx.beans.property.SimpleDoubleProperty;
 
 /** <!-- $LANGUAGE=DE -->
- * 
+ * Erweiterung von {@link SimpleDoubleProperty} als {@link XMLWritable}
  * 
  * @author Tim M\u00FChle
  * 
@@ -20,7 +20,7 @@ import javafx.beans.property.SimpleDoubleProperty;
  * @version 0.1.7
  *
  */
-// TODO JavaDoc
+// TODO JavaDoc EN
 public class WritableDoubleProperty extends SimpleDoubleProperty implements XMLWritable {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -29,7 +29,8 @@ public class WritableDoubleProperty extends SimpleDoubleProperty implements XMLW
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->	XML Tag-Name dieses Objektes */
+	/* <!-- $LANGUAGE=EN -->	XML Tag-Name for this object */
 	private String tagName;
 	
 
@@ -40,16 +41,26 @@ public class WritableDoubleProperty extends SimpleDoubleProperty implements XMLW
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue DoubleProperty
+	 * 
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableDoubleProperty(String tagName) {
 		super();
 		this.tagName = tagName;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue DoubleProperty
+	 * 
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableDoubleProperty(double initialValue, String tagName) {
 		super(initialValue);
 		this.tagName = tagName;
@@ -57,15 +68,30 @@ public class WritableDoubleProperty extends SimpleDoubleProperty implements XMLW
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue DoubleProperty
+	 * 
+	 * @param bean			Bean dieser DoubleProperty
+	 * @param name			Name dieser DoubleProperty
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableDoubleProperty(Object bean, String name, double initialValue, String tagName) {
 		super(bean, name, initialValue);
 		this.tagName = tagName;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue DoubleProperty
+	 * 
+	 * @param bean		Bean dieser DoubleProperty
+	 * @param name		Name dieser DoubleProperty
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableDoubleProperty(Object bean, String name, String tagName) {
 		super(bean, name);
 		this.tagName = tagName;
@@ -86,17 +112,20 @@ public class WritableDoubleProperty extends SimpleDoubleProperty implements XMLW
 		return this.tagName;
 	}
 	
+	
 	/** {@inheritDoc} */
 	@Override
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
 
+	
 	/** {@inheritDoc} */
 	@Override
 	public String getData() {
 		return String.valueOf(this.get());
 	}
+	
 
 	/** {@inheritDoc} */
 	@Override

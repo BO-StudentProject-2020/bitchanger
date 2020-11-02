@@ -280,9 +280,10 @@ public class ConvertingNumbers {
 	/** <!-- $LANGUAGE=DE -->
 	 * Wandelt die \u00FCbergebene Zahl {@code value} zur beliebigen Basis {@code base} in eine Zahl zur Basis 10 in der String-Darstellung um.
 	 * 
-	 * @param base	die spezifische Basis des \u00FCbergebenen Wertes {@code value}
-	 * @param value	der Zahlenwert, der umgewandelt werden soll, in der String-Darstellung
-	 * @param comma	das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
+	 * @param base		die spezifische Basis des \u00FCbergebenen Wertes {@code value}
+	 * @param value		der Zahlenwert, der umgewandelt werden soll, in der String-Darstellung
+	 * @param comma		das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
+	 * @param calcPath	Queue, in der alle Rechenschritte gespeichert werden, {@code null} ist erlaubt
 	 * 
 	 * @return	Wert der Zahl im Zehnersystem in der String-Darstellung
 	 * 
@@ -296,9 +297,10 @@ public class ConvertingNumbers {
 	/* <!-- $LANGUAGE=EN -->
 	 * Converts the submitted number {@code value} of any base {@code base} into a number of the decimal system as string representation.
 	 * 
-	 * @param base	Specific base of the submitted value {@code value}
-	 * @param value	The numeric value, which should be converted as string representation
-	 * @param comma	The char which is used as comma for floating point numbers
+	 * @param base		Specific base of the submitted value {@code value}
+	 * @param value		The numeric value, which should be converted as string representation
+	 * @param comma		The char which is used as comma for floating point numbers
+	 * @param calcPath	Queue to store every calculation step, {@code null} is valid
 	 * 
 	 * @return	Value of the Number in decimal system as string representation
 	 *
@@ -581,10 +583,11 @@ public class ConvertingNumbers {
 	 * maximalen Anzahl von Nachkommastellen abgeschnittenen Nachkommastellen durch "..." angedeutet.
 	 * </p>
 	 * 
-	 * @param newBase		Basis des neuen Zahlensystems, in das die Zahl {@code decValue} umgewandelt werden soll
-	 * @param decValue	Wert der Zahl im Zehnersystem in der String-Darstellung
-	 * @param comma		das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
+	 * @param newBase				Basis des neuen Zahlensystems, in das die Zahl {@code decValue} umgewandelt werden soll
+	 * @param decValue				Wert der Zahl im Zehnersystem in der String-Darstellung
+	 * @param comma					das Zeichen, welches als Komma in Gleitpunktzahlen verwendet wird
 	 * @param fractionalPrecision	maximale Anzahl der Nachkommastellen
+	 * @param calcPath				Queue, in der alle Rechenschritte gespeichert werden, {@code null} ist erlaubt
 	 * 
 	 * @return	umgewandelte Zahl zur \u00FCbergebenen Basis in der String-Darstellung
 	 * 
@@ -603,10 +606,12 @@ public class ConvertingNumbers {
 	 * the cut decimal places caused due the maximum number of decimal places will be shown as "..."
 	 * </p>
 	 * 
-	 * @param newBase	Base of the new numeral system, which will the number {@code decValue} be converted in
-	 * @param decValue	Value of the number in decimal system as String representation
-	 * @param comma		the char which is used as comma for floating point numbers
+	 * @param newBase				Base of the new numeral system, which will the number {@code decValue} be converted in
+	 * @param decValue				Value of the number in decimal system as String representation
+	 * @param comma					the char which is used as comma for floating point numbers
 	 * @param fractionalPrecision	maximum number of decimal places
+	 * @param calcPath				Queue to store every calculation step, {@code null} is valid
+	 * 
 	 * 
 	 * @return Converted number of the submitted base as string representation with default set comma
 	 * 
@@ -991,6 +996,8 @@ public class ConvertingNumbers {
 	 * 
 	 * @param base			beliebige Basis des Zahlensystems von {@code integerPart} im Bereich [2; 36]
 	 * @param integerPart	umzuwandelnde Zahl in der String-Darstellung
+	 * @param calcSteps		Queue, in der die Rechenschritte gespeichert werden, {@code null} ist erlaubt
+	 * 
 	 * @return				Wert der \u00FCbergebenen Zahl im Zehnersystem als {@code double}
 	 */
 	/* <!-- $LANGUAGE=EN -->
@@ -999,6 +1006,8 @@ public class ConvertingNumbers {
 	 * 
 	 * @param base			Any base of the numeral system of {@code integerPart} in the range [2; 36]
 	 * @param integerPart	Number which will be converted as string representation
+	 * @param calcSteps		Queue to store every calculation step, {@code null} is valid
+	 * 
 	 * @return				Value of the submitted number as decimal representation as{@code double}
 	 */
 	private static double baseToDecIntPart(int base, String integerPart, Queue<? super HornersMethod> calcSteps) {
@@ -1024,6 +1033,8 @@ public class ConvertingNumbers {
 	 * 
 	 * @param base				beliebige Basis des Zahlensystems von {@code fractionalPart} im Bereich [2; 36]
 	 * @param fractionalPart	umzuwandelnder Nachkommateil einer Zahl <b>ohne Komma</b> und als ganze Zahl in der String-Darstellung 
+	 * @param calcSteps		Queue, in der die Rechenschritte gespeichert werden, {@code null} ist erlaubt
+	 * 
 	 * @return					Wert des \u00FCbergebenen Nachkommaanteils im Zehnersystem als {@code double}
 	 */
 	/* <!-- $LANGUAGE=EN -->
@@ -1032,6 +1043,8 @@ public class ConvertingNumbers {
 	 * 
 	 * @param base				Any base of the numeral system of {@code fractionalPart} in the range [2; 36]
 	 * @param fractionalPart	Decimal places of a number which will be converted <b>without comma</b> as an integer as string representation 
+	 * @param calcSteps		Queue to store every calculation step, {@code null} is valid
+	 * 
 	 * @return					Value of the submitted decimal place as decimal representation as{@code double}
 	 */
 	private static double baseToDecFractionalPart(int base, String fractionalPart, Queue<ConversionStep> calcSteps) {
@@ -1074,6 +1087,7 @@ public class ConvertingNumbers {
 	 * @param newBase		Basis des neuen Zahlensystems
 	 * @param integerPart	ganzzahligen Wert im Zehnersystem
 	 * @param calcSteps		Liste, in der alle einzelnen Rechenschritte gespeichert werden. {@code null}-Werte sind erlaubt und werden ignoriert
+	 * @param calcSteps		Queue, in der die Rechenschritte gespeichert werden, {@code null} ist erlaubt
 	 * 
 	 * @return	umgewandelter Wert zur Basis {@code basis} in String-Darstellung
 	 * 
@@ -1085,6 +1099,7 @@ public class ConvertingNumbers {
 	 * @param newBase		Base of the new numeral system
 	 * @param integerPart	Integer value of decimal system
 	 * @param calcSteps		List that is used to store every calculation step. {@code null} is allowed and will be ignored
+	 * @param calcSteps		Queue to store every calculation step, {@code null} is valid
 	 * 
 	 * @return	Returned value of base {@code basis} as string representation
 	 * 

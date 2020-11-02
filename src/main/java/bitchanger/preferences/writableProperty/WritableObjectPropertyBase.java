@@ -12,7 +12,7 @@ import bitchanger.preferences.XMLWritable;
 import javafx.beans.property.SimpleObjectProperty;
 
 /** <!-- $LANGUAGE=DE -->
- * 
+ * Erweiterung von {@link SimpleObjectProperty} als {@link XMLWritable}
  * 
  * @author Tim M\u00FChle
  * 
@@ -20,7 +20,7 @@ import javafx.beans.property.SimpleObjectProperty;
  * @version 0.1.7
  *
  */
-// TODO JavaDoc
+// TODO JavaDoc EN
 public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty<T> implements XMLWritable {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -29,7 +29,8 @@ public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->	XML Tag-Name dieses Objektes */
+	/* <!-- $LANGUAGE=EN -->	XML Tag-Name for this object */
 	private String tagName;
 
 
@@ -40,32 +41,58 @@ public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty
+	 * 
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableObjectPropertyBase(String tagName) {
 		super();
 		this.tagName = tagName;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty
+	 * 
+	 * @param bean			Bean dieser ObjectProperty
+	 * @param name			Name dieser ObjectProperty
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableObjectPropertyBase(Object bean, String name, T initialValue, String tagName) {
 		super(bean, name, initialValue);
 		this.tagName = tagName;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty
+	 * 
+	 * @param bean		Bean dieser ObjectProperty
+	 * @param name		Name dieser ObjectProperty
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableObjectPropertyBase(Object bean, String name, String tagName) {
 		super(bean, name);
 		this.tagName = tagName;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty
+	 * 
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableObjectPropertyBase(T initialValue, String tagName) {
 		super(initialValue);
 		this.tagName = tagName;

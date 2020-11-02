@@ -8,9 +8,8 @@
 
 package bitchanger.preferences.writableProperty;
 
-
 /** <!-- $LANGUAGE=DE -->
- * 
+ * Erweiterung von {@link WritableObjectPropertyBase}, um ein Objekt von Enum zu umhüllen
  * 
  * @author Tim M\u00FChle
  * 
@@ -18,7 +17,7 @@ package bitchanger.preferences.writableProperty;
  * @version 0.1.7
  *
  */
-// TODO JavaDoc
+// TODO JavaDoc EN
 public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPropertyBase<E> {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -28,28 +27,54 @@ public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPrope
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty, die ein Enum einhüllt
+	 * 
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableEnumProperty(E initialValue, String tagName) {
 		super(initialValue, tagName);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty, die ein Enum einhüllt
+	 * 
+	 * @param bean			Bean dieser DoubleProperty
+	 * @param name			Name dieser DoubleProperty
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableEnumProperty(Object bean, String name, E initialValue, String tagName) {
 		super(bean, name, initialValue, tagName);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty, die ein Enum einhüllt
+	 * 
+	 * @param bean		Bean dieser DoubleProperty
+	 * @param name		Name dieser DoubleProperty
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableEnumProperty(Object bean, String name, String tagName) {
 		super(bean, name, tagName);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty, die ein Enum einhüllt
+	 * 
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableEnumProperty(String tagName) {
 		super(tagName);
 	}

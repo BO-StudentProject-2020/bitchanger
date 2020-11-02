@@ -12,7 +12,7 @@ import bitchanger.main.BitchangerLauncher;
 import bitchanger.main.BitchangerLauncher.ErrorLevel;
 
 /** <!-- $LANGUAGE=DE -->
- * 
+ * Erweiterung von {@link WritableObjectPropertyBase}, um ein Class-Objekt zu umhüllen
  * 
  * @author Tim M\u00FChle
  * 
@@ -20,7 +20,7 @@ import bitchanger.main.BitchangerLauncher.ErrorLevel;
  * @version 0.1.8
  *
  */
-// TODO JavaDoc
+// TODO JavaDoc EN
 public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<? extends T>> {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -29,29 +29,55 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einhüllt
+	 * 
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableClassProperty(Class<? extends T> initialValue, String tagName) {
 		super(initialValue, tagName);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einhüllt
+	 * 
+	 * @param bean			Bean dieser DoubleProperty
+	 * @param name			Name dieser DoubleProperty
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableClassProperty(Object bean, String name, Class<? extends T> initialValue, String tagName) {
 		super(bean, name, initialValue, tagName);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einhüllt
+	 * 
+	 * @param bean		Bean dieser DoubleProperty
+	 * @param name		Name dieser DoubleProperty
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableClassProperty(Object bean, String name, String tagName) {
 		super(bean, name, tagName);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einhüllt
+	 * 
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableClassProperty(String tagName) {
 		super(tagName);
 	}

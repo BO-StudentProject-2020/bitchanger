@@ -12,7 +12,7 @@ import bitchanger.preferences.XMLWritable;
 import javafx.beans.property.SimpleBooleanProperty;
 
 /** <!-- $LANGUAGE=DE -->
- * 
+ * Erweiterung von {@link SimpleBooleanProperty} als {@link XMLWritable}
  * 
  * @author Tim M\u00FChle
  * 
@@ -20,7 +20,7 @@ import javafx.beans.property.SimpleBooleanProperty;
  * @version 0.1.7
  *
  */
-// TODO JavaDoc
+// TODO JavaDoc EN
 public class WritableBooleanProperty extends SimpleBooleanProperty implements XMLWritable {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -29,7 +29,8 @@ public class WritableBooleanProperty extends SimpleBooleanProperty implements XM
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->	XML Tag-Name dieses Objektes */
+	/* <!-- $LANGUAGE=EN -->	XML Tag-Name for this object */
 	private String tagName;
 	
 
@@ -40,32 +41,58 @@ public class WritableBooleanProperty extends SimpleBooleanProperty implements XM
 //  #																																 #
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue BooleanProperty
+	 * 
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableBooleanProperty(String tagName) {
 		super();
 		this.tagName = tagName;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue BooleanProperty
+	 * 
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableBooleanProperty(boolean initialValue, String tagName) {
 		super(initialValue);
 		this.tagName = tagName;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue BooleanProperty
+	 * 
+	 * @param bean			Bean dieser BooleanProperty
+	 * @param name			Name dieser BooleanProperty
+	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param tagName		XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableBooleanProperty(Object bean, String name, boolean initialValue, String tagName) {
 		super(bean, name, initialValue);
 		this.tagName = tagName;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt eine neue BooleanProperty
+	 * 
+	 * @param bean		Bean dieser BooleanProperty
+	 * @param name		Name dieser BooleanProperty
+	 * @param tagName	XML Tag-Name dieser Property
+	 */
+	// TODO JavaDoc EN
 	public WritableBooleanProperty(Object bean, String name, String tagName) {
 		super(bean, name);
 		this.tagName = tagName;

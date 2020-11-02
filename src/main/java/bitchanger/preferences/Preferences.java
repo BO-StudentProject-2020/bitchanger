@@ -238,19 +238,19 @@ public class Preferences {
 	 * @param file	File with the settings to be loaded in XML format
 	 */
 	private Preferences(File file) {
-		this.commaProperty = new WritableEnumProperty<>(Comma.COMMA_DE, "comma");
-		this.indicateFractionalPrecisionProperty = new WritableBooleanProperty(true, "indicateFractionalPrecision");
-		this.stylesheetProperty = new SimpleStringProperty("");
-		this.styleProperty = new WritableEnumProperty<>(Style.UNKNOWN, "style");
-		this.viewClassProperty = new WritableClassProperty<>(ConverterView.class, "viewClass");
-		this.ieeeStandardProperty = new WritableEnumProperty<>(IEEEStandard.IEEE_754_2008_b32, "IEEE_Standard");
-		this.showBitOperationSymbolsProperty = new WritableBooleanProperty(false, "showBitOperationSymbols");
-		this.bitLengthProperty = new WritableEnumProperty<>(BitLength._8_BIT, "bitLength");
-		this.useUnsignedBitOperationProperty = new WritableBooleanProperty(true, "unsignedBitoperations");
-		this.unsignedBitLengthWarningDeactivatedProperty = new WritableBooleanProperty(false, "deactivateUnsignedBitLenthWarning");
-		this.bitLengthDeleteWarningDeactivatedProperty = new WritableBooleanProperty(false, "deactivateBitLengthDeleteWarning");
-		this.bitOpertionBaseProperty = new WritableIntegerProperty(10, "bitOperationBase");
-		this.calculationBaseProperty = new WritableIntegerProperty(10, "calculationBase");
+		this.commaProperty 									= new WritableEnumProperty<>(Comma.COMMA_DE, "comma");
+		this.indicateFractionalPrecisionProperty 			= new WritableBooleanProperty(true, "indicateFractionalPrecision");
+		this.stylesheetProperty 							= new SimpleStringProperty("");
+		this.styleProperty 									= new WritableEnumProperty<>(Style.UNKNOWN, "style");
+		this.viewClassProperty 								= new WritableClassProperty<>(ConverterView.class, "viewClass");
+		this.ieeeStandardProperty 							= new WritableEnumProperty<>(IEEEStandard.IEEE_754_2008_b32, "IEEE_Standard");
+		this.showBitOperationSymbolsProperty 				= new WritableBooleanProperty(false, "showBitOperationSymbols");
+		this.bitLengthProperty 								= new WritableEnumProperty<>(BitLength._8_BIT, "bitLength");
+		this.useUnsignedBitOperationProperty 				= new WritableBooleanProperty(true, "unsignedBitoperations");
+		this.unsignedBitLengthWarningDeactivatedProperty	= new WritableBooleanProperty(false, "deactivateUnsignedBitLenthWarning");
+		this.bitLengthDeleteWarningDeactivatedProperty 		= new WritableBooleanProperty(false, "deactivateBitLengthDeleteWarning");
+		this.bitOpertionBaseProperty 						= new WritableIntegerProperty(10, "bitOperationBase");
+		this.calculationBaseProperty 						= new WritableIntegerProperty(10, "calculationBase");
 		
 		try {
 			this.load(file);
@@ -404,9 +404,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property f\u00FCr die Anzeige der Symbole der Bitoperationen in der CalculatorView zur\u00FCck
+	 * Gibt die Property f\u00FCr die Anzeige der Symbole der Bitoperationen in der BitoperationView zur\u00FCck
 	 * 
-	 * @return	Property f\u00FCr die Anzeige der Symbole der Bitoperationen in der CalculatorView
+	 * @return	Property f\u00FCr die Anzeige der Symbole der Bitoperationen in der BitoperationView
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -418,9 +418,9 @@ public class Preferences {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Gibt die Property f\u00FCr vorzeichenlose Bitoperationen in der CalculatorView zur\u00FCck
+	 * Gibt die Property f\u00FCr vorzeichenlose Bitoperationen in der BitoperationView zur\u00FCck
 	 * 
-	 * @return	Property f\u00FCr vorzeichenlose Bitoperationen in der CalculatorView
+	 * @return	Property f\u00FCr vorzeichenlose Bitoperationen in der BitoperationView
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
@@ -431,28 +431,56 @@ public class Preferences {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.7
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property f\u00FCr das Deaktivieren der Warnmeldung f\u00FCr vorzeichenlose Bitoperationen mit 64-Bit zur\u00FCck
+	 * 
+	 * @return	Property f\u00FCr das Deaktivieren der Warnmeldung f\u00FCr vorzeichenlose Bitoperationen mit 64-Bit
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
 	public BooleanProperty unsignedBitLengthWarningDeactivatedProperty() {
 		return this.unsignedBitLengthWarningDeactivatedProperty;
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.7
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property f\u00FCr das Deaktivieren der Warnmeldung beim Verkleinern der Bitl\u00E4nge zur\u00FCck
+	 * 
+	 * @return	Property f\u00FCr das Deaktivieren der Warnmeldung beim Verkleinern der Bitl\u00E4nge
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
 	public BooleanProperty bitLengthDeleteWarningDeactivatedProperty() {
 		return this.bitLengthDeleteWarningDeactivatedProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.8
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property f\u00FCr die eingestellte Basis in den Bitoperationen zur\u00FCck
+	 * 
+	 * @return	Property f\u00FCr die eingestellte Basis in den Bitoperationen
+	 * 
+	 * @since Bitchanger 0.1.8
+	 */
+	// TODO JavaDoc EN
 	public IntegerProperty bitOpertionBaseProperty() {
 		return this.bitOpertionBaseProperty;
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.8
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt die Property f\u00FCr die eingestellte Basis in den Berechnungen zur\u00FCck
+	 * 
+	 * @return	Property f\u00FCr die eingestellte Basis in den Berechnungen
+	 * 
+	 * @since Bitchanger 0.1.8
+	 */
+	// TODO JavaDoc EN
 	public IntegerProperty calculationBaseProperty() {
 		return this.calculationBaseProperty;
 	}
@@ -701,7 +729,7 @@ public class Preferences {
 	 * @param xmlRoot	root element of the XML tree that is being expanded
 	 */
 	private void createXMLTree(Document doc, Element xmlRoot) {
-		// Preferences
+		// Preferences Tag
 		Element prefTag = doc.createElement("preferences");
 		xmlRoot.appendChild(prefTag);
 		

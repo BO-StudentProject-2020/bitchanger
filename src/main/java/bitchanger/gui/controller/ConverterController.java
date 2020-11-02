@@ -328,24 +328,14 @@ public class ConverterController extends ControllerBase<ConverterView> {
 	 * Zudem wird das Attribut {@link #focusedTF} bei Auswahl eines Textfeldes aktualisiert und {@link #baseProperty}
 	 * mit der Basis des Textfelds verbunden.
 	 * 
-	 * @see #setHexValListener()
-	 * @see #setDecValListener()
-	 * @see #setOctValListener()
-	 * @see #setBinValListener()
-	 * @see #setAnyValListener()
-	 * @see #setTFSelection()
+	 * @see #setValueListener(ValueField, Consumer, boolean, boolean, boolean, boolean, boolean)
 	 */
 	/*	<!-- $LANGUAGE=EN -->
 	 * Sets listener for the text fields, to convert the input in any numeral system immediately.
 	 * Furthermore the attribute {@link #focusedTF} gets updates by selecting another text field
 	 * and {@link #baseProperty} gets connected to the base of this text field.
 	 * 
-	 * @see #setHexValListener()
-	 * @see #setDecValListener()
-	 * @see #setOctValListener()
-	 * @see #setBinValListener()
-	 * @see #setAnyValListener()
-	 * @see #setTFSelection()
+	 * @see #setValueListener(ValueField, Consumer, boolean, boolean, boolean, boolean, boolean)
 	 */
 	private void setTextFieldActions() {
 		setValueListener(tfHex, value::setHex, false, true, true, true, true);
