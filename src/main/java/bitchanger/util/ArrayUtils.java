@@ -20,6 +20,7 @@ import java.util.Queue;
  * @version 0.1.7
  *
  */
+//TODO JavaDoc EN
 public class ArrayUtils {
 
 	/** <!-- $LANGUAGE=DE -->
@@ -33,7 +34,7 @@ public class ArrayUtils {
 	 * Converts the given Objects to an Array
 	 * 
 	 * @param <T>		Type of Objects and the returned Array
-	 * @param values	Objects to for building an Array
+	 * @param values	Objects for building an Array
 	 * @return			Array from the given Objects
 	 */
 	@SafeVarargs
@@ -42,8 +43,25 @@ public class ArrayUtils {
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
-
-	// TODO JavaDoc @since 0.1.7
+	
+	/** <!-- $LANGUAGE=DE -->
+	 * Wandelt eine Aufz\u00E4hlung von Objekten in eine Queue um und gibt diese zur\u00FCck.
+	 * 
+	 * @param <T>		Typ der Objekte und der zur\u00FCckgegebenen Queue
+	 * @param values	Objekte, aus denen die Queue gebildet wird
+	 * @return			Queue aus den \u00FCbergebenen Objekten
+	 * 
+	 * @since 0.1.7
+	 */
+	/* <!-- $LANGUAGE=EN -->
+	 * Converts the given Objects to a Queue
+	 * 
+	 * @param <T>		Type of Objects and the returned Queue
+	 * @param values	Objects for building a Queue
+	 * @return			Queue from the given Objects
+	 * 
+	 * @since 0.1.7
+	 */
 	@SafeVarargs
 	public static <T> Queue<T> queueOf(T... values) {
 		ArrayDeque<T> queue = new ArrayDeque<>();

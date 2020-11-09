@@ -288,7 +288,16 @@ public class FXUtils {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Versucht im Label eines MenuItems ein Icon als einzigen Text hinzuzuf\u00FCgen. Wenn das Icon nicht korrekt
+	 * geladen werden konnte wird stattdessen ein alternativer Text angezeigt. Bereits vorhandener Text im Label
+	 * geht in beiden F\u00E4llen verloren!
+	 * 
+	 * @param menuItem			MenuItem, das ein Icon anzeigen soll
+	 * @param icon				Icon, das angezeigt werden soll
+	 * @param alternativeText	Alternativer Text, falls das Icon nicht angezeigt werden kann
+	 */
+	// TODO JavaDoc EN
 	public static void setIconOrText(MenuItem menuItem, SVGIcon icon, String alternativeText) {
 		if(icon != null && icon.hasPath()) {
 			menuItem.setText("");
@@ -302,14 +311,31 @@ public class FXUtils {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Versucht dem Label eines MenuItems ein Icon als einzigen Text hinzuzuf\u00FCgen. Wenn das Icon nicht
+	 * korrekt geladen werden konnte bleibt stattdessen der bisherige Text im Label erhalten, ansonsten geht
+	 * der bisherige Text im Label verloren!
+	 * 
+	 * @param menuItem			MenuItem, das ein Icon anzeigen soll
+	 * @param icon				Icon, das angezeigt werden soll
+	 */
+	// TODO JavaDoc EN
 	public static void setIconOrText(MenuItem menuItem, SVGIcon icon) {
 		setIconOrText(menuItem, icon, menuItem.getText());
 	}
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Versucht im Label eines Node ein Icon hinzuzuf\u00FCgen. Wenn das Icon nicht korrekt geladen werden
+	 * konnte wird stattdessen ein alternativer Text angezeigt. Bereits vorhandener Text im Label geht in
+	 * beiden F\u00E4llen verloren!
+	 * 
+	 * @param labeled			Node, in dem ein Icon angezeigt werden soll
+	 * @param icon				Icon, das angezeigt werden soll
+	 * @param alternativeText	Alternativer Text, falls das Icon nicht angezeigt werden kann
+	 */
+	// TODO JavaDoc EN
 	public static void setIconOrText(Labeled labeled, SVGIcon icon, String alternativeText) {
 		if(icon != null && icon.hasPath()) {
 			labeled.setText("");
@@ -323,14 +349,30 @@ public class FXUtils {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Versucht dem Label eines Node ein Icon hinzuzuf\u00FCgen. Wenn das Icon nicht korrekt geladen werden
+	 * konnte bleibt stattdessen der bisherige Text im Label erhalten, ansonsten geht der bisherige Text im
+	 * Label verloren!
+	 * 
+	 * @param labeled			Node, in dem ein Icon angezeigt werden soll
+	 * @param icon				Icon, das angezeigt werden soll
+	 */
+	// TODO JavaDoc EN
 	public static void setIconOrText(Labeled labeled, SVGIcon icon) {
 		setIconOrText(labeled, icon, labeled.getText());
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.7
+	/** <!-- $LANGUAGE=DE -->
+	 * Zeigt eine Warnmeldung zu einer NumberOverflowException an.
+	 * 
+	 * @param noe	NumberOverflowException, zu der die Warnmeldung angezeigt wird
+	 * @return		{@link Optional}, das von {@link Alert#showAndWait()} zur\u00FCckgegeben wurde
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
 	public static Optional<ButtonType> showNumberOverflowWarning(NumberOverflowException noe) {
 		StringBuffer infoText = new StringBuffer();
 		infoText.append("Die gr\u00F6\u00DFte erlaubte Zahl ist ");
@@ -354,7 +396,21 @@ public class FXUtils {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.7
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt einen {@link Alert} mit den \u00FCbergebenen Parametern, zeigt diesen an und gibt das zur\u00FCckgegebene
+	 * {@link Optional} zur\u00FCck
+	 * 
+	 * @param dialogType	spezifischer {@link AlertType}
+	 * @param title			Titel des Dialogfensters
+	 * @param headerText	String, der in der \u00DCberschrift des Dialogs angezeigt wird
+	 * @param message		String, der im Inhaltsbereich des Dialogs angezeigt wird
+	 * @param buttonTypes	Button-Typen, die im Dialog angezeigt werden
+	 * 
+	 * @return	{@link Optional}, das von {@link Alert#showAndWait()} zur\u00FCckgegeben wurde
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
 	public static Optional<ButtonType> showDialog(AlertType dialogType, String title, String headerText, String message, ButtonType... buttonTypes) {
 		Alert dialog = new Alert(dialogType, message, buttonTypes);
 		if(title != null) dialog.setTitle(title);
@@ -369,14 +425,43 @@ public class FXUtils {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.7
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt einen {@link Alert} mit den \u00FCbergebenen Parametern, zeigt diesen an und gibt das zur\u00FCckgegebene
+	 * {@link Optional} zur\u00FCck
+	 * 
+	 * @param dialogType	spezifischer {@link AlertType}
+	 * @param headerText	String, der in der \u00DCberschrift des Dialogs angezeigt wird
+	 * @param message		String, der im Inhaltsbereich des Dialogs angezeigt wird
+	 * @param buttonTypes	Button-Typen, die im Dialog angezeigt werden
+	 * 
+	 * @return	{@link Optional}, das von {@link Alert#showAndWait()} zur\u00FCckgegeben wurde
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
 	public static Optional<ButtonType> showDialog(AlertType dialogType, String headerText, String message, ButtonType... buttonTypes) {
 		return showDialog(dialogType, null, headerText, message, buttonTypes);
 	}
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.7
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt einen {@link Alert} mit den \u00FCbergebenen Parametern, zeigt diesen an und gibt das zur\u00FCckgegebene
+	 * {@link Optional} zur\u00FCck. Im Dialog gibt es eine CheckBox, um diesen Dialog zu aktivieren, die Einstellung
+	 * dieser Checkbox wird beim Schlie\u00DFen des Dialogs in der {@code deactivateDialogProperty} gespeichert.
+	 * 
+	 * @param dialogType	spezifischer {@link AlertType}
+	 * @param title			Titel des Dialogfensters
+	 * @param headerText	String, der in der \u00DCberschrift des Dialogs angezeigt wird
+	 * @param message		String, der im Inhaltsbereich des Dialogs angezeigt wird
+	 * @param deactivateDialogProperty	Property, um diesen Dialog zu deaktivieren
+	 * @param buttonTypes	Button-Typen, die im Dialog angezeigt werden
+	 * 
+	 * @return	{@link Optional}, das von {@link Alert#showAndWait()} zur\u00FCckgegeben wurde
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
 	public static Optional<ButtonType> showDeactivatableDialog(AlertType dialogType, String title, String headerText, String message, BooleanProperty deactivateDialogProperty, ButtonType... buttonTypes) {
 		if(deactivateDialogProperty.get()) {
 			return Optional.empty();
@@ -413,7 +498,22 @@ public class FXUtils {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc @since Bitchanger 0.1.7
+	/** <!-- $LANGUAGE=DE -->
+	 * Erstellt einen {@link Alert} mit den \u00FCbergebenen Parametern, zeigt diesen an und gibt das zur\u00FCckgegebene
+	 * {@link Optional} zur\u00FCck. Im Dialog gibt es eine CheckBox, um diesen Dialog zu aktivieren, die Einstellung
+	 * dieser Checkbox wird beim Schlie\u00DFen des Dialogs in der {@code deactivateDialogProperty} gespeichert.
+	 * 
+	 * @param dialogType	spezifischer {@link AlertType}
+	 * @param headerText	String, der in der \u00DCberschrift des Dialogs angezeigt wird
+	 * @param message		String, der im Inhaltsbereich des Dialogs angezeigt wird
+	 * @param deactivateDialogProperty	Property, um diesen Dialog zu deaktivieren
+	 * @param buttonTypes	Button-Typen, die im Dialog angezeigt werden
+	 * 
+	 * @return	{@link Optional}, das von {@link Alert#showAndWait()} zur\u00FCckgegeben wurde
+	 * 
+	 * @since Bitchanger 0.1.7
+	 */
+	// TODO JavaDoc EN
 	public static Optional<ButtonType> showDeactivatableDialog(AlertType dialogType, String headerText, String message, BooleanProperty deactivateDialogProperty, ButtonType... buttonTypes) {
 		return showDeactivatableDialog(dialogType, null, headerText, message, deactivateDialogProperty, buttonTypes);
 	}

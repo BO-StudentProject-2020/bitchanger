@@ -27,9 +27,9 @@ import javafx.scene.shape.SVGPath;
  * @version 0.1.8
  *
  */
+//TODO JavaDoc EN
 public class IconFactory {
 	
-	// TODO JavaDoc EN
 	
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt ein neues SVGIcon, das je nach eingestelltem Style in {@link Preferences#styleProperty()} der svg-Datei
@@ -40,6 +40,7 @@ public class IconFactory {
 	 * 
 	 * @return	neues SVGIcon, generiert aus den Files lightIconFile und darkIconFile oder {@code null}, wenn die Dateien nicht gelesen werden konnten
 	 */
+	// TODO JavaDoc EN
 	public static SVGIcon styleBindIcon(File lightIconFile, File darkIconFile) {
 		try {
 			SVGIcon icon = new SVGIcon();
@@ -75,6 +76,7 @@ public class IconFactory {
 	 * @param darkSVG	SVGPath f\u00FCr den Fall {@link Style#DARK}
 	 * @param style		Style, der \u00FCber den SCG-Pfad entscheidet
 	 */
+	// TODO JavaDoc EN
 	private static void setSVGStyle(SVGIcon icon, SVGPath lightSVG, SVGPath darkSVG, Style style) {
 		switch(style) {
 			case LIGHT: /* fall through */
@@ -91,7 +93,14 @@ public class IconFactory {
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Erzeugt ein neues SVGIcon aus der \u00FCbergebenen Datei. Wenn {@code file} null ist, wird {@code null}
+	 * zur\u00FCckgegeben.
+	 * 
+	 * @param file	SVG-Datei
+	 * @return	neues {@link SVGIcon} mit dem SVG-Pfad aus der \u00FCbergebenen Datei
+	 */
+	// TODO JavaDoc EN
 	public static SVGIcon ofSVGFile(File file) {
 		return file == null ? null : new SVGIcon(file);
 	}
