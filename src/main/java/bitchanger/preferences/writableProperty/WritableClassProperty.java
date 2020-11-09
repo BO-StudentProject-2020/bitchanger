@@ -12,7 +12,7 @@ import bitchanger.main.BitchangerLauncher;
 import bitchanger.main.BitchangerLauncher.ErrorLevel;
 
 /** <!-- $LANGUAGE=DE -->
- * Erweiterung von {@link WritableObjectPropertyBase}, um ein Class-Objekt zu umhüllen
+ * Erweiterung von {@link WritableObjectPropertyBase}, um ein Class-Objekt zu umh\u00FCllen
  * 
  * @author Tim M\u00FChle
  * 
@@ -31,9 +31,9 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einhüllt
+	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einh\u00FCllt
 	 * 
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN
@@ -44,11 +44,11 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einhüllt
+	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einh\u00FCllt
 	 * 
 	 * @param bean			Bean dieser DoubleProperty
 	 * @param name			Name dieser DoubleProperty
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN
@@ -59,7 +59,7 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einhüllt
+	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einh\u00FCllt
 	 * 
 	 * @param bean		Bean dieser DoubleProperty
 	 * @param name		Name dieser DoubleProperty
@@ -73,7 +73,7 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einhüllt
+	 * Erzeugt eine neue ObjectProperty, die ein Class-Object einh\u00FCllt
 	 * 
 	 * @param tagName	XML Tag-Name dieser Property
 	 */

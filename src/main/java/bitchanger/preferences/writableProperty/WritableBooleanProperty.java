@@ -58,7 +58,7 @@ public class WritableBooleanProperty extends SimpleBooleanProperty implements XM
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue BooleanProperty
 	 * 
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN
@@ -74,7 +74,7 @@ public class WritableBooleanProperty extends SimpleBooleanProperty implements XM
 	 * 
 	 * @param bean			Bean dieser BooleanProperty
 	 * @param name			Name dieser BooleanProperty
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN

@@ -58,7 +58,7 @@ public class WritableIntegerProperty extends SimpleIntegerProperty implements XM
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue IntegerProperty
 	 * 
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN
@@ -74,7 +74,7 @@ public class WritableIntegerProperty extends SimpleIntegerProperty implements XM
 	 * 
 	 * @param bean			Bean dieser IntegerProperty
 	 * @param name			Name dieser IntegerProperty
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN

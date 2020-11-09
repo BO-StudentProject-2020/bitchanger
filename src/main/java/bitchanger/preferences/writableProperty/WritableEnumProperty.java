@@ -9,7 +9,7 @@
 package bitchanger.preferences.writableProperty;
 
 /** <!-- $LANGUAGE=DE -->
- * Erweiterung von {@link WritableObjectPropertyBase}, um ein Objekt von Enum zu umhüllen
+ * Erweiterung von {@link WritableObjectPropertyBase}, um ein Objekt von Enum zu umh\u00FCllen
  * 
  * @author Tim M\u00FChle
  * 
@@ -28,9 +28,9 @@ public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPrope
 	
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ObjectProperty, die ein Enum einhüllt
+	 * Erzeugt eine neue ObjectProperty, die ein Enum einh\u00FCllt
 	 * 
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN
@@ -41,11 +41,11 @@ public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPrope
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ObjectProperty, die ein Enum einhüllt
+	 * Erzeugt eine neue ObjectProperty, die ein Enum einh\u00FCllt
 	 * 
 	 * @param bean			Bean dieser DoubleProperty
 	 * @param name			Name dieser DoubleProperty
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN
@@ -56,7 +56,7 @@ public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPrope
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ObjectProperty, die ein Enum einhüllt
+	 * Erzeugt eine neue ObjectProperty, die ein Enum einh\u00FCllt
 	 * 
 	 * @param bean		Bean dieser DoubleProperty
 	 * @param name		Name dieser DoubleProperty
@@ -70,7 +70,7 @@ public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPrope
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/** <!-- $LANGUAGE=DE -->
-	 * Erzeugt eine neue ObjectProperty, die ein Enum einhüllt
+	 * Erzeugt eine neue ObjectProperty, die ein Enum einh\u00FCllt
 	 * 
 	 * @param tagName	XML Tag-Name dieser Property
 	 */

@@ -114,7 +114,7 @@ public class CalculationViewBase extends AlphaNumGridView {
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
 //	/** <!-- $LANGUAGE=DE -->
-//	 * Erzeugt eine neue CalculatorView mit vollständigem Scenegraphen und initialisiert die Funktionen
+//	 * Erzeugt eine neue CalculatorView mit vollst\u00E4ndigem Scenegraphen und initialisiert die Funktionen
 //	 * der Bedienelemente mit einem {@link CalculatorController}.
 //	 */
 	// TODO JavaDoc

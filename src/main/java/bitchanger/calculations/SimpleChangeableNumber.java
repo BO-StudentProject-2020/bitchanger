@@ -564,7 +564,7 @@ public class SimpleChangeableNumber implements ChangeableNumber {
 		if(exp > standard.maxExp() || exp < 0) {
 			// Fehler, wenn Exponent verlassen
 			throw new ArithmeticException("Diese Zahl kann nicht zur IEEE-Norm mit " + standard.getBitLength() + "-Bit umgewandelt werden, "
-										+ "da der Exponent zu groß oder zu klein ist.\n\n"
+										+ "da der Exponent zu gro\u00DF oder zu klein ist.\n\n"
 										+ "maximaler Exponent: " + standard.maxExp() + "\n"
 										+ "kleinster Exponent: 0\n"
 										+ "berechneter Exponent: " + exp);

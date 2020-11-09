@@ -31,11 +31,11 @@ public interface XMLWritable {
 
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Erzeugt ein XML-Tag für dieses Objekt aus den Methoden {@link #getTagName()} und {@link #getData()} und
-	 * gibt diesen als {@link Element} zurück.
+	 * Erzeugt ein XML-Tag f\u00FCr dieses Objekt aus den Methoden {@link #getTagName()} und {@link #getData()} und
+	 * gibt diesen als {@link Element} zur\u00FCck.
 	 * 
-	 * @param xmlDoc {@link Document} für das ein XML-Tag erstellt wird
-	 * @return {@link Element} mit dem Tag-Namen {@link #getTagName()}, das den String {@link #getData()} als Textknoten enthält
+	 * @param xmlDoc {@link Document} f\u00FCr das ein XML-Tag erstellt wird
+	 * @return {@link Element} mit dem Tag-Namen {@link #getTagName()}, das den String {@link #getData()} als Textknoten enth\u00E4lt
 	 */
 	// TODO JavaDoc EN
 	default Element getXMLTag(Document xmlDoc) {
@@ -47,8 +47,8 @@ public interface XMLWritable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Sucht ein {@link Element} mit dem Tag-Namen {@link #getTagName()} im übergebenen {@code parentTag}
-	 * und übergibt im Anschluss die gefundenen Daten an {@link #setData(String)}. Es wird nur der erste
+	 * Sucht ein {@link Element} mit dem Tag-Namen {@link #getTagName()} im \u00FCbergebenen {@code parentTag}
+	 * und \u00FCbergibt im Anschluss die gefundenen Daten an {@link #setData(String)}. Es wird nur der erste
 	 * gefundene Knoten mit passendem Tag-Namen beachtet.
 	 * 
 	 * @param parentTag	XML-Tag, in dem nach einem passenden Knoten gesucht wird
@@ -76,9 +76,9 @@ public interface XMLWritable {
 
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt den Namen für den XML-Tag dieses Objektes zurück
+	 * Gibt den Namen f\u00FCr den XML-Tag dieses Objektes zur\u00FCck
 	 * 
-	 * @return Name für den XML-Tag dieses Objektes
+	 * @return Name f\u00FCr den XML-Tag dieses Objektes
 	 */
 	// TODO JavaDoc EN
 	public abstract String getTagName();
@@ -86,9 +86,9 @@ public interface XMLWritable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
 	/**	<!-- $LANGUAGE=DE -->
-	 * Setzt den Namen für den XML-Tag dieses Objektes
+	 * Setzt den Namen f\u00FCr den XML-Tag dieses Objektes
 	 * 
-	 * @param tagName	Name für den XML-Tag dieses Objektes
+	 * @param tagName	Name f\u00FCr den XML-Tag dieses Objektes
 	 */
 	// TODO JavaDoc EN
 	public abstract void setTagName(String tagName);
@@ -96,7 +96,7 @@ public interface XMLWritable {
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
 	/**	<!-- $LANGUAGE=DE -->
-	 * Gibt die gekapselten Daten dieses Objektes als String zurück
+	 * Gibt die gekapselten Daten dieses Objektes als String zur\u00FCck
 	 * 
 	 * @return gekapselten Daten dieses Objektes als String
 	 */

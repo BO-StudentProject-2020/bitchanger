@@ -60,7 +60,7 @@ public class WritableStringProperty extends SimpleStringProperty implements XMLW
 	 * 
 	 * @param bean			Bean dieser DoubleProperty
 	 * @param name			Name dieser DoubleProperty
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN
@@ -89,7 +89,7 @@ public class WritableStringProperty extends SimpleStringProperty implements XMLW
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue StringProperty
 	 * 
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN

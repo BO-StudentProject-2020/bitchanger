@@ -60,7 +60,7 @@ public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty
 	 * 
 	 * @param bean			Bean dieser ObjectProperty
 	 * @param name			Name dieser ObjectProperty
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN
@@ -89,7 +89,7 @@ public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty
 	/** <!-- $LANGUAGE=DE -->
 	 * Erzeugt eine neue ObjectProperty
 	 * 
-	 * @param initialValue	Startwert für den umschlossenen Wert
+	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
 	// TODO JavaDoc EN
