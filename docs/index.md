@@ -6,7 +6,7 @@
         <div>
             <p>
                 <h1>Bitchanger Homepage</h1>
-                <img src="img/Bitchanger.png" style="width: 10%; height: 10%" id="background" />
+                <img src="img/Bitchanger.png" style="width: 15%; height: 15%" id="background" />
             </p>
             <p>
                 <ul id="menu">
