@@ -1086,7 +1086,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @param newBase		Basis des neuen Zahlensystems
 	 * @param integerPart	ganzzahligen Wert im Zehnersystem
-	 * @param calcSteps		Liste, in der alle einzelnen Rechenschritte gespeichert werden. {@code null}-Werte sind erlaubt und werden ignoriert
 	 * @param calcSteps		Queue, in der die Rechenschritte gespeichert werden, {@code null} ist erlaubt
 	 * 
 	 * @return	umgewandelter Wert zur Basis {@code basis} in String-Darstellung
@@ -1098,7 +1097,6 @@ public class ConvertingNumbers {
 	 * 
 	 * @param newBase		Base of the new numeral system
 	 * @param integerPart	Integer value of decimal system
-	 * @param calcSteps		List that is used to store every calculation step. {@code null} is allowed and will be ignored
 	 * @param calcSteps		Queue to store every calculation step, {@code null} is valid
 	 * 
 	 * @return	Returned value of base {@code basis} as string representation
@@ -1153,6 +1151,7 @@ public class ConvertingNumbers {
 	 * @param fractionalPart		Nachkommateil im Zehnersystem
 	 * @param fractionalPrecision	Maximale Anzahl von Nachkommastellen im Ergebnis
 	 * @param comma					Zeichen, das als Komma vor dem Nachkommateil platziert wird
+	 * @param calcSteps		Queue, in der die Rechenschritte gespeichert werden, {@code null} ist erlaubt
 	 * 
 	 * @return	umgewandelter Nachkommateil zur neuen Basis in String-Darstellung mit f\u00FChrendem Komma
 	 * 
@@ -1169,6 +1168,7 @@ public class ConvertingNumbers {
 	 * @param fractionalPart		Decimal places of the decimal system
 	 * @param fractionalPrecision	Maximum number of decimal places in the result
 	 * @param comma					Character that is placed as comma before the part of decimal places
+	 * @param calcSteps		Queue to store every calculation step, {@code null} is valid
 	 * 
 	 * @return	converted decimal places of the new base with leading comma as string representation
 	 * 

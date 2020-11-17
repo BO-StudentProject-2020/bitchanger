@@ -150,12 +150,7 @@ public abstract class ControllerBase<T extends Controllable> implements Controll
 	 * 
 	 * @see KeyEvent#KeyEvent(Object, javafx.event.EventTarget, javafx.event.EventType, String, String, KeyCode, boolean, boolean, boolean, boolean)
 	 */
-	/* <!-- $LANGUAGE=EN -->
-	 * 
-	 * @Moritz: DIE BESCHREIBUNG FÜR DIE PARAMETER KANNST DU AUS DEM DOC VOM KONSTRUKTOR VON KeyEvent KOPIEREN! (Du kannst ja auf die Verlinkung klicken ;) )
-	 * 
-	 */
-	// TODO JavaDoc EN
+	// TODO JavaDoc EN @Moritz: DIE BESCHREIBUNG FÜR DIE PARAMETER KANNST DU AUS DEM DOC VOM KONSTRUKTOR VON KeyEvent KOPIEREN! (Du kannst ja auf die Verlinkung klicken ;) )
 	protected void simulateKeyEvents(Button source, Node target, Scene scene, String character, String text, KeyCode keycode, boolean shiftDown, boolean controlDown, boolean altDown, boolean metaDown) {
 		KeyEvent pressed = new KeyEvent(source, target, KeyEvent.KEY_PRESSED, character, text, keycode, shiftDown, controlDown, altDown, metaDown);
 		KeyEvent typed = new KeyEvent(source, target, KeyEvent.KEY_TYPED, character, text, keycode, shiftDown, controlDown, altDown, metaDown);
