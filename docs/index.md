@@ -5,7 +5,8 @@
     <body>
         <div>
             <h1>Bitchanger Homepage</h1>
-            <img src="img/Bitchanger.png" style="width: 10%; height: 10%" id="background" />
+            <img src="img/Bitchanger.png" style="width: 20%; height: 20%" id="background" />
+            <br />
             <ul id="menu">
                 <li><a href="#documentation">Documentation</a></li>
                 <li><a href="#about">About</a></li>
