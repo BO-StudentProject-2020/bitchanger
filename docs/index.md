@@ -9,6 +9,7 @@
                 <img src="img/Bitchanger.png" style="width: 15%; height: 15%" id="background" />
             </p>
             <p>
+                <br />
                 <ul id="menu">
                     <li><a href="#documentation">Documentation</a></li>
                     <li><a href="#about">About</a></li>
