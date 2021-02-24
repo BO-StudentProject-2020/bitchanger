@@ -17,7 +17,7 @@ cd "$(dirname "$0")"	# zum Pfad dieses Skriptes wechseln
 # Mit den folgeneden Variablen koennen die Grundlegenden Daten fuer das Projekt eingestellt werden:
 NAME=Bitchanger
 DESCRIPTION="Rechner fuer beliebige Zahlensysteme"
-VERSION=1.0.3
+VERSION=1.0.4
 VENDOR="Entwicklungsprojekt_EB2020 by Tim Mühle and Moritz Wolter"
 # set COPYRIGHT = ""
 LICENSE_FILE="installer/source/Linux/jpackage/LICENSE.txt"
