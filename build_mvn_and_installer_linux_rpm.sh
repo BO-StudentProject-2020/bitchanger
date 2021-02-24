@@ -67,18 +67,18 @@ do
 	echo "${NAME-$VERSION}.${TYPE} wird erstellt"
 	echo ""
 	
-	/library/java/jdk-14.0.1/bin/jpackage \
-	--type $TYPE \
+	jpackage \
+	--type "${TYPE}" \
 	--name "${NAME}" \
 	--description "${DESCRIPTION}" \
 	--vendor "${VENDOR}" \
-	--app-version $VERSION \
-	--input $INPUT/jpackage \
-	--dest $OUT \
+	--app-version "${VERSION}" \
+	--input "${INPUT}/jpackage" \
+	--dest "${OUT}" \
 	--main-jar "${MAIN_JAR}" \
 	--linux-shortcut \
 	--license-file "${LICENSE_FILE}" \
-	--icon ./Logo/$NAME.png \
+	--icon "./Logo/${NAME}.png" \
 	--linux-rpm-license-type "MIT License"
 
 	echo ""

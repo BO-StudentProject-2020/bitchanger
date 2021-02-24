@@ -66,18 +66,18 @@ do
 	echo "${NAME-$VERSION}.${TYPE} wird erstellt"
 	echo ""
 	
-	/Library/Java/jdk-14.jdk/Contents/Home/bin/jpackage \
-	--type $TYPE \
+	jpackage \
+	--type "${TYPE}" \
 	--name "${NAME}" \
 	--description "${DESCRIPTION}" \
 	--vendor "${VENDOR}" \
-	--app-version $VERSION \
-	--input $INPUT/jpackage \
-	--dest $OUT \
+	--app-version "${VERSION}" \
+	--input "${INPUT}/jpackage" \
+	--dest "${OUT}" \
 	--main-jar "${MAIN_JAR}" \
 	--mac-package-name "${NAME}" \
 	--license-file "${LICENSE_FILE}" \
-	--icon ./Logo/$NAME.icns
+	--icon "./Logo/${NAME}.icns"
 
 	echo ""
 	mv "./${OUT}/${NAME}-${VERSION}.${TYPE}" "./${OUT}/${NAME}-${VERSION}-mac-install.${TYPE}"
