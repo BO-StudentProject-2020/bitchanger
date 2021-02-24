@@ -1407,7 +1407,13 @@ public class ConvertingNumbers {
 	private static String trimToNumberString(String value) {
 		/* Es wird nur mit Großbuchstaben in Zahlensystemen mit Basis größer 10 gearbeitet, Leerzeichen und 
 		 * der Indikator für abgeschnittene Nachkommastellen werden ignoriert */
-		return value.replace(FRACTIONAL_PRECISION_INDICATOR, "").replace(" ", "").toUpperCase();
+		String trimmed = value.replace(FRACTIONAL_PRECISION_INDICATOR, "").replace(" ", "").toUpperCase();
+		
+		if(trimmed.startsWith("+")) {
+			trimmed = trimmed.replace("+", "");
+		}
+		
+		return trimmed; 
 	}
 	
 	
