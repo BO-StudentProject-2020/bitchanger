@@ -20,7 +20,6 @@ import javafx.beans.property.SimpleObjectProperty;
  * @version 0.1.7
  *
  */
-// TODO JavaDoc EN
 public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty<T> implements XMLWritable {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -47,7 +46,6 @@ public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty
 	 * 
 	 * @param tagName	XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableObjectPropertyBase(String tagName) {
 		super();
 		this.tagName = tagName;
@@ -63,7 +61,6 @@ public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty
 	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableObjectPropertyBase(Object bean, String name, T initialValue, String tagName) {
 		super(bean, name, initialValue);
 		this.tagName = tagName;
@@ -78,7 +75,6 @@ public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty
 	 * @param name		Name dieser ObjectProperty
 	 * @param tagName	XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableObjectPropertyBase(Object bean, String name, String tagName) {
 		super(bean, name);
 		this.tagName = tagName;
@@ -92,7 +88,6 @@ public abstract class WritableObjectPropertyBase<T> extends SimpleObjectProperty
 	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableObjectPropertyBase(T initialValue, String tagName) {
 		super(initialValue);
 		this.tagName = tagName;

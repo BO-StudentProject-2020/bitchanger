@@ -20,7 +20,6 @@ import java.util.Queue;
  * @version 0.1.7
  *
  */
-//TODO JavaDoc EN
 public class ArrayUtils {
 
 	/** <!-- $LANGUAGE=DE -->

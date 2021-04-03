@@ -20,7 +20,6 @@ import org.w3c.dom.Element;
  * @version 0.1.7
  *
  */
-// TODO JavaDoc EN
 public interface XMLWritable {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -37,7 +36,6 @@ public interface XMLWritable {
 	 * @param xmlDoc {@link Document} f\u00FCr das ein XML-Tag erstellt wird
 	 * @return {@link Element} mit dem Tag-Namen {@link #getTagName()}, das den String {@link #getData()} als Textknoten enth\u00E4lt
 	 */
-	// TODO JavaDoc EN
 	default Element getXMLTag(Document xmlDoc) {
 		Element tag = xmlDoc.createElement(this.getTagName());
 		tag.appendChild(xmlDoc.createTextNode(this.getData()));
@@ -53,7 +51,6 @@ public interface XMLWritable {
 	 * 
 	 * @param parentTag	XML-Tag, in dem nach einem passenden Knoten gesucht wird
 	 */
-	// TODO JavaDoc EN
 	default void setFromXMLTag(Element parentTag) {
 		String data = parentTag.getElementsByTagName(this.getTagName()).item(0).getTextContent();
 		this.setData(data);
@@ -80,7 +77,6 @@ public interface XMLWritable {
 	 * 
 	 * @return Name f\u00FCr den XML-Tag dieses Objektes
 	 */
-	// TODO JavaDoc EN
 	public abstract String getTagName();
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -90,7 +86,6 @@ public interface XMLWritable {
 	 * 
 	 * @param tagName	Name f\u00FCr den XML-Tag dieses Objektes
 	 */
-	// TODO JavaDoc EN
 	public abstract void setTagName(String tagName);
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -100,7 +95,6 @@ public interface XMLWritable {
 	 * 
 	 * @return gekapselten Daten dieses Objektes als String
 	 */
-	// TODO JavaDoc EN
 	public abstract String getData();
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
@@ -111,7 +105,6 @@ public interface XMLWritable {
 	 * 
 	 * @param data	zu setzende Daten dieses Objektes als String
 	 */
-	// TODO JavaDoc EN
 	public abstract void setData(String data);
 	
 	

@@ -17,7 +17,6 @@ package bitchanger.preferences.writableProperty;
  * @version 0.1.7
  *
  */
-// TODO JavaDoc EN
 public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPropertyBase<E> {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -33,7 +32,6 @@ public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPrope
 	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableEnumProperty(E initialValue, String tagName) {
 		super(initialValue, tagName);
 	}
@@ -48,7 +46,6 @@ public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPrope
 	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableEnumProperty(Object bean, String name, E initialValue, String tagName) {
 		super(bean, name, initialValue, tagName);
 	}
@@ -62,7 +59,6 @@ public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPrope
 	 * @param name		Name dieser DoubleProperty
 	 * @param tagName	XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableEnumProperty(Object bean, String name, String tagName) {
 		super(bean, name, tagName);
 	}
@@ -74,7 +70,6 @@ public class WritableEnumProperty<E extends Enum<E>> extends WritableObjectPrope
 	 * 
 	 * @param tagName	XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableEnumProperty(String tagName) {
 		super(tagName);
 	}

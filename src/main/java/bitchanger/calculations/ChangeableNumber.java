@@ -400,35 +400,17 @@ public interface ChangeableNumber {
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
-	/**
-	 * 
-	 * @return
-	 * 
-	 * @since Bitchanger 0.1.7
-	 */
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public abstract ReadOnlyStringProperty stringProperty();
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
-	/**
-	 * 
-	 * @return
-	 * 
-	 * @since Bitchanger 0.1.7
-	 */
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public abstract ReadOnlyStringProperty logicStringProperty();
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc
-	/**
-	 * 
-	 * @return
-	 * 
-	 * @since Bitchanger 0.1.7
-	 */
+	// TODO JavaDoc @since Bitchanger 0.1.7
 	public abstract IntegerProperty baseProperty();
 	
 	

@@ -396,7 +396,6 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
-	// TODO JavaDoc EN
 	public BooleanProperty showBitOperationSymbolsProperty() {
 		return this.showBitOperationSymbolsProperty;
 	}
@@ -410,7 +409,6 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
-	// TODO JavaDoc EN
 	public ObjectProperty<BitLength> bitLengthProperty() {
 		return this.bitLengthProperty;
 	}
@@ -424,7 +422,6 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
-	// TODO JavaDoc EN
 	public BooleanProperty useUnsignedBitOperationProperty() {
 		return this.useUnsignedBitOperationProperty;
 	}
@@ -438,7 +435,6 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
-	// TODO JavaDoc EN
 	public BooleanProperty unsignedBitLengthWarningDeactivatedProperty() {
 		return this.unsignedBitLengthWarningDeactivatedProperty;
 	}
@@ -452,7 +448,6 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.7
 	 */
-	// TODO JavaDoc EN
 	public BooleanProperty bitLengthDeleteWarningDeactivatedProperty() {
 		return this.bitLengthDeleteWarningDeactivatedProperty;
 	}
@@ -466,7 +461,6 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.8
 	 */
-	// TODO JavaDoc EN
 	public IntegerProperty bitOpertionBaseProperty() {
 		return this.bitOpertionBaseProperty;
 	}
@@ -480,7 +474,6 @@ public class Preferences {
 	 * 
 	 * @since Bitchanger 0.1.8
 	 */
-	// TODO JavaDoc EN
 	public IntegerProperty calculationBaseProperty() {
 		return this.calculationBaseProperty;
 	}

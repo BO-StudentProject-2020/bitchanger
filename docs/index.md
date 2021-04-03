@@ -18,11 +18,12 @@
         <hr />
         <div id="documentation">
             <h2>Documentation</h2>
+            <p>Die Dokumentation ist wegen Zeitmangel leider unvollständig.</p>
             <ul id="docmenu">
-                <li><a href="1.0.2/en_public/index.html">Public Doc (EN)</a></li>
-                <li><a href="1.0.2/en_private/index.html">Private Doc (EN)</a></li>
-                <li><a href="1.0.2/de_public/index.html">Public Doc (DE)</a></li>
-                <li><a href="1.0.2/de_private/index.html">Private Doc (DE)</a></li>
+                <li><a href="1.0.2/en_public/index.html">Public Doc Bitchanger 1.0.2 (EN)</a></li>
+                <li><a href="1.0.2/en_private/index.html">Private Doc Bitchanger 1.0.2 (EN)</a></li>
+                <li><a href="1.0.3/de_public/index.html">Public Doc Bitchanger 1.0.3 (DE)</a></li>
+                <li><a href="1.0.3/de_private/index.html">Private Doc Bitchanger 1.0.3 (DE)</a></li>
             </ul>
         </div>
         <hr />

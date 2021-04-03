@@ -43,11 +43,25 @@ public class BitchangerLauncher {
 	
 	private static boolean debug;
 	
-	// TODO Update JavaDoc
-	
 	/** <!-- $LANGUAGE=DE -->
-	 * Die Main Methode startet die PrimaryFXApp der Anwendung und wartet, bis das Anwendungsfenster geschlossen wurde.
-	 * Danach werden zuerst alle Einstellungen aus {@link Preferences} gespeichert, bevor das Programm beendet wird.
+	 * Die Main Methode pr\u00FCft zun\u00E4chst, ob das Programm aus einer IDE oder der jar-Datei ausgef\u00FChrt wird
+	 * und leitet bei einer Ausf\u00FChrung aus der jar alle Fehlerausgaben in eine Datei im Programmordner um.
+	 * Danach wird die PrimaryFXApp der Anwendung gestartet und wartet, bis das Anwendungsfenster geschlossen wurde.
+	 * Beim Beenden werden zuerst alle Einstellungen aus {@link Preferences} gespeichert und ggf. alle Streams und Dateien 
+	 * f\u00FCr die Umleitung der Fehlerausgabe geschlossen, bevor das Programm beendet wird.
+	 * 
+	 * <pre>
+	 * 
+	 * zurzeit verf\u00FCgbare Flags sind:
+	 * 
+	 *     -help                  shows available options
+	 *     -h                     short for -help
+	 *     -debug [ERROR_LEVEL]   turns debug mode on -&gt; more Exceptions are printed to error stream
+	 *                            possible ERROR_LEVELs: critical, medium, low, all
+	 *                            all errors higher or equal to the chosen level will be printed
+	 *                            note that the default level will be low if no level was passed
+	 * 
+	 * </pre>
 	 * 
 	 * @param args	Argumente, die beim Programmstart \u00FCbergeben werden. Die Argumente werden vom Programm ignoriert.
 	 * 
@@ -109,12 +123,32 @@ public class BitchangerLauncher {
 	
 	
 	
-	// TODO JavaDoc since 0.1.8
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt eine Meldung mit dem Schweregrad eines aufgetretenen Fehlers und der Angabe der Stelle, an dem die
+	 * Methode aufgerufen wurde auf dem ErrorStream aus.
+	 * 
+	 * @param priority	Schweregrad des aufgetretenen Fehlers
+	 * 
+	 * @see #printDebugErr(ErrorLevel, Exception)
+	 * 
+	 * @since 0.1.8
+	 */
 	public static void printDebugErr(ErrorLevel priority) {
 		printDebugErr(priority, null);
 	}
 	
-	// TODO JavaDoc since 0.1.8
+	/** <!-- $LANGUAGE=DE -->
+	 * Gibt eine Meldung mit dem Schweregrad des übergebenen Fehlers und der Angabe der Stelle, an dem die
+	 * Methode aufgerufen wurde gefolgt von dem StackTrace der Exception auf dem ErrorStream aus.
+	 * 
+	 * <p><b>Eine Ausgabe auf dem ErrorStream erfolgt nur, wenn das Programm mit dem Flag -debug gestartet wurde 
+	 * und der Schweregrad mindestens dem mit dem Flag angegebenen ERROR_LEVEL entspricht!</b></p>
+	 * 
+	 * @param priority 	Schweregrad des aufgetretenen Fehlers
+	 * @param e			Aufgetretene Exception, die geloggt werden soll
+	 * 
+	 * @since 0.1.8
+	 */
 	public static void printDebugErr(ErrorLevel priority, Exception e) {
 		if (!debug || ! priority.isUsed()) {
 			return;
@@ -144,7 +178,13 @@ public class BitchangerLauncher {
 	}
 	
 
-	// TODO JavaDoc since 0.1.8
+	/** <!-- $LANGUAGE=DE -->
+	 * Wertet die \u00FCbergebenen Argumente aus.
+	 * 
+	 * @param args \u00FCbergebene Argumente
+	 * 
+	 * @since 0.1.8
+	 */
 	private static void parseArgs(String[] args) {
 		if(args == null) {
 			return;
@@ -206,7 +246,6 @@ public class BitchangerLauncher {
 		}
 	}
 
-	// TODO JavaDoc
 	private static void deleteEmptyErrorFile(File errorFile) {
 		try {
 			BufferedReader errIn = new BufferedReader(new FileReader(errorFile));
@@ -230,7 +269,6 @@ public class BitchangerLauncher {
 	}
 	
 
-	// TODO JavaDoc
 	private static void closeErrorStream(PrintStream errStream) {
 		try {
 			errStream.flush();
@@ -242,7 +280,6 @@ public class BitchangerLauncher {
 	}
 
 	
-	// TODO JavaDoc
 	private static PrintStream openErrorStream(File errorFile) {
 		PrintStream errStream;
 		
@@ -262,11 +299,24 @@ public class BitchangerLauncher {
 	
 	
 
-	// TODO JavaDoc since 0.1.8
+	/** <!-- $LANGUAGE=DE -->
+	 * Indikator f\u00FCr den Schweregrad eines aufgetretenen Fehlers.
+	 * 
+	 * @author Tim
+	 *
+	 * @since Bitchanger 0.1.8
+	 */
 	public static enum ErrorLevel {
+		/** <!-- $LANGUAGE=DE -->	Sehr schwerwiegender Fehler, der den Programmablauf massiv st\u00F6rt und unterbricht */
 		CRITICAL,
+		
+		/** <!-- $LANGUAGE=DE -->	Mittlerer Fehler, der den Programmablauf st\u00F6ren kann, aber nicht zu einem vollst \u00E4ndigen Abbruch/Absturz f\u00FChrt */
 		MEDIUM,
+		
+		/** <!-- $LANGUAGE=DE -->	Schwacher Fehler, der keine bis unerhebliche Auswirkungen auf den Programmablauf hat */
 		LOW,
+		
+		/** <!-- $LANGUAGE=DE -->	Fehler der gewollt auftritt oder keine Auswirkungen auf den Programmablauf hat und ignoriert werden kann */
 		IGNORE;
 		
 		private boolean isUsed;
@@ -276,6 +326,11 @@ public class BitchangerLauncher {
 			this.isUsed = true;
 		}
 		
+		/** <!-- $LANGUAGE=DE -->
+		 * Setzt die Bedingung, ob Fehler mit diesem Schweregrad auf dem ErrorStream geloggt werden sollen.
+		 * 
+		 * @param use	{@code true}, wenn Fehler mit diesem Schweregrad auf dem ErrorStream geloggt werden sollen, ansonsten {@code false}
+		 */
 		public void setUsed(boolean use) {
 			this.isUsed = use;
 		}

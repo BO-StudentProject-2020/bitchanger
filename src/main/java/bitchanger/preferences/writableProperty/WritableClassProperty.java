@@ -20,7 +20,6 @@ import bitchanger.main.BitchangerLauncher.ErrorLevel;
  * @version 0.1.8
  *
  */
-// TODO JavaDoc EN
 public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<? extends T>> {
 
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -36,7 +35,6 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableClassProperty(Class<? extends T> initialValue, String tagName) {
 		super(initialValue, tagName);
 	}
@@ -51,7 +49,6 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableClassProperty(Object bean, String name, Class<? extends T> initialValue, String tagName) {
 		super(bean, name, initialValue, tagName);
 	}
@@ -65,7 +62,6 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 	 * @param name		Name dieser DoubleProperty
 	 * @param tagName	XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableClassProperty(Object bean, String name, String tagName) {
 		super(bean, name, tagName);
 	}
@@ -77,7 +73,6 @@ public class WritableClassProperty<T> extends WritableObjectPropertyBase<Class<?
 	 * 
 	 * @param tagName	XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableClassProperty(String tagName) {
 		super(tagName);
 	}

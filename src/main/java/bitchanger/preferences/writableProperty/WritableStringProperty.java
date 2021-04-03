@@ -20,7 +20,6 @@ import javafx.beans.property.SimpleStringProperty;
  * @version 0.1.7
  *
  */
-// TODO JavaDoc EN
 public class WritableStringProperty extends SimpleStringProperty implements XMLWritable {
 	
 //	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
@@ -47,7 +46,6 @@ public class WritableStringProperty extends SimpleStringProperty implements XMLW
 	 * 
 	 * @param tagName	XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableStringProperty(String tagName) {
 		super();
 		this.tagName = tagName;
@@ -63,7 +61,6 @@ public class WritableStringProperty extends SimpleStringProperty implements XMLW
 	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableStringProperty(Object bean, String name, String initialValue, String tagName) {
 		super(bean, name, initialValue);
 		this.tagName = tagName;
@@ -78,7 +75,6 @@ public class WritableStringProperty extends SimpleStringProperty implements XMLW
 	 * @param name		Name dieser DoubleProperty
 	 * @param tagName	XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableStringProperty(Object bean, String name, String tagName) {
 		super(bean, name);
 		this.tagName = tagName;
@@ -92,7 +88,6 @@ public class WritableStringProperty extends SimpleStringProperty implements XMLW
 	 * @param initialValue	Startwert f\u00FCr den umschlossenen Wert
 	 * @param tagName		XML Tag-Name dieser Property
 	 */
-	// TODO JavaDoc EN
 	public WritableStringProperty(String initialValue, String tagName) {
 		super(initialValue);
 		this.tagName = tagName;

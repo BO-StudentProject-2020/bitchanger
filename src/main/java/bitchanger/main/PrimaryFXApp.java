@@ -74,27 +74,21 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 //  ##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 	
 	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem \u00FCber {@link #getViewable(String)} auf die ConverterView zugegriffen werden kann */
-	// TODO JavaDoc EN
 	public static final String CONVERTER_VIEW_KEY = "converter-view";
 	
 	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem \u00FCber {@link #getViewable(String)} auf die IEEEView zugegriffen werden kann */
-	// TODO JavaDoc EN
 	public static final String IEEE_VIEW_KEY = "ieee-view";
 
 	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem \u00FCber {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
-	// TODO JavaDoc EN
 	public static final String CALCULATOR_VIEW_KEY = "calculator-view";
 	
 	/** <!-- $LANGUAGE=DE -->	Schl\u00FCsselwort, mit dem \u00FCber {@link #getViewable(String)} auf die CalculatorView zugegriffen werden kann */
-	// TODO JavaDoc EN
 	public static final String BITOPERATIONS_VIEW_KEY = "bitoperations-view";
 	
 	/** <!-- $LANGUAGE=DE -->	Aktuelle Version des Bitchangers */
-	// TODO JavaDoc EN
 	public static final String VERSION = "1.0.4";
 	
 	/** <!-- $LANGUAGE=DE -->	Aktuelle Instanz dieser Klasse */
-	// TODO JavaDoc EN
 	private static PrimaryFXApp instance;
 	
 	
@@ -125,7 +119,13 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	}
 	
 	
-	// TODO JavaDoc @since Bitchanger 1.0.1
+	/**  <!-- $LANGUAGE=DE -->
+	 * Statische Methode, die die HostServices der aktuellen Instanz dieser Klasse zur\u00FCckgibt.
+	 * 
+	 * @return	HostServices der aktuellen Instanz dieser Klasse
+	 * 
+	 * @since Bitchanger 1.0.1
+	 */
 	public static HostServices getInstanceHostServices() {
 		return instance.getHostServices();
 	}
@@ -329,7 +329,13 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 	
-	// TODO JavaDoc 0.1.7
+	/** <!-- $LANGUAGE=DE -->
+	 * Berechnet die Gr\u00F6ße des Fensterrahmens, um die Gr\u00F6ße der Stage f\u00FCr jedes System korrekt anzupassen,
+	 * da die Gr\u00F6ße der Stage immer den Rahmen beinhaltet, der auf jedem System unterschiedlich ist. Dies
+	 * wird ben\u00F6tigt, um die Scene immer vollst\u00E4ndig in der Stage anzuzeigen.
+	 * 
+	 * @since 0.1.7
+	 */
 	private void computeStageFrameSize() {
 		Stage s = new Stage(StageStyle.DECORATED);
 		
@@ -364,7 +370,6 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
 	private void updateViewClassProperty() {
 		this.currentViewProperty.addListener(new ChangeListener<Viewable>() {
 			@Override
@@ -397,7 +402,10 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Passt die Gr\u00F6ße der Stage nach dem Anzeigen an die Scene an. Dies ist erst nach dem Anzeigen m\u00F6glich, da
+	 * die Gr\u00F6ße der Scene erst zu diesem Zeitpunkt berechnet wurde.
+	 */
 	private void observeStageOnShowing() {
 		primaryStage.showingProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
@@ -411,7 +419,9 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 	
 // 	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*	*
 
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Passt die Gr\u00F6ße der Stage nach einem Wechsel an an die neue Scene an.
+	 */
 	private void observeScene() {
 		primaryStage.sceneProperty().addListener(new ChangeListener<Scene>() {
 			@Override
@@ -425,7 +435,12 @@ public class PrimaryFXApp extends Application implements ControllableApplication
 
 // Views	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##	##
 
-	// TODO JavaDoc
+	/** <!-- $LANGUAGE=DE -->
+	 * Generiert f\u00FCr jede View eine neue MenuBar zu dieser Application und f\u00FCgt jeder View
+	 * die ben\u00F6tigten Stylesheets hinzu.
+	 * 
+	 * @param views	Views, die f\u00FCr die sp\u00E4tere Anzeige vorbereitet werden sollen
+	 */
 	private void adjustViews(Viewable... views) {
 		for(Viewable view : views) {
 			BasicMenuBar menubar = view.generateMenuBar(this);
