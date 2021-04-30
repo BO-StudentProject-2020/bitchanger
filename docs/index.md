@@ -32,35 +32,35 @@
             <h2>Screenshots</h2>
             <div>
                 <h3>Zahlensystem-Umrechnung</h3>
-                <img src="img/Screenshot_Conversions.png"></img>
+                <img src="img/Screenshot_Conversions.png" />
                 <p>In dieser Ansicht können Zahlen zwischen Zahlensystemen mit der Basis 2 bis 36 umgerechnet werden. 
                    Es werden die häufig gebrauchten Zahlensysteme und ein frei wählbares Zahlensystem als Übersicht angezeigt.</p>
             </div>
             <div>
                 <h3>Rechenweg der Umrechnung</h3>
-                <img src="img/Screenshot_Steps.png" width="80%"></img>
+                <img src="img/Screenshot_Steps.png" width="80%" />
                 <p>Dieser Ansicht zeigt den Rechenweg als Schritt für Schritt Anleitung an, um zwischen zwei Zahlensystemen umzurechnen.</p>
             </div>
             <div>
                 <h3>IEEE</h3>
-                <img src="img/Screenshot_IEEE.png"></img>
+                <img src="img/Screenshot_IEEE.png" />
                 <p>Zu den Zahlensystemen beherrscht der Bitchanger auch die Umrechnung zwischem dem Dezimalsystem (Zehnersystem) und der 16-Bit bzw. 32-Bit IEEE-Norm (IEEE-754-2008-B16 / IEEE-754-2008-B32).</p>
             </div>
             <div>
                 <h3>Berechnungen</h3>
-                <img src="img/Screenshot_Calc.png"></img>
+                <img src="img/Screenshot_Calc.png" />
                 <p>Auch einfache mathematische Berechnungen können in jedem beliebigen Zahlensystem durchgeführt werden.</p>
             </div>
             <div>
                 <h3>Bitoperationen</h3>
-                <img src="img/Screenshot_Bitoperations.png"></img>
+                <img src="img/Screenshot_Bitoperations.png" />
                 <p>Bitoperationen können ebenfalls mit allen Zahlensystemen durchgeführt werden.</p>
             </div>
             <div>
                 <h3>Stile</h3>
-                <img src="img/Screenshot_dark.png" width="25%"></img>
-                <img src="img/Screenshot_color.png" width="25%"></img>
-                <img src="img/Screenshot_light.png" width="25%"></img>
+                <img src="img/Screenshot_dark.png" width="30%" />
+                <img src="img/Screenshot_color.png" width="30%" />
+                <img src="img/Screenshot_light.png" width="30%" />
                 <p>Es gibt drei verschiedene Stile, die nach persönlichem Geschmack eigestellt werden können.</p>
                 <p>Bei negativen binärzahlen wird das Zweierkomplement gebildet und mit führender Eins angezeigt. Daher beginnen positive Binärzahlen immer mit einer Null.</p>
             </div>
